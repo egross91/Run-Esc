@@ -1,6 +1,5 @@
 package org.escaperun.game.controller;
 
-import java.awt.event.KeyListener;
 import java.util.EnumMap;
 
 //NOTE: This is intended to be passed among the GameStates for finding keys.
@@ -18,23 +17,27 @@ public class Keyboard {
     }
 
     public Keyboard() {
-        //TODO: Load default keybindings
         keyBindings = new KeyBindings();
-        setDefaultKeyBindings(keyBindings);
         keyboardListener = new KeyboardListener();
         keyStateMap = new EnumMap<KeyEnum, KeyState>(KeyEnum.class);
+
+        setDefaultKeyBindings(keyBindings);
+        resetKeyStateMap(keyStateMap);
     }
 
     public Keyboard(KeyBindings kb) {
+        keyBindings = kb;
         keyboardListener = new KeyboardListener();
         keyStateMap = new EnumMap<KeyEnum, KeyState>(KeyEnum.class);
-        keyBindings = kb;
+
+        resetKeyStateMap(keyStateMap);
     }
 
     /** Update the state of the keys. */
     public void poll() {
         for (KeyEnum ke : KeyEnum.values()) {
-            char c = keyBindings.getPrimary(ke);
+            Character c = keyBindings.getPrimary(ke);
+            if (c == null) continue;
             boolean isPressed = keyboardListener.getKey(c);
             if (isPressed) {
                 KeyState ks = keyStateMap.get(ke);
@@ -47,11 +50,7 @@ public class Keyboard {
                 keyStateMap.put(ke, KeyState.RELEASED);
         }
     }
-/*
-    public KeyState getKeyState(KeyEnum ke) {
-        return keyStateMap.get(ke);
-    }
-*/
+
     public boolean isHeld(KeyEnum ke){
         if(keyStateMap.get(ke).equals(KeyState.HELD))
             return true;
@@ -75,8 +74,10 @@ public class Keyboard {
         keyBindings = kb;
     }
 
-    public void setKey(KeyEnum ke, char c) {
+    public void setKey(KeyEnum ke, Character c) {
+        //NOTE: Currently the responsibility of not changing static keys will be outside of this class.
         keyBindings.setPrimary(ke, c);
+        resetKeyStateMap(keyStateMap);
     }
 
     public void setKeyboardListener(KeyboardListener kl) {
@@ -88,10 +89,21 @@ public class Keyboard {
     }
 
     private static void setDefaultKeyBindings(KeyBindings kb) {
+        //TODO: Load default keybindings
+        //Movement
         kb.setPrimary(KeyEnum.UP, 'w');
         kb.setPrimary(KeyEnum.DOWN, 's');
         kb.setPrimary(KeyEnum.LEFT, 'a');
         kb.setPrimary(KeyEnum.RIGHT, 'd');
+
+        //In Game
+        kb.setPrimary(KeyEnum.INVENTORY, 'i');
+    }
+
+    private static void resetKeyStateMap(EnumMap<KeyEnum, KeyState> em){
+        for(KeyEnum ke : KeyEnum.values()){
+            em.put(ke, KeyState.RELEASED);
+        }
     }
 }
 

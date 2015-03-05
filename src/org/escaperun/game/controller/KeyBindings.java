@@ -7,23 +7,22 @@ public class KeyBindings {
 
     public KeyBindings() {
         primary = new EnumMap<KeyEnum, Character>(KeyEnum.class);
+        for (KeyEnum ke : KeyEnum.values())
+            primary.put(ke, null);
     }
 
-    public char getPrimary(KeyEnum ke) {
+    public Character getPrimary(KeyEnum ke) {
         return primary.get(ke);
     }
 
-    public void setPrimary(KeyEnum ke, char c) {
+    public void setPrimary(KeyEnum ke, Character c) {
+        //Remove collusions of keys and characters.
+        for (KeyEnum keyEnum : KeyEnum.values()){
+            Character setChar = primary.get(keyEnum);
+            if (setChar == c)
+                primary.put(keyEnum, null);
+        }
         primary.put(ke, c);
-    }
 
-    /*
-    public char getSecondary(KeyEnum ke) {
-        return map.get(ke).right;
     }
-
-    public Pair<Character, Character> getPair(KeyEnum ke) {
-        return map.get(ke);
-    }
-    */
 }

@@ -10,11 +10,13 @@ public enum KeyEnum {
     UP("N"),
     DOWN("S"),
     LEFT("W"),
-    RIGHT("E"),
+    RIGHT("E");
+    /*  //TODO: Implement after testing and integration
     UPLEFT("NW"),
     UPRIGHT("NE"),
     DOWNLEFT("SW"),
     DOWNRIGHT("SE");
+    */
 
     private String name;
 
