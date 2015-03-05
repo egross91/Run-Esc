@@ -1,6 +1,7 @@
 package org.escaperun.game.controller;
 
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class KeyBindings {
@@ -14,14 +15,28 @@ public class KeyBindings {
 
     public KeyBindings(EnumMap<KeyEnum, Character> map){
         primary = map;
+        ArrayList<Character> list = new ArrayList<Character>();
+
+        //Check for null reference.
         for(KeyEnum ke : KeyEnum.values()){
             try {
-                primary.get(ke);
+                list.add(primary.get(ke));
             }
             catch (NullPointerException e){
                 primary.put(ke, null);
             }
         }
+
+        //Check key collusions
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) != null) {
+                for (int j = 0; j < list.size() - i; j++) {
+                    if (list.get(i).equals(list.get(j)))
+                        throw new IllegalArgumentException("Keys can not map to the same character.");
+                }
+            }
+        }
+
     }
 
     public Character getPrimary(KeyEnum ke) {
@@ -32,8 +47,10 @@ public class KeyBindings {
         //Remove collusions of keys and characters.
         for (KeyEnum keyEnum : KeyEnum.values()){
             Character setChar = primary.get(keyEnum);
-            if (setChar == c)
+            if (setChar == c) { //Should only ever be one character mapped
                 primary.put(keyEnum, null);
+                break;
+            }
         }
         primary.put(ke, c);
 
