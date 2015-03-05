@@ -1,5 +1,6 @@
 package org.escaperun.game.controller;
 
+import java.security.Key;
 import java.util.EnumMap;
 
 //NOTE: This is intended to be passed among the GameStates for finding keys.
@@ -7,7 +8,6 @@ import java.util.EnumMap;
 
 public class Keyboard {
     private KeyBindings keyBindings;
-    private KeyboardListener keyboardListener;      //TODO: Decide whether or not to remove this and have poll() take keyboardListener as input or leave as be.
     private EnumMap<KeyEnum, KeyState> keyStateMap;
 
     private enum KeyState {
@@ -18,7 +18,6 @@ public class Keyboard {
 
     public Keyboard() {
         keyBindings = new KeyBindings();
-        keyboardListener = new KeyboardListener();
         keyStateMap = new EnumMap<KeyEnum, KeyState>(KeyEnum.class);
 
         setDefaultKeyBindings(keyBindings);
@@ -27,14 +26,13 @@ public class Keyboard {
 
     public Keyboard(KeyBindings kb) {
         keyBindings = kb;
-        keyboardListener = new KeyboardListener();
         keyStateMap = new EnumMap<KeyEnum, KeyState>(KeyEnum.class);
 
         resetKeyStateMap(keyStateMap);
     }
 
     /** Update the state of the keys. */
-    public void poll() {
+    public void poll(KeyboardListener keyboardListener) {
         for (KeyEnum ke : KeyEnum.values()) {
             Character c = keyBindings.getPrimary(ke);
             if (c == null) continue;
@@ -72,20 +70,13 @@ public class Keyboard {
 
     public void setKeyBindings(KeyBindings kb ) {
         keyBindings = kb;
+        resetKeyStateMap(keyStateMap);
     }
 
     public void setKey(KeyEnum ke, Character c) {
         //NOTE: Currently the responsibility of not changing static keys will be outside of this class.
         keyBindings.setPrimary(ke, c);
         resetKeyStateMap(keyStateMap);
-    }
-
-    public void setKeyboardListener(KeyboardListener kl) {
-        keyboardListener = kl;
-    }
-
-    public KeyboardListener getKeyboardListener() {
-        return keyboardListener;
     }
 
     private static void setDefaultKeyBindings(KeyBindings kb) {

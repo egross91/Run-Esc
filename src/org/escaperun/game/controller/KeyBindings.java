@@ -1,5 +1,6 @@
 package org.escaperun.game.controller;
 
+import java.security.Key;
 import java.util.EnumMap;
 
 public class KeyBindings {
@@ -9,6 +10,18 @@ public class KeyBindings {
         primary = new EnumMap<KeyEnum, Character>(KeyEnum.class);
         for (KeyEnum ke : KeyEnum.values())
             primary.put(ke, null);
+    }
+
+    public KeyBindings(EnumMap<KeyEnum, Character> map){
+        primary = map;
+        for(KeyEnum ke : KeyEnum.values()){
+            try {
+                primary.get(ke);
+            }
+            catch (NullPointerException e){
+                primary.put(ke, null);
+            }
+        }
     }
 
     public Character getPrimary(KeyEnum ke) {
