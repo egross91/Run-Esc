@@ -1,7 +1,6 @@
 .DS_Store
 **/*.class
 out/
-/.idea/
 **/.idea/workspace.xml
 META-INF/
 **/.idea/tasks.xml
