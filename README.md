@@ -1,4 +1,4 @@
-# Run Esc by Dream Team
+# Run-Esc by &#9733; Dream Team &#9733; &#8482;
 
 ### Description
 An ASCII-based RPG that was built in Java using IntelliJ for our Object Oriented Programming class.
