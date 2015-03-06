@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Run-Esc.iml" filepath="$PROJECT_DIR$/.idea/Run-Esc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Run-Esc.iml" filepath="$PROJECT_DIR$/Run-Esc.iml" />
     </modules>
   </component>
 </project>
