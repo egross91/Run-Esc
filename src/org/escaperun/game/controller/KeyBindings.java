@@ -30,7 +30,7 @@ public class KeyBindings {
         //Check key collusions
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i) != null) {
-                for (int j = 0; j < list.size() - i; j++) {
+                for (int j = i+1; j < list.size(); j++) {
                     if (list.get(i).equals(list.get(j)))
                         throw new IllegalArgumentException("Keys can not map to the same character.");
                 }

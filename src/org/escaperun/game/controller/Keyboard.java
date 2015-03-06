@@ -9,6 +9,7 @@ import java.util.EnumMap;
 public class Keyboard {
     private KeyBindings keyBindings;
     private EnumMap<KeyEnum, KeyState> keyStateMap;
+    private String typed = "";
 
     private enum KeyState {
         RELEASED,
@@ -33,6 +34,7 @@ public class Keyboard {
 
     /** Update the state of the keys. */
     public void poll(KeyboardListener keyboardListener) {
+        //Keybindings
         for (KeyEnum ke : KeyEnum.values()) {
             Character c = keyBindings.getPrimary(ke);
             if (c == null) continue;
@@ -47,6 +49,7 @@ public class Keyboard {
             else
                 keyStateMap.put(ke, KeyState.RELEASED);
         }
+        typed = keyboardListener.getTyped();
     }
 
     public boolean isHeld(KeyEnum ke){
@@ -66,6 +69,10 @@ public class Keyboard {
         if(ks.equals(KeyState.PRESSED) || ks.equals(KeyState.HELD))
             return true;
         return false;
+    }
+
+    public String getTyped() {
+        return typed;
     }
 
     public void setKeyBindings(KeyBindings kb ) {

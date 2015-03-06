@@ -118,4 +118,28 @@ public class KeyboardTest {
         Assert.assertFalse(keyboard.isPressed(KeyEnum.DOWN));
         Assert.assertTrue(keyboard.isPressed(KeyEnum.UP));
     }
+
+    @Test
+    public void testGetTyped() throws Exception {
+        Keyboard keyboard = new Keyboard();
+        KeyboardListener keyboardListener = new KeyboardListener();
+        String message = "Hello \tWORLD";
+
+        //Type hello world
+        for (int i = 0; i < message.length(); i++){
+            KeyEvent keyEvent = new KeyEvent(new Component() {}, 0,0,0,0, message.charAt(i));
+            keyboardListener.keyTyped(keyEvent);
+        }
+        keyboard.poll(keyboardListener);
+        Assert.assertEquals(message, keyboard.getTyped());
+
+        //Type good bye
+        message = "Farewell cruel WOrlD";
+        for (int i = 0; i < message.length(); i++){
+            KeyEvent keyEvent = new KeyEvent(new Component() {}, 0,0,0,0, message.charAt(i));
+            keyboardListener.keyTyped(keyEvent);
+        }
+        keyboard.poll(keyboardListener);
+        Assert.assertEquals(message, keyboard.getTyped());
+    }
 }
