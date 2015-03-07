@@ -2,7 +2,7 @@ package org.escaperun.game.controller.keyboard;
 
 import java.awt.event.KeyEvent;
 
-public enum KeyEnum {
+public enum KeyType {
 
     //Menu
     INVENTORY(KeyEvent.VK_I),
@@ -19,7 +19,7 @@ public enum KeyEnum {
     DOWNLEFT(KeyEvent.VK_Z),
     DOWNRIGHT(KeyEvent.VK_C);
 
-    KeyEnum(int defaultKeycode) {
+    KeyType(int defaultKeycode) {
         this.defaultKeycode = defaultKeycode;
     }
 

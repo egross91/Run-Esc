@@ -115,6 +115,7 @@ public class ConsolePanel extends JPanel {
     public void update(Graphics g) {
         paint(g);
     }
+
     @Override
     public void paint(Graphics g) {
         BufferedImage offscreenImage = new BufferedImage(CHAR_WIDTH*columns, CHAR_HEIGHT*rows, BufferedImage.TYPE_INT_ARGB);
@@ -143,6 +144,6 @@ public class ConsolePanel extends JPanel {
 
     private void verifyBounds(int row, int column) throws IllegalArgumentException {
         if (row < 0 || row >= rows || column < 0 || column >= columns)
-            throw new IllegalArgumentException("Invalid grid position (row=" + row + ", column=" + column + ").");
+            throw new IllegalArgumentException("invalid grid position (row=" + row + ", column=" + column + ").");
     }
 }

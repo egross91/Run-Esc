@@ -5,20 +5,20 @@ import java.util.Map;
 
 public class KeyBindings {
 
-    private EnumMap<KeyEnum, Integer> binding = new EnumMap<KeyEnum, Integer>(KeyEnum.class);
+    private EnumMap<KeyType, Integer> binding = new EnumMap<KeyType, Integer>(KeyType.class);
 
     {
-        for (KeyEnum en : KeyEnum.values()) {
+        for (KeyType en : KeyType.values()) {
             setBinding(en, en.defaultKeycode);
         }
     }
 
-    public int getBinding(KeyEnum ke) {
+    public int getBinding(KeyType ke) {
         return binding.get(ke);
     }
 
-    public void setBinding(KeyEnum ke, int keycode) {
-        for (Map.Entry<KeyEnum, Integer> bind : binding.entrySet()) {
+    public void setBinding(KeyType ke, int keycode) {
+        for (Map.Entry<KeyType, Integer> bind : binding.entrySet()) {
             if (bind.getKey() != ke && keycode == bind.getValue()) {
                 throw new IllegalArgumentException("keycode " + keycode + " already bound");
             }
