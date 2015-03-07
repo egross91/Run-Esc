@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class KeyboardListener implements KeyListener {
+
     public final boolean[] pressed = new boolean[150000];
 
     @Override
