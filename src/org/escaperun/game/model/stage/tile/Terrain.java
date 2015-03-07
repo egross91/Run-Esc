@@ -1,4 +1,4 @@
-package org.escaperun.game.model.tile;
+package org.escaperun.game.model.stage.tile;
 
 import org.escaperun.game.serialization.Savable;
 import org.escaperun.game.view.Decal;
