@@ -4,8 +4,13 @@ import org.escaperun.game.view.Decal;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.awt.*;
+
 public class MountainTerrain extends Terrain {
 
+    public MountainTerrain(){
+        super(new Decal((char) 30, Color.BLACK, Color.LIGHT_GRAY));
+    }
 
     @Override
     public Element save(Document dom) {
@@ -17,6 +22,6 @@ public class MountainTerrain extends Terrain {
 
     @Override
     public Decal[][] getRenderable() {
-        return new Decal[0][];
+        return super.getRenderable();
     }
 }

@@ -4,7 +4,13 @@ import org.escaperun.game.view.Decal;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.awt.*;
+
 public class WaterTerrain extends Terrain {
+
+    public WaterTerrain(){
+        super(new Decal((char) 247, Color.BLACK, new Color(0, 200, 255)));
+    }
 
     @Override
     public Element save(Document dom) {
@@ -21,6 +27,6 @@ public class WaterTerrain extends Terrain {
 
     @Override
     public Decal[][] getRenderable() {
-        return new Decal[0][];
+        return super.getRenderable();
     }
 }

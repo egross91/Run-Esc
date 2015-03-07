@@ -1,12 +1,17 @@
 package org.escaperun.game.model.tile;
 
 import org.escaperun.game.serialization.Savable;
+import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.Renderable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class Terrain implements Renderable, Savable {
+    private final Decal decal;
 
+    public Terrain(Decal decal) {
+        this.decal = decal;
+    }
 
     @Override
     public Element save(Document dom) {
@@ -30,5 +35,10 @@ public abstract class Terrain implements Renderable, Savable {
             return new MountainTerrain();
 
         return null;
+    }
+
+    @Override
+    public Decal[][] getRenderable() {
+        return new Decal[][] {{ this.decal }};
     }
 }
