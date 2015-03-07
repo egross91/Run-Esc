@@ -12,6 +12,19 @@ public class WaterTerrain extends Terrain {
         super(new Decal((char) 247, Color.BLACK, new Color(0, 200, 255)));
     }
 
+    /**
+     * INTERFACE IMPLEMENTATIONS
+     */
+    @Override
+    public boolean isCollidable() {
+        return false;
+    }
+
+    @Override
+    public Decal[][] getRenderable() {
+        return super.getRenderable();
+    }
+
     @Override
     public Element save(Document dom) {
         Element terrainElement = super.save(dom);
@@ -23,10 +36,5 @@ public class WaterTerrain extends Terrain {
     @Override
     public Terrain load(Element node) {
         return super.load(node);
-    }
-
-    @Override
-    public Decal[][] getRenderable() {
-        return super.getRenderable();
     }
 }

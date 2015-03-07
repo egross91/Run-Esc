@@ -12,16 +12,24 @@ public class MountainTerrain extends Terrain {
         super(new Decal((char) 30, Color.BLACK, Color.LIGHT_GRAY));
     }
 
+    /**
+     * INTERFACE IMPLEMENTATIONS
+     */
+    @Override
+    public boolean isCollidable() {
+        return false;
+    }
+
+    @Override
+    public Decal[][] getRenderable() {
+        return super.getRenderable();
+    }
+
     @Override
     public Element save(Document dom) {
         Element terrainElement = super.save(dom);
         terrainElement.setAttribute("type", getClass().toString());
 
         return terrainElement;
-    }
-
-    @Override
-    public Decal[][] getRenderable() {
-        return super.getRenderable();
     }
 }

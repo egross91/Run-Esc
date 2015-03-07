@@ -15,6 +15,19 @@ public class GrassTerrain extends Terrain {
         super(new Decal('#', Color.BLACK, RANDOM_GREEN()));
     }
 
+    /**
+     * INTERFACE IMPLEMENTATIONS
+     */
+    @Override
+    public Decal[][] getRenderable() {
+        return super.getRenderable();
+    }
+
+    @Override
+    public boolean isCollidable() {
+        return true;
+    }
+
     @Override
     public Element save(Document dom) {
         Element terrainElement = super.save(dom);
@@ -26,11 +39,6 @@ public class GrassTerrain extends Terrain {
     @Override
     public Terrain load(Element node) {
         return super.load(node);
-    }
-
-    @Override
-    public Decal[][] getRenderable() {
-        return super.getRenderable();
     }
 
     /**
