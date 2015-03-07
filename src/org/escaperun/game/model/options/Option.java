@@ -7,6 +7,12 @@ import java.awt.*;
 
 public abstract class Option {
 
+    protected boolean permanentFocus;
+
+    public boolean isPermanentFocus() {
+        return permanentFocus;
+    }
+
     public abstract Decal[][] getRenderable(boolean focused);
     public abstract GameState update(KeyBindings bind, boolean[] pressed);
 }

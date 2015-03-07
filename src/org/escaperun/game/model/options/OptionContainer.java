@@ -36,23 +36,25 @@ public class OptionContainer implements Renderable {
 
         moveTimer.tick();
 
-        if (up) curX--;
-        if (down) curX++;
-        if (left) curY--;
-        if (right) curY++;
+        if (!options[selectedX][selectedY].isPermanentFocus()) {
+            if (up) curX--;
+            if (down) curX++;
+            if (left) curY--;
+            if (right) curY++;
 
-        if (curX != selectedX && moveTimer.isDone()) {
-            if (curX >= 0 && curX < options.length) {
-                selectedX = curX;
-                selectedY = Math.min(selectedY, options[selectedX].length-1);
-                moveTimer.reset();
+            if (curX != selectedX && moveTimer.isDone()) {
+                if (curX >= 0 && curX < options.length) {
+                    selectedX = curX;
+                    selectedY = Math.min(selectedY, options[selectedX].length - 1);
+                    moveTimer.reset();
+                }
             }
-        }
 
-        if (curY != selectedY && moveTimer.isDone()) {
-            if (curY >= 0 && curY < options[selectedX].length) {
-                selectedY = curY;
-                moveTimer.reset();
+            if (curY != selectedY && moveTimer.isDone()) {
+                if (curY >= 0 && curY < options[selectedX].length) {
+                    selectedY = curY;
+                    moveTimer.reset();
+                }
             }
         }
 
@@ -60,7 +62,6 @@ public class OptionContainer implements Renderable {
         if (transition != null) {
             return transition;
         }
-
         return null;
     }
 
