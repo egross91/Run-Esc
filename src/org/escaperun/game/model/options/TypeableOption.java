@@ -18,18 +18,20 @@ public class TypeableOption extends Option {
     private Timer typeTimer = new Timer(10);
     private Timer backspaceTimer = new Timer(8);
     private Timer flashTimer = new Timer(25);
+    private int max;
     private boolean flash = false;
     private char lastPressed;
 
-    public TypeableOption(String text) {
+    public TypeableOption(String text, int maxChars) {
         baseText = text;
         typedText = "";
         permanentFocus = true;
+        max = maxChars;
     }
 
     @Override
     public Decal[][] getRenderable(boolean focused) {
-        Decal[][] ret = new Decal[1][baseText.length()+HORIZONTAL_SPACING+typedText.length()+1];
+        Decal[][] ret = new Decal[1][baseText.length()+HORIZONTAL_SPACING+(max+1)+1];
 
         for (int i = 0; i < baseText.length(); i++) {
             ret[0][i] = new Decal(baseText.charAt(i), Color.BLACK, Color.WHITE);
@@ -53,7 +55,7 @@ public class TypeableOption extends Option {
         flashTimer.tick();
         backspaceTimer.tick();
 
-        if (isCharPressed(pressed) && typedText.length() <= 20) {
+        if (isCharPressed(pressed) && typedText.length() <= max) {
             char ch = getCharPressed(pressed);
             if (ch != lastPressed || typeTimer.isDone()) {
                 typedText += ch;

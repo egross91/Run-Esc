@@ -15,7 +15,7 @@ public class MainMenu extends GameState {
 
     public MainMenu() {
         Option[][] options = new Option[][]{
-                {new TypeableOption("TYPE SOMETHING:"),
+                {new TypeableOption("TYPE SOMETHING:", 20),
                  new SelectableOption("New Game") {
                     @Override
                     public GameState getNextState() {
