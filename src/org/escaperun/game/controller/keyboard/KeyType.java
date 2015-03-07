@@ -13,7 +13,7 @@ public enum KeyType {
     UP(KeyEvent.VK_W),
     DOWN(KeyEvent.VK_S),
     LEFT(KeyEvent.VK_A),
-    RIGHT(KeyEvent.VK_R),
+    RIGHT(KeyEvent.VK_D),
     UPLEFT(KeyEvent.VK_Q),
     UPRIGHT(KeyEvent.VK_E),
     DOWNLEFT(KeyEvent.VK_Z),

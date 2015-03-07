@@ -24,7 +24,8 @@ public class Game implements Renderable {
 
     public void update(boolean[] pressed) {
         if (state == null) return;
-        state.update(keybindings, pressed);
+        GameState ret = state.update(keybindings, pressed);
+        if (ret != null) state = ret;
     }
 
     public boolean isOver() {

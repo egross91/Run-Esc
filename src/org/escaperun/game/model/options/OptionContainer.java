@@ -3,9 +3,9 @@ package org.escaperun.game.model.options;
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.events.Timer;
-import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.states.GameState;
 import org.escaperun.game.view.Decal;
+import org.escaperun.game.view.GameWindow;
 import org.escaperun.game.view.Renderable;
 
 public class OptionContainer implements Renderable {
@@ -14,10 +14,12 @@ public class OptionContainer implements Renderable {
         CENTERED
     }
 
+    public static final int HORIZONTAL_SPACING = 6; // in characters
+
     private Option[][] options;
     private ContainerType type;
     private int selectedX = 0, selectedY = 0;
-    private Timer moveTimer = new Timer(100);
+    private Timer moveTimer = new Timer(10);
 
     public OptionContainer(Option[][] options, ContainerType type) {
         this.options = options;
@@ -55,7 +57,9 @@ public class OptionContainer implements Renderable {
         }
 
         GameState transition = options[selectedX][selectedY].update(bind, pressed);
-        if (transition != null) return transition;
+        if (transition != null) {
+            return transition;
+        }
 
         return null;
     }
@@ -70,8 +74,29 @@ public class OptionContainer implements Renderable {
         }
     }
 
-    private static Decal[][] renderCenter(Option[][] options) {
-        //TODO
-        return null;
+    private Decal[][] renderCenter(Option[][] options) {
+        Decal[][] ret = new Decal[GameWindow.ROWS][GameWindow.COLUMNS];
+
+        for (int i = 0; i < options.length; i++) {
+
+            int x = GameWindow.ROWS / options.length - 2 + options.length * i;
+
+            int rowSum = (options[i].length-1)*HORIZONTAL_SPACING;
+
+            for (int j = 0; j < options[i].length; j++) {
+                rowSum += options[i][j].getRenderable(selectedX == i && selectedY == j)[0].length;
+            }
+
+            int yStart = GameWindow.COLUMNS / 2 - rowSum / 2;
+
+            for (int j = 0; j < options[i].length; j++) {
+                Decal[] toblit = options[i][j].getRenderable(selectedX == i && selectedY == j)[0];
+                for (int k = 0; k < toblit.length; k++) {
+                    ret[x][yStart+k] = toblit[k];
+                }
+                yStart += toblit.length+HORIZONTAL_SPACING;
+            }
+        }
+        return ret;
     }
 }
