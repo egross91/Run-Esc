@@ -15,16 +15,26 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
         super(equipables, MAX_EQUIPMENT_SLOTS);
     }
 
-    public T getEquipItemAtSlot(EquipableItem.EquipmentSlot slot) {
-        return getItems().get(slot.getSlot());
+    public T getEquipmentItemAtSlot(int slot) {
+        return getItems().get(slot);
     }
 
-    public T equipItem(T equipable) {
-        int slot = equipable.getEquipmentSlot();
+    public T equipItem(T toEquip) {
+        T equipped = swapItem(toEquip.getEquipmentSlot(), toEquip);
 
-        T item = getItems().remove(slot);
-        getItems().add(slot, equipable);
+        return equipped;
+    }
 
-        return item;
+    public T unequipItem(int slot) {
+        T equipped = swapItem(slot, null);
+
+        return equipped;
+    }
+
+    private T swapItem(int slot, T toEquip) {
+        T ret = remove(slot);
+        add(slot, toEquip);
+
+        return ret;
     }
 }

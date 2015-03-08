@@ -21,4 +21,9 @@ public abstract class InteractiveItem extends TouchableItem {
 
     @Override
     public abstract void doAction(Entity e);
+
+    @Override
+    public Decal[][] getRenderable() {
+        return super.getRenderable();
+    }
 }

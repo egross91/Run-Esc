@@ -8,6 +8,8 @@ public final class Decal {
     public final Color background;
     public final Color foreground;
 
+    public static final Decal BLANK = new Decal('\u0000', Color.BLACK, Color.BLACK);
+
     public Decal(char ch, Color background, Color foreground) {
         this.ch = ch;
         this.background = background;

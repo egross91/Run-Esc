@@ -7,7 +7,7 @@ import java.awt.*;
 public class BlankTerrain extends Terrain {
 
     public BlankTerrain() {
-        super(new Decal('\u0000', Color.BLACK, Color.BLACK));
+        super(Decal.BLANK);
     }
 
     /**
