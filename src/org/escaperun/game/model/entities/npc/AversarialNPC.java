@@ -1,4 +1,4 @@
-package org.escaperun.game.model.entities;
+package org.escaperun.game.model.entities.npc;
 
 import org.escaperun.game.model.Position;
 

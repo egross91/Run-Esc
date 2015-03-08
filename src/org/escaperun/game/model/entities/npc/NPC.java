@@ -1,8 +1,9 @@
-package org.escaperun.game.model.entities;
+package org.escaperun.game.model.entities.npc;
 
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.Entity;
 
-public abstract class NPC extends Entity{
+public abstract class NPC extends Entity {
 
     //TODO: Implement some functionality that's common for both types of NPCs
     //NPC needs scope (radius that they can move after a hostile entity)
