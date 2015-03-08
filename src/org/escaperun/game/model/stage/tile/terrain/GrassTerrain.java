@@ -15,9 +15,6 @@ public class GrassTerrain extends Terrain {
         super(new Decal('#', Color.BLACK, RANDOM_GREEN()));
     }
 
-    /**
-     * INTERFACE IMPLEMENTATIONS
-     */
     @Override
     public Decal[][] getRenderable() {
         return super.getRenderable();
@@ -41,9 +38,6 @@ public class GrassTerrain extends Terrain {
         return super.load(node);
     }
 
-    /**
-     * HELPER METHODS
-     */
     private static final Color RANDOM_GREEN() {
         int next = RANDOM.nextInt(5);
         if (next == 0) {

@@ -1,6 +1,7 @@
 package org.escaperun.game.model;
 
 public final class Position {
+
     public final int x;
     public final int y;
 

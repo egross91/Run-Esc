@@ -1,12 +1,14 @@
 package org.escaperun.game.model.entities;
 
-import org.escaperun.game.model.Position;
+import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.items.EquipableItem;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.Renderable;
 
-public abstract class Entity implements Renderable {
+import org.escaperun.game.model.Position;
+import org.escaperun.game.view.Decal;
+
+public abstract class Entity implements Renderable, Tickable {
 
     private Position currentPosition = null;
     private final Position initialposition;
@@ -17,12 +19,17 @@ public abstract class Entity implements Renderable {
         this.currentPosition = initialposition;
     }
 
-    public void addToInventory(TakeableItem takeable) {
-        // TODO: Add Inventory and the logic for adding the item to the Inventory.
+    @Override
+    public void tick() {
+
     }
 
-    public void equipItem(EquipableItem equipable) {
-        // TODO: Add Equipment and the logic for adding the item to the Equipment.
+    public void takeItem(TakeableItem item) {
+        //TODO
+    }
+
+    public void equipItem(EquipableItem item) {
+        //TODO
     }
 
     public abstract void move(Position p);

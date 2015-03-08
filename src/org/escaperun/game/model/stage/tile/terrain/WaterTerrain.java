@@ -12,9 +12,6 @@ public class WaterTerrain extends Terrain {
         super(new Decal((char) 247, Color.BLACK, new Color(0, 200, 255)));
     }
 
-    /**
-     * INTERFACE IMPLEMENTATIONS
-     */
     @Override
     public boolean isCollidable() {
         return false;

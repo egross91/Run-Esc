@@ -14,7 +14,7 @@ public class EquipableItem extends TakeableItem {
         FEET;
 
         public int getSlot() {
-            return this.HEAD.ordinal();
+            return ordinal();
         }
     }
 

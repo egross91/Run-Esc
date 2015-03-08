@@ -14,9 +14,6 @@ public abstract class Terrain implements Renderable, Savable, Collidable {
         this.decal = decal;
     }
 
-    /**
-     * INTERFACE IMPLEMENTATIONS
-     */
     @Override
     public Decal[][] getRenderable() {
         return new Decal[][] {{ this.decal }};

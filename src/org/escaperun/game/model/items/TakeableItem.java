@@ -20,7 +20,7 @@ public abstract class TakeableItem extends TouchableItem {
      */
     @Override
     public void onTouch(Entity e) {
-        e.addToInventory(this);
+        e.takeItem(this);
     }
 
     @Override

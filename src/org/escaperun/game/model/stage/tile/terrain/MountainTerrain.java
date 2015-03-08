@@ -12,9 +12,6 @@ public class MountainTerrain extends Terrain {
         super(new Decal((char) 30, Color.BLACK, Color.LIGHT_GRAY));
     }
 
-    /**
-     * INTERFACE IMPLEMENTATIONS
-     */
     @Override
     public boolean isCollidable() {
         return false;

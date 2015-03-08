@@ -10,9 +10,6 @@ public class BlankTerrain extends Terrain {
         super(Decal.BLANK);
     }
 
-    /**
-     * INTERFACE IMPLEMENTATIONS
-     */
     @Override
     public Decal[][] getRenderable() {
         return super.getRenderable();
