@@ -1,4 +1,4 @@
-package org.escaperun.game.model.stage.tile;
+package org.escaperun.game.model.stage.tile.terrain;
 
 import org.escaperun.game.model.Collidable;
 import org.escaperun.game.serialization.Savable;

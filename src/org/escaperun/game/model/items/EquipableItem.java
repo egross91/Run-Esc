@@ -7,20 +7,14 @@ public class EquipableItem extends TakeableItem {
     private EquipmentSlot equipmentSlot;
 
     public enum EquipmentSlot {
-        HEAD(0),
-        BODY(1),
-        SHIELD(2),
-        WEAPON(3),
-        FEET(4);
+        HEAD,
+        BODY,
+        SHIELD,
+        WEAPON,
+        FEET;
 
-        private int slot;
-
-        EquipmentSlot(int slot) {
-            this.slot = slot;
-        }
-
-        private int getSlot() {
-            return this.slot;
+        public int getSlot() {
+            return this.HEAD.ordinal();
         }
     }
 

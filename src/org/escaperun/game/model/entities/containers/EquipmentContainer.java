@@ -5,19 +5,26 @@ import org.escaperun.game.model.items.EquipableItem;
 import java.util.List;
 
 public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T> {
+    private static final int MAX_EQUIPMENT_SLOTS = 5;
+
     public EquipmentContainer() {
-        super(5);
+        super(MAX_EQUIPMENT_SLOTS);
     }
 
     public EquipmentContainer(List<T> equipables) {
-        super(equipables, 5);
+        super(equipables, MAX_EQUIPMENT_SLOTS);
+    }
+
+    public T getEquipItemAtSlot(EquipableItem.EquipmentSlot slot) {
+        return getItems().get(slot.getSlot());
     }
 
     public T equipItem(T equipable) {
-        return swap(equipable.getEquipmentSlot(), equipable);
-    }
+        int slot = equipable.getEquipmentSlot();
 
-    public T removeItem(int slot) {
-        return swap(slot, null);
+        T item = getItems().remove(slot);
+        getItems().add(slot, equipable);
+
+        return item;
     }
 }

@@ -1,4 +1,4 @@
-package org.escaperun.game.model.stage.tile;
+package org.escaperun.game.model.stage.tile.terrain;
 
 import org.escaperun.game.view.Decal;
 import org.w3c.dom.Document;
@@ -6,10 +6,10 @@ import org.w3c.dom.Element;
 
 import java.awt.*;
 
-public class MountainTerrain extends Terrain {
+public class WaterTerrain extends Terrain {
 
-    public MountainTerrain(){
-        super(new Decal((char) 30, Color.BLACK, Color.LIGHT_GRAY));
+    public WaterTerrain(){
+        super(new Decal((char) 247, Color.BLACK, new Color(0, 200, 255)));
     }
 
     /**
@@ -31,5 +31,10 @@ public class MountainTerrain extends Terrain {
         terrainElement.setAttribute("type", getClass().toString());
 
         return terrainElement;
+    }
+
+    @Override
+    public Terrain load(Element node) {
+        return super.load(node);
     }
 }

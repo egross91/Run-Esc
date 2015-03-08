@@ -1,4 +1,4 @@
-package org.escaperun.game.model.stage.tile;
+package org.escaperun.game.model.stage.tile.terrain;
 
 import org.escaperun.game.view.Decal;
 import org.w3c.dom.Document;
