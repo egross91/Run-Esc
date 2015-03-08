@@ -1,4 +1,4 @@
-package org.escaperun.game.model.states.exit;
+package org.escaperun.game.model.states;
 
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.model.states.GameState;

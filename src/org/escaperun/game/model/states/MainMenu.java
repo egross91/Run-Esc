@@ -1,4 +1,4 @@
-package org.escaperun.game.model.states.mainmenu;
+package org.escaperun.game.model.states;
 
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.model.options.SelectableOption;
@@ -6,7 +6,7 @@ import org.escaperun.game.model.options.TypeableOption;
 import org.escaperun.game.model.states.GameState;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
-import org.escaperun.game.model.states.exit.Exit;
+import org.escaperun.game.model.states.Exit;
 import org.escaperun.game.view.Decal;
 
 public class MainMenu extends GameState {
@@ -15,11 +15,10 @@ public class MainMenu extends GameState {
 
     public MainMenu() {
         Option[][] options = new Option[][]{
-                {new TypeableOption("TYPE SOMETHING:", 20),
-                 new SelectableOption("New Game") {
+                {new SelectableOption("New Game") {
                     @Override
                     public GameState getNextState() {
-                        return null;
+                        return new CreationMenu();
                     }
                 }},
                 {new SelectableOption("Load Game") {
