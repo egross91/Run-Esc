@@ -9,15 +9,18 @@ import org.escaperun.game.view.Renderable;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
 
+import java.awt.*;
+
 public abstract class Entity implements Renderable, Tickable {
 
     private Position currentPosition = null;
-    private final Position initialposition;
-    private final Decal decal = null;
+    private final Position initialPosition;
+    private final Decal decal;
 
-    protected Entity(Position initialposition) {
-        this.initialposition = initialposition;
-        this.currentPosition = initialposition;
+    public Entity(Decal decal, Position initialPosition) {
+        this.initialPosition = initialPosition;
+        this.currentPosition = initialPosition;
+        this.decal = decal;
     }
 
     @Override
@@ -49,7 +52,7 @@ public abstract class Entity implements Renderable, Tickable {
     }
 
     public Position getInitialPosition(){
-        return initialposition;
+        return initialPosition;
     }
 
     protected void setCurrentPosition(Position p){

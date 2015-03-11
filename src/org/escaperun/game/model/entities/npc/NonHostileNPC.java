@@ -3,11 +3,12 @@ package org.escaperun.game.model.entities.npc;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.Entity;
+import org.escaperun.game.view.Decal;
 
 public class NonHostileNPC extends NPC {
 
-    public NonHostileNPC(Position initialposition, int wanderRadius) {
-        super(initialposition, wanderRadius);
+    public NonHostileNPC(Decal decal, Position initialPosition, int wanderRadius) {
+        super(decal, initialPosition, wanderRadius);
     }
 
     @Override

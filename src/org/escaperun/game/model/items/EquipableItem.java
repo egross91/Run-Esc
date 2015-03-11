@@ -3,7 +3,7 @@ package org.escaperun.game.model.items;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.view.Decal;
 
-public class EquipableItem extends TakeableItem {
+public abstract class EquipableItem extends TakeableItem {
     private EquipmentSlot equipmentSlot;
 
     public enum EquipmentSlot {
@@ -38,7 +38,5 @@ public class EquipableItem extends TakeableItem {
     }
 
     @Override
-    public void doAction(Entity e) {
-        e.equipItem(this);
-    }
+    public abstract void doAction(Entity e);
 }

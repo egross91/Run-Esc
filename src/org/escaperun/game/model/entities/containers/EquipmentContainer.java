@@ -1,6 +1,9 @@
 package org.escaperun.game.model.entities.containers;
 
 import org.escaperun.game.model.items.EquipableItem;
+import org.escaperun.game.model.items.MagicItem;
+import org.escaperun.game.model.items.MeleeItem;
+import org.escaperun.game.model.items.RangeItem;
 
 import java.util.List;
 
