@@ -16,24 +16,328 @@ public class MainMenu extends GameState {
     public MainMenu() {
         Option[][] options = new Option[][]{
                 {new SelectableOption("New Game") {
+            @Override
+            public GameState getNextState() {
+                return new CreationMenu();
+            }
+        },new SelectableOption("Exit1") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit2") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit3") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit4") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit5") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit6") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit7") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        }},
+                {new SelectableOption("New Game") {
                     @Override
                     public GameState getNextState() {
                         return new CreationMenu();
                     }
-                }},
-                {new SelectableOption("Load Game") {
+                },new SelectableOption("Exit1") {
                     @Override
                     public GameState getNextState() {
-                        return null;
+                        return new Exit();
                     }
-                }},
-                {new SelectableOption("Change Key Bindings") {
+                },new SelectableOption("Exit2") {
                     @Override
                     public GameState getNextState() {
-                        return null;
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit3") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit4") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit5") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit6") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit7") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
                     }
                 }},
-                {new SelectableOption("Exit") {
+                {new SelectableOption("New Game") {
+                    @Override
+                    public GameState getNextState() {
+                        return new CreationMenu();
+                    }
+                },new SelectableOption("Exit1") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit2") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit3") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit4") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit5") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit6") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit7") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                }},
+                {new SelectableOption("New Game") {
+            @Override
+            public GameState getNextState() {
+                return new CreationMenu();
+            }
+        },new SelectableOption("Exit1") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit2") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit3") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit4") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit5") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit6") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        },new SelectableOption("Exit7") {
+            @Override
+            public GameState getNextState() {
+                return new Exit();
+            }
+        }},
+                {new SelectableOption("New Game") {
+                    @Override
+                    public GameState getNextState() {
+                        return new CreationMenu();
+                    }
+                },new SelectableOption("Exit1") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit2") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit3") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit4") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit5") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit6") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit7") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                }},
+                {new SelectableOption("New Game") {
+                    @Override
+                    public GameState getNextState() {
+                        return new CreationMenu();
+                    }
+                },new SelectableOption("Exit1") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit2") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit3") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit4") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit5") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit6") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit7") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                }},
+                {new SelectableOption("New Game") {
+                    @Override
+                    public GameState getNextState() {
+                        return new CreationMenu();
+                    }
+                },new SelectableOption("Exit1") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit2") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit3") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit4") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit5") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit6") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit7") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                }},
+                {new SelectableOption("New Game") {
+                    @Override
+                    public GameState getNextState() {
+                        return new CreationMenu();
+                    }
+                },new SelectableOption("Exit1") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit2") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit3") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit4") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit5") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit6") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Exit();
+                    }
+                },new SelectableOption("Exit7") {
                     @Override
                     public GameState getNextState() {
                         return new Exit();

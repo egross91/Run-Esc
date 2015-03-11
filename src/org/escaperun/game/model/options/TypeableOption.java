@@ -65,7 +65,7 @@ public class TypeableOption extends Option {
         }
 
         boolean backspace = pressed[bind.getBinding(KeyType.BACKSPACE)];
-        if (backspace && backspaceTimer.isDone()) {
+        if (backspace && backspaceTimer.isDone() && typedText.length() > 0) {
             typedText = typedText.substring(0, typedText.length()-1);
             backspaceTimer.reset();
         }

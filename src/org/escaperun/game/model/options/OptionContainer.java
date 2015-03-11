@@ -15,6 +15,7 @@ public class OptionContainer implements Renderable {
     }
 
     public static final int HORIZONTAL_SPACING = 6; // in characters
+    public static final int VERTICAL_SPACING = 3; // in characters
 
     private Option[][] options;
     private ContainerType type;
@@ -78,9 +79,13 @@ public class OptionContainer implements Renderable {
     private Decal[][] renderCenter(Option[][] options) {
         Decal[][] ret = new Decal[GameWindow.ROWS][GameWindow.COLUMNS];
 
+        int colSum = (options.length-1)*VERTICAL_SPACING+options.length;
+
+        int xStart = GameWindow.ROWS / 2 - colSum / 2;
+
         for (int i = 0; i < options.length; i++) {
 
-            int x = GameWindow.ROWS / options.length - 2 + options.length * i;
+            int x = xStart;
 
             int rowSum = (options[i].length-1)*HORIZONTAL_SPACING;
 
@@ -97,6 +102,8 @@ public class OptionContainer implements Renderable {
                 }
                 yStart += toblit.length+HORIZONTAL_SPACING;
             }
+
+            xStart += 1+VERTICAL_SPACING;
         }
         return ret;
     }
