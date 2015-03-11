@@ -16,6 +16,12 @@ public class NonHostileNPC extends NPC {
     }
 
     @Override
+    public void enchant() {
+        //TODO: Write enchant() method to make Non-hostile NPC act a certain way if enchanted is successful.
+        //Maybe need to add in parameters
+    }
+
+    @Override
     public void attack(Entity e) {
         //TODO: Implement "running away attack" or something of that nature
         //Note: Attack is in NonHostileNPC as a way to "run away" if they've been

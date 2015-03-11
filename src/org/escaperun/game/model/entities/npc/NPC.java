@@ -26,4 +26,6 @@ public abstract class NPC extends Entity {
 
     }
 
+    public abstract void enchant();
+
 }
