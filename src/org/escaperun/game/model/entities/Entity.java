@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities;
 
+import com.sun.org.glassfish.external.statistics.Statistic;
 import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.items.EquipableItem;
 import org.escaperun.game.model.items.TakeableItem;
