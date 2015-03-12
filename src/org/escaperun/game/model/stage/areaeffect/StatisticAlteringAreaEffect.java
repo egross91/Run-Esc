@@ -16,7 +16,4 @@ public abstract class StatisticAlteringAreaEffect extends AreaEffect {
     public void onTouch(Entity e) {
         doAction(e);
     }
-
-    @Override
-    public abstract void doAction(Entity e);
 }

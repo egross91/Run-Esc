@@ -22,7 +22,4 @@ public abstract class TakeableItem extends TouchableItem {
     public void onTouch(Entity e) {
         e.takeItem(this);
     }
-
-    @Override
-    public abstract void doAction(Entity e);
 }

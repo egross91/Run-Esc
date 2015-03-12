@@ -1,19 +1,20 @@
 package org.escaperun.game.model.entities;
 
-import com.sun.org.glassfish.external.statistics.Statistic;
 import org.escaperun.game.model.Tickable;
-import org.escaperun.game.model.items.EquipableItem;
+import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.TakeableItem;
+import org.escaperun.game.model.items.equipment.armors.ArmorItem;
+import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
 import org.escaperun.game.view.Renderable;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
 
-import java.awt.*;
-
 public abstract class Entity implements Renderable, Tickable {
 
     private Position currentPosition = null;
+    private EquipmentContainer<ArmorItem, WeaponItem> equipment;
     private final Position initialPosition;
     private final Decal decal;
 
@@ -21,6 +22,11 @@ public abstract class Entity implements Renderable, Tickable {
         this.initialPosition = initialPosition;
         this.currentPosition = initialPosition;
         this.decal = decal;
+    }
+
+    public Entity(Decal decal, Position initalPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment) {
+        this(decal, initalPosition);
+        this.equipment = equipment;
     }
 
     @Override
@@ -33,7 +39,7 @@ public abstract class Entity implements Renderable, Tickable {
     }
 
     public void equipItem(EquipableItem item) {
-        //TODO
+        item.doAction(this);
     }
 
     public abstract void move(Position p);
@@ -45,6 +51,10 @@ public abstract class Entity implements Renderable, Tickable {
 
     public void defend(Entity e){
         //TODO: Implement how an entity "defends" against an attacker, need to utilize stats in this case.
+    }
+
+    public EquipmentContainer<ArmorItem, WeaponItem> getEquipment() {
+        return this.equipment;
     }
 
     public Position getCurrentPosition(){
