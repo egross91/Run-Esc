@@ -8,6 +8,7 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.BoomstickWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
+import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 
 public class AdversarialNPC extends NPC {
@@ -22,37 +23,42 @@ public class AdversarialNPC extends NPC {
     }
 
     @Override
-    public void visit(TwoHandedWeapon thw) {
+    public void runAI(Stage stage) {
+        //TODO
+    }
 
+    @Override
+    public void visit(TwoHandedWeapon thw) {
+        //TODO
     }
 
     @Override
     public void visit(OneHandedWeapon ohw) {
-
+        //TODO
     }
 
     @Override
     public void visit(FistWeapon fw) {
-
+        //TODO
     }
 
     @Override
     public void visit(BoomstickWeapon bsw) {
-
+        //TODO
     }
 
     @Override
     public void visit(BowWeapon bw) {
-
+        //TODO
     }
 
     @Override
     public void visit(ThrowingKnivesWeapon tkw) {
-
+        //TODO
     }
 
     @Override
     public void visit(StaffWeapon sw) {
-
+        //TODO
     }
 }
