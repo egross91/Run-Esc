@@ -19,7 +19,7 @@ public class Avatar extends Entity {
 
     @Override
     public void equipItem(EquipableItem item) {
-        item.doAction(this);
+        item.equip(this);
     }
 
     @Override

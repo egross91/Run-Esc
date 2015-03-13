@@ -39,7 +39,7 @@ public abstract class Entity implements Renderable, Tickable {
     }
 
     public void equipItem(EquipableItem item) {
-        item.doAction(this);
+        item.equip(this);
     }
 
     public abstract void move(Position p);

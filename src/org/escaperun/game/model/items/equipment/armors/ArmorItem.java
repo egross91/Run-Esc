@@ -37,7 +37,7 @@ public abstract class ArmorItem extends EquipableItem {
     }
 
     @Override
-    protected EquipableItem equipItem(EquipmentContainer<ArmorItem, WeaponItem> equipment, EquipableItem item) {
+    protected ArmorItem equipItem(EquipmentContainer<ArmorItem, WeaponItem> equipment, EquipableItem item) {
         return equipment.equipArmor((ArmorItem)item);
     }
 }
