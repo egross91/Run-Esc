@@ -5,13 +5,14 @@ import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.armors.ArmorItem;
+import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
 import org.escaperun.game.view.Renderable;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
 
-public abstract class Entity implements Renderable, Tickable {
+public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     private Position currentPosition = null;
     private EquipmentContainer<ArmorItem, WeaponItem> equipment;

@@ -4,10 +4,11 @@ import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.armors.ArmorItem;
+import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
 import org.escaperun.game.view.Decal;
 
-public abstract class TwoHandedWeapon extends WeaponItem {
+public class TwoHandedWeapon extends WeaponItem {
     public TwoHandedWeapon(Decal decal) {
         super(decal);
     }
@@ -18,5 +19,12 @@ public abstract class TwoHandedWeapon extends WeaponItem {
     }
 
     @Override
-    public abstract void doAction(Entity e);
+    public void doAction(Entity e){
+
+    }
+
+    @Override
+    public void accept(WeaponVisitor weaponVisitor) {
+        weaponVisitor.visit(this);
+    }
 }

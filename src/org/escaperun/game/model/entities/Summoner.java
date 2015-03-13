@@ -1,6 +1,8 @@
-package org.escaperun.game.model.entities.npc;
+package org.escaperun.game.model.entities;
 
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.items.equipment.visitors.WeaponElement;
+import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -10,15 +12,9 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeap
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.view.Decal;
 
-public class AdversarialNPC extends NPC {
-
-    public AdversarialNPC(Decal decal, Position initialPosition, int wanderRadius) {
-        super(decal, initialPosition, wanderRadius);
-    }
-
-    @Override
-    public void enchant() {
-        //TODO: Write enchant() method to make Adversarial NPC act a certain way if enchanted is successful.
+public class Summoner extends Avatar{
+    public Summoner(Decal decal, Position initialPosition) {
+        super(decal, initialPosition);
     }
 
     @Override

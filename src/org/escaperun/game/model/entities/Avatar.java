@@ -7,7 +7,7 @@ import org.escaperun.game.model.items.equipment.armors.ArmorItem;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
 import org.escaperun.game.view.Decal;
 
-public class Avatar extends Entity {
+public abstract class Avatar extends Entity {
 
     public Avatar(Decal decal, Position initialPosition) {
         super(decal, initialPosition);
