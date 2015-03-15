@@ -3,6 +3,7 @@ package org.escaperun.game.model.entities;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.armors.ArmorItem;
@@ -17,11 +18,12 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     private Position currentPosition = null;
     private EquipmentContainer<ArmorItem, WeaponItem> equipment;
+    private ItemContainer<TakeableItem> inventory;
     private final Position initialPosition;
     private final Decal decal;
     private Direction direction;
 
-    public Entity(Decal decal, Position initialPosition) {
+    protected Entity(Decal decal, Position initialPosition) {
         this.initialPosition = initialPosition;
         this.currentPosition = initialPosition;
         this.decal = decal;
@@ -31,6 +33,13 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     public Entity(Decal decal, Position initalPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment) {
         this(decal, initalPosition);
         this.equipment = equipment;
+        this.inventory = new ItemContainer<TakeableItem>();
+    }
+
+    public Entity(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment, ItemContainer<TakeableItem> inventory) {
+        this(decal, initialPosition);
+        this.equipment = equipment;
+        this.inventory = inventory;
     }
 
     @Override
@@ -39,7 +48,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     }
 
     public void takeItem(TakeableItem item) {
-        //TODO
     }
 
     public void equipItem(EquipableItem item) {
@@ -67,6 +75,10 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     public Position getInitialPosition(){
         return initialPosition;
+    }
+
+    public ItemContainer<TakeableItem> getInventory() {
+        return this.inventory;
     }
 
     protected void setCurrentPosition(Position p){

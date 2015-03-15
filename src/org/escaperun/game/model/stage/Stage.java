@@ -80,10 +80,7 @@ public class Stage implements Renderable, Savable, Tickable {
 
         //Check tile collisions
         Tile tile = grid[desiredPosition.x][desiredPosition.y];
-        if (!tile.isCollidable()) {
-            return true;
-        }
-        return false;
+        return tile.isCollidable();
     }
 
     @Override
@@ -107,24 +104,16 @@ public class Stage implements Renderable, Savable, Tickable {
     }
 
     public boolean moveAvatar(Position position) {
-        //Check vaild position
-        if (position.x > rows || position.y > cols)
+        if (!isValidMove(avatar, position)) {
             return false;
-
-        //Check NPC collision.
-        for (NPC npc: NPCs) {
-            if (npc.getCurrentPosition().equals(position))
-                return false;
         }
 
         //Check tile collisions
-        Tile tile = grid[position.x][position.y];
-        if (!tile.isCollidable()) {
-            if (avatar.tryMove(position)) {
-                //TODO: Apply onTouch from tile recently moved on.
-                return true;
-            }
+        if (avatar.tryMove(position)) {
+            //TODO: Apply onTouch from tile recently moved on.
+            return true;
         }
+
         return false;
     }
 }
