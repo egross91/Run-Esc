@@ -1,24 +1,27 @@
 package org.escaperun.game.model.entities;
 
-import javafx.geometry.Pos;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.armors.ArmorItem;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
 import org.escaperun.game.view.Decal;
 
-import static java.lang.Math.abs;
-
 public abstract class Avatar extends Entity {
 
-    public Avatar(Decal decal, Position initialPosition) {
+    protected Avatar(Decal decal, Position initialPosition) {
         super(decal, initialPosition);
     }
 
     public Avatar(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment) {
         super(decal, initialPosition, equipment);
+    }
+
+    public Avatar(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment, ItemContainer<TakeableItem> inventory) {
+        super(decal, initialPosition, equipment, inventory);
     }
 
     @Override
@@ -69,7 +72,7 @@ public abstract class Avatar extends Entity {
     }
 
     public boolean tryMove(Position p) {
-        //TODO: check if the movement cooldown that is based off of movement points. Try false if too soon.
+        //TODO: check if the movement cooldown that is based off of movement points. Return false if too soon.
         move(p);
         return true;
     }
