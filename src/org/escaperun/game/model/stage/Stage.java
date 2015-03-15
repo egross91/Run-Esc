@@ -3,20 +3,15 @@ package org.escaperun.game.model.stage;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.Avatar;
-import org.escaperun.game.model.entities.Entity;
-import org.escaperun.game.model.entities.npc.AI;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
-import org.escaperun.game.serialization.Savable;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.Renderable;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 
-public class Stage implements Renderable, Savable, Tickable {
+public class Stage implements Renderable, Tickable {
 
     // from here on out Tiles will refer to things that are
     // local to a specific Position on the grid.
@@ -44,22 +39,16 @@ public class Stage implements Renderable, Savable, Tickable {
         }
     }
 
-
-    /**
-     * For AI to get information about their surroundings if needed.
-     * @param ai AI getting the information.
-     */
-    public void givePrivateInfo(AI ai) {
-        ai.takeStagePrivateInfo(grid, NPCs, avatar);
-    }
-
-
     /**
      * Update anything on stage what moves or must make a decision.
      */
     public void update() {
+        updateNpcLocations();
+    }
+
+    private void updateNpcLocations() {
         for (NPC npc : NPCs) {
-            npc.runAI(this);
+            npc.updateLocation(this);
         }
     }
 
@@ -67,7 +56,7 @@ public class Stage implements Renderable, Savable, Tickable {
      *  Check it is if there is any other enitiy is at that position or if the tile is contains a collidable.
      *  If method returns true, method assumes that NPC will set position to desired position.
      */
-    public boolean isValidMove(Entity entity, Position desiredPosition) {
+    public boolean isValidMove(Position desiredPosition) {
         //Check vaild position
         if (desiredPosition.x > rows || desiredPosition.y > cols)
             return false;
@@ -93,18 +82,8 @@ public class Stage implements Renderable, Savable, Tickable {
         return null;
     }
 
-    @Override
-    public Element save(Document dom) {
-        return null;
-    }
-
-    @Override
-    public Object load(Element node) {
-        return null;
-    }
-
     public boolean moveAvatar(Position position) {
-        if (!isValidMove(avatar, position)) {
+        if (!isValidMove(position)) {
             return false;
         }
 

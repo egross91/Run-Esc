@@ -2,6 +2,7 @@ package org.escaperun.game.model.entities.npc;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.Entity;
+import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 
@@ -23,16 +24,17 @@ public abstract class NPC extends Entity {
         return wanderRadius;
     }
 
-    @Override
-    public void move(Position p){
-        //TODO: Implement a move() function that will make sure the NPC does not wander outside of its wander radius.
-
+    public void move(Position p) {
+        setCurrentPosition(p);
     }
 
     //TODO: Implement some functionality that's common for both types of NPCs
     //NPC needs scope (radius that they can move after a hostile entity)
     public abstract void enchant();
-    public abstract void runAI(Stage stage);
+    public void updateLocation(Stage stage) {
+        Position p = ai.getNewPosition(stage, this);
+        move(p);
+    }
 
     protected AI getAI() {return ai;}
 }
