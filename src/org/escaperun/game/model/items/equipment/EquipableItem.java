@@ -27,5 +27,5 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
         return equipItem(e.getEquipment(), this);
     }
 
-    protected abstract EquipableItem equipItem(EquipmentContainer<ArmorItem, WeaponItem> equipment, EquipableItem item);
+    protected abstract EquipableItem equipItem(EquipmentContainer<ArmorItem, ? extends WeaponItem> equipment, EquipableItem item);
 }
