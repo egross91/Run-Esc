@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities;
 
+import com.sun.org.glassfish.external.statistics.Statistic;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
@@ -75,5 +76,9 @@ public abstract class Avatar extends Entity {
         //TODO: check if the movement cooldown that is based off of movement points. Return false if too soon.
         move(p);
         return true;
+    }
+
+    public Statistic getAvatarStatistics(){
+        return null;
     }
 }

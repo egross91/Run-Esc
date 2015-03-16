@@ -71,4 +71,8 @@ public class Projectile extends ActiveSkills {
         return false;
     }
 
+    @Override
+    public String getBeneficialStat() {
+        return null;
+    }
 }
