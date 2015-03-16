@@ -15,7 +15,7 @@ import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
 public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     private Position currentPosition = null;
-    private EquipmentContainer<ArmorItem, WeaponItem> equipment;
+    private EquipmentContainer<ArmorItem, ? extends WeaponItem> equipment;
     private ItemContainer<TakeableItem> inventory;
     private final Position initialPosition;
     private final Decal decal;
@@ -28,13 +28,13 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         direction = Direction.DEG_0;
     }
 
-    public Entity(Decal decal, Position initalPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment) {
+    public Entity(Decal decal, Position initalPosition, EquipmentContainer<ArmorItem, ? extends WeaponItem> equipment) {
         this(decal, initalPosition);
         this.equipment = equipment;
         this.inventory = new ItemContainer<TakeableItem>();
     }
 
-    public Entity(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment, ItemContainer<TakeableItem> inventory) {
+    public Entity(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, ? extends WeaponItem> equipment, ItemContainer<TakeableItem> inventory) {
         this(decal, initialPosition);
         this.equipment = equipment;
         this.inventory = inventory;
@@ -64,7 +64,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         //TODO: Implement how an entity "defends" against an attacker, need to utilize stats in this case.
     }
 
-    public EquipmentContainer<ArmorItem, WeaponItem> getEquipment() {
+    public EquipmentContainer<ArmorItem, ? extends WeaponItem> getEquipment() {
         return this.equipment;
     }
 

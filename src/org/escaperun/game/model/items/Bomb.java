@@ -8,7 +8,7 @@ public class Bomb extends TakeableItem{
 
     @Override
     public void doAction(Entity e){
-        //TODO: implement someffect when entity deploy a bomb
+        //TODO: implement some effect when entity deploy bomb
     }
 
 }

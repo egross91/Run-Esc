@@ -9,6 +9,6 @@ public class Potion extends TakeableItem {
 
     @Override
     public void doAction(Entity e){
-        //TODO: implement some kind of effects when entity drink a potion
+        //TODO: implement some kind of effects when entity drink potion
     }
 }
