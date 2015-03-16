@@ -1,5 +1,8 @@
 package org.escaperun.game.model.entities.Skills;
 
+import org.escaperun.game.model.Direction;
+import org.escaperun.game.model.Position;
+
 /**
  * Created by TubbyLumpkins on 3/15/15.
  */
@@ -31,16 +34,16 @@ public class Projectile extends ActiveSkills {
             {5,0,0,0,0,5,0,0,0,0,5}
     }; // can be used for up to range of 5
 
-    //int rise = (int) Math.round(Math.sin());
-    //int run = (int) Math.round(Math.cos());
-
-
     private int movementTick;       // compared to array to select distance of affected spaces.
     private int influenceRadius;    // 1 = linear : 2 = 90 degree : 3 = 360 degree all directions
     private int skillDistance;      // how far will the projectile travel max of 5 atm.
-    private int Direction;
+    private Direction dir;                //change to use Direction
+    private int slopeX;
+    private int slopeY;
+    private Position initialPos;
+    private Position currentPos;
 
-    public Projectile(int ofp, int dfp, int ir, int sd){
+    public Projectile(int ofp, int dfp, int ir, int sd, Direction dir, Position start){
         super(ofp, dfp);
         movementTick = 0;
 
@@ -54,7 +57,15 @@ public class Projectile extends ActiveSkills {
 
         this.skillDistance = sd;
 
+        this.dir = dir;
+        this.setSlope(this.dir);
 
+        this.initialPos = start;
+    }
+
+    private void setSlope(Direction dir){
+        this.slopeX = (int) Math.round(Math.cos(Math.toRadians(dir.getValues())));
+        this.slopeY = (int) Math.round(Math.sin(Math.toRadians(dir.getValues())));
     }
 
     public void upDateTick(){
@@ -63,6 +74,9 @@ public class Projectile extends ActiveSkills {
 
     public boolean update(){
         if(this.influenceRadius == 1){
+
+        }
+        else if (this.influenceRadius == 2){
 
         }
         else{
