@@ -8,7 +8,6 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.BoomstickWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
-import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 
 public class AdversarialNPC extends NPC {
@@ -20,11 +19,6 @@ public class AdversarialNPC extends NPC {
     @Override
     public void enchant() {
         //TODO: Write enchant() method to make Adversarial NPC act a certain way if enchanted is successful.
-    }
-
-    @Override
-    public void runAI(Stage stage) {
-        //TODO
     }
 
     @Override

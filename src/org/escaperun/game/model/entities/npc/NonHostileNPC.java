@@ -31,11 +31,6 @@ public class NonHostileNPC extends NPC {
     }
 
     @Override
-    public void runAI(Stage stage) {
-        //TODO
-    }
-
-    @Override
     public void attack(Entity e) {
         //TODO: Implement "running away attack" or something of that nature
         //Note: Attack is in NonHostileNPC as a way to "run away" if they've been
