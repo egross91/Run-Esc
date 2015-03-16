@@ -13,9 +13,7 @@ import org.escaperun.game.view.Renderable;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
-
 public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
-
     private Position currentPosition = null;
     private EquipmentContainer<ArmorItem, WeaponItem> equipment;
     private ItemContainer<TakeableItem> inventory;
@@ -48,6 +46,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     }
 
     public void takeItem(TakeableItem item) {
+
     }
 
     public void equipItem(EquipableItem item) {
