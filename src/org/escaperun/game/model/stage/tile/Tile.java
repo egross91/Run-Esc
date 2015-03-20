@@ -43,7 +43,8 @@ public class Tile implements Renderable, Collidable {
 
     @Override
     public Decal[][] getRenderable() {
-        return null;
+        if (item != null) return item.getRenderable();
+        return terrain.getRenderable();
     }
 
     @Override

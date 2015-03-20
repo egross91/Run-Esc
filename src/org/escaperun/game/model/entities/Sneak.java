@@ -15,9 +15,12 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeap
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.view.Decal;
 
+import java.awt.*;
+
 public class Sneak extends Avatar{
-    public Sneak(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, RangedWeapon> rangedEquipmentContainer, ItemContainer<TakeableItem> itemContainer) {
-        super(decal, initialPosition, rangedEquipmentContainer, itemContainer);
+
+    public Sneak(Position initialPosition) {
+        super(new Decal('@', Color.BLACK, Color.ORANGE), initialPosition);
     }
 
     @Override

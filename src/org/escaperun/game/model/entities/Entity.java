@@ -25,7 +25,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         this.initialPosition = initialPosition;
         this.currentPosition = initialPosition;
         this.decal = decal;
-        direction = Direction.DEG_0;
+        direction = Direction.EAST;
     }
 
     public Entity(Decal decal, Position initalPosition, EquipmentContainer<ArmorItem, ? extends WeaponItem> equipment) {
@@ -53,8 +53,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         item.equip(this);
     }
 
-    public abstract void move(Position p);
-
     public void attack(Entity e){
         e.defend(this); //Our entity just "attacked" another entity, so edit their stats.
         //May need association class for this.
@@ -68,7 +66,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         return this.equipment;
     }
 
-    public Position getCurrentPosition(){
+    public Position getPosition(){
         return currentPosition; //Return currentPosition of this entity
     }
 
@@ -80,15 +78,15 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         return this.inventory;
     }
 
-    protected void setCurrentPosition(Position p){
+    public void setPosition(Position p){
         currentPosition = p; //Set currentPosition of this entity (only should be used with move()).
     }
 
-    protected void setDirection(Direction direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
-    protected  Direction getDirection(){
+    public Direction getDirection(){
         return direction;
     }
 

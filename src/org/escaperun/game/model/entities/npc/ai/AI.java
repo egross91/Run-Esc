@@ -12,14 +12,14 @@ public abstract class AI {
     private static final Random random = new Random();
 
     public Position getNewPosition(Stage stage, NPC e) {
-        Position current = e.getCurrentPosition();
+        Position current = e.getPosition();
 
         for (int attempt = 0; attempt < 4; ++attempt) {
             int[] d = possibleDeltas[random.nextInt(8)];
 
             Position candidate = new Position(current.x + d[0], current.y + d[1]);
 
-            if (stage.isValidMove(candidate)) {
+            if (stage.isMoveable(candidate)) {
                return candidate;
             }
         }

@@ -8,6 +8,6 @@ public class DummyAI extends AI {
 
     @Override
     public Position getNewPosition(Stage stage, NPC e) {
-        return e.getCurrentPosition();
+        return e.getPosition();
     }
 }

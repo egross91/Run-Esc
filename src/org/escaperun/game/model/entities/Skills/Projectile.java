@@ -61,8 +61,8 @@ public class Projectile extends ActiveSkill {
     }
 
     private void setSlope(Direction dir){
-        this.slopeX = (int) Math.round(Math.cos(Math.toRadians(dir.getValues())));
-        this.slopeY = (int) Math.round(Math.sin(Math.toRadians(dir.getValues())));
+        this.slopeX = (int) Math.round(Math.cos(Math.toRadians(dir.getAngle())));
+        this.slopeY = (int) Math.round(Math.sin(Math.toRadians(dir.getAngle())));
     }
 
     public void upDateTick(){

@@ -20,11 +20,6 @@ public class NonHostileNPC extends NPC {
     }
 
     @Override
-    public void move(Position p) {
-
-    }
-
-    @Override
     public void enchant() {
         //TODO: Write enchant() method to make Non-hostile NPC act a certain way if enchanted is successful.
         //Maybe need to add in parameters
@@ -37,7 +32,7 @@ public class NonHostileNPC extends NPC {
         //attacked, e.g. a shopkeeper who just was attacked by an Avatar.
         //It can grab the entity's position, and keep running away from that position.
         /*  PSEUDOCODE
-         * Position p = e.getCurrentPosition(); //Beginning of our method, grab hostile entity's coordinates
+         * Position p = e.getPosition(); //Beginning of our method, grab hostile entity's coordinates
          * move((Away from p)); // Move away from that hostile entity in some (random, predetermined, etc.) fashion.
          */
 

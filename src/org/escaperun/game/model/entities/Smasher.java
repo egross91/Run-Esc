@@ -15,13 +15,12 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeap
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.view.Decal;
 
-public class Smasher extends Avatar{
-    public Smasher(Decal decal, Position initialPosition) {
-        super(decal, initialPosition);
-    }
+import java.awt.*;
 
-    public Smasher(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, WeaponItem> equipmentContainer, ItemContainer<TakeableItem> itemContainer) {
-        super(decal, initialPosition, equipmentContainer, itemContainer);
+public class Smasher extends Avatar{
+
+    public Smasher(Position initialPosition) {
+        super(new Decal('@', Color.BLACK, Color.RED), initialPosition);
     }
 
     @Override

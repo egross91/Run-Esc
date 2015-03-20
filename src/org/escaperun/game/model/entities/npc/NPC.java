@@ -24,17 +24,9 @@ public abstract class NPC extends Entity {
         return wanderRadius;
     }
 
-    public void move(Position p) {
-        setCurrentPosition(p);
-    }
-
     //TODO: Implement some functionality that's common for both types of NPCs
     //NPC needs scope (radius that they can move after a hostile entity)
     public abstract void enchant();
-    public void updateLocation(Stage stage) {
-        Position p = ai.getNewPosition(stage, this);
-        move(p);
-    }
 
     protected AI getAI() {return ai;}
 }

@@ -19,7 +19,7 @@ public class TeleportationAreaEffect extends AreaEffect {
 
     @Override
     public void doAction(Entity e) {
-        e.move(position);
+        //TODO: When movement is changed do this
     }
 
     @Override

@@ -1,34 +1,36 @@
 package org.escaperun.game.model;
 
 public enum Direction {
-    DEG_0,
-    DEG_45,
-    DEG_90,
-    DEG_135,
-    DEG_180,
-    DEG_225,
-    DEG_270,
-    DEG_315;
 
-    public double getValues(){
-        switch(this){
-            case DEG_0:
-                return 0;
-            case DEG_45:
-                return 45;
-            case DEG_90:
-                return 90;
-            case DEG_135:
-                return 135;
-            case DEG_180:
-                return 180;
-            case DEG_225:
-                return 225;
-            case DEG_270:
-                return 270;
-            case DEG_315:
-                return 315;
+    EAST(0, 0, 1),
+    NORTHEAST(45, -1, 1),
+    NORTH(90, -1, 0),
+    NORTHWEST(135, -1, -1),
+    WEST(180, 0, -1),
+    SOUTHWEST(225, 1, -1),
+    SOUTH(270, 1, 0),
+    SOUTHEAST(315, 1, 1);
+
+    private int angle;
+    private Position delta;
+
+    Direction(int angle, int deltaX, int deltaY) {
+        this.angle = angle;
+        this.delta = new Position(deltaX, deltaY);
+    }
+
+    public int getAngle(){
+        return angle;
+    }
+
+    public Position getDelta() {
+        return delta;
+    }
+
+    public static Direction fromDelta(int dx, int dy) {
+        for (Direction d : values()) {
+            if (d.getDelta().x == dx && d.getDelta().y == dy) return d;
         }
-        return 0;
+        return null;
     }
 }
