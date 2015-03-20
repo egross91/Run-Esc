@@ -1,6 +1,6 @@
-package org.escaperun.game.model.entities.skills.summoner;
+package org.escaperun.game.model.entities.Skills.summoner;
 
-import org.escaperun.game.model.entities.skills.ActiveSkill;
+import org.escaperun.game.model.entities.Skills.ActiveSkill;
 
 public class Enchant extends ActiveSkill {
     @Override
