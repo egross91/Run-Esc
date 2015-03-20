@@ -54,8 +54,8 @@ public class Playing extends GameState {
             moveY++;
         }
 
-        moveX = clamp(moveX, -1, 1);
-        moveY = clamp(moveY, -1, 1);
+        moveX = clamp(moveX, -1, 1); // clamp so we dont move extra
+        moveY = clamp(moveY, -1, 1); // ""
 
         if (moveX == 0 && moveY == 0) return; // no movement
 
