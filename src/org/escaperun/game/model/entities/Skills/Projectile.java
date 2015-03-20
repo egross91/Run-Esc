@@ -1,12 +1,9 @@
-package org.escaperun.game.model.entities.Skills;
+package org.escaperun.game.model.entities.skills;
 
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 
-/**
- * Created by TubbyLumpkins on 3/15/15.
- */
-public class Projectile extends ActiveSkills {
+public class Projectile extends ActiveSkill {
     private static int[][] AoEPaths = {
             {5,5,5,5,5,5,5,5,5,5,5},
             {5,5,4,4,4,4,4,4,4,5,5},

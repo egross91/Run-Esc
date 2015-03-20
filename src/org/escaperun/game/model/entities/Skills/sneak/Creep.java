@@ -1,11 +1,8 @@
-package org.escaperun.game.model.entities.Skills.sneak;
+package org.escaperun.game.model.entities.skills.sneak;
 
-import org.escaperun.game.model.entities.Skills.ActiveSkills;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 
-/**
- * Created by abcronin on 3/15/2015.
- */
-public class Creep extends ActiveSkills{
+public class Creep extends ActiveSkill {
     @Override
     public String getBeneficialStat() {
         return null;

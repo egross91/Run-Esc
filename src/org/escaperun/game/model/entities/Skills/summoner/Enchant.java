@@ -1,11 +1,8 @@
-package org.escaperun.game.model.entities.Skills.summoner;
+package org.escaperun.game.model.entities.skills.summoner;
 
-import org.escaperun.game.model.entities.Skills.ActiveSkills;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 
-/**
- * Created by abcronin on 3/15/2015.
- */
-public class Enchant extends ActiveSkills{
+public class Enchant extends ActiveSkill {
     @Override
     public String getBeneficialStat() {
         return null;
