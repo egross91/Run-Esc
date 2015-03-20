@@ -16,6 +16,19 @@ public class Playing extends GameState {
 
     @Override
     public GameState update(KeyBindings bindings, boolean[] pressed) {
+        boolean escape = pressed[bindings.getBinding(KeyType.EXIT)];
+        if (escape) {
+            pressed[bindings.getBinding(KeyType.EXIT)] = false;
+            return new Pause(this);
+        }
+
+        boolean inventory = pressed[bindings.getBinding(KeyType.INVENTORY)];
+        if (inventory) {
+            pressed[bindings.getBinding(KeyType.INVENTORY)] = false;
+            //TODO: Inventory stuff
+            return null;
+        }
+
         handleMovement(bindings, pressed);
         stage.tick();
         return null;
