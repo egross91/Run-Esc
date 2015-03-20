@@ -14,7 +14,7 @@ public final class SkillSuccessGenerator {
 
 
     public int calcSuccess(Avatar avatar, NPC npc, Skill skill){
-        Statistic avatarStats = avatar.getAvatarStatistics();
+       // int avatarSkillLevel = avatar.getAvatarStatistic(skill.getBeneficialStat());
 
 
 

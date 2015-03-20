@@ -1,13 +1,13 @@
 package org.escaperun.game.model.stage.areaeffect;
 
 import org.escaperun.game.model.entities.Entity;
-import org.escaperun.game.model.entities.statistics.StatisticContainer;
+import org.escaperun.game.model.entities.statistics.PrimaryStatisticContainer;
 import org.escaperun.game.view.Decal;
 
 public abstract class StatisticAlteringAreaEffect extends AreaEffect {
-    private StatisticContainer statisticAlterations;
+    private PrimaryStatisticContainer statisticAlterations;
 
-    public StatisticAlteringAreaEffect(Decal decal, StatisticContainer stats) {
+    public StatisticAlteringAreaEffect(Decal decal, PrimaryStatisticContainer stats) {
         super(decal);
         this.statisticAlterations = stats;
     }
