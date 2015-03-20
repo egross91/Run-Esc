@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by TubbyLumpkins on 3/19/15.
  */
-public class Projectile360Effect extends Projectile{
+public abstract class Projectile360Effect extends Projectile{
     private static int[][] AoEPaths = {
             {5,5,5,5,5,5,5,5,5,5,5},
             {5,5,4,4,4,4,4,4,4,5,5},
