@@ -1,11 +1,6 @@
 package org.escaperun.game.model.entities;
 
 import org.escaperun.game.model.Position;
-import org.escaperun.game.model.entities.containers.EquipmentContainer;
-import org.escaperun.game.model.entities.containers.ItemContainer;
-import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.armors.ArmorItem;
-import org.escaperun.game.model.items.equipment.weapons.MagicalWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -54,6 +49,6 @@ public class Summoner extends Avatar{
 
     @Override
     public void visit(StaffWeapon sw) {
-        sw.accept(this);
+        equipWeaponItem(sw);
     }
 }

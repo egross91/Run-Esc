@@ -20,7 +20,7 @@ public class BowWeapon extends RangedWeapon {
     }
 
     @Override
-    protected EquipableItem equipItem(EquipmentContainer<ArmorItem, ? extends WeaponItem> equipment, EquipableItem item) {
+    protected EquipableItem equipItem(EquipmentContainer<ArmorItem, WeaponItem> equipment, EquipableItem item) {
         return null;
     }
 

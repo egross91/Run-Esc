@@ -15,7 +15,7 @@ public class OneHandedWeapon extends MeleeWeapon {
     }
 
     @Override
-    protected EquipableItem equipItem(EquipmentContainer<ArmorItem, ? extends WeaponItem> equipment, EquipableItem item){
+    protected EquipableItem equipItem(EquipmentContainer<ArmorItem, WeaponItem> equipment, EquipableItem item){
         return null;
     }
 

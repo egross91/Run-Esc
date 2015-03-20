@@ -1,11 +1,6 @@
 package org.escaperun.game.model.entities;
 
 import org.escaperun.game.model.Position;
-import org.escaperun.game.model.entities.containers.EquipmentContainer;
-import org.escaperun.game.model.entities.containers.ItemContainer;
-import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.armors.ArmorItem;
-import org.escaperun.game.model.items.equipment.weapons.RangedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -40,17 +35,17 @@ public class Sneak extends Avatar{
 
     @Override
     public void visit(BoomstickWeapon bsw) {
-        bsw.accept(this);
+        equipWeaponItem(bsw);
     }
 
     @Override
     public void visit(BowWeapon bw) {
-        bw.accept(this);
+        equipWeaponItem(bw);
     }
 
     @Override
     public void visit(ThrowingKnivesWeapon tkw) {
-        tkw.accept(this);
+        equipWeaponItem(tkw);
     }
 
     @Override
