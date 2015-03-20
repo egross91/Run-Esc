@@ -1,4 +1,4 @@
-package org.escaperun.game.model.entities.skills;
+package org.escaperun.game.model.entities.Skills;
 
 import com.sun.org.glassfish.external.statistics.Statistic;
 import org.escaperun.game.model.entities.*;

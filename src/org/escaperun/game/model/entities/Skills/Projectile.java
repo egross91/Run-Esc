@@ -1,4 +1,4 @@
-package org.escaperun.game.model.entities.skills;
+package org.escaperun.game.model.entities.Skills;
 
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;

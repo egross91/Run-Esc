@@ -46,7 +46,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     }
 
     public void takeItem(TakeableItem item) {
-
+        inventory.add(item);
     }
 
     public void equipItem(EquipableItem item) {

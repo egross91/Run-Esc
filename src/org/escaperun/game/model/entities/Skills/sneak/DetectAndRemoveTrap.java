@@ -1,6 +1,6 @@
-package org.escaperun.game.model.entities.skills.sneak;
+package org.escaperun.game.model.entities.Skills.sneak;
 
-import org.escaperun.game.model.entities.skills.ActiveSkill;
+import org.escaperun.game.model.entities.Skills.ActiveSkill;
 
 public class DetectAndRemoveTrap extends ActiveSkill {
     @Override

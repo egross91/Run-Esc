@@ -26,37 +26,37 @@ public class Smasher extends Avatar{
 
     @Override
     public void visit(TwoHandedWeapon thw) {
-
+        thw.accept(this);
     }
 
     @Override
     public void visit(OneHandedWeapon ohw) {
-
+        ohw.accept(this);
     }
 
     @Override
     public void visit(FistWeapon fw) {
-
+        fw.accept(this);
     }
 
     @Override
     public void visit(BoomstickWeapon bsw) {
-
+        bsw.accept(this);
     }
 
     @Override
     public void visit(BowWeapon bw) {
-
+        bw.accept(this);
     }
 
     @Override
     public void visit(ThrowingKnivesWeapon tkw) {
-
+        tkw.accept(this);
     }
 
     @Override
     public void visit(StaffWeapon sw) {
-
+        sw.accept(this);
     }
 
 }

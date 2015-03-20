@@ -1,4 +1,4 @@
-package org.escaperun.game.model.entities.skills;
+package org.escaperun.game.model.entities.Skills;
 
 public abstract class Skill {
     private String beneficialStat;
