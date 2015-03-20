@@ -10,7 +10,6 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.BoomstickWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
-import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 
 public class NonHostileNPC extends NPC {

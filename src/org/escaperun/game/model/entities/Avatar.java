@@ -20,7 +20,7 @@ public abstract class Avatar extends Entity {
     }
 
     public Avatar(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment, ItemContainer<TakeableItem> inventory) {
-        super(decal, initialPosition, equipment, inventory);
+        super(decal, initialPosition, equipment);
     }
 
     public Statistic getAvatarStatistics(){

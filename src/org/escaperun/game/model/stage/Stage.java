@@ -28,17 +28,16 @@ public class Stage implements Renderable, Tickable {
     private Tile[][] grid;
     private int rows, columns;
     private ArrayList<Entity> entities;
-    private final Avatar avatar;
+    private Avatar avatar;
 
-    public Stage(Avatar avatar) {
-        this(DEFAULT_ROWS, DEFAULT_COLUMNS, avatar);
+    public Stage() {
+        this(DEFAULT_ROWS, DEFAULT_COLUMNS);
     }
 
-    public Stage(int rows, int cols, Avatar avatar) {
+    public Stage(int rows, int cols) {
         grid = new Tile[rows][cols];
         this.rows = rows;
         this.columns = cols;
-        this.avatar = avatar;
         this.entities = new ArrayList<Entity>();
 
         for (int i = 0; i < rows; i++) {
@@ -139,5 +138,9 @@ public class Stage implements Renderable, Tickable {
             avatar.setPosition(second);
         }
 
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
     }
 }

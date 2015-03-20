@@ -4,6 +4,7 @@ import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.armors.ArmorItem;
 import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
@@ -12,6 +13,8 @@ import org.escaperun.game.view.Renderable;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
+
+
 public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     private Position currentPosition = null;
     private EquipmentContainer<ArmorItem, WeaponItem> equipment;
@@ -19,6 +22,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     private final Position initialPosition;
     private final Decal decal;
     private Direction direction;
+    private MovementHandler movementHandler;
 
     protected Entity(Decal decal, Position initialPosition) {
         this.initialPosition = initialPosition;
@@ -48,12 +52,12 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         inventory.add(item);
     }
 
-    protected WeaponItem equipWeaponItem(WeaponItem weaponItem){
+    protected WeaponItem equipWeaponItem(WeaponItem weaponItem) {
         return equipment.equipWeapon(weaponItem);
     }
 
     protected ArmorItem equipArmorItem(ArmorItem armorItem){
-       return equipment.equipArmor(armorItem);
+        return equipment.equipArmor(armorItem);
     }
 
     public void attack(Entity e){
@@ -87,6 +91,10 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    public void setMovementHandler(MovementHandler movementHandler) {
+        this.movementHandler = movementHandler;
     }
 
     public Direction getDirection(){

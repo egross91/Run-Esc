@@ -45,15 +45,11 @@ public class EquipmentContainer<A extends ArmorItem, W extends WeaponItem> exten
     }
 
     public A equipArmor(A toEquip) {
-        A equipped = swapItem(toEquip.getEquipmentSlot().getSlot(), toEquip);
-
-        return equipped;
+        return swapItem(toEquip.getEquipmentSlot().getSlot(), toEquip);
     }
 
     public A unequipArmor(int slot) {
-        A equipped = swapItem(slot, null);
-
-        return equipped;
+        return swapItem(slot, null);
     }
 
     private A swapItem(int slot, A toEquip) {
