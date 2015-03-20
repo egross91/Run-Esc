@@ -22,37 +22,36 @@ public class Sneak extends Avatar{
 
     @Override
     public void visit(TwoHandedWeapon thw) {
-        //TODO:
+        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
     }
 
     @Override
     public void visit(OneHandedWeapon ohw) {
-
+        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
     }
 
     @Override
     public void visit(FistWeapon fw) {
-
+        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
     }
 
     @Override
     public void visit(BoomstickWeapon bsw) {
-
+        bsw.accept(this);
     }
 
     @Override
     public void visit(BowWeapon bw) {
-
+        bw.accept(this);
     }
 
     @Override
     public void visit(ThrowingKnivesWeapon tkw) {
-
+        tkw.accept(this);
     }
 
     @Override
     public void visit(StaffWeapon sw) {
-
+        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
     }
-
 }
