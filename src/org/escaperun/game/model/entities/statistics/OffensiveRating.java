@@ -7,8 +7,8 @@ public class OffensiveRating extends DerivedStatistic<Integer>{
     int weaponDamage;
     int offensiveRating;
 
-    //need a way to alert when weapon changes
     //TODO
+    //need a way to alert when weapon changes
     public OffensiveRating(Strength strength, Level level, int equippedWeaponDamage) {
         str = strength;
         lvl = level;
@@ -20,7 +20,7 @@ public class OffensiveRating extends DerivedStatistic<Integer>{
     protected void recalculate() {
         //idk I made something up
         //also need a way to notify when weapon changes
-        this.offensiveRating = (str.getCurrent() * lvl.getCurrent()) + weaponDamage;
+        offensiveRating = (3* str.getCurrent() + 2*lvl.getCurrent()) + weaponDamage;
     }
 
 
