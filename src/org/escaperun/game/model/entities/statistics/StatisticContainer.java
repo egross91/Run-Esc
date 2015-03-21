@@ -8,6 +8,7 @@ public class StatisticContainer {
     private Intellect intellect;
     private Movement movement;
     private Experience experience;
+    private LivesLeft livesLeft;
     private Level level;
     private Life life;
     private Mana mana;
@@ -23,6 +24,7 @@ public class StatisticContainer {
         intellect = new Intellect();
         movement = new Movement();
         experience = new Experience();
+        livesLeft = new LivesLeft();
         level = new Level(experience);
         life = new Life(level, hardiness);
         mana = new Mana(level, intellect);
@@ -39,6 +41,7 @@ public class StatisticContainer {
     public void setStrength(Integer integer){
         strength.setBase(integer);
     }
+
     public Agility getAgility(){
         return agility;
     }
@@ -70,8 +73,21 @@ public class StatisticContainer {
     public void setMovement(Integer integer){
         movement.setBase(integer);
     }
+
     public Experience getExperience(){
         return experience;
+    }
+
+    public void setExperience(Long lo){
+        experience.setBase(lo);
+    }
+
+    public LivesLeft getLivesLeft(){
+        return livesLeft;
+    }
+
+    public void setLivesLeft(Short sho){
+        livesLeft.setBase(sho);
     }
 
     public Level getLevel(){
@@ -98,5 +114,4 @@ public class StatisticContainer {
     public ArmorRating getArmorRating(){
         return armorRating;
     }
-
 }
