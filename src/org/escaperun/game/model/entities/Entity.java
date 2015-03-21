@@ -77,7 +77,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         return this.equipment;
     }
 
-    public Position getPosition(){
+    public Position getCurrentPosition(){
         return currentPosition; //Return currentPosition of this entity
     }
 
