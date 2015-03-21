@@ -29,18 +29,8 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         this.currentPosition = initialPosition;
         this.decal = decal;
         direction = Direction.EAST;
-    }
-
-    public Entity(Decal decal, Position initalPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment) {
-        this(decal, initalPosition);
-        this.equipment = equipment;
-        this.inventory = new ItemContainer<TakeableItem>();
-    }
-
-    public Entity(Decal decal, Position initialPosition, EquipmentContainer<ArmorItem, WeaponItem> equipment, ItemContainer<TakeableItem> inventory) {
-        this(decal, initialPosition);
-        this.equipment = equipment;
-        this.inventory = inventory;
+        inventory = new ItemContainer<TakeableItem>();
+        equipment = new EquipmentContainer<ArmorItem, WeaponItem>();
     }
 
     @Override
@@ -77,7 +67,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         return this.equipment;
     }
 
-    public Position getCurrentPosition(){
+    public Position getPosition(){
         return currentPosition; //Return currentPosition of this entity
     }
 

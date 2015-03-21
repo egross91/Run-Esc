@@ -82,6 +82,15 @@ public class Inventory extends GameState {
             window[startRow][startColumn+LEFT_MARGIN] = render;
             startColumn += EQUIPMENT_SPACING+1;
         }
+        startRow += INVENTORY_SPACING;
+
+        startColumn = numGoodColumns/2 - INVENTORY.length()/2;
+        for (int i = 0; i < INVENTORY.length(); i++) {
+            window[startRow][startColumn+i+LEFT_MARGIN] = new Decal(INVENTORY.charAt(i), Color.BLACK, Color.WHITE);
+        }
+        startRow += EQUIPMENT_SPACING;
+
+        //TODO: MORE
         return window;
     }
 }

@@ -13,17 +13,11 @@ public class ItemContainer<T extends TakeableItem> {
 
     public ItemContainer() {
         this(30);
-        this.items = new ArrayList<T>(MAX_CAPACITY);
     }
 
     public ItemContainer(int capacity) {
         this.MAX_CAPACITY = capacity;
         this.items = new ArrayList<T>(MAX_CAPACITY);
-    }
-
-    public ItemContainer(List<T> container, int capacity) {
-        this(capacity);
-        this.items = new ArrayList<T>(container);
     }
 
     public int getCapacity() {
@@ -49,6 +43,7 @@ public class ItemContainer<T extends TakeableItem> {
     }
 
     public T get(int index) {
+        if (index >= items.size()) return null;
         return items.get(index);
     }
 
