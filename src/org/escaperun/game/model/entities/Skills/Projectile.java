@@ -3,7 +3,6 @@ package org.escaperun.game.model.entities.skills;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
-
 import java.util.ArrayList;
 
 public abstract class Projectile extends ActiveSkill {
@@ -18,7 +17,7 @@ public abstract class Projectile extends ActiveSkill {
     protected ArrayList<Position> affectedArea;        //holds positions of where the skill should "is"
     protected Decal decal;
 
-    public Projectile(int ofp, int dfp, int sd, Direction dir, Position start, Decal dec){
+    public Projectile(int ofp, int dfp, int sd, Direction dir, Position start){
         super(ofp, dfp);
         this.movementTick = 0;
         this.skillDistance = sd;
@@ -29,8 +28,6 @@ public abstract class Projectile extends ActiveSkill {
         this.initialPos = start;
         this.currentPos = start;
         this.affectedArea = new ArrayList<Position>();
-
-        this.decal = dec;
     }
 
     // check for when we need negative values due to orientation of system
@@ -62,11 +59,27 @@ public abstract class Projectile extends ActiveSkill {
         }
     }
 
+    public int getSlopeX(){
+        return slopeX;
+    }
+
+    public int getSlopeY(){
+        return slopeY;
+    }
+
     public ArrayList<Position> getAffectedArea(){
         return this.affectedArea;
     }
 
     public void setDecal(Decal d){
         this.decal = d;
+    }
+
+    public int getMovementTick(){
+        return movementTick;
+    }
+
+    public Decal[][] getRenderable(){
+        return new Decal[][] {{this.decal}};
     }
 }

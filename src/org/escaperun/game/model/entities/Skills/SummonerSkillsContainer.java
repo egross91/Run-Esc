@@ -19,7 +19,8 @@ public class SummonerSkillsContainer extends SkillsContainer {
         super();
         enchant = new Enchant();
         boon = new Boon();
-        bane = new Bane();
+        //need to talk about what is being added
+        //bane = new Bane();
         staff = new StaffWeapon(new Decal('S', Color.BLACK, Color.BLUE));
     }
 

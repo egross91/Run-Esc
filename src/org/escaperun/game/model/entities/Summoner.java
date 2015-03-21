@@ -1,7 +1,13 @@
 package org.escaperun.game.model.entities;
 
 import org.escaperun.game.model.Position;
-import org.escaperun.game.model.entities.skills.Skill;
+import org.escaperun.game.model.entities.skills.*;
+import org.escaperun.game.model.entities.skills.summoner.Bane;
+import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.items.TakeableItem;
+import org.escaperun.game.model.items.equipment.armors.ArmorItem;
+import org.escaperun.game.model.items.equipment.weapons.MagicalWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -57,5 +63,12 @@ public class Summoner extends Avatar {
     @Override
     public void visit(StaffWeapon sw) {
         equipWeaponItem(sw);
+    }
+
+    //change to possibly ActiveSkill
+    @Override
+    public Projectile skill1(){
+        System.out.println("SummonerX" +this.getCurrentPosition().x + "SummonerY" + this.getCurrentPosition().y);
+        return new Bane(0,0,10,this.getDirection(),this.getCurrentPosition());
     }
 }

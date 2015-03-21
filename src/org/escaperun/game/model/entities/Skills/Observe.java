@@ -5,8 +5,8 @@ import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
 
 public class Observe extends Projectile360Effect {
-    public Observe(int ofp, int dfp, int sd, Direction dir, Position start, Decal dec) {
-        super(ofp, dfp, sd, dir, start, dec);
+    public Observe(int ofp, int dfp, int sd, Direction dir, Position start) {
+        super(ofp, dfp, sd, dir, start);
     }
 
     @Override

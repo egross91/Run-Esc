@@ -18,7 +18,10 @@ public enum KeyType {
     UPLEFT(KeyEvent.VK_Q),
     UPRIGHT(KeyEvent.VK_E),
     DOWNLEFT(KeyEvent.VK_Z),
-    DOWNRIGHT(KeyEvent.VK_C);
+    DOWNRIGHT(KeyEvent.VK_C),
+
+    //Hotkeys
+    HOTKEY1(KeyEvent.VK_X);
 
     KeyType(int defaultKeycode) {
         this.defaultKeycode = defaultKeycode;

@@ -3,6 +3,8 @@ package org.escaperun.game.model.states;
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.Direction;
+import org.escaperun.game.model.entities.skills.*;
+import org.escaperun.game.model.entities.skills.summoner.Bane;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 
@@ -27,7 +29,6 @@ public class Playing extends GameState {
             pressed[bindings.getBinding(KeyType.INVENTORY)] = false;
             return new Inventory(this, stage);
         }
-
         handleMovement(bindings, pressed);
         stage.tick();
         return null;
@@ -42,6 +43,7 @@ public class Playing extends GameState {
         boolean upleft = pressed[bindings.getBinding(KeyType.UPLEFT)];
         boolean downleft = pressed[bindings.getBinding(KeyType.DOWNLEFT)];
         boolean downright = pressed[bindings.getBinding(KeyType.DOWNRIGHT)];
+        boolean hotKey1 = pressed[bindings.getBinding(KeyType.HOTKEY1)];
 
         int moveX = 0;
         int moveY = 0;
@@ -64,6 +66,10 @@ public class Playing extends GameState {
         if (downright) {
             moveX++;
             moveY++;
+        }
+
+        if(hotKey1){
+            stage.skillCast();
         }
 
         moveX = clamp(moveX, -1, 1); // clamp so we dont move extra

@@ -1,5 +1,6 @@
 package org.escaperun.game.model.stage;
 
+import javafx.geometry.Pos;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
@@ -7,6 +8,7 @@ import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
 import org.escaperun.game.view.Decal;
@@ -35,12 +37,17 @@ public class Stage implements Renderable, Tickable {
     public Stage() {
         this(DEFAULT_ROWS, DEFAULT_COLUMNS);
     }
+    //Skill Test
+    private ArrayList<Projectile> projectiles;
 
     public Stage(int rows, int cols) {
         grid = new Tile[rows][cols];
         this.rows = rows;
         this.columns = cols;
         this.entities = new ArrayList<Entity>();
+
+        //Skill Test
+        projectiles = new ArrayList<Projectile>();
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
@@ -98,6 +105,24 @@ public class Stage implements Renderable, Tickable {
             }
         }
 
+        //draw Skills
+        for(Projectile p: projectiles){
+            if(p.update()){
+                int midX1 = GameWindow.ROWS/2;
+                int midY1 = GameWindow.COLUMNS/2;
+                for(Position pos: p.getAffectedArea()){
+                    /*Position pp = new Position(midX+(p.getSlopeX()*p.getMovementTick()), midY+(p.getSlopeY()*p.getMovementTick()));
+                    if(isMoveable(pp)){
+                        window[pp.x][pp.y] = p.getRenderable()[0][0];
+                    }
+                    */
+                    if(isMoveable(pos)){
+                        window[pos.x ][pos.y ] = p.getRenderable()[0][0];
+                    }
+                }
+            }
+        }
+
         //draw avatar
         if (avatar.getRenderable() != null) {
             window[midX][midY] = avatar.getRenderable()[0][0];
@@ -123,6 +148,14 @@ public class Stage implements Renderable, Tickable {
         //Check tile collision
         Tile tile = grid[pos.x][pos.y];
         return tile.isCollidable();
+    }
+
+    public void addSkill(Projectile p){
+        this.projectiles.add(p);
+    }
+
+    public void skillCast(){
+        this.projectiles.add(this.avatar.skill1());
     }
 
     public void moveAvatar(Direction dir) {
