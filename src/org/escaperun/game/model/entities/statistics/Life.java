@@ -30,7 +30,7 @@ public class Life extends DerivedStatistic<Long>{
     @Override
     protected void recalculate() {
         //made this up right here on the spot
-        this.maxLife = (lvl.getCurrent() * 2) + (3 * hard.getCurrent());
+        maxLife = (lvl.getCurrent() * 2) + (3 * hard.getCurrent());
     }
 
     @Override
