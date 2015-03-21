@@ -4,8 +4,8 @@ import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.options.OptionContainer;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
@@ -17,12 +17,13 @@ public class Inventory extends GameState {
     private Playing previous;
     private EquipmentContainer equipmentContainer;
     private ItemContainer itemContainer;
+    private Timer moveTimer = new Timer(6);
 
     private int selectedX = 0, selectedY= 0;
     private final int EQUIPMENT_ORIGIN_ROW = 8;
     private final int EQUIPMENT_ORIGIN_COL = 36;
     private final int MAX_COL = 48;
-    private final int INVENTORY_ORIGIN_ROW = 16;
+    private final int INVENTORY_ORIGIN_ROW = 14;
     private final int INVENTORY_ORIGIN_COL = 36;
     private final int INVENTORY_MAX_ROW = 24;
 
@@ -55,36 +56,42 @@ public class Inventory extends GameState {
         int moveX = selectedX;
         int moveY = selectedY;
 
-        if (up) --moveX;
-        if (down) ++moveX;
-        if (left) --moveY;
-        if (right) ++moveY;
+        if (up) moveX -= 2;
+        if (down) moveX += 2;
+        if (left) moveY -= 3;
+        if (right) moveY += 3;
 
-        if (moveX <= EQUIPMENT_ORIGIN_ROW) {
-            moveX = EQUIPMENT_ORIGIN_ROW;
+        moveTimer.tick();
 
-            if (moveY <= EQUIPMENT_ORIGIN_COL) {
-                moveY = EQUIPMENT_ORIGIN_COL;
+        if (moveTimer.isDone()) {
+            if (moveX <= EQUIPMENT_ORIGIN_ROW || (moveX > EQUIPMENT_ORIGIN_ROW && moveX < INVENTORY_ORIGIN_ROW && (selectedX - moveX) > 0)) {
+                moveX = EQUIPMENT_ORIGIN_ROW;
+
+                if (moveY <= EQUIPMENT_ORIGIN_COL) {
+                    moveY = EQUIPMENT_ORIGIN_COL;
+                } else if (moveY >= MAX_COL) {
+                    moveY = MAX_COL;
+                }
+            } else {
+                if (moveX < INVENTORY_ORIGIN_ROW && (selectedX - moveX) < 0) {
+                    moveX = INVENTORY_ORIGIN_ROW;
+                }
+                if (moveX > INVENTORY_MAX_ROW) {
+                    moveX = INVENTORY_MAX_ROW;
+                }
+
+                if (moveY > MAX_COL) {
+                    moveY = MAX_COL;
+                } else if (moveY < INVENTORY_ORIGIN_COL) {
+                    moveY = INVENTORY_ORIGIN_COL;
+                }
             }
-            else if (moveY >= MAX_COL) {
-                moveY = MAX_COL;
-            }
+
+            selectedX = moveX;
+            selectedY = moveY;
+
+            moveTimer.reset();
         }
-        else { // (moveX > EQUIPMENT_ORIGIN_ROW) {
-            if (moveX > INVENTORY_MAX_ROW) {
-                moveX = INVENTORY_MAX_ROW;
-            }
-
-            if (moveY > MAX_COL) {
-                moveY = MAX_COL;
-            }
-            else if (moveY < INVENTORY_ORIGIN_COL) {
-                moveY = INVENTORY_ORIGIN_COL;
-            }
-        }
-
-        selectedX = moveX;
-        selectedY = moveY;
     }
 
     private void handleAction(KeyBindings bindings, boolean[] pressed) {
