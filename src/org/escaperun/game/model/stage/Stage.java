@@ -66,8 +66,8 @@ public class Stage implements Renderable, Tickable {
         if (GameWindow.ROWS % 2 == 0 || GameWindow.COLUMNS % 2 == 0)
             throw new RuntimeException("view window must be of even dimensions");
 
-        int avatarX = avatar.getPosition().x;
-        int avatarY = avatar.getPosition().y;
+        int avatarX = avatar.getCurrentPosition().x;
+        int avatarY = avatar.getCurrentPosition().y;
         int midX = GameWindow.ROWS/2;
         int midY = GameWindow.COLUMNS/2;
         //draw tiles
@@ -86,8 +86,8 @@ public class Stage implements Renderable, Tickable {
 
         //draw entities
         for (Entity e : entities) {
-            int entX = e.getPosition().x;
-            int entY = e.getPosition().y;
+            int entX = e.getCurrentPosition().x;
+            int entY = e.getCurrentPosition().y;
             int drawX = entX-midX;
             int drawY = entY-midY;
             if (drawX >= 0 && drawY >= 0 &&
@@ -116,7 +116,7 @@ public class Stage implements Renderable, Tickable {
 
         //Check entity collision
         for (Entity entity : entities) {
-            if (entity.getPosition().equals(pos))
+            if (entity.getCurrentPosition().equals(pos))
                 return false;
         }
 
