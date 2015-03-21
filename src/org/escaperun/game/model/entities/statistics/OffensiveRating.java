@@ -22,6 +22,10 @@ public class OffensiveRating extends DerivedStatistic<Integer>{
     }
 
     @Override
+    protected void recalculate() {
+
+    }
+    @Override
     public Integer getBase() {
         return offensiveRating;
     }

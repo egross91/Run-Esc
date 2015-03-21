@@ -12,6 +12,11 @@ public class DefensiveRating extends DerivedStatistic<Integer>{
     }
 
     @Override
+    protected void recalculate() {
+
+    }
+
+    @Override
     public Integer getBase() {
         return null;
     }
