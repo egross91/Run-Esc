@@ -15,16 +15,14 @@ public class OffensiveRating extends DerivedStatistic<Integer>{
         recalculate();
     }
 
+    @Override
     protected void recalculate() {
         //idk I made something up
         //also need a way to notify when weapon changes
         this.offensiveRating = (str.getCurrent() * lvl.getCurrent()) + weaponDamage;
     }
 
-    @Override
-    protected void recalculate() {
 
-    }
     @Override
     public Integer getBase() {
         return offensiveRating;
