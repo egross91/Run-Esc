@@ -1,6 +1,5 @@
 package org.escaperun.game.model.entities.statistics;
 
-
 public class StatisticContainer {
 
     private Strength strength;
@@ -37,12 +36,67 @@ public class StatisticContainer {
         return strength;
     }
 
+    public void setStrength(Integer integer){
+        strength.setBase(integer);
+    }
     public Agility getAgility(){
         return agility;
     }
 
+    public void setAgility(Integer integer){
+        agility.setBase(integer);
+    }
+
     public Hardiness getHardiness(){
         return hardiness;
+    }
+
+    public void setHardiness(Integer integer){
+        hardiness.setBase(integer);
+    }
+
+    public Intellect getIntellect(){
+        return intellect;
+    }
+
+    public void setIntellect(Integer integer){
+        intellect.setBase(integer);
+    }
+
+    public Movement getMovement(){
+        return movement;
+    }
+
+    public void setMovement(Integer integer){
+        movement.setBase(integer);
+    }
+    public Experience getExperience(){
+        return experience;
+    }
+
+    public Level getLevel(){
+        return level;
+    }
+
+    public Life getLife(){
+        return life;
+    }
+
+    public Mana getMana(){
+        return mana;
+    }
+
+    public OffensiveRating getOffensiveRating(){
+        return offensiveRating;
+    }
+
+    public DefensiveRating getDefensiveRating(){
+        return defensiveRating;
+    }
+
+
+    public ArmorRating getArmorRating(){
+        return armorRating;
     }
 
 }
