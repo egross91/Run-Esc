@@ -1,6 +1,7 @@
 package org.escaperun.game.model.entities;
 
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -12,9 +13,15 @@ import org.escaperun.game.view.Decal;
 
 import java.awt.*;
 
-public class Summoner extends Avatar{
+public class Summoner extends Avatar {
     public Summoner(Position initialPosition) {
         super(new Decal('@', Color.BLACK, Color.CYAN), initialPosition);
+    }
+
+
+    @Override
+    public void attack(Entity defender, Skill skill) {
+        // TODO: Add SkillGeneratorSuccess and any other logic.
     }
 
     @Override

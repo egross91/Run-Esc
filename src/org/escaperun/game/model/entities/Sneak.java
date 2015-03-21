@@ -1,6 +1,7 @@
 package org.escaperun.game.model.entities;
 
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -12,10 +13,15 @@ import org.escaperun.game.view.Decal;
 
 import java.awt.*;
 
-public class Sneak extends Avatar{
+public class Sneak extends Avatar {
 
     public Sneak(Position initialPosition) {
         super(new Decal('@', Color.BLACK, Color.ORANGE), initialPosition);
+    }
+
+    @Override
+    public void attack(Entity defender, Skill skill) {
+        // TODO: Add the SuccessSkillGenerator once it's done.
     }
 
     @Override

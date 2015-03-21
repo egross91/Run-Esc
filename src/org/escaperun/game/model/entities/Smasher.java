@@ -1,6 +1,7 @@
 package org.escaperun.game.model.entities;
 
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -16,6 +17,11 @@ public class Smasher extends Avatar{
 
     public Smasher(Position initialPosition) {
         super(new Decal('@', Color.BLACK, Color.RED), initialPosition);
+    }
+
+    @Override
+    public void attack(Entity defender, Skill skill) {
+
     }
 
     @Override
