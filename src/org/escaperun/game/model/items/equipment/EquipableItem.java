@@ -3,13 +3,31 @@ package org.escaperun.game.model.items.equipment;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.armors.ArmorItem;
-import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
 import org.escaperun.game.view.Decal;
 
 public abstract class EquipableItem extends TakeableItem implements Equipable {
-    public EquipableItem(Decal decal) {
+    private EquipmentSlot equipmentSlot;
+
+    public enum EquipmentSlot {
+        HEAD,
+        BODY,
+        SHIELD,
+        FEET,
+        RING,
+        WEAPON;
+
+        public int getSlot() {
+            return ordinal();
+        }
+    }
+
+    public EquipableItem(Decal decal, EquipmentSlot slot) {
         super(decal);
+        this.equipmentSlot = slot;
+    }
+
+    public int getEquipmentSlot() {
+        return this.equipmentSlot.getSlot();
     }
 
     @Override
@@ -27,5 +45,5 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
         return equipItem(e.getEquipment(), this);
     }
 
-    protected abstract EquipableItem equipItem(EquipmentContainer<ArmorItem, WeaponItem> equipment, EquipableItem item);
+    protected abstract EquipableItem equipItem(EquipmentContainer<EquipableItem> equipment, EquipableItem item);
 }

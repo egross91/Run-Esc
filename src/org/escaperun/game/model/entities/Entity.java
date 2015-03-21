@@ -7,7 +7,7 @@ import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.armors.ArmorItem;
+import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
 import org.escaperun.game.view.Renderable;
@@ -18,7 +18,7 @@ import org.escaperun.game.view.Decal;
 
 public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     private Position currentPosition = null;
-    private EquipmentContainer<ArmorItem, WeaponItem> equipment;
+    private EquipmentContainer<EquipableItem> equipment;
     private ItemContainer<TakeableItem> inventory;
     private final Position initialPosition;
     private final Decal decal;
@@ -31,7 +31,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         this.decal = decal;
         direction = Direction.EAST;
         inventory = new ItemContainer<TakeableItem>();
-        equipment = new EquipmentContainer<ArmorItem, WeaponItem>();
+        equipment = new EquipmentContainer<EquipableItem>();
     }
 
     @Override
@@ -47,17 +47,17 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         inventory.add(item);
     }
 
-    protected WeaponItem equipWeaponItem(WeaponItem weaponItem) {
-        return equipment.equipWeapon(weaponItem);
+    protected EquipableItem equipWeaponItem(WeaponItem weaponItem) {
+        return equipment.equipItem(weaponItem);
     }
 
-    protected ArmorItem equipArmorItem(ArmorItem armorItem){
-        return equipment.equipArmor(armorItem);
+    protected EquipableItem equipArmorItem(EquipableItem armorItem){
+        return equipment.equipItem(armorItem);
     }
 
     public abstract void attack(Entity defender, Skill skill);
 
-    public EquipmentContainer<ArmorItem, WeaponItem> getEquipment() {
+    public EquipmentContainer<EquipableItem> getEquipment() {
         return this.equipment;
     }
 
