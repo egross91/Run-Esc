@@ -123,21 +123,7 @@ public class Stage implements Renderable, Tickable {
     public void moveAvatar(Direction dir) {
         //this code is to allow 'sliding' on walls
         //when you press walk along a diagonal
-
-        avatar.setDirection(dir);
-
-        Position first = new Position(avatar.getPosition().x+dir.getDelta().x, avatar.getPosition().y);
-
-        if (isMoveable(first)) {
-            avatar.setPosition(first);
-        }
-
-        Position second = new Position(avatar.getPosition().x, avatar.getPosition().y+dir.getDelta().y);
-
-        if (isMoveable(second)) {
-            avatar.setPosition(second);
-        }
-
+        avatar.move(dir);
     }
 
     public void setAvatar(Avatar avatar) {
