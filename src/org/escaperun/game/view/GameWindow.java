@@ -1,7 +1,5 @@
 package org.escaperun.game.view;
 
-import org.escaperun.game.model.Game;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;

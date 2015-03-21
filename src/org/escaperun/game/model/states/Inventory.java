@@ -5,6 +5,7 @@ import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.items.TakeableItem;
+import org.escaperun.game.model.options.OptionContainer;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
@@ -17,12 +18,20 @@ public class Inventory extends GameState {
     private EquipmentContainer equipmentContainer;
     private ItemContainer itemContainer;
 
+    private int selectedX = 0, selectedY= 0;
+    private final int EQUIPMENT_ORIGIN_ROW = 8;
+    private final int EQUIPMENT_ORIGIN_COL = 36;
+    private final int MAX_COL = 48;
+    private final int INVENTORY_ORIGIN_ROW = 16;
+    private final int INVENTORY_ORIGIN_COL = 36;
+    private final int INVENTORY_MAX_ROW = 24;
+
     public Inventory(Playing previous, Stage stage) {
         this.previous = previous;
         this.equipmentContainer = stage.getAvatarEquipment();
         this.itemContainer = stage.getAvatarInventory();
+        setSelectedEquipmentOrigin();
     }
-
 
     @Override
     public GameState update(KeyBindings bindings, boolean[] pressed) {
@@ -38,21 +47,60 @@ public class Inventory extends GameState {
     }
 
     private void handleMovement(KeyBindings bindings, boolean[] pressed) {
+        boolean up = pressed[bindings.getBinding(KeyType.UP)];
+        boolean down = pressed[bindings.getBinding(KeyType.DOWN)];
+        boolean right = pressed[bindings.getBinding(KeyType.RIGHT)];
+        boolean left = pressed[bindings.getBinding(KeyType.LEFT)];
 
+        int moveX = selectedX;
+        int moveY = selectedY;
+
+        if (up) --moveX;
+        if (down) ++moveX;
+        if (left) --moveY;
+        if (right) ++moveY;
+
+        if (moveX <= EQUIPMENT_ORIGIN_ROW) {
+            moveX = EQUIPMENT_ORIGIN_ROW;
+
+            if (moveY <= EQUIPMENT_ORIGIN_COL) {
+                moveY = EQUIPMENT_ORIGIN_COL;
+            }
+            else if (moveY >= MAX_COL) {
+                moveY = MAX_COL;
+            }
+        }
+        else { // (moveX > EQUIPMENT_ORIGIN_ROW) {
+            if (moveX > INVENTORY_MAX_ROW) {
+                moveX = INVENTORY_MAX_ROW;
+            }
+
+            if (moveY > MAX_COL) {
+                moveY = MAX_COL;
+            }
+            else if (moveY < INVENTORY_ORIGIN_COL) {
+                moveY = INVENTORY_ORIGIN_COL;
+            }
+        }
+
+        selectedX = moveX;
+        selectedY = moveY;
     }
 
     private void handleAction(KeyBindings bindings, boolean[] pressed) {
+        boolean enter = pressed[bindings.getBinding(KeyType.ACTION)];
 
+        // TODO
     }
 
-    public static final int INVENTORY_SPACING = 4;
-    public static final int EQUIPMENT_SPACING = 2;
+    public static final int SPACING = 2;
     public static final String EQUIPMENT = "EQUIPMENT";
     public static final String INVENTORY = "INVENTORY";
     public static final int TOP_MARGIN = 6;
     public static final int BOTTOM_MARGIN = 13;
     public static final int LEFT_MARGIN = 5;
     public static final int RIGHT_MARGIN = 5;
+
     private static final int NUM_GOOD_COLUMNS = GameWindow.COLUMNS-LEFT_MARGIN-RIGHT_MARGIN;
 
 
@@ -61,28 +109,27 @@ public class Inventory extends GameState {
         Decal[][] window = new Decal[GameWindow.ROWS][GameWindow.COLUMNS];
 
         /* Draw Equipment */
-        renderContainer(window, equipmentContainer, EQUIPMENT, TOP_MARGIN, EQUIPMENT_SPACING, 1, equipmentContainer.getCapacity());
+        renderContainer(window, equipmentContainer, EQUIPMENT, TOP_MARGIN, 1, equipmentContainer.getCapacity());
 
         /* Draw Inventory */
         int startRow = 12; // The total space taken by Equipment.
         int numRows = itemContainer.getCapacity() / 5;
         int numCols = itemContainer.getCapacity() / 6;
-        renderContainer(window, itemContainer, INVENTORY, startRow, INVENTORY_SPACING, numRows, numCols);
+        renderContainer(window, itemContainer, INVENTORY, startRow, numRows, numCols);
 
         return window;
     }
 
-    private void renderContainer(Decal[][] window, ItemContainer container, String label, int startRow,
-                                 int spacing, int numRows, int numCols) {
+    private void renderContainer(Decal[][] window, ItemContainer container, String label, int startRow, int numRows, int numCols) {
         int startColumn = NUM_GOOD_COLUMNS/2 - label.length()/2;
         for (int i = 0; i < label.length(); i++) {
             window[startRow][startColumn+i+LEFT_MARGIN] = new Decal(label.charAt(i), Color.BLACK, Color.WHITE);
         }
-        startRow += spacing;
+        startRow += SPACING;
 
         int itemIndex = 0;
         int size = numCols;
-        int charsUsed = size + spacing*(size-1);
+        int charsUsed = size + SPACING*(size-1);
         for (int i = 0; i < numRows; ++i) {
             startColumn = (NUM_GOOD_COLUMNS /2) - (charsUsed/2);
             for (int j = 0; j < numCols; ++j) {
@@ -95,11 +142,26 @@ public class Inventory extends GameState {
                     render = item.getRenderable()[0][0];
                 }
 
+                // Render red if it is the selected item.
+                if (startRow == selectedX && startColumn+LEFT_MARGIN == selectedY) {
+                    render = new Decal(render.ch, render.background, Color.RED);
+                }
+
                 window[startRow][startColumn+LEFT_MARGIN] = render;
-                startColumn += spacing+1;
+                startColumn += SPACING+1;
             }
 
-            startRow += spacing;
+            startRow += SPACING;
         }
+    }
+
+    private void setSelectedEquipmentOrigin() {
+        this.selectedX = EQUIPMENT_ORIGIN_ROW;
+        this.selectedY = EQUIPMENT_ORIGIN_COL;
+    }
+
+    private void setSelectedInventoryOrigin() {
+        this.selectedX = INVENTORY_ORIGIN_ROW;
+        this.selectedY = INVENTORY_ORIGIN_COL;
     }
 }
