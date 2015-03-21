@@ -48,6 +48,10 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     }
 
+    public void move(Direction dir) {
+        movementHandler.move(dir);
+    }
+
     public void takeItem(TakeableItem item) {
         inventory.add(item);
     }
