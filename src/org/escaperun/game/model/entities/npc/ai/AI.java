@@ -2,6 +2,7 @@ package org.escaperun.game.model.entities.npc.ai;
 
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.events.Timer;
@@ -12,7 +13,7 @@ import java.util.Random;
 /**
  * Associate the stage and the NPC, giving NPC stage behavior.
  */
-public abstract class AI {
+public abstract class AI implements Tickable{
     protected static final Direction[] possibleDeltas = Direction.values();
     protected final Random random = new Random();
     protected final Stage stage;
@@ -23,11 +24,24 @@ public abstract class AI {
     public AI(Stage stage, NPC npc) {
         this.stage = stage;
         this.npc = npc;
-        movementTimer = new Timer(0);    //TODO: base movement timer off of npc's movement statstic
+        movementTimer = new Timer(npc.getMovementPoints());    //TODO: base movement timer off of npc's movement statstic
     }
 
-    /** Stage runs AI association. Tick all Timers.*/
+    //TODO: Add a listener to entity for onDeath or checking health.
+
+    /** Stage runs AI association.
+     *  Currently must check if the npc is dead or not unless a on death listener is implemented.
+     */
     public abstract void run();
+
+    @Override
+    public void tick() {
+        movementTimer.tick();
+    }
+
+    public NPC getNpc() {
+        return npc;
+    }
 
     /** Entitiy attempt take a random direction within it's wander radius. */
     protected void wander() {
@@ -70,4 +84,7 @@ public abstract class AI {
         }
     }
 
+    protected void onDeath() {
+        stage.removeAI(this);
+    }
 }

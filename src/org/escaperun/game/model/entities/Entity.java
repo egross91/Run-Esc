@@ -24,6 +24,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     private Position currentPosition = null;
     private EquipmentContainer<EquipableItem> equipment;
     private ItemContainer<TakeableItem> inventory;
+    private StatisticContainer statisticContainer;
     private final Position initialPosition;
     private final Decal decal;
     private Direction direction;
@@ -129,4 +130,12 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     }
 
     public abstract void talk();
+
+    public boolean isDead() {   //TODO: would be nice to get rid of this method and replace with a eventlistener.
+        return (statisticContainer.getLivesLeft().getCurrent() <= 0);
+    }
+
+    public int getMovementPoints() {
+        return statisticContainer.getMovement().getCurrent();
+    }
 }
