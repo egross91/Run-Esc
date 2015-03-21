@@ -13,15 +13,6 @@ public class EquipmentContainer<A extends ArmorItem, W extends WeaponItem> exten
         super(MAX_EQUIPMENT_SLOTS);
     }
 
-    public EquipmentContainer(List<A> armor) {
-        super(armor, MAX_EQUIPMENT_SLOTS);
-    }
-
-    public EquipmentContainer(List<A> armor, W weapon) {
-        super(armor, MAX_EQUIPMENT_SLOTS);
-        this.weapon = weapon;
-    }
-
     public A getArmorItemAtSlot(int slot) {
         return getItems().get(slot);
     }
