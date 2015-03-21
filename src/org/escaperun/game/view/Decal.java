@@ -9,6 +9,7 @@ public final class Decal {
     public final Color foreground;
 
     public static final Decal BLANK = new Decal('\u0000', Color.BLACK, Color.BLACK);
+    public static final Decal EMPTY_ITEM_SLOT = new Decal('_', Color.BLACK, Color.WHITE);
 
     public Decal(char ch, Color background, Color foreground) {
         this.ch = ch;

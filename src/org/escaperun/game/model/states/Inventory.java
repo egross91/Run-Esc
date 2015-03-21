@@ -5,7 +5,6 @@ import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
@@ -54,43 +53,53 @@ public class Inventory extends GameState {
     public static final int BOTTOM_MARGIN = 13;
     public static final int LEFT_MARGIN = 5;
     public static final int RIGHT_MARGIN = 5;
+    private static final int NUM_GOOD_COLUMNS = GameWindow.COLUMNS-LEFT_MARGIN-RIGHT_MARGIN;
 
 
     @Override
     public Decal[][] getRenderable() {
         Decal[][] window = new Decal[GameWindow.ROWS][GameWindow.COLUMNS];
-        int numGoodColumns = GameWindow.COLUMNS-LEFT_MARGIN-RIGHT_MARGIN;
 
         /* Draw Equipment */
-        int startRow = TOP_MARGIN;
-        int startColumn = numGoodColumns/2 - EQUIPMENT.length()/2;
-        for (int i = 0; i < EQUIPMENT.length(); i++) {
-            window[startRow][startColumn+i+LEFT_MARGIN] = new Decal(EQUIPMENT.charAt(i), Color.BLACK, Color.WHITE);
-        }
-        startRow += EQUIPMENT_SPACING;
-        int equipSize = equipmentContainer.getCapacity();
-        int charsUsed = equipSize + EQUIPMENT_SPACING*(equipSize-1);
-        startColumn = numGoodColumns/2-charsUsed/2;
-        for (int i = 0; i < equipmentContainer.getCapacity(); i++) {
-            TakeableItem item = equipmentContainer.get(i);
-            Decal render = null;
-            if (item == null) {
-                render = new Decal('_', Color.BLACK, Color.WHITE);
-            } else {
-                render = item.getRenderable()[0][0];
-            }
-            window[startRow][startColumn+LEFT_MARGIN] = render;
-            startColumn += EQUIPMENT_SPACING+1;
-        }
-        startRow += INVENTORY_SPACING;
+        renderContainer(window, equipmentContainer, EQUIPMENT, TOP_MARGIN, EQUIPMENT_SPACING, 1, equipmentContainer.getCapacity());
 
-        startColumn = numGoodColumns/2 - INVENTORY.length()/2;
-        for (int i = 0; i < INVENTORY.length(); i++) {
-            window[startRow][startColumn+i+LEFT_MARGIN] = new Decal(INVENTORY.charAt(i), Color.BLACK, Color.WHITE);
-        }
-        startRow += EQUIPMENT_SPACING;
+        /* Draw Inventory */
+        int startRow = 12; // The total space taken by Equipment.
+        int numRows = itemContainer.getCapacity() / 5;
+        int numCols = itemContainer.getCapacity() / 6;
+        renderContainer(window, itemContainer, INVENTORY, startRow, INVENTORY_SPACING, numRows, numCols);
 
-        //TODO: MORE
         return window;
+    }
+
+    private void renderContainer(Decal[][] window, ItemContainer container, String label, int startRow,
+                                 int spacing, int numRows, int numCols) {
+        int startColumn = NUM_GOOD_COLUMNS/2 - label.length()/2;
+        for (int i = 0; i < label.length(); i++) {
+            window[startRow][startColumn+i+LEFT_MARGIN] = new Decal(label.charAt(i), Color.BLACK, Color.WHITE);
+        }
+        startRow += spacing;
+
+        int itemIndex = 0;
+        int size = numCols;
+        int charsUsed = size + spacing*(size-1);
+        for (int i = 0; i < numRows; ++i) {
+            startColumn = (NUM_GOOD_COLUMNS /2) - (charsUsed/2);
+            for (int j = 0; j < numCols; ++j) {
+                TakeableItem item = container.get(itemIndex++);
+                Decal render;
+                if (item == null) {
+                    render = Decal.EMPTY_ITEM_SLOT;
+                }
+                else {
+                    render = item.getRenderable()[0][0];
+                }
+
+                window[startRow][startColumn+LEFT_MARGIN] = render;
+                startColumn += spacing+1;
+            }
+
+            startRow += spacing;
+        }
     }
 }
