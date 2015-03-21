@@ -1,11 +1,13 @@
 package org.escaperun.game.model.states;
 
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.items.TakeableItem;
+import org.escaperun.game.model.options.LoggerOption;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
@@ -36,6 +38,7 @@ public class Inventory extends GameState {
 
     @Override
     public GameState update(KeyBindings bindings, boolean[] pressed) {
+        LoggerOption.getInstance().update(null, null);
         boolean inventory = pressed[bindings.getBinding(KeyType.INVENTORY)];
         if (inventory) {
             pressed[bindings.getBinding(KeyType.INVENTORY)] = false;
@@ -93,12 +96,13 @@ public class Inventory extends GameState {
             moveTimer.reset();
         }
     }
-
+    static int cntr = 0;
     private void handleAction(KeyBindings bindings, boolean[] pressed) {
         boolean enter = pressed[bindings.getBinding(KeyType.ACTION)];
 
         if (enter) {
             pressed[bindings.getBinding(KeyType.ACTION)] = false;
+            Logger.getInstance().pushMessage("Pressed action! " + cntr++);
         }
     }
 
@@ -125,6 +129,14 @@ public class Inventory extends GameState {
         int numRows = itemContainer.getCapacity() / 5;
         int numCols = itemContainer.getCapacity() / 6;
         renderContainer(window, itemContainer, INVENTORY, startRow, numRows, numCols);
+
+        Decal[][] log = LoggerOption.getInstance().getRenderable(false);
+
+        for (int i = 0; i < log.length; i++) {
+            for (int j = 0; j < log[i].length; j++) {
+                window[i][j] = log[i][j];
+            }
+        }
 
         return window;
     }

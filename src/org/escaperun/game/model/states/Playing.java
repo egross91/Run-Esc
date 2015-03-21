@@ -3,8 +3,7 @@ package org.escaperun.game.model.states;
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.Direction;
-import org.escaperun.game.model.entities.skills.*;
-import org.escaperun.game.model.entities.skills.summoner.Bane;
+import org.escaperun.game.model.options.LoggerOption;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 
@@ -18,6 +17,7 @@ public class Playing extends GameState {
 
     @Override
     public GameState update(KeyBindings bindings, boolean[] pressed) {
+        LoggerOption.getInstance().update(null, null);
         boolean escape = pressed[bindings.getBinding(KeyType.EXIT)];
         if (escape) {
             pressed[bindings.getBinding(KeyType.EXIT)] = false;
@@ -92,6 +92,16 @@ public class Playing extends GameState {
 
     @Override
     public Decal[][] getRenderable() {
-        return stage.getRenderable();
+
+        Decal[][] ret = stage.getRenderable();
+        Decal[][] log = LoggerOption.getInstance().getRenderable(false);
+
+        for (int i = 0; i < log.length; i++) {
+            for (int j = 0; j < log[i].length; j++) {
+                ret[i][j] = log[i][j];
+            }
+        }
+
+        return ret;
     }
 }
