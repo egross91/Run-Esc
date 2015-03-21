@@ -1,10 +1,9 @@
-package org.escaperun.game.model.entities.Skills;
+package org.escaperun.game.model.entities.skills;
 
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
 
-import java.lang.Math;
 import java.util.ArrayList;
 
 public abstract class Projectile extends ActiveSkill {

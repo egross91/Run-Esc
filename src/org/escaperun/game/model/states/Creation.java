@@ -13,11 +13,11 @@ import org.escaperun.game.model.options.SelectableOption;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 
-public class CreationMenu extends GameState {
+public class Creation extends GameState {
 
     private OptionContainer options;
 
-    public CreationMenu() {
+    public Creation() {
         options = new OptionContainer(new Option[][] {
                 {new SelectableOption("SMASHER"){
                     public GameState getNextState() {
@@ -42,7 +42,7 @@ public class CreationMenu extends GameState {
                 }},
                 {new SelectableOption("RETURN"){
                     public GameState getNextState() {
-                        return new MainMenu();
+                        return new Main();
                     }
                 }}
         }, OptionContainer.ContainerType.CENTERED);

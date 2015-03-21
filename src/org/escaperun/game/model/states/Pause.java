@@ -29,6 +29,12 @@ public class Pause extends GameState {
                     public GameState getNextState() {
                         return Pause.this.previous;
                     }
+                }},
+                {new SelectableOption("Exit to Main Menu") {
+                    @Override
+                    public GameState getNextState() {
+                        return new Main();
+                    }
                 }}
         };
         optionContainer = new OptionContainer(options, OptionContainer.ContainerType.CENTERED);

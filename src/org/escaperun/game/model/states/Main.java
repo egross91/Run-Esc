@@ -2,23 +2,20 @@ package org.escaperun.game.model.states;
 
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.model.options.SelectableOption;
-import org.escaperun.game.model.options.TypeableOption;
-import org.escaperun.game.model.states.GameState;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
-import org.escaperun.game.model.states.Exit;
 import org.escaperun.game.view.Decal;
 
-public class MainMenu extends GameState {
+public class Main extends GameState {
 
     private OptionContainer optionContainer;
 
-    public MainMenu() {
+    public Main() {
         Option[][] options = new Option[][]{
                 {new SelectableOption("New Game") {
                     @Override
                     public GameState getNextState() {
-                        return new CreationMenu();
+                        return new Creation();
                     }
                 }},
                 {new SelectableOption("Load Game") {

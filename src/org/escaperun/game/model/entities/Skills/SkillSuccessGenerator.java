@@ -1,6 +1,5 @@
-package org.escaperun.game.model.entities.Skills;
+package org.escaperun.game.model.entities.skills;
 
-import com.sun.org.glassfish.external.statistics.Statistic;
 import org.escaperun.game.model.entities.*;
 import org.escaperun.game.model.entities.npc.NPC;
 

@@ -1,6 +1,5 @@
-package org.escaperun.game.model.entities.Skills;
+package org.escaperun.game.model.entities.skills;
 
-import javafx.geometry.Pos;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;

@@ -25,8 +25,7 @@ public class Playing extends GameState {
         boolean inventory = pressed[bindings.getBinding(KeyType.INVENTORY)];
         if (inventory) {
             pressed[bindings.getBinding(KeyType.INVENTORY)] = false;
-            //TODO: Inventory stuff
-            return null;
+            return new Inventory(this, stage);
         }
 
         handleMovement(bindings, pressed);

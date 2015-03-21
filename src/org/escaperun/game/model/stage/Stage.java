@@ -5,6 +5,8 @@ import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
+import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
 import org.escaperun.game.view.Decal;
@@ -46,6 +48,9 @@ public class Stage implements Renderable, Tickable {
             }
         }
     }
+
+    public ItemContainer getAvatarInventory() {return avatar.getInventory();}
+    public EquipmentContainer getAvatarEquipment() {return avatar.getEquipment();}
 
     @Override
     public void tick() {
@@ -121,6 +126,7 @@ public class Stage implements Renderable, Tickable {
     }
 
     public void moveAvatar(Direction dir) {
+
         //this code is to allow 'sliding' on walls
         //when you press walk along a diagonal
         avatar.move(dir);

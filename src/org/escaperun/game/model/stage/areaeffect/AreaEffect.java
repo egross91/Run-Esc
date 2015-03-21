@@ -7,6 +7,7 @@ import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.Renderable;
 
 public abstract class AreaEffect implements Renderable, Touchable, Actionable {
+
     private Decal decal;
 
     public AreaEffect(Decal decal) {

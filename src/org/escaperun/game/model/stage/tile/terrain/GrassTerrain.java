@@ -41,19 +41,19 @@ public class GrassTerrain extends Terrain {
     private static final Color RANDOM_GREEN() {
         int next = RANDOM.nextInt(5);
         if (next == 0) {
-            return Color.GREEN;
-        }
-        else if (next == 1) {
             return Color.GREEN.darker();
         }
-        else if (next == 2) {
+        else if (next == 1) {
             return Color.GREEN.darker().darker();
         }
+        else if (next == 2) {
+            return Color.GREEN.darker().darker().darker();
+        }
         else if (next == 3) {
-            return Color.GREEN.brighter();
+            return Color.GREEN.darker().darker();
         }
         else if (next == 4) {
-            return Color.GREEN.brighter().brighter();
+            return Color.GREEN.darker().darker().darker();
         }
 
         return null;

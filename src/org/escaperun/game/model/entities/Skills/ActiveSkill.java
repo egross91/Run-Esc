@@ -1,4 +1,4 @@
-package org.escaperun.game.model.entities.Skills;
+package org.escaperun.game.model.entities.skills;
 
 public abstract class ActiveSkill extends Skill {
 

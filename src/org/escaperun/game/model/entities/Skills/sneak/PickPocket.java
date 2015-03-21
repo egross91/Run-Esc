@@ -1,6 +1,6 @@
-package org.escaperun.game.model.entities.Skills.sneak;
+package org.escaperun.game.model.entities.skills.sneak;
 
-import org.escaperun.game.model.entities.Skills.ActiveSkill;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 
 public class PickPocket extends ActiveSkill {
     @Override

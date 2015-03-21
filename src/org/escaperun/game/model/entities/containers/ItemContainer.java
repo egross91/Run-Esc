@@ -1,11 +1,13 @@
 package org.escaperun.game.model.entities.containers;
 
 import org.escaperun.game.model.items.Item;
+import org.escaperun.game.model.items.TakeableItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemContainer<T extends Item> {
+public class ItemContainer<T extends TakeableItem> {
+
     private ArrayList<T> items;
     private final int MAX_CAPACITY;
 
