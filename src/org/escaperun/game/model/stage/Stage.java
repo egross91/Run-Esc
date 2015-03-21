@@ -110,7 +110,7 @@ public class Stage implements Renderable, Tickable {
             if(p.update()){
                 int midX1 = GameWindow.ROWS/2;
                 int midY1 = GameWindow.COLUMNS/2;
-                for(Position pos: p.getAffectedArea()){
+                for(Position pos: p.getDisplayArea()){
                     /*Position pp = new Position(midX+(p.getSlopeX()*p.getMovementTick()), midY+(p.getSlopeY()*p.getMovementTick()));
                     if(isMoveable(pp)){
                         window[pp.x][pp.y] = p.getRenderable()[0][0];
@@ -126,6 +126,7 @@ public class Stage implements Renderable, Tickable {
         //draw avatar
         if (avatar.getRenderable() != null) {
             window[midX][midY] = avatar.getRenderable()[0][0];
+            //25 42
         }
         return window;
     }

@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities.skills;
 
+import javafx.geometry.Pos;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
@@ -14,7 +15,9 @@ public abstract class Projectile extends ActiveSkill {
     protected int slopeY;
     protected Position initialPos;
     protected Position currentPos;
+    protected Position dispPos;
     protected ArrayList<Position> affectedArea;        //holds positions of where the skill should "is"
+    protected ArrayList<Position> displayArea;
     protected Decal decal;
 
     public Projectile(int ofp, int dfp, int sd, Direction dir, Position start){
@@ -24,8 +27,9 @@ public abstract class Projectile extends ActiveSkill {
 
         this.dir = dir;
         this.setSlope(this.dir);
-
+        
         this.initialPos = start;
+        this.dispPos = new Position(25,42);
         this.currentPos = start;
         this.affectedArea = new ArrayList<Position>();
     }
@@ -50,6 +54,15 @@ public abstract class Projectile extends ActiveSkill {
                 this.currentPos = newp;
                 this.affectedArea = new ArrayList<Position>();
                 this.affectedArea.add(newp);
+
+
+                //test
+                Position dispP = new Position(this.dispPos.x + this.slopeX, this.dispPos.y + this.slopeY);
+                this.dispPos = dispP;
+                this.displayArea = new ArrayList<Position>();
+                this.displayArea.add(dispP);
+                //endtest
+
                 this.upDateTick();
             }
             catch(IllegalArgumentException e){  // may be thrown from Position
@@ -82,4 +95,6 @@ public abstract class Projectile extends ActiveSkill {
     public Decal[][] getRenderable(){
         return new Decal[][] {{this.decal}};
     }
+
+    public ArrayList<Position> getDisplayArea(){return this.displayArea;}
 }
