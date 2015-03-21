@@ -14,8 +14,6 @@ public class ArmorRating extends DerivedStatistic<Integer>{
     protected void recalculate() {
 
     }
-
-    @Override
     public Integer getBase() {
         return null;
     }

@@ -15,7 +15,6 @@ public class Mana extends DerivedStatistic<Long> {
     protected void recalculate() {
 
     }
-
     @Override
     public Long getBase() {
         return null;

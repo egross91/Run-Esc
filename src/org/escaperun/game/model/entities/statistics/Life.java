@@ -16,7 +16,6 @@ public class Life extends DerivedStatistic<Long>{
     protected void recalculate() {
 
     }
-
     @Override
     public Long getBase() {
         return null;

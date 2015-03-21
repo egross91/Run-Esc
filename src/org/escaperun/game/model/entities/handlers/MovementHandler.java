@@ -17,13 +17,14 @@ public class MovementHandler {
     public void move(Direction dir) {
         entity.setDirection(dir);
 
-        Position first = new Position(entity.getCurrentPosition().x+dir.getDelta().x, entity.getCurrentPosition().y);
+        Position currentPosition = entity.getCurrentPosition();
+        Position first = new Position(currentPosition.x+dir.getDelta().x, currentPosition.y);
 
         if (stage.isMoveable(first)) {
             entity.setPosition(first);
         }
 
-        Position second = new Position(entity.getCurrentPosition().x, entity.getCurrentPosition().y+dir.getDelta().y);
+        Position second = new Position(currentPosition.x, currentPosition.y+dir.getDelta().y);
 
         if (stage.isMoveable(second)) {
             entity.setPosition(second);

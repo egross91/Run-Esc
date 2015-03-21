@@ -17,4 +17,10 @@ public final class Position {
                 return true;
         return false;
     }
+
+    public static int calcuateDistance(Position a, Position b) {
+        double xsquare = Math.pow((a.x - b.x),2);
+        double ysquare = Math.pow((a.y-b.y),2);
+        return (int)Math.sqrt((xsquare + ysquare));
+    }
 }
