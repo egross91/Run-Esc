@@ -6,7 +6,6 @@ import org.escaperun.game.model.entities.skills.summoner.Bane;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.armors.ArmorItem;
 import org.escaperun.game.model.items.equipment.weapons.MagicalWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;

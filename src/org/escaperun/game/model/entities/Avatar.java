@@ -6,7 +6,6 @@ import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.armors.ArmorItem;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
 import org.escaperun.game.view.Decal;
 

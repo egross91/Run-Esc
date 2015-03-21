@@ -97,7 +97,9 @@ public class Inventory extends GameState {
     private void handleAction(KeyBindings bindings, boolean[] pressed) {
         boolean enter = pressed[bindings.getBinding(KeyType.ACTION)];
 
-        // TODO
+        if (enter) {
+            pressed[bindings.getBinding(KeyType.ACTION)] = false;
+        }
     }
 
     public static final int SPACING = 2;
