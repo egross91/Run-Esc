@@ -28,4 +28,9 @@ public class ArmorRating extends DerivedStatistic<Integer>{
     public Integer getCurrent() {
         return armorRating;
     }
+
+    public void setArmorValue(int armorValue) {
+        this.armorValue = armorValue;
+        recalculate();
+    }
 }

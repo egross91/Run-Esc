@@ -30,7 +30,7 @@ public class StatisticContainer {
         mana = new Mana(level, intellect);
         offensiveRating = new OffensiveRating(strength, level, 0);
         defensiveRating = new DefensiveRating(agility, level);
-        armorRating = new ArmorRating(hardiness);
+        armorRating = new ArmorRating(hardiness, 0);
     }
 
     public Strength getStrength(){

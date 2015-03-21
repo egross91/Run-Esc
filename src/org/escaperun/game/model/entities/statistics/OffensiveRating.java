@@ -36,5 +36,6 @@ public class OffensiveRating extends DerivedStatistic<Integer>{
 
     public void setWeaponDamage(int weaponDamage) {
         this.weaponDamage = weaponDamage;
+        recalculate();
     }
 }
