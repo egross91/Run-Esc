@@ -3,6 +3,7 @@ package org.escaperun.game.model.entities.npc;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.Entity;
+import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -30,16 +31,9 @@ public class NonHostileNPC extends NPC {
     }
 
     @Override
-    public void attack(Entity e) {
+    public void attack(Entity defender, Skill skil) {
         //TODO: Implement "running away attack" or something of that nature
-        //Note: Attack is in NonHostileNPC as a way to "run away" if they've been
-        //attacked, e.g. a shopkeeper who just was attacked by an Avatar.
-        //It can grab the entity's position, and keep running away from that position.
-        /*  PSEUDOCODE
-         * Position p = e.getPosition(); //Beginning of our method, grab hostile entity's coordinates
-         * move((Away from p)); // Move away from that hostile entity in some (random, predetermined, etc.) fashion.
-         */
-
+        // Put in the Behavior for running away.
     }
 
     @Override

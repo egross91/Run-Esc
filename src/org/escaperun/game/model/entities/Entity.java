@@ -5,6 +5,7 @@ import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
+import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.armors.ArmorItem;
 import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
@@ -54,20 +55,13 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         return equipment.equipArmor(armorItem);
     }
 
-    public void attack(Entity e){
-        e.defend(this); //Our entity just "attacked" another entity, so edit their stats.
-        //May need association class for this.
-    }
-
-    public void defend(Entity e){
-        //TODO: Implement how an entity "defends" against an attacker, need to utilize stats in this case.
-    }
+    public abstract void attack(Entity defender, Skill skill);
 
     public EquipmentContainer<ArmorItem, WeaponItem> getEquipment() {
         return this.equipment;
     }
 
-    public Position getPosition(){
+    public Position getCurrentPosition(){
         return currentPosition; //Return currentPosition of this entity
     }
 

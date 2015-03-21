@@ -19,7 +19,6 @@ public class MovementHandler {
 
         Position currentPosition = entity.getCurrentPosition();
         Position first = new Position(currentPosition.x+dir.getDelta().x, currentPosition.y);
-
         if (stage.isMoveable(first)) {
             entity.setPosition(first);
         }
