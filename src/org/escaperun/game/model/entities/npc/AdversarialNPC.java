@@ -22,6 +22,11 @@ public class AdversarialNPC extends NPC {
     }
 
     @Override
+    public String observe() {
+        return null; //TODO:
+    }
+
+    @Override
     public void visit(TwoHandedWeapon thw) {
         //TODO
     }

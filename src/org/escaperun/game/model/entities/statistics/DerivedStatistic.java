@@ -10,5 +10,6 @@ public abstract class DerivedStatistic<T extends Number> extends Statistic<T> {
     @Override
     protected void setBase_internal(T to) {
         // nop
+        //Don't know if want to reset stuff
     }
 }

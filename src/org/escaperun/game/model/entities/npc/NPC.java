@@ -22,4 +22,6 @@ public abstract class NPC extends Entity {
     //TODO: Implement some functionality that's common for both types of NPCs
     //NPC needs scope (radius that they can move after a hostile entity)
     public abstract void enchant();
+
+    public abstract String observe();
 }
