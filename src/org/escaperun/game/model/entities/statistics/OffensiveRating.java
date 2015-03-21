@@ -8,6 +8,7 @@ public class OffensiveRating extends DerivedStatistic<Integer>{
     int offensiveRating;
 
     //need a way to alert when weapon changes
+    //TODO
     public OffensiveRating(Strength strength, Level level, int equippedWeaponDamage) {
         str = strength;
         lvl = level;
