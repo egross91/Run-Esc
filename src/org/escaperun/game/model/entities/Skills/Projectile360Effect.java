@@ -7,9 +7,6 @@ import org.escaperun.game.view.Decal;
 
 import java.util.ArrayList;
 
-/**
- * Created by TubbyLumpkins on 3/19/15.
- */
 public abstract class Projectile360Effect extends Projectile {
 
     private static int[][] AoEPaths = {
@@ -57,7 +54,7 @@ public abstract class Projectile360Effect extends Projectile {
         for (int i = 0; i < 21; i++) {
             for (int j = 0; j < 21; j++) {
                 if (AoEPaths[i][j] == (moveAmount.getTicksSince() + 1)) {
-                    this.affectedArea.add(getNewPoint(i, j, arrayPos));
+                    this.affectedArea.add(getNewPoint(i+1, j+1, arrayPos));
                 }
             }
         }

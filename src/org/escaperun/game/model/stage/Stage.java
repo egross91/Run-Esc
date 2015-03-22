@@ -62,11 +62,7 @@ public class Stage implements Renderable, Tickable {
                 grid[i][j] = new Tile(new GrassTerrain());
             }
         }
-        entities.add(new NonHostileNPC(new Decal('8', Color.BLACK, Color.YELLOW.darker()), new Position(0, 4), 0){
-            public void talk(){ //Override of standard "talk"
-                Logger.getInstance().pushMessage("ZIP ZOP ZOOPITY BOP");
-            }
-        });
+
     }
 
     public ItemContainer getAvatarInventory() {return avatar.getInventory();}
