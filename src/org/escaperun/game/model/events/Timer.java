@@ -20,4 +20,12 @@ public final class Timer {
     public boolean isDone() {
         return ticksSince >= ticksTo;
     }
+
+    public int getTicksSince() {
+        return ticksSince;
+    }
+
+    public int getTicksTo() {
+        return ticksTo;
+    }
 }

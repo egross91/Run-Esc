@@ -113,8 +113,8 @@ public class Stage implements Renderable, Tickable {
         for (Entity e : entities) {
             int entX = e.getCurrentPosition().x;
             int entY = e.getCurrentPosition().y;
-            int drawX = midX+entX-avatarX;
-            int drawY = midY+entY-avatarY;
+            int drawX = entX-midX;
+            int drawY = entY-midY;
             if (drawX >= 0 && drawY >= 0 &&
                     drawX < window.length && drawY < window[0].length) {
                 if (e.getRenderable() != null) {

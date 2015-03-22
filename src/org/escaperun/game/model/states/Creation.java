@@ -60,7 +60,7 @@ public class Creation extends GameState {
 
     private Stage setupStage(Avatar avatar) {
         Stage stage = new Stage();
-        avatar.setMovementHandler(new MovementHandler(stage, avatar));
+        avatar.setMovementHandler(new MovementHandler(stage, avatar,8));
         stage.setAvatar(avatar);
 
         return stage;

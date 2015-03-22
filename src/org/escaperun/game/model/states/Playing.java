@@ -68,7 +68,7 @@ public class Playing extends GameState {
             moveX++;
             moveY++;
         }
-        
+
         if(hotKey1){
             pressed[bindings.getBinding(KeyType.HOTKEY1)] = false;
             stage.skillCast();
