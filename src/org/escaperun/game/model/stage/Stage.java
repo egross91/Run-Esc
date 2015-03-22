@@ -114,11 +114,6 @@ public class Stage implements Renderable, Tickable {
                 int midX1 = GameWindow.ROWS/2;
                 int midY1 = GameWindow.COLUMNS/2;
                 for(Position pos: p.getDisplayArea()){
-                    /*Position pp = new Position(midX+(p.getSlopeX()*p.getMovementTick()), midY+(p.getSlopeY()*p.getMovementTick()));
-                    if(isMoveable(pp)){
-                        window[pp.x][pp.y] = p.getRenderable()[0][0];
-                    }
-                    */
                     if(isMoveable(pos)){
                         window[pos.x ][pos.y ] = p.getRenderable()[0][0];
                     }
@@ -163,9 +158,6 @@ public class Stage implements Renderable, Tickable {
     }
 
     public void moveAvatar(Direction dir) {
-
-        //this code is to allow 'sliding' on walls
-        //when you press walk along a diagonal
         avatar.move(dir);
     }
 

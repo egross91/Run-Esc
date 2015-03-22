@@ -17,7 +17,7 @@ public class PrimaryStatistic<T extends Number> extends Statistic<T> {
     protected void setBase_internal(T to) {
         this.base = to.doubleValue();
         this.additiveDelta = 0.0;
-        this.multiplicativeDelta = 0.0;
+        this.multiplicativeDelta = 1.0;
     }
 
     public T getBase() {
