@@ -14,7 +14,7 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeap
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.view.Decal;
 
-public class NonHostileNPC extends NPC {
+public abstract class NonHostileNPC extends NPC {
 
     public NonHostileNPC(Decal decal, Position initialPosition, int wanderRadius) {
         super(decal, initialPosition, wanderRadius);
