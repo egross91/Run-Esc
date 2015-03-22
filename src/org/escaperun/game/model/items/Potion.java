@@ -25,6 +25,8 @@ public class Potion extends TakeableItem {
 
     @Override
     public void doAction(Entity e){
-        //TODO: implement some kind of effects when entity drink potion
+        //increase hardiness and movement when avatar drink potion
+        e.getStatContainer().getHardiness().addDelta(1);
+        e.getStatContainer().getMovement().addDelta(1);
     }
 }

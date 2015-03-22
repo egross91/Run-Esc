@@ -9,7 +9,7 @@ public class OneUp extends OneShotItem {
 
     @Override
     public void doAction(Entity e){
-        //TODO: gain one more life
+        e.getStatContainer().getLivesLeft().addDelta(1);
     }
 
 }

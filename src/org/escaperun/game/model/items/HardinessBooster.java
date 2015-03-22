@@ -9,7 +9,7 @@ public class HardinessBooster extends OneShotItem {
 
     @Override
     public void doAction(Entity e){
-        //TODO
+        e.getStatContainer().getHardiness().addDelta(1);
     }
 
 }
