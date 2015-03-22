@@ -43,52 +43,45 @@ public abstract class ProjectileQuadrantEffect extends Projectile {
         this.arrayPos = new Position(11,11);
     }
 
-    public boolean update(){
+    public boolean isDone() {
+        return movementTick >= skillDistance;
+    }
+
+    public void tick(){
         // for the code written: Assumed that (0,0) on game board is in top left. x increase to right. y increases downward.
         // for the AoEPaths[][]: i selects row, j selects col. i-> y on board & j -> x on board
 
-        if(movementTick == skillDistance){
-            return false;
+        Position newp = new Position(this.currentPos.x + this.slopeX, this.currentPos.y + this.slopeY);
+        Position newArrayp = new Position(this.arrayPos.x + this.slopeX, this.arrayPos.y + this.slopeY);
+        if (this.movementTick == 0){        // accounts for first space.
+            this.affectedArea.add(newp);
+            this.currentPos = newp;
+            this.arrayPos = newArrayp;
         }
-        else {
-            try {
-                Position newp = new Position(this.currentPos.x + this.slopeX, this.currentPos.y + this.slopeY);
-                Position newArrayp = new Position(this.arrayPos.x + this.slopeX, this.arrayPos.y + this.slopeY);
-                if (this.movementTick == 0){        // accounts for first space.
-                    this.affectedArea.add(newp);
-                    this.currentPos = newp;
-                    this.arrayPos = newArrayp;
-                }
-                else{
-                    this.affectedArea = new ArrayList<Position>();
-                    this.arrayPos = newArrayp;
-                    this.currentPos = newp;
-                    for(int i = arrayPos.y- movementTick;i <= arrayPos.y+ movementTick; i++){
-                        if(i >= 0 && i < 21) {
-                            for (int j = arrayPos.x - movementTick; j <= arrayPos.x + movementTick; j++) {
-                                if (j >= 0 && j < 21) {
-                                    if((AoEPaths[i][j] == (movementTick + 1)) && ((Math.abs(i - arrayPos.y) + Math.abs(j - arrayPos.x)) <= movementTick)){
-                                        this.affectedArea.add(getNewPoint(j, i, arrayPos));
-                                    }
-                                }
+        else{
+            this.affectedArea = new ArrayList<Position>();
+            this.arrayPos = newArrayp;
+            this.currentPos = newp;
+            for(int i = arrayPos.y- movementTick;i <= arrayPos.y+ movementTick; i++){
+                if(i >= 0 && i < 21) {
+                    for (int j = arrayPos.x - movementTick; j <= arrayPos.x + movementTick; j++) {
+                        if (j >= 0 && j < 21) {
+                            if((AoEPaths[i][j] == (movementTick + 1)) && ((Math.abs(i - arrayPos.y) + Math.abs(j - arrayPos.x)) <= movementTick)){
+                                this.affectedArea.add(getNewPoint(j, i, arrayPos));
                             }
                         }
                     }
                 }
-                this.upDateTick();
             }
-            catch(IllegalArgumentException e){  // may be thrown from Position
-                return false;
-            }
-            return true;
         }
+        this.upDateTick();
     }
 
     private Position getNewPoint(int x, int y, Position p){
         int dx,dy;
         dx = x - p.x;
         dy = y - p.y;
-        return new Position(this.currentPos.y + dx, this.currentPos.y + dy);
+        return new Position(this.currentPos.x + dx, this.currentPos.y + dy);
     }
 
     public void setDecal(Decal d){

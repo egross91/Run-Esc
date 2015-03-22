@@ -46,27 +46,21 @@ public abstract class Projectile360Effect extends Projectile {
 
     }
 
-    public boolean update() {
-        if (this.movementTick == this.skillDistance) {
-            return false;
-        }
-        else {
-            try {
-                this.affectedArea = new ArrayList<Position>();
+    public boolean isDone() {
+        return movementTick >= skillDistance;
+    }
 
-                for (int i = 0; i < 21; i++) {
-                    for (int j = 0; j < 21; j++) {
-                        if (AoEPaths[i][j] == (movementTick + 1)) {
-                            this.affectedArea.add(getNewPoint(i, j, arrayPos));
-                        }
+    public void tick() {
+            this.affectedArea = new ArrayList<Position>();
+
+            for (int i = 0; i < 21; i++) {
+                for (int j = 0; j < 21; j++) {
+                    if (AoEPaths[i][j] == (movementTick + 1)) {
+                        this.affectedArea.add(getNewPoint(i, j, arrayPos));
                     }
                 }
-                this.upDateTick();
-                return true;
-            }catch(IllegalArgumentException e){
-                return false;
             }
-        }
+            this.upDateTick();
     }
 
     private Position getNewPoint(int x, int y, Position p){

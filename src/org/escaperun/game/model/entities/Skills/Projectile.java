@@ -15,7 +15,6 @@ public abstract class Projectile extends ActiveSkill {
     protected int slopeY;
     protected Position initialPos;
     protected Position currentPos;
-    protected Position dispPos;
     protected ArrayList<Position> affectedArea;        //holds positions of where the skill should "is"
     protected ArrayList<Position> displayArea;
     protected Decal decal;
@@ -27,9 +26,8 @@ public abstract class Projectile extends ActiveSkill {
 
         this.dir = dir;
         this.setSlope(this.dir);
-        
+
         this.initialPos = start;
-        this.dispPos = new Position(25,42);
         this.currentPos = start;
         this.affectedArea = new ArrayList<Position>();
     }
@@ -44,31 +42,21 @@ public abstract class Projectile extends ActiveSkill {
         movementTick++;
     }
 
-    public boolean update(){
+    public boolean isDone() {
+        return movementTick >= skillDistance;
+    }
+
+    public void tick(){
         if(movementTick == skillDistance){
-            return false;
+            //return false;
         }
         else {
-            try {
                 Position newp = new Position(this.currentPos.x + this.slopeX, this.currentPos.y + this.slopeY);
                 this.currentPos = newp;
-                this.affectedArea = new ArrayList<Position>();
+                this.affectedArea.clear();
                 this.affectedArea.add(newp);
 
-
-                //test
-                Position dispP = new Position(this.dispPos.x + this.slopeX, this.dispPos.y + this.slopeY);
-                this.dispPos = dispP;
-                this.displayArea = new ArrayList<Position>();
-                this.displayArea.add(dispP);
-                //endtest
-
                 this.upDateTick();
-            }
-            catch(IllegalArgumentException e){  // may be thrown from Position
-                return false;
-            }
-            return true;
         }
     }
 

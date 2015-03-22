@@ -68,6 +68,21 @@ public class Stage implements Renderable, Tickable {
         for (Entity e : entities) {
             e.tick();
         }
+        for (Projectile p : projectiles) {
+            if (p == null) continue;
+            p.tick();
+            checkCollision(p);
+        }
+    }
+
+    public void checkCollision(Projectile p){
+        for(Entity e: entities){
+            for(int q = 0; q < p.getAffectedArea().size(); q++) {
+                if (e.getCurrentPosition().x == p.getAffectedArea().get(q).x && e.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
+                    System.out.println("OUCH MAFACKA");
+                }
+            }
+        }
     }
 
     @Override
@@ -98,8 +113,8 @@ public class Stage implements Renderable, Tickable {
         for (Entity e : entities) {
             int entX = e.getCurrentPosition().x;
             int entY = e.getCurrentPosition().y;
-            int drawX = entX-midX;
-            int drawY = entY-midY;
+            int drawX = midX+entX-avatarX;
+            int drawY = midY+entY-avatarY;
             if (drawX >= 0 && drawY >= 0 &&
                     drawX < window.length && drawY < window[0].length) {
                 if (e.getRenderable() != null) {
@@ -110,18 +125,14 @@ public class Stage implements Renderable, Tickable {
 
         //draw Skills
         for(Projectile p: projectiles){
-            if(p.update()){
-                int midX1 = GameWindow.ROWS/2;
-                int midY1 = GameWindow.COLUMNS/2;
-                for(Position pos: p.getDisplayArea()){
-                    /*Position pp = new Position(midX+(p.getSlopeX()*p.getMovementTick()), midY+(p.getSlopeY()*p.getMovementTick()));
-                    if(isMoveable(pp)){
-                        window[pp.x][pp.y] = p.getRenderable()[0][0];
-                    }
-                    */
-                    if(isMoveable(pos)){
-                        window[pos.x ][pos.y ] = p.getRenderable()[0][0];
-                    }
+            if (p == null) continue;
+            if (p.isDone()) continue;
+            for(Position pos : p.getAffectedArea()){
+                int drawX = midX+pos.x-avatarX;
+                int drawY = midY+pos.y-avatarY;
+                if (drawX >= 0 && drawY >= 0 && drawX < window.length && drawY < window[0].length
+                        && isValid(pos)) {
+                    window[drawX][drawY] = p.getRenderable()[0][0];
                 }
             }
         }
