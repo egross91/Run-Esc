@@ -218,8 +218,18 @@ public class Stage implements Renderable, Tickable {
         this.projectiles.add(p);
     }
 
+    private void attemptSkillCast() { //a spell will only be cast if the avatar has enough mana
+        //TODO: need a way to restore mana, unless we want potions or whatever to be the only way
+        int temp_manaRemaining = avatar.getStatContainer().getMana().getCurrent() - avatar.skill1().getManaCost();
+        if(temp_manaRemaining >= 0) { //casting the spell is OK
+            avatar.getStatContainer().getMana().reduceMana(avatar.skill1().getManaCost());
+            this.projectiles.add(this.avatar.skill1());
+        }
+        //otherwise dont cast that bitch
+    }
+
     public void skillCast(){
-        this.projectiles.add(this.avatar.skill1());
+        attemptSkillCast();
     }
 
     public void moveAvatar(Direction dir) {
