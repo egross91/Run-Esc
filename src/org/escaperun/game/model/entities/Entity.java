@@ -8,6 +8,7 @@ import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.statistics.StatisticContainer;
 import org.escaperun.game.model.items.TakeableItem;
+import org.escaperun.game.model.items.equipment.Equipable;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
@@ -55,16 +56,33 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     }
 
     protected EquipableItem equipWeaponItem(WeaponItem weaponItem) {
-        statContainer.setWeaponDamage(weaponItem.getValue());
-        return equipment.equipItem(weaponItem);
+        EquipableItem equippedItem = equipment.equipItem(weaponItem);
+        statContainer.setWeaponDamage(equippedItem.getStatistics().getOffensiveRating().getCurrent());
+        return equippedItem;
     }
 
     protected EquipableItem equipArmorItem(EquipableItem armorItem){
+        //equip the item
+        EquipableItem equippedItem = equipment.equipItem(armorItem);
+
         //need to compute the new armor rating for entity so its stats can be updated
         double armorValue = 0.0;
-        armorValue += (equipment.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.getSlot().getValue()) || null)
-        statContainer.setArmorValue();
-        return equipment.equipItem(armorItem);
+        //this is redic
+        EquipableItem body = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.getSlot());
+        EquipableItem helmet = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.HEAD.getSlot());
+        EquipableItem boots = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.FEET.getSlot());
+        EquipableItem ring = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.RING.getSlot());
+        EquipableItem shield = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.SHIELD.getSlot());
+
+        //if an equipment slot has nothing in it, that item will be null. In that case, increment armorValue by 0
+        armorValue += (body != null) ? body.getStatistics().getArmorRating().getCurrent() : 0.0;
+        armorValue += (helmet != null) ? helmet.getStatistics().getArmorRating().getCurrent() : 0.0;
+        armorValue += (boots != null) ? boots.getStatistics().getArmorRating().getCurrent() : 0.0;
+        armorValue += (ring != null) ? ring.getStatistics().getArmorRating().getCurrent() : 0.0;
+        armorValue += (shield != null) ? shield.getStatistics().getArmorRating().getCurrent() : 0.0;
+
+        statContainer.setArmorValue(armorValue);
+        return equippedItem;
     }
 
     public abstract void attack(Entity defender, Skill skill);

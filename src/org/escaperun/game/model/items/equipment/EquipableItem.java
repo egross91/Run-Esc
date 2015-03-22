@@ -47,5 +47,4 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
 
     protected abstract EquipableItem equipItem(EquipmentContainer<EquipableItem> equipment, EquipableItem item);
 
-    public abstract Double getValue();
 }
