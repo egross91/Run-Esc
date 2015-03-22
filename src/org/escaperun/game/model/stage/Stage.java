@@ -12,6 +12,8 @@ import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.Projectile;
+import org.escaperun.game.model.stage.areaeffect.AreaEffect;
+import org.escaperun.game.model.stage.areaeffect.TeleportationAreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
 import org.escaperun.game.view.Decal;
@@ -40,7 +42,7 @@ public class Stage implements Renderable, Tickable {
     protected Stack<AI> aiToDelete;
     private ArrayList<Entity> entities;
     private Avatar avatar;
-
+    private ArrayList<AreaEffect> areaEffects;
     public Stage() {
         this(DEFAULT_ROWS, DEFAULT_COLUMNS);
     }
@@ -57,17 +59,18 @@ public class Stage implements Renderable, Tickable {
 
         //Skill Test
         projectiles = new ArrayList<Projectile>();
+        //AoE test
+        areaEffects = new ArrayList<AreaEffect>();
+
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
                 grid[i][j] = new Tile(new GrassTerrain());
             }
         }
-        entities.add(new NonHostileNPC(new Decal('8', Color.BLACK, Color.YELLOW.darker()), new Position(0, 4), 0){
-            public void talk(){ //Override of standard "talk"
-                Logger.getInstance().pushMessage("ZIP ZOP ZOOPITY BOP");
-            }
-        });
+
+       // areaEffects.add(new TeleportationAreaEffect(new Decal('?', Color.BLACK, Color.RED.brighter().brighter()),new Position(5,5), new Position(0,0)));
+       // grid[10][10].placeItem(new )
     }
 
     public ItemContainer getAvatarInventory() {return avatar.getInventory();}
@@ -79,6 +82,11 @@ public class Stage implements Renderable, Tickable {
         for (Entity e : entities) {
             e.tick();
         }
+
+        for(AreaEffect effect : areaEffects)
+            if(avatar.getCurrentPosition().equals(effect.getPosition()))
+                effect.onTouch(avatar);
+
         for (int r = 0; r < projectiles.size(); r++) {
             if (projectiles.get(r) == null) continue;
             if (projectiles.get(r).isDone()){
@@ -166,6 +174,15 @@ public class Stage implements Renderable, Tickable {
                     window[drawX][drawY] = p.getRenderable()[0][0];
                 }
             }
+        }
+
+        //draw (visible) Area Effects
+        //TODO: Make it such that some AoEs are invisible to anyone who cannot do Detect.
+        for(AreaEffect effect : areaEffects){
+            Position pos = effect.getPosition();
+            int drawX = pos.x+midX-avatar.getCurrentPosition().x;
+            int drawY = pos.y+midY-avatar.getCurrentPosition().y;
+            window[drawX][drawY] = effect.getRenderable()[0][0];
         }
 
         //draw avatar

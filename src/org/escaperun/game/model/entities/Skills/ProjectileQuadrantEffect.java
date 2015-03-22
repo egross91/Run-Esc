@@ -7,9 +7,6 @@ import org.escaperun.game.view.Decal;
 
 import java.util.ArrayList;
 
-/**
- * Created by TubbyLumpkins on 3/19/15.
- */
 public abstract class ProjectileQuadrantEffect extends Projectile {
     private static int[][] AoEPaths = {
 

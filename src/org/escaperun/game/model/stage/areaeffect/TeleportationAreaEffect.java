@@ -5,11 +5,11 @@ import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.view.Decal;
 
 public class TeleportationAreaEffect extends AreaEffect {
-    private Position position;
+    private Position teleportPosition;
 
-    public TeleportationAreaEffect(Decal decal, Position pos) {
-        super(decal);
-        this.position = pos;
+    public TeleportationAreaEffect(Decal decal, Position position, Position teleportPosition) {
+        super(decal, position);
+        this.teleportPosition = teleportPosition;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class TeleportationAreaEffect extends AreaEffect {
 
     @Override
     public void doAction(Entity e) {
-        //TODO: When movement is changed do this
+        e.setPosition(teleportPosition);
     }
 
     @Override
