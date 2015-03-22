@@ -7,11 +7,15 @@ import org.escaperun.game.model.entities.Smasher;
 import org.escaperun.game.model.entities.Sneak;
 import org.escaperun.game.model.entities.Summoner;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
+import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
+import org.escaperun.game.model.entities.npc.ai.MeleeAI;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
 import org.escaperun.game.model.options.SelectableOption;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
+
+import java.awt.*;
 
 public class Creation extends GameState {
 
@@ -63,6 +67,9 @@ public class Creation extends GameState {
         avatar.setMovementHandler(new MovementHandler(stage, avatar,8));
         stage.setAvatar(avatar);
 
+        //DEBUG //TODO: REMOVE DEBUG CODE.
+        MeleeNPC npc = new MeleeNPC(new Decal((char)1, Color.BLACK, Color.RED), new Position(20,20),5);
+        MeleeAI ai = new MeleeAI(stage, npc);
         return stage;
     }
 }

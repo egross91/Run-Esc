@@ -9,7 +9,7 @@ import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
-import org.escaperun.game.model.entities.npc.NonHostileNPC;
+import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.stage.tile.Tile;
@@ -214,9 +214,12 @@ public class Stage implements Renderable, Tickable {
         };
     }
 
+    //Should only be accessed by AI.
     public void addAI(AI ai) {
-        entities.add(ai.getNpc());
-        ais.add(ai);
+        if (!ais.contains(ai)) {
+            entities.add(ai.getNpc());
+            ais.add(ai);
+        }
     }
 
     public void removeAI(AI ai) {

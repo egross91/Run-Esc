@@ -1,7 +1,8 @@
 package org.escaperun.game.model.entities.npc.ai;
 
 import org.escaperun.game.model.Position;
-import org.escaperun.game.model.entities.npc.AdversarialNPC;
+import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
+import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.stage.Stage;
 
 
@@ -9,42 +10,60 @@ import org.escaperun.game.model.stage.Stage;
 public abstract class AggressiveAI extends AI {
     private int chaseDistance;   //TODO: get chaseDistance either from npc or
     private boolean hasSeenAvatar;
+    private Timer spotAvatarTimer;
 
     public AggressiveAI(Stage stage, AdversarialNPC npc) {
         super(stage, npc);
         hasSeenAvatar = false;
         chaseDistance = 50; //picked arbitrarily
+        spotAvatarTimer = new Timer(60*60*5); //5 seconds
     }
 
+    /** Stage runs AI association.
+     *  Default aggressive behavior. Only attacks avatar.
+     *  Currently must check if the npc is dead or not unless a on death listener is implemented.
+     */
     @Override
-    /** Default aggressive behavior. */
-    public void run() {
+    public void tick(){
         if (npc.isDead()) {
             onDeath();
             return;
         }
 
+        tickTimers();
         Position avatarPosition = stage.getAvatarPosition();
         Position initialPosition = npc.getInitialPosition();
         Position currentPosition = npc.getCurrentPosition();
+        int distanceToAvatar = Position.calcuateDistance(avatarPosition, currentPosition);
         if (hasSeenAvatar) {
-            int distanceToAvatar = Position.calcuateDistance(avatarPosition, currentPosition);
-            //TODO: check if npc is still in max sight range.
-            if (inAttackRange(distanceToAvatar)) {
-                attack();
+            //Check if npc is still in max sight range.
+            if (distanceToAvatar > chaseDistance) {
+                hasSeenAvatar = false;
+                returnHome();
             }
             else {
-                moveTowardAvatar();
+                if (inAttackRange(distanceToAvatar)) {
+                    attack();
+                } else {
+                    moveTowardAvatar();
+                }
             }
         }
         else {
-            //TODO: Check if avatar is within range of sight. Create a "see the avatar" timer for spotting cool down.
-            //Did not see avatar
-            if (Position.calcuateDistance(initialPosition, currentPosition) > npc.getWanderRadius()) {
-                returnHome();
+            if (distanceToAvatar < 10) { //TODO: Get spotting range from npc
+                if (spotAvatarTimer.isDone()) {
+                    spotAvatarTimer.reset();
+                    //TODO: check if avatar is spotted.
+                    hasSeenAvatar = true;
+                }
             }
-            else
-                wander();
+            else {
+                //Did not see avatar
+                if (Position.calcuateDistance(initialPosition, currentPosition) > npc.getWanderRadius()) {
+                    returnHome();
+                } else
+                    wander();
+            }
         }
     }
 
@@ -52,5 +71,19 @@ public abstract class AggressiveAI extends AI {
     protected abstract boolean inAttackRange(int distance);
 
     /** Attack with weapon/skill that is in range of avatar */
-    protected abstract void attack();
+    protected  abstract void attack();
+
+    protected Timer getSpotAvatarTimer() {
+        return spotAvatarTimer;
+    }
+
+    protected void setSpotAvatarTimer(Timer spotAvatarTimer) {
+        this.spotAvatarTimer = spotAvatarTimer;
+    }
+
+    @Override
+    protected void tickTimers() {
+        super.tickTimers();
+        spotAvatarTimer.tick();
+    }
 }

@@ -25,19 +25,16 @@ public abstract class AI implements Tickable{
         this.stage = stage;
         this.npc = npc;
         movementTimer = new Timer(npc.getMovementPoints());    //TODO: base movement timer off of npc's movement statstic
+        stage.addAI(this);
     }
 
     //TODO: Add a listener to entity for onDeath or checking health.
 
+
+
     /** Stage runs AI association.
      *  Currently must check if the npc is dead or not unless a on death listener is implemented.
      */
-    public abstract void run();
-
-    @Override
-    public void tick() {
-        movementTimer.tick();
-    }
 
     public NPC getNpc() {
         return npc;
@@ -66,6 +63,7 @@ public abstract class AI implements Tickable{
     protected void returnHome() {
         //TODO: Add some pathfinding if time.
         if (movementTimer.isDone()) {
+            movementTimer.reset();
             Position initalPosition = npc.getInitialPosition();
             Position currentPosition = npc.getCurrentPosition();
             int dx = initalPosition.x - currentPosition.x;
@@ -86,5 +84,9 @@ public abstract class AI implements Tickable{
 
     protected void onDeath() {
         stage.removeAI(this);
+    }
+
+    protected void tickTimers() {
+        movementTimer.tick();
     }
 }
