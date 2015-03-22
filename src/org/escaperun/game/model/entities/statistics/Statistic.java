@@ -2,15 +2,20 @@ package org.escaperun.game.model.entities.statistics;
 
 import java.util.ArrayList;
 
-public abstract class Statistic {
+public abstract class Statistic<T extends Number> {
 
     private ArrayList<Statistic> subscribers = new ArrayList<Statistic>();
+
+    public Statistic(T type) {
+        if (type == null) throw new IllegalArgumentException("type must not be null");
+        isInteger = type instanceof Integer;
+    }
 
     public void subscribe(Statistic stat) {
         subscribers.add(stat);
     }
 
-    public void setBase(Double to) {
+    public void setBase(T to) {
         setBase_internal(to);
         for (Statistic subscriber : subscribers) {
             subscriber.notifyChange();
@@ -21,7 +26,8 @@ public abstract class Statistic {
     // it basically tells a statistic that it must be updated
     public abstract void notifyChange();
 
-    protected abstract void setBase_internal(Double to);
-    public abstract Double getBase();
-    public abstract Double getCurrent();
+    protected abstract void setBase_internal(T to);
+    public abstract T getBase();
+    public abstract T getCurrent();
+    protected boolean isInteger;
 }

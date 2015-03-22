@@ -101,13 +101,14 @@ public class Inventory extends GameState {
             moveTimer.reset();
         }
     }
-    static int cntr = 0;
+    
     private void handleAction(KeyBindings bindings, boolean[] pressed) {
         boolean enter = pressed[bindings.getBinding(KeyType.ACTION)];
 
         if (enter) {
             pressed[bindings.getBinding(KeyType.ACTION)] = false;
-            Logger.getInstance().pushMessage("Pressed action! " + cntr++);
+
+            return;
         }
     }
 

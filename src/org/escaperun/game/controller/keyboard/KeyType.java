@@ -21,7 +21,8 @@ public enum KeyType {
     DOWNRIGHT(KeyEvent.VK_C),
 
     //Hotkeys
-    HOTKEY1(KeyEvent.VK_X);
+    HOTKEY1(KeyEvent.VK_X),
+    INTERACT(KeyEvent.VK_SPACE);
 
     KeyType(int defaultKeycode) {
         this.defaultKeycode = defaultKeycode;

@@ -1,9 +1,10 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class LivesLeft extends PrimaryStatistic{
+public class LivesLeft extends PrimaryStatistic<Integer> {
 
     public LivesLeft(){
-        setBase(5.0);
+        super(0);
+        setBase(5);
     }
 
 }

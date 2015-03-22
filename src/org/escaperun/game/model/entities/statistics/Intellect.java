@@ -1,7 +1,9 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class Intellect extends PrimaryStatistic{
+public class Intellect extends PrimaryStatistic<Integer> {
     public Intellect(){
-        setBase(5.0);
+
+        super(0); // dummy
+        setBase(5);
     }
 }

@@ -1,7 +1,7 @@
 package org.escaperun.game.model.entities.statistics;
 
 
-public class Life extends DerivedStatistic{
+public class Life extends DerivedStatistic<Integer> {
 
     //this class would probably be more aptly described by the term
     //"Health"
@@ -10,11 +10,12 @@ public class Life extends DerivedStatistic{
 
     private Level lvl;
     private Hardiness hard;
-    private Double life;
-    private Double maxLife;
+    private Integer life;
+    private Integer maxLife;
     private Double minLife = 0.0;
 
     public Life(Level level, Hardiness hardiness) {
+        super(0);
         lvl = level;
         hard = hardiness;
         recalculate();
@@ -30,26 +31,26 @@ public class Life extends DerivedStatistic{
     @Override
     protected void recalculate() {
         //made this up right here on the spot
-        maxLife = (double) (lvl.getCurrent() * 2) + (3 * hard.getCurrent());
+        maxLife = (int) ((lvl.getCurrent() * 2) + (3 * hard.getCurrent()));
     }
 
     @Override
-    public Double getBase() {
-        return life;
+    public Integer getBase() {
+        return maxLife;
     }
 
     @Override
-    public Double getCurrent() {
+    public Integer getCurrent() {
         return life;
     }
 
     //Entity is going to have to call this when it takes damage
     //Entity is responsible for deciding when it is dead
-    public void takeDamage(long damageTaken) {
+    public void takeDamage(int damageTaken) {
         life -= damageTaken;
     }
 
-    public void healDamage(long damageHealed) {
+    public void healDamage(int damageHealed) {
         //this could be used to go over the max life.
         //to simply restore full health, use refillLife.
         life += damageHealed;

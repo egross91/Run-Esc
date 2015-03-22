@@ -6,8 +6,18 @@ import org.escaperun.game.view.GameWindow;
 
 public class RunGame implements Runnable {
 
+    private static class Type<T extends Number> {
+
+        public void print() {
+            T type = null;
+            System.out.println(type instanceof Integer);
+            System.out.println(type instanceof Double);
+        }
+    }
+
     public static void main(String[] args) {
         RunGame rg = new RunGame();
+        new Type<Double>().print();
         rg.run();
     }
 

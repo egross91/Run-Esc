@@ -1,8 +1,9 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class Strength extends PrimaryStatistic{
+public class Strength extends PrimaryStatistic<Integer>{
     public Strength(){
-        setBase(5.0);
+        super(0);
+        setBase(5);
     }
 
 }

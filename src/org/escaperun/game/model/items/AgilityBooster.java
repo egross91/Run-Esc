@@ -8,6 +8,6 @@ public class AgilityBooster extends OneShotItem {
 
     @Override
     public void doAction(Entity e){
-        //TODO
+        e.getStatContainer().getAgility().addDelta(1.0);
     }
 }

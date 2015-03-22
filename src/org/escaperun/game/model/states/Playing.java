@@ -44,6 +44,7 @@ public class Playing extends GameState {
         boolean downleft = pressed[bindings.getBinding(KeyType.DOWNLEFT)];
         boolean downright = pressed[bindings.getBinding(KeyType.DOWNRIGHT)];
         boolean hotKey1 = pressed[bindings.getBinding(KeyType.HOTKEY1)];
+        boolean interact = pressed[bindings.getBinding(KeyType.INTERACT)];
 
         int moveX = 0;
         int moveY = 0;
@@ -70,6 +71,11 @@ public class Playing extends GameState {
 
         if(hotKey1){
             stage.skillCast();
+        }
+
+        if(interact){
+            pressed[bindings.getBinding(KeyType.INTERACT)] = false;
+            stage.getEntityextToAvatarsFacingDirection().talk();
         }
 
         moveX = clamp(moveX, -1, 1); // clamp so we dont move extra
