@@ -3,12 +3,12 @@ package org.escaperun.game.model.entities.skills;
 import javafx.geometry.Pos;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.view.Decal;
 import java.util.ArrayList;
 
 public abstract class Projectile extends ActiveSkill {
 
-    protected int movementTick;       // compared to array to select distance of affected spaces.
     protected int skillDistance;      // how far will the projectile travel max of 5 atm.
     protected Direction dir;                //change to use Direction
     protected int slopeX;
@@ -18,12 +18,14 @@ public abstract class Projectile extends ActiveSkill {
     protected ArrayList<Position> affectedArea;        //holds positions of where the skill should "is"
     protected ArrayList<Position> displayArea;
     protected Decal decal;
+    protected Timer moveTimer;
+    protected Timer moveAmount = new Timer(0);
 
-    public Projectile(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start){
+    public Projectile(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int movesPerTick){
         super(ofp, dfp, skillLevel);
-        this.movementTick = 0;
         this.skillDistance = sd;
-
+        this.moveTimer = new Timer(movesPerTick);
+        this.moveAmount = new Timer(sd);
         this.dir = dir;
         this.setSlope(this.dir);
 
@@ -38,34 +40,18 @@ public abstract class Projectile extends ActiveSkill {
         this.slopeY = dir.getDelta().y;
     }
 
-    public void upDateTick(){
-        movementTick++;
-    }
-
-    public boolean isDone() {
-        return movementTick >= skillDistance;
-    }
+    public boolean isDone() {return moveAmount.isDone();}
 
     public void tick(){
-        if(movementTick == skillDistance){
-            //return false;
-        }
-        else {
-                Position newp = new Position(this.currentPos.x + this.slopeX, this.currentPos.y + this.slopeY);
-                this.currentPos = newp;
-                this.affectedArea.clear();
-                this.affectedArea.add(newp);
-
-                this.upDateTick();
-        }
-    }
-
-    public int getSlopeX(){
-        return slopeX;
-    }
-
-    public int getSlopeY(){
-        return slopeY;
+        if (moveAmount.isDone()) return;
+        moveTimer.tick();
+        if (!moveTimer.isDone()) return;
+        moveAmount.tick();
+        Position newp = new Position(this.currentPos.x + this.slopeX, this.currentPos.y + this.slopeY);
+        this.currentPos = newp;
+        this.affectedArea.clear();
+        this.affectedArea.add(newp);
+        moveTimer.reset();
     }
 
     public ArrayList<Position> getAffectedArea(){
@@ -76,13 +62,7 @@ public abstract class Projectile extends ActiveSkill {
         this.decal = d;
     }
 
-    public int getMovementTick(){
-        return movementTick;
-    }
-
     public Decal[][] getRenderable(){
         return new Decal[][] {{this.decal}};
     }
-
-    public ArrayList<Position> getDisplayArea(){return this.displayArea;}
 }

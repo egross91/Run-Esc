@@ -38,22 +38,24 @@ public abstract class ProjectileQuadrantEffect extends Projectile {
 
     private Position arrayPos;
 
-    public ProjectileQuadrantEffect(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start) {
-        super(ofp, dfp, skillLevel, sd, dir, start);
+    public ProjectileQuadrantEffect(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int movesPerTick) {
+        super(ofp, dfp, skillLevel, sd, dir, start, movesPerTick);
         this.arrayPos = new Position(11,11);
     }
 
-    public boolean isDone() {
-        return movementTick >= skillDistance;
-    }
-
     public void tick(){
+        if (moveAmount.isDone()) return;
+        moveTimer.tick();
+        if (!moveTimer.isDone()) return;
+        moveTimer.reset();
+
+
         // for the code written: Assumed that (0,0) on game board is in top left. x increase to right. y increases downward.
         // for the AoEPaths[][]: i selects row, j selects col. i-> y on board & j -> x on board
 
         Position newp = new Position(this.currentPos.x + this.slopeX, this.currentPos.y + this.slopeY);
         Position newArrayp = new Position(this.arrayPos.x + this.slopeX, this.arrayPos.y + this.slopeY);
-        if (this.movementTick == 0){        // accounts for first space.
+        if (moveAmount.getTicksSince() == 0){        // accounts for first space.
             this.affectedArea.add(newp);
             this.currentPos = newp;
             this.arrayPos = newArrayp;
@@ -62,11 +64,11 @@ public abstract class ProjectileQuadrantEffect extends Projectile {
             this.affectedArea = new ArrayList<Position>();
             this.arrayPos = newArrayp;
             this.currentPos = newp;
-            for(int i = arrayPos.y- movementTick;i <= arrayPos.y+ movementTick; i++){
+            for(int i = arrayPos.y- moveAmount.getTicksSince(); i <= arrayPos.y+moveAmount.getTicksSince(); i++){
                 if(i >= 0 && i < 21) {
-                    for (int j = arrayPos.x - movementTick; j <= arrayPos.x + movementTick; j++) {
+                    for (int j = arrayPos.x - moveAmount.getTicksSince(); j <= arrayPos.x + moveAmount.getTicksSince(); j++) {
                         if (j >= 0 && j < 21) {
-                            if((AoEPaths[i][j] == (movementTick + 1)) && ((Math.abs(i - arrayPos.y) + Math.abs(j - arrayPos.x)) <= movementTick)){
+                            if((AoEPaths[i][j] == (moveAmount.getTicksSince() + 1)) && ((Math.abs(i - arrayPos.y) + Math.abs(j - arrayPos.x)) <= moveAmount.getTicksSince())){
                                 this.affectedArea.add(getNewPoint(j, i, arrayPos));
                             }
                         }
@@ -74,7 +76,8 @@ public abstract class ProjectileQuadrantEffect extends Projectile {
                 }
             }
         }
-        this.upDateTick();
+
+        moveAmount.tick();
     }
 
     private Position getNewPoint(int x, int y, Position p){
