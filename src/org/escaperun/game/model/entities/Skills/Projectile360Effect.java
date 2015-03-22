@@ -2,6 +2,7 @@ package org.escaperun.game.model.entities.skills;
 
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.view.Decal;
 
@@ -36,8 +37,8 @@ public abstract class Projectile360Effect extends Projectile {
 
     Position arrayPos;
 
-    public Projectile360Effect(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int ticksPerMove) {
-        super(ofp, dfp, skillLevel, sd, dir, start, ticksPerMove);
+    public Projectile360Effect(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick) {
+        super(ofp, dfp, skillLevel, skillOwner, sd, dir, start, movesPerTick);
         this.arrayPos = new Position(11,11);
         //System.out.println("initial X" + this.initialPos.x + "initial Y" + this.initialPos.y);
 

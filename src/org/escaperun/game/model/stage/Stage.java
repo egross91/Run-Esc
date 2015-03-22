@@ -116,7 +116,8 @@ public class Stage implements Renderable, Tickable {
         for(Entity e: entities){
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (e.getCurrentPosition().x == p.getAffectedArea().get(q).x && e.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
-                    System.out.println("OUCH MAFACKA");
+                    System.out.println("BOOOOOM!");
+                   // p.generateSuccess(p.getOwner(),)
                     return true;
                 }
             }

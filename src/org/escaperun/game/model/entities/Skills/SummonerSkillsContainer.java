@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities.skills;
 
+import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.skills.summoner.Bane;
 import org.escaperun.game.model.entities.skills.summoner.Boon;
 import org.escaperun.game.model.entities.skills.summoner.Enchant;
@@ -15,8 +16,8 @@ public class SummonerSkillsContainer extends SkillsContainer {
     Bane bane;
     StaffWeapon staff;
 
-    public SummonerSkillsContainer(){
-        super();
+    public SummonerSkillsContainer(Entity skillOwner){
+        super(skillOwner);
         enchant = new Enchant();
         boon = new Boon();
         //need to talk about what is being added
