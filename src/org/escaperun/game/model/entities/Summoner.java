@@ -65,7 +65,7 @@ public class Summoner extends Avatar {
 
     @Override
     public void visit(StaffWeapon sw) {
-        equipWeaponItem(sw);
+        equipItem(sw);
     }
 
     //change to possibly ActiveSkill

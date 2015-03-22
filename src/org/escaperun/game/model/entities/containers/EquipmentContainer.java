@@ -17,18 +17,14 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
         return swapItem(toEquip.getEquipmentSlot(), toEquip);
     }
 
-    public T unequipArmor(int slot) {
+    public T unequipItem(int slot) {
         return swapItem(slot, null);
     }
 
     private T swapItem(int slot, T toEquip) {
         T ret = get(slot);
-        set(slot, toEquip);
+        add(slot, toEquip);
 
         return ret;
-    }
-
-    private void set(int slot, T toEquip) {
-        getItems().set(slot, toEquip);
     }
 }

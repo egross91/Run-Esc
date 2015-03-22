@@ -5,4 +5,4 @@ out/
 META-INF/
 **/.idea/tasks.xml
 **/*.iws
-**/misc.xml
+**/.idea/misc.xml
