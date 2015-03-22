@@ -34,7 +34,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         direction = Direction.EAST;
         inventory = new ItemContainer<TakeableItem>();
         equipment = new EquipmentContainer<EquipableItem>();
-        statContainer = new StatisticContainer();
+//        statContainer = new StatisticContainer();
     }
 
     @Override

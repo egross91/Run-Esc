@@ -20,14 +20,16 @@ public class Inventory extends GameState {
     private EquipmentContainer equipmentContainer;
     private ItemContainer itemContainer;
     private Timer moveTimer = new Timer(6);
+    private Pair displayInfo;
 
     private int selectedX = 0, selectedY= 0;
     private final int EQUIPMENT_ORIGIN_ROW = 8;
-    private final int EQUIPMENT_ORIGIN_COL = 36;
-    private final int MAX_COL = 48;
+    private final int EQUIPMENT_ORIGIN_COL = 34;
+    private final int EQUIPMENT_MAX_COL = 49;
     private final int INVENTORY_ORIGIN_ROW = 14;
     private final int INVENTORY_ORIGIN_COL = 36;
     private final int INVENTORY_MAX_ROW = 24;
+    private final int INVENTORY_MAX_COL = 48;
 
     public Inventory(Playing previous, Stage stage) {
         this.previous = previous;
@@ -67,31 +69,34 @@ public class Inventory extends GameState {
         moveTimer.tick();
 
         if (moveTimer.isDone()) {
-            if (moveX <= EQUIPMENT_ORIGIN_ROW || (moveX > EQUIPMENT_ORIGIN_ROW && moveX < INVENTORY_ORIGIN_ROW && (selectedX - moveX) > 0)) {
-                moveX = EQUIPMENT_ORIGIN_ROW;
-
-                if (moveY <= EQUIPMENT_ORIGIN_COL) {
-                    moveY = EQUIPMENT_ORIGIN_COL;
-                } else if (moveY >= MAX_COL) {
-                    moveY = MAX_COL;
-                }
-            } else {
-                if (moveX < INVENTORY_ORIGIN_ROW && (selectedX - moveX) < 0) {
-                    moveX = INVENTORY_ORIGIN_ROW;
-                }
-                if (moveX > INVENTORY_MAX_ROW) {
-                    moveX = INVENTORY_MAX_ROW;
-                }
-
-                if (moveY > MAX_COL) {
-                    moveY = MAX_COL;
-                } else if (moveY < INVENTORY_ORIGIN_COL) {
-                    moveY = INVENTORY_ORIGIN_COL;
-                }
+            if (moveX > EQUIPMENT_ORIGIN_ROW && moveX < INVENTORY_ORIGIN_ROW && (selectedX - moveX) > 0) {
+                setSelectedEquipmentOrigin();
+            } else if (moveX < INVENTORY_ORIGIN_ROW && moveX > EQUIPMENT_ORIGIN_ROW && (selectedX - moveX) < 0) {
+                setSelectedInventoryOrigin();
             }
+            else {
+                 if (moveX <= EQUIPMENT_ORIGIN_ROW) {
+                    moveX = EQUIPMENT_ORIGIN_ROW;
 
-            selectedX = moveX;
-            selectedY = moveY;
+                    if (moveY <= EQUIPMENT_ORIGIN_COL) {
+                        moveY = EQUIPMENT_ORIGIN_COL;
+                    } else if (moveY >= EQUIPMENT_MAX_COL) {
+                        moveY = EQUIPMENT_MAX_COL;
+                    }
+                } else {
+                    if (moveX > INVENTORY_MAX_ROW) {
+                        moveX = INVENTORY_MAX_ROW;
+                    }
+                    if (moveY > INVENTORY_MAX_COL) {
+                        moveY = INVENTORY_MAX_COL;
+                    } else if (moveY < INVENTORY_ORIGIN_COL) {
+                        moveY = INVENTORY_ORIGIN_COL;
+                    }
+                }
+
+                selectedX = moveX;
+                selectedY = moveY;
+            }
 
             moveTimer.reset();
         }
@@ -130,6 +135,8 @@ public class Inventory extends GameState {
         int numCols = itemContainer.getCapacity() / 6;
         renderContainer(window, itemContainer, INVENTORY, startRow, numRows, numCols);
 
+//        renderDisplayItem();
+
         Decal[][] log = LoggerOption.getInstance().getRenderable(false);
 
         for (int i = 0; i < log.length; i++) {
@@ -166,6 +173,8 @@ public class Inventory extends GameState {
                 // Render red if it is the selected item.
                 if (startRow == selectedX && startColumn+LEFT_MARGIN == selectedY) {
                     render = new Decal(render.ch, render.background, Color.RED);
+                    displayInfo = null;
+                    displayInfo = new Pair(itemIndex-1, container);
                 }
 
                 window[startRow][startColumn+LEFT_MARGIN] = render;
@@ -184,5 +193,15 @@ public class Inventory extends GameState {
     private void setSelectedInventoryOrigin() {
         this.selectedX = INVENTORY_ORIGIN_ROW;
         this.selectedY = INVENTORY_ORIGIN_COL;
+    }
+
+    private class Pair {
+        public final int index;
+        public final ItemContainer container;
+
+        public Pair(int index, ItemContainer container) {
+            this.index = index;
+            this.container = container;
+        }
     }
 }
