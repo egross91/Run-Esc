@@ -2,8 +2,6 @@ package org.escaperun.game.model.entities.containers;
 
 import org.escaperun.game.model.items.equipment.EquipableItem;
 
-import java.util.List;
-
 public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T> {
     private static final int MAX_EQUIPMENT_SLOTS = 6;
 
@@ -24,9 +22,13 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
     }
 
     private T swapItem(int slot, T toEquip) {
-        T ret = remove(slot);
-        add(slot, toEquip);
+        T ret = get(slot);
+        set(slot, toEquip);
 
         return ret;
+    }
+
+    private void set(int slot, T toEquip) {
+        getItems().set(slot, toEquip);
     }
 }

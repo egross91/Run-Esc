@@ -2,6 +2,7 @@ package org.escaperun.game.model.items.equipment;
 
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.entities.statistics.StatisticContainer;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.view.Decal;
 
@@ -23,6 +24,11 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
 
     public EquipableItem(Decal decal, EquipmentSlot slot) {
         super(decal);
+        this.equipmentSlot = slot;
+    }
+
+    public EquipableItem(Decal decal, EquipmentSlot slot, StatisticContainer stats) {
+        super(decal, stats);
         this.equipmentSlot = slot;
     }
 

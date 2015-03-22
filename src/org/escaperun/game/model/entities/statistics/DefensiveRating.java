@@ -27,4 +27,9 @@ public class DefensiveRating extends DerivedStatistic<Double> {
     public Double getCurrent() {
         return defensiveRating;
     }
+
+    @Override
+    public String getName() {
+        return "Def. Rating";
+    }
 }

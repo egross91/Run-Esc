@@ -27,4 +27,9 @@ public class Level extends DerivedStatistic<Integer> {
     public Integer getCurrent() {
         return level;
     }
+
+    @Override
+    public String getName() {
+        return "Level";
+    }
 }

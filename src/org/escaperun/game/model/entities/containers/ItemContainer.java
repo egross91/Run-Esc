@@ -1,10 +1,8 @@
 package org.escaperun.game.model.entities.containers;
 
-import org.escaperun.game.model.items.Item;
 import org.escaperun.game.model.items.TakeableItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ItemContainer<T extends TakeableItem> {
 
@@ -18,6 +16,9 @@ public class ItemContainer<T extends TakeableItem> {
     public ItemContainer(int capacity) {
         this.MAX_CAPACITY = capacity;
         this.items = new ArrayList<T>(MAX_CAPACITY);
+        for (int i = 0; i < MAX_CAPACITY; ++i) {
+            items.add(null);
+        }
     }
 
     public int getCapacity() {
@@ -34,12 +35,8 @@ public class ItemContainer<T extends TakeableItem> {
 
     public void add(int index, T item) {
         if (!isFull() && indexOk(index)) {
-            items.add(index, item);
+            items.set(index, item);
         }
-    }
-
-    public T remove(int index) {
-        return items.remove(index);
     }
 
     public T get(int index) {

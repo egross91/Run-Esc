@@ -9,6 +9,7 @@ public abstract class TakeableItem extends TouchableItem {
 
     public TakeableItem(Decal decal) {
         super(decal);
+        this.statistics = new StatisticContainer();
     }
 
     public TakeableItem(Decal decal, StatisticContainer stats) {

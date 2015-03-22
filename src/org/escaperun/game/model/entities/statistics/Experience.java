@@ -19,4 +19,8 @@ public class Experience extends PrimaryStatistic<Integer> {
         return maxExp;
     }
 
+    @Override
+    public String getName() {
+        return "Experience";
+    }
 }

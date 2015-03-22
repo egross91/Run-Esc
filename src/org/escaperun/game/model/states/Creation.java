@@ -9,6 +9,7 @@ import org.escaperun.game.model.entities.Summoner;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
 import org.escaperun.game.model.entities.npc.ai.MeleeAI;
+import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
 import org.escaperun.game.model.options.SelectableOption;
@@ -26,6 +27,7 @@ public class Creation extends GameState {
                 {new SelectableOption("SMASHER"){
                     public GameState getNextState() {
                         Stage stage = setupStage(new Smasher(new Position(0, 0)));
+                        stage.getAvatar().visit(new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction."));
 
                         return new Playing(stage);
                     }

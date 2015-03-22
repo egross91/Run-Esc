@@ -7,4 +7,8 @@ public class Hardiness extends PrimaryStatistic<Integer> {
         setBase(5);
     }
 
+    @Override
+    public String getName() {
+        return "Hardiness";
+    }
 }

@@ -5,4 +5,9 @@ public class Agility extends PrimaryStatistic<Double> {
         super(0.0); // dummy
         setBase(5.0);
     }
+
+    @Override
+    public String getName() {
+        return "Agility";
+    }
 }

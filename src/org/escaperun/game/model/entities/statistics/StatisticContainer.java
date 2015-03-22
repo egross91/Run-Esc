@@ -1,6 +1,11 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class StatisticContainer {
+import org.escaperun.game.view.Decal;
+import org.escaperun.game.view.Renderable;
+
+import java.awt.*;
+
+public class StatisticContainer implements Renderable {
 
     private Strength strength;
     private Agility agility;
@@ -90,5 +95,37 @@ public class StatisticContainer {
     }
     public void setArmorValue(double armorValue) {
         armorRating.setArmorValue(armorValue);
+    }
+
+    @Override
+    public Decal[][] getRenderable() {
+        Decal[][] renderables = new Decal[12][];
+        renderables[0] = renderize(getStrength());
+        renderables[1] = renderize(getAgility());
+        renderables[2] = renderize(getHardiness());
+        renderables[3] = renderize(getIntellect());
+        renderables[4] = renderize(getMovement());
+        renderables[5] = renderize(getExperience());
+        renderables[6] = renderize(getLivesLeft());
+        renderables[7] = renderize(getLevel());
+        renderables[8] = renderize(getLife());
+        renderables[9] = renderize(getMana());
+        renderables[10] = renderize(getOffensiveRating());
+        renderables[11] = renderize(getDefensiveRating());
+
+        return renderables;
+    }
+
+    private Decal[] renderize(Statistic stat) {
+        String name = stat.getName() + ": ";
+        String diff = stat.getCurrent().toString() + "/" + stat.getBase().toString();
+        String display = name + diff;
+
+        Decal[] ret = new Decal[display.length()];
+        for (int i = 0; i < display.length(); ++i) {
+            ret[i] = new Decal(display.charAt(i), Color.BLACK, Color.WHITE);
+        }
+
+        return ret;
     }
 }

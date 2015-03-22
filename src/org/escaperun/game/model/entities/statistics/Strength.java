@@ -6,4 +6,8 @@ public class Strength extends PrimaryStatistic<Integer>{
         setBase(5);
     }
 
+    @Override
+    public String getName() {
+        return "Strength";
+    }
 }

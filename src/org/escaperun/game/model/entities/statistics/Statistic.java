@@ -30,4 +30,5 @@ public abstract class Statistic<T extends Number> {
     public abstract T getBase();
     public abstract T getCurrent();
     protected boolean isInteger;
+    public abstract String getName();
 }

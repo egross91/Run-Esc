@@ -61,4 +61,9 @@ public class Life extends DerivedStatistic<Integer> {
     public void refillLife() {
         life = maxLife;
     }
+
+    @Override
+    public String getName() {
+        return "Life";
+    }
 }

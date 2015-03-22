@@ -5,6 +5,7 @@ import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.entities.statistics.*;
 import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.options.LoggerOption;
@@ -107,7 +108,6 @@ public class Inventory extends GameState {
 
         if (enter) {
             pressed[bindings.getBinding(KeyType.ACTION)] = false;
-
             return;
         }
     }
@@ -115,6 +115,9 @@ public class Inventory extends GameState {
     public static final int SPACING = 2;
     public static final String EQUIPMENT = "EQUIPMENT";
     public static final String INVENTORY = "INVENTORY";
+    public static final String ITEM = "ITEM: ";
+    public static final String DESCRIPTION = "DESCRIPTION: ";
+    public static final String NO_ITEM = "NO ITEM";
     public static final int TOP_MARGIN = 6;
     public static final int BOTTOM_MARGIN = 13;
     public static final int LEFT_MARGIN = 5;
@@ -136,8 +139,10 @@ public class Inventory extends GameState {
         int numCols = itemContainer.getCapacity() / 6;
         renderContainer(window, itemContainer, INVENTORY, startRow, numRows, numCols);
 
-//        renderDisplayItem();
+        /* Draw Item Info */
+        renderDisplayItem(window, displayInfo, INVENTORY_MAX_ROW+4, LEFT_MARGIN);
 
+        /* Log */
         Decal[][] log = LoggerOption.getInstance().getRenderable(false);
 
         for (int i = 0; i < log.length; i++) {
@@ -183,6 +188,51 @@ public class Inventory extends GameState {
             }
 
             startRow += SPACING;
+        }
+    }
+
+    private void renderDisplayItem(Decal[][] window, Pair displayInfo, int startRow, int startCol) {
+        TakeableItem item = displayInfo.container.get(displayInfo.index);
+
+        if (item == null) {
+            String displayName = ITEM + NO_ITEM;
+            for (int i = 0; i < displayName.length(); ++i) {
+                window[startRow][startCol+i] = new Decal(displayName.charAt(i), Color.BLACK, Color.WHITE);
+            }
+        }
+        else {
+            String displayName = ITEM + item.getName();
+            for (int i = 0; i < displayName.length(); ++i) {
+                window[startRow][startCol+i] = new Decal(displayName.charAt(i), Color.BLACK, Color.WHITE);
+            }
+            ++startRow;
+
+            String displayDesc = DESCRIPTION + item.getDescription();
+            for (int i = 0; i < displayDesc.length(); ++i) {
+                window[startRow][startCol+i] = new Decal(displayDesc.charAt(i), Color.BLACK, Color.WHITE);
+            }
+            ++startRow;
+            window[startRow++][startCol] = Decal.BLANK;
+
+            Decal[][] stats = item.getStatistics().getRenderable();
+            int rows = 0;
+            int colsUsed = 0;
+            for (int i = 0; i < stats.length; ++i) {
+                for (int j = 0; j < stats[i].length; ++j) {
+                    window[startRow+rows][startCol+colsUsed++] = stats[i][j];
+                }
+
+                if (((i+1)%2 == 0) && i != 0) {
+                    ++rows;
+                    colsUsed = 0;
+                }
+                else {
+                    for (int j = stats[i].length; j < 30; ++j) {
+                        window[startRow+rows][startCol+j] = Decal.BLANK;
+                        ++colsUsed;
+                    }
+                }
+            }
         }
     }
 

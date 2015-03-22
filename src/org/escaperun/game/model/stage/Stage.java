@@ -198,6 +198,10 @@ public class Stage implements Renderable, Tickable {
         avatar.move(dir);
     }
 
+    public Avatar getAvatar() {
+        return this.avatar;
+    }
+
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
