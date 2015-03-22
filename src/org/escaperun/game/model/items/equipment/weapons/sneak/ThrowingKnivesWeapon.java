@@ -8,8 +8,22 @@ import org.escaperun.game.model.items.equipment.weapons.RangedWeapon;
 import org.escaperun.game.view.Decal;
 
 public class ThrowingKnivesWeapon extends RangedWeapon {
-    public ThrowingKnivesWeapon(Decal decal) {
+    public ThrowingKnivesWeapon(Decal decal, String name, String description) {
         super(decal);
+        this.name = name;
+        this.description = description;
+    }
+    private final String name;
+    private final String description;
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
     }
 
     @Override

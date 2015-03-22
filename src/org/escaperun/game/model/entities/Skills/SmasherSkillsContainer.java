@@ -15,9 +15,9 @@ public class SmasherSkillsContainer extends SkillsContainer {
 
     public SmasherSkillsContainer(){
         super();
-        ohw = new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE));
-        thw = new TwoHandedWeapon(new Decal('T', Color.BLACK, Color.BLUE));
-        fist = new FistWeapon(new Decal('F', Color.BLACK, Color.BLUE));
+        ohw = new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction.");
+        thw = new TwoHandedWeapon(new Decal('T', Color.BLACK, Color.BLUE), "The Beheader", "Used by a fallen executioner.");
+        fist = new FistWeapon(new Decal('F', Color.BLACK, Color.BLUE), "Spiked Knuckles", "Gloves with nails pasted on them.");
     }
 
     public OneHandedWeapon getOneHandedWeapon(){

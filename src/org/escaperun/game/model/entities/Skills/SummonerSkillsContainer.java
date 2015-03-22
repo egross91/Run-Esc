@@ -21,7 +21,7 @@ public class SummonerSkillsContainer extends SkillsContainer {
         boon = new Boon();
         //need to talk about what is being added
         //bane = new Bane();
-        staff = new StaffWeapon(new Decal('S', Color.BLACK, Color.BLUE));
+        staff = new StaffWeapon(new Decal('S', Color.BLACK, Color.BLUE), "Aurora Staff", "Once used by a monk who became possessed by a Nine-Tailed Fox.");
     }
 
     public Enchant getEnchant(){
