@@ -32,37 +32,37 @@ public class Smasher extends Avatar{
 
     @Override
     public void visit(TwoHandedWeapon thw) {
-        equipWeaponItem(thw);
+        equipItem(thw);
     }
 
     @Override
     public void visit(OneHandedWeapon ohw) {
-        equipWeaponItem(ohw);
+        equipItem(ohw);
     }
 
     @Override
     public void visit(FistWeapon fw) {
-        equipWeaponItem(fw);
+        equipItem(fw);
     }
 
     @Override
     public void visit(BoomstickWeapon bsw) {
-        equipWeaponItem(bsw);
+        equipItem(bsw);
     }
 
     @Override
     public void visit(BowWeapon bw) {
-        equipWeaponItem(bw);
+        equipItem(bw);
     }
 
     @Override
     public void visit(ThrowingKnivesWeapon tkw) {
-        equipWeaponItem(tkw);
+        equipItem(tkw);
     }
 
     @Override
     public void visit(StaffWeapon sw) {
-        equipWeaponItem(sw);
+        equipItem(sw);
     }
 
     @Override

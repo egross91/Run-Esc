@@ -21,7 +21,7 @@ public class PrimaryStatistic<T extends Number> extends Statistic<T> {
     }
 
     public T getBase() {
-        if (isInteger) return (T) base;
+        if (isInteger) return (T)  (Integer) base.intValue();
         else return (T) base;
     }
 

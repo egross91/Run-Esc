@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities;
 
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.*;
 import org.escaperun.game.model.entities.skills.summoner.Bane;
@@ -34,37 +35,37 @@ public class Summoner extends Avatar {
 
     @Override
     public void visit(TwoHandedWeapon thw) {
-        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
+        Logger.getInstance().pushMessage("You cannot equip the "+thw.getName()+"! You cannot equip two-handed weapons!");
     }
 
     @Override
     public void visit(OneHandedWeapon ohw) {
-        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
+        Logger.getInstance().pushMessage("You cannot equip the "+ohw.getName()+"! You cannot equip one-handed weapons!");
     }
 
     @Override
     public void visit(FistWeapon fw) {
-        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
+        Logger.getInstance().pushMessage("You cannot equip the "+fw.getName()+"! You cannot equip fist weapons!");
     }
 
     @Override
     public void visit(BoomstickWeapon bsw) {
-        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
+        Logger.getInstance().pushMessage("You cannot equip the "+bsw.getName()+"! You cannot equip boomstick weapons!");
     }
 
     @Override
     public void visit(BowWeapon bw) {
-        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
+        Logger.getInstance().pushMessage("You cannot equip the "+bw.getName()+"! You cannot equip bow weapons!");
     }
 
     @Override
     public void visit(ThrowingKnivesWeapon tkw) {
-        //TODO: Implement message (when we have a Game Screen) stating that this class cannot use this type of weapon.
+        Logger.getInstance().pushMessage("You cannot equip the "+tkw.getName()+"! You cannot equip throwing-knife weapons!");
     }
 
     @Override
     public void visit(StaffWeapon sw) {
-        equipWeaponItem(sw);
+        equipItem(sw);
     }
 
     //change to possibly ActiveSkill
