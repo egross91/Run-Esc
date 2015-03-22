@@ -35,7 +35,7 @@ public class Life extends DerivedStatistic<Integer> {
     @Override
     protected void recalculate() {
         //made this up right here on the spot
-        maxLife = (int) (((lvl.getCurrent()) + (hard.getCurrent())));
+        maxLife = (int) (((2*lvl.getCurrent()) + (3*hard.getCurrent())));
     }
 
     @Override
