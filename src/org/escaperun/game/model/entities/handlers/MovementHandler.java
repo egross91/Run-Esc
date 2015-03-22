@@ -34,11 +34,14 @@ public class MovementHandler implements Tickable {
         int deltaX = 0;
         int deltaY = 0;
 
-        if (stage.isMoveable(new Position(currentPosition.x+dir.getDelta().x, currentPosition.y))) {
-            deltaX = dir.getDelta().x;
-        }
-        if (stage.isMoveable(new Position(currentPosition.x, currentPosition.y+dir.getDelta().y))) {
-            deltaY = dir.getDelta().y;
+
+        if (stage.isMoveable(new Position(currentPosition.x+dir.getDelta().x, currentPosition.y+dir.getDelta().y))) {
+            if (stage.isMoveable(new Position(currentPosition.x + dir.getDelta().x, currentPosition.y))) {
+                deltaX = dir.getDelta().x;
+            }
+            if (stage.isMoveable(new Position(currentPosition.x, currentPosition.y + dir.getDelta().y))) {
+                deltaY = dir.getDelta().y;
+            }
         }
 
         entity.setPosition(new Position(currentPosition.x+deltaX, currentPosition.y+deltaY));
