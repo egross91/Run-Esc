@@ -66,10 +66,12 @@ public class Creation extends GameState {
         Stage stage = new Stage();
         avatar.setMovementHandler(new MovementHandler(stage, avatar,8));
         stage.setAvatar(avatar);
-
+/*
         //DEBUG //TODO: REMOVE DEBUG CODE.
-        MeleeNPC npc = new MeleeNPC(new Decal((char)1, Color.BLACK, Color.RED), new Position(20,20),5);
+        MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(10,10),5);
+        npc.setMovementHandler(new MovementHandler(stage, npc));
         MeleeAI ai = new MeleeAI(stage, npc);
+        */
         return stage;
     }
 }

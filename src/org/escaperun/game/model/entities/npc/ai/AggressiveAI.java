@@ -15,7 +15,7 @@ public abstract class AggressiveAI extends AI {
     public AggressiveAI(Stage stage, AdversarialNPC npc) {
         super(stage, npc);
         hasSeenAvatar = false;
-        chaseDistance = 50; //picked arbitrarily
+        chaseDistance = 30; //picked arbitrarily
         spotAvatarTimer = new Timer(60*60*5); //5 seconds
     }
 
@@ -25,7 +25,7 @@ public abstract class AggressiveAI extends AI {
      */
     @Override
     public void tick(){
-        if (npc.isDead()) {
+        if (npc.isDead()) { //We could have a listener in entity instead.
             onDeath();
             return;
         }
@@ -51,19 +51,18 @@ public abstract class AggressiveAI extends AI {
         }
         else {
             if (distanceToAvatar < 10) { //TODO: Get spotting range from npc
-                if (spotAvatarTimer.isDone()) {
+               /* if (spotAvatarTimer.isDone()) {
                     spotAvatarTimer.reset();
                     //TODO: check if avatar is spotted.
                     hasSeenAvatar = true;
                 }
+                */
+                hasSeenAvatar = true;
             }
-            else {
-                //Did not see avatar
-                if (Position.calcuateDistance(initialPosition, currentPosition) > npc.getWanderRadius()) {
-                    returnHome();
-                } else
-                    wander();
-            }
+            if (Position.calcuateDistance(initialPosition, currentPosition) > npc.getWanderRadius()) {
+                returnHome();
+            } else
+                wander();
         }
     }
 

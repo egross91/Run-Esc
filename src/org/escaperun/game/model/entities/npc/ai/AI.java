@@ -3,7 +3,6 @@ package org.escaperun.game.model.entities.npc.ai;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
-import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.stage.Stage;
@@ -24,17 +23,9 @@ public abstract class AI implements Tickable{
     public AI(Stage stage, NPC npc) {
         this.stage = stage;
         this.npc = npc;
-        movementTimer = new Timer(npc.getMovementPoints());    //TODO: base movement timer off of npc's movement statstic
+        movementTimer = new Timer((int)(1000/npc.getMovementPoints()));
         stage.addAI(this);
     }
-
-    //TODO: Add a listener to entity for onDeath or checking health.
-
-
-
-    /** Stage runs AI association.
-     *  Currently must check if the npc is dead or not unless a on death listener is implemented.
-     */
 
     public NPC getNpc() {
         return npc;
@@ -45,6 +36,7 @@ public abstract class AI implements Tickable{
         Position current = npc.getCurrentPosition();
 
         if (!movementTimer.isDone())return;
+        movementTimer.reset();
 
         for (int attempt = 0; attempt < 4; ++attempt) {
             Direction d = possibleDeltas[random.nextInt(possibleDeltas.length)];
@@ -54,7 +46,7 @@ public abstract class AI implements Tickable{
             if (stage.isMoveable(candidate)) {
                 //Check if in wander distance
                 if (npc.getWanderRadius() > Position.calcuateDistance(current, candidate))
-                    npc.move(d);    //Movment timer in npc.
+                    npc.move(d);    //Movement timer in npc.
                 return;
             }
         }
@@ -68,22 +60,27 @@ public abstract class AI implements Tickable{
             Position currentPosition = npc.getCurrentPosition();
             int dx = initalPosition.x - currentPosition.x;
             int dy = initalPosition.y - currentPosition.y;
-            npc.move(Direction.fromDelta(dx, dy));
+            Direction dir = Direction.fromDelta(dx, dy);
+            if (dir != null)
+                npc.move(dir);
         }
     }
 
     protected void moveTowardAvatar() {
         if (movementTimer.isDone()){
+            movementTimer.reset();
             Position avatarPosition = stage.getAvatarPosition();
             Position currentPosition = npc.getCurrentPosition();
             int dx = avatarPosition.x - currentPosition.x;
             int dy = avatarPosition.y - currentPosition.y;
-            npc.move(Direction.fromDelta(dx, dy));
+            Direction dir = Direction.fromDelta(dx, dy);
+            if (dir != null)
+                npc.move(dir);
         }
     }
 
     protected void onDeath() {
-        stage.removeAI(this);
+        stage.aiToRemove(this);
     }
 
     protected void tickTimers() {
