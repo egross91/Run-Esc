@@ -8,10 +8,23 @@ import org.escaperun.game.model.items.equipment.weapons.MeleeWeapon;
 import org.escaperun.game.view.Decal;
 
 public class FistWeapon extends MeleeWeapon {
-    public FistWeapon(Decal decal) {
+    public FistWeapon(Decal decal, String name, String description) {
         super(decal);
+        this.name = name;
+        this.description = description;
+    }
+    private final String name;
+    private final String description;
+
+    @Override
+    public String getName() {
+        return name;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
     @Override
     public void doAction(Entity e) {
 

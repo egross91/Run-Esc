@@ -8,13 +8,22 @@ import org.escaperun.game.model.items.equipment.weapons.RangedWeapon;
 import org.escaperun.game.view.Decal;
 
 public class BoomstickWeapon extends RangedWeapon {
-    public BoomstickWeapon(Decal decal) {
+    public BoomstickWeapon(Decal decal, String name, String description) {
         super(decal);
+        this.name = name;
+        this.description = description;
+    }
+    private final String name;
+    private final String description;
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
-    public void doAction(Entity e) {
-
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -25,5 +34,10 @@ public class BoomstickWeapon extends RangedWeapon {
     @Override
     public void accept(WeaponVisitor weaponVisitor) {
         weaponVisitor.visit(this);
+    }
+
+    @Override
+    public void doAction(Entity e) {
+
     }
 }

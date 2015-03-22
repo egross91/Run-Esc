@@ -11,7 +11,7 @@ import org.escaperun.game.view.Decal;
 
 import java.awt.*;
 
-public class Bane extends Projectile {
+public class Bane extends Projectile360Effect {
 
     public Bane(int ofp, int dfp, int sd, Direction dir, Position start){
         super(ofp,dfp,sd,dir,start);

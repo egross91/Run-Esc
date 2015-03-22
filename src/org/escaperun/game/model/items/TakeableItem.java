@@ -9,13 +9,9 @@ public abstract class TakeableItem extends TouchableItem {
         super(decal);
     }
 
-    public String getName() {
-        return "{abstract} Takeable Item";
-    }
+    public abstract String getName();
 
-    public String getDescription() {
-        return "Generic item description.";
-    }
+    public abstract String getDescription();
 
     @Override
     public boolean isCollidable() {
