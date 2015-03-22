@@ -4,28 +4,19 @@ public class DefensiveRating extends DerivedStatistic<Double> {
 
     Agility agile;
     Level lvl;
-    Double defensiveRating;
 
     public DefensiveRating(Agility agility, Level level) {
         super(0.0); // dummy
         agile = agility;
+        agile.subscribe(this);
         lvl = level;
+        lvl.subscribe(this);
         recalculate();
     }
 
     @Override
     protected void recalculate() {
-        defensiveRating = (double) (3*agile.getCurrent() + 2*lvl.getCurrent());
-    }
-
-    @Override
-    public Double getBase() {
-        return defensiveRating;
-    }
-
-    @Override
-    public Double getCurrent() {
-        return defensiveRating;
+        setBase_internal((double) (3*agile.getCurrent() + 2*lvl.getCurrent()));
     }
 
     @Override

@@ -4,16 +4,17 @@ public class Mana extends DerivedStatistic<Integer> {
 
    private Level lvl;
    private Intellect intel;
-   private Integer mana;
    private Integer maxMana;
-   private Double minMana = 0.0;
+   private Integer minMana = 0;
 
     public Mana(Level level, Intellect intellect) {
         super(0);
         lvl = level;
+        lvl.subscribe(this);
         intel = intellect;
+        intel.subscribe(this);
         recalculate();
-        mana = maxMana;
+        setBase_internal(maxMana);
     }
 
     @Override
@@ -23,24 +24,21 @@ public class Mana extends DerivedStatistic<Integer> {
 
     @Override
     public Integer getBase() {
-        return mana;
-    }
-
-    @Override
-    public Integer getCurrent() {
-        return mana;
+        return maxMana;
     }
 
     public void reduceMana(Integer amountReduced) {
-        mana -= amountReduced;
+        int currentMana = getCurrent();
+        setBase_internal(currentMana - amountReduced);
     }
 
     public void restoreMana(Integer amountRestored) {
-        mana += amountRestored;
+        int currentMana = getCurrent();
+        setBase_internal(currentMana + amountRestored);
     }
 
     public void refillMana() {
-        mana = maxMana;
+        setBase_internal(maxMana);
     }
 
     @Override

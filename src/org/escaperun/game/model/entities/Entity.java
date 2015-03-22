@@ -55,13 +55,14 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     public void takeItem(TakeableItem item) {
         inventory.add(item);
-        Logger.getInstance().pushMessage("Put the "+ item.getName() + " into inventory.");
+        Logger.getInstance().pushMessage("Put the " + item.getName() + " into inventory.");
     }
 
     protected EquipableItem equipWeaponItem(WeaponItem weaponItem) {
         EquipableItem equippedItem = equipment.equipItem(weaponItem);
-        // THIS BREAKS EVERYTHING WHEN EQUIPPING AN ITEM.
-//        statContainer.setWeaponDamage(equippedItem.getStatistics().getOffensiveRating().getCurrent());
+
+        EquipableItem weapon = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.WEAPON.getSlot());
+        statContainer.setWeaponDamage(weapon.getStatistics().getOffensiveRating().getCurrent());
         return equippedItem;
     }
 
