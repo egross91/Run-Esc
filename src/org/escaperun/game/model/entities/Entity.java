@@ -10,7 +10,6 @@ import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.entities.statistics.StatisticContainer;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.Equipable;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
@@ -61,7 +60,8 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     protected EquipableItem equipWeaponItem(WeaponItem weaponItem) {
         EquipableItem equippedItem = equipment.equipItem(weaponItem);
-        statContainer.setWeaponDamage(equippedItem.getStatistics().getOffensiveRating().getCurrent());
+        // THIS BREAKS EVERYTHING WHEN EQUIPPING AN ITEM.
+//        statContainer.setWeaponDamage(equippedItem.getStatistics().getOffensiveRating().getCurrent());
         return equippedItem;
     }
 
@@ -129,4 +129,16 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     }
 
     public abstract void talk();
+
+    public boolean isDead() {   //TODO: would be nice to get rid of this method and replace with a eventlistener.
+        return (statContainer.getLivesLeft().getBase() <= 0);
+    }
+
+    public double getMovementPoints() {
+        return statContainer.getMovement().getBase();
+    }
+
+    protected void setStatContainer(StatisticContainer statContainer) {
+        this.statContainer = statContainer;
+    }
 }

@@ -7,8 +7,8 @@ import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.view.Decal;
 
 public class Observe extends Projectile360Effect {
-    public Observe(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start) {
-        super(ofp, dfp, skillLevel, sd, dir, start);
+    public Observe(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int movesPerTick) {
+        super(ofp, dfp, skillLevel, sd, dir, start, movesPerTick);
     }
 
 

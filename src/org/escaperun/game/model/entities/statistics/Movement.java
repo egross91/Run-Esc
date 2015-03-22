@@ -6,4 +6,8 @@ public class Movement extends PrimaryStatistic<Integer> {
         setBase(1000);
     }
 
+    @Override
+    public String getName() {
+        return "Movement";
+    }
 }

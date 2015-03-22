@@ -26,4 +26,9 @@ public class ArmorRating extends DerivedStatistic<Double> {
         this.armorValue = armorValue;
         recalculate();
     }
+
+    @Override
+    public String getName() {
+        return "ArmorRating";
+    }
 }

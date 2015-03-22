@@ -40,4 +40,9 @@ public class Mana extends DerivedStatistic<Integer> {
     public void refillMana() {
         setBase_internal(maxMana);
     }
+
+    @Override
+    public String getName() {
+        return "Mana";
+    }
 }

@@ -6,4 +6,9 @@ public class Intellect extends PrimaryStatistic<Integer> {
         super(0); // dummy
         setBase(5);
     }
+
+    @Override
+    public String getName() {
+        return "Intellect";
+    }
 }

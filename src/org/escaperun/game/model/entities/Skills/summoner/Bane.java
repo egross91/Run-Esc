@@ -15,8 +15,8 @@ import java.awt.*;
 
 public class Bane extends Projectile360Effect {
 
-    public Bane(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start){
-        super(ofp,dfp,skillLevel,sd,dir,start);
+    public Bane(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int movesPerTick){
+        super(ofp,dfp,skillLevel,sd,dir,start, movesPerTick);
         this.setDecal(new Decal('*', Color.black, Color.red));
     }
 

@@ -29,4 +29,9 @@ public class OffensiveRating extends DerivedStatistic<Double> {
         this.weaponDamage = weaponDamage;
         recalculate();
     }
+
+    @Override
+    public String getName() {
+        return "Off. Rating";
+    }
 }

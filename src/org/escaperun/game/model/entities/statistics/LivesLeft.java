@@ -7,4 +7,8 @@ public class LivesLeft extends PrimaryStatistic<Integer> {
         setBase(5);
     }
 
+    @Override
+    public String getName() {
+        return "LivesLeft";
+    }
 }

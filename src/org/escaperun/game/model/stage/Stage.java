@@ -1,6 +1,5 @@
 package org.escaperun.game.model.stage;
 
-import javafx.geometry.Pos;
 import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
@@ -9,7 +8,8 @@ import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
-import org.escaperun.game.model.entities.npc.NonHostileNPC;
+import org.escaperun.game.model.entities.npc.ai.AI;
+import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
@@ -19,6 +19,7 @@ import org.escaperun.game.view.Renderable;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Stage implements Renderable, Tickable {
 
@@ -34,6 +35,8 @@ public class Stage implements Renderable, Tickable {
     // no point of putting them on a Tile.
     private Tile[][] grid;
     private int rows, columns;
+    private ArrayList<AI> ais;
+    protected Stack<AI> aiToDelete;
     private ArrayList<Entity> entities;
     private Avatar avatar;
 
@@ -48,6 +51,8 @@ public class Stage implements Renderable, Tickable {
         this.rows = rows;
         this.columns = cols;
         this.entities = new ArrayList<Entity>();
+        ais = new ArrayList<AI>();
+        aiToDelete = new Stack<AI>();
 
         //Skill Test
         projectiles = new ArrayList<Projectile>();
@@ -77,6 +82,14 @@ public class Stage implements Renderable, Tickable {
             if (p == null) continue;
             p.tick();
             checkCollision(p);
+        }
+        for (AI ai : ais) {
+            ai.tick();
+        }
+        while(!aiToDelete.isEmpty()) {
+            AI ai = aiToDelete.pop();
+            entities.remove(ai.getNpc());
+            ais.remove(ai);
         }
     }
 
@@ -185,6 +198,10 @@ public class Stage implements Renderable, Tickable {
         avatar.move(dir);
     }
 
+    public Avatar getAvatar() {
+        return this.avatar;
+    }
+
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
@@ -206,5 +223,18 @@ public class Stage implements Renderable, Tickable {
                 Logger.getInstance().pushMessage("There is no person to talk to.");
             }
         };
+    }
+
+    /** Should only be accessed by AI. And not while ticking.*/
+    public void addAI(AI ai) {
+        if (!ais.contains(ai)) {
+            entities.add(ai.getNpc());
+            ais.add(ai);
+        }
+    }
+
+    /** The AI and the associated npc will be removed on tick.*/
+    public void aiToRemove(AI ai) {
+        aiToDelete.push(ai);
     }
 }

@@ -1,8 +1,8 @@
-package org.escaperun.game.model.entities.npc;
-
+package org.escaperun.game.model.entities.npc.adversarial;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.Entity;
+import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
@@ -13,27 +13,25 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeap
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.view.Decal;
 
-public class NonHostileNPC extends NPC {
+public class AdversarialNPC extends NPC {
 
-    public NonHostileNPC(Decal decal, Position initialPosition, int wanderRadius) {
+    public AdversarialNPC(Decal decal, Position initialPosition, int wanderRadius) {
         super(decal, initialPosition, wanderRadius);
     }
 
     @Override
+    public void attack(Entity defender, Skill skill) {
+        // TODO: Add the SuccessSkillGenerator or what have you when we have you.
+    }
+
+    @Override
     public void enchant() {
-        //TODO: Write enchant() method to make Non-hostile NPC act a certain way if enchanted is successful.
-        //Maybe need to add in parameters
+        //TODO: Write enchant() method to make Adversarial NPC act a certain way if enchanted is successful.
     }
 
     @Override
     public String observe() {
-        return null;
-    }
-
-    @Override
-    public void attack(Entity defender, Skill skil) {
-        //TODO: Implement "running away attack" or something of that nature
-        // Put in the Behavior for running away.
+        return null; //TODO:
     }
 
     @Override

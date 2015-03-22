@@ -15,4 +15,9 @@ public class Level extends DerivedStatistic<Integer> {
     protected void recalculate() {
         setBase_internal((int) (experience.getCurrent().doubleValue() / 100.0));
     }
+
+    @Override
+    public String getName() {
+        return "Level";
+    }
 }

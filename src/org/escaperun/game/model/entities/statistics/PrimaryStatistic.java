@@ -31,6 +31,11 @@ public class PrimaryStatistic<T extends Number> extends Statistic<T> {
         else return (T) val;
     }
 
+    @Override
+    public String getName() {
+        return "PrimaryStatistics";
+    }
+
     // add a delta to additive modifier
     public void addDelta(T toAdd) {
         Double next = ((Double) additiveDelta) + ((Double) toAdd);

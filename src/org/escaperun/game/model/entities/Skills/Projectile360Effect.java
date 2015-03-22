@@ -39,28 +39,29 @@ public abstract class Projectile360Effect extends Projectile {
 
     Position arrayPos;
 
-    public Projectile360Effect(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start) {
-        super(ofp, dfp, skillLevel, sd, dir, start);
+    public Projectile360Effect(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int ticksPerMove) {
+        super(ofp, dfp, skillLevel, sd, dir, start, ticksPerMove);
         this.arrayPos = new Position(11,11);
         //System.out.println("initial X" + this.initialPos.x + "initial Y" + this.initialPos.y);
 
     }
 
-    public boolean isDone() {
-        return movementTick >= skillDistance;
-    }
-
     public void tick() {
-            this.affectedArea = new ArrayList<Position>();
+        if (moveAmount.isDone()) return;
+        moveTimer.tick();
+        if (!moveTimer.isDone()) return;
+        moveTimer.reset();
 
-            for (int i = 0; i < 21; i++) {
-                for (int j = 0; j < 21; j++) {
-                    if (AoEPaths[i][j] == (movementTick + 1)) {
-                        this.affectedArea.add(getNewPoint(i, j, arrayPos));
-                    }
+        this.affectedArea = new ArrayList<Position>();
+
+        for (int i = 0; i < 21; i++) {
+            for (int j = 0; j < 21; j++) {
+                if (AoEPaths[i][j] == (moveAmount.getTicksSince() + 1)) {
+                    this.affectedArea.add(getNewPoint(i, j, arrayPos));
                 }
             }
-            this.upDateTick();
+        }
+        moveAmount.tick();
     }
 
     private Position getNewPoint(int x, int y, Position p){

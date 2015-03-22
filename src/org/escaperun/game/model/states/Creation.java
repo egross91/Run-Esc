@@ -7,11 +7,16 @@ import org.escaperun.game.model.entities.Smasher;
 import org.escaperun.game.model.entities.Sneak;
 import org.escaperun.game.model.entities.Summoner;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
+import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
+import org.escaperun.game.model.entities.npc.ai.MeleeAI;
+import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
 import org.escaperun.game.model.options.SelectableOption;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
+
+import java.awt.*;
 
 public class Creation extends GameState {
 
@@ -22,6 +27,7 @@ public class Creation extends GameState {
                 {new SelectableOption("SMASHER"){
                     public GameState getNextState() {
                         Stage stage = setupStage(new Smasher(new Position(0, 0)));
+                        stage.getAvatar().visit(new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction."));
 
                         return new Playing(stage);
                     }
@@ -62,7 +68,12 @@ public class Creation extends GameState {
         Stage stage = new Stage();
         avatar.setMovementHandler(new MovementHandler(stage, avatar,8));
         stage.setAvatar(avatar);
-
+/*
+        //DEBUG //TODO: REMOVE DEBUG CODE.
+        MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(10,10),5);
+        npc.setMovementHandler(new MovementHandler(stage, npc));
+        MeleeAI ai = new MeleeAI(stage, npc);
+        */
         return stage;
     }
 }

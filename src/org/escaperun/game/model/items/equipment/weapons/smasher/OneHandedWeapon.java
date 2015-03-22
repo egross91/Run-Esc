@@ -8,13 +8,14 @@ import org.escaperun.game.model.items.equipment.weapons.MeleeWeapon;
 import org.escaperun.game.view.Decal;
 
 public class OneHandedWeapon extends MeleeWeapon {
+    private final String name;
+    private final String description;
+
     public OneHandedWeapon(Decal decal, String name, String description) {
         super(decal);
         this.name = name;
         this.description = description;
     }
-    private final String name;
-    private final String description;
 
     @Override
     public String getName() {
