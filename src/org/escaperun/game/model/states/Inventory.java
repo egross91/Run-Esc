@@ -165,7 +165,7 @@ public class Inventory extends GameState {
         int size = numCols;
         int charsUsed = size + SPACING*(size-1);
         for (int i = 0; i < numRows; ++i) {
-            startColumn = (NUM_GOOD_COLUMNS /2) - (charsUsed/2);
+            startColumn = (NUM_GOOD_COLUMNS/2) - (charsUsed/2);
             for (int j = 0; j < numCols; ++j) {
                 TakeableItem item = container.get(itemIndex++);
                 Decal render;
@@ -211,24 +211,23 @@ public class Inventory extends GameState {
             for (int i = 0; i < displayDesc.length(); ++i) {
                 window[startRow][startCol+i] = new Decal(displayDesc.charAt(i), Color.BLACK, Color.WHITE);
             }
-            ++startRow;
-            window[startRow++][startCol] = Decal.BLANK;
+            startRow += 2;
 
-            Decal[][] stats = item.getStatistics().getRenderable();
-            int rows = 0;
+            StatisticContainer stats = item.getStatistics();
+            Decal[][] decals = filterStats(stats);
             int colsUsed = 0;
-            for (int i = 0; i < stats.length; ++i) {
-                for (int j = 0; j < stats[i].length; ++j) {
-                    window[startRow+rows][startCol+colsUsed++] = stats[i][j];
+            for (int i = 0; i < decals.length; ++i) {
+                for (int j = 0; j < decals[i].length; ++j) {
+                    window[startRow][startCol+colsUsed++] = decals[i][j];
                 }
 
                 if (((i+1)%2 == 0) && i != 0) {
-                    ++rows;
+                    ++startRow;
                     colsUsed = 0;
                 }
                 else {
-                    for (int j = stats[i].length; j < 30; ++j) {
-                        window[startRow+rows][startCol+j] = Decal.BLANK;
+                    for (int j = decals[i].length; j < 30; ++j) {
+                        window[startRow][startCol+j] = Decal.BLANK;
                         ++colsUsed;
                     }
                 }
@@ -244,6 +243,20 @@ public class Inventory extends GameState {
     private void setSelectedInventoryOrigin() {
         this.selectedX = INVENTORY_ORIGIN_ROW;
         this.selectedY = INVENTORY_ORIGIN_COL;
+    }
+
+    private Decal[][] filterStats(StatisticContainer stats) {
+        Decal[][] decals = new Decal[8][];
+        decals[0] = stats.renderize(stats.getAgility());
+        decals[1] = stats.renderize(stats.getStrength());
+        decals[2] = stats.renderize(stats.getHardiness());
+        decals[3] = stats.renderize(stats.getMana());
+        decals[4] = stats.renderize(stats.getLife());
+        decals[5] = stats.renderize(stats.getIntellect());
+        decals[6] = stats.renderize(stats.getOffensiveRating());
+        decals[7] = stats.renderize(stats.getDefensiveRating());
+
+        return decals;
     }
 
     private class Pair {
