@@ -1,13 +1,41 @@
 package org.escaperun.game.model.entities.skills;
 
 
+import org.escaperun.game.model.entities.Entity;
+
 public class LinearSkillSuccess extends SkillSuccess {
     private Skill avatarSkill;
     private Skill npcSkill;
+    private static double maxSkillLevelContribution = 50;
+    private static double maxStatContribution = 50;
+    private static double maxDefenseRating = 10;
 
-    public LinearSkillSuccess(Skill avatarSkill, Skill npcSkill){
-        this.avatarSkill = avatarSkill;
-        this.npcSkill = npcSkill;
+
+    public static double generateSkillSuccess(Entity attacker, Entity Defender, ActiveSkill p, double AttStat){
+        double offRating = ((AttStat / 100) * maxStatContribution) + ((p.getSkillLevel() / 10) * maxSkillLevelContribution);
+        System.out.println(offRating);
+        double defenseRating = getDefendingStats(Defender, p) / maxDefenseRating;
+        System.out.println("def" +defenseRating);
+        double attOut = (offRating - defenseRating) * p.getOffensePower();
+        System.out.println("attOut "+ attOut);
+        double thruput = attOut ;//- Defender.getStatContainer().getArmorRating().getCurrent();
+        //armour rating should be constant amount so it is deducted after we get what the attack should deal.
+
+        return thruput;
+    }
+
+    private static double calcDistance(){
+
+        return 0;
+    }
+
+    private static double getDefendingStats(Entity defender, ActiveSkill p){
+        //account for weakness with reference to p
+        double defenseRating = defender.getStatContainer().getDefensiveRating().getCurrent();
+        // if(p.getDamageType == defender.weakness)
+        // defenseRating*
+        return defenseRating;
+
     }
 
 }

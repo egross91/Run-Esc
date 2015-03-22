@@ -10,6 +10,11 @@ public class Boon extends ActiveSkill {
 
 
     @Override
+    public double getGoodStat() {
+        return this.getOwner().getStatContainer().getIntellect().getCurrent();
+    }
+
+    @Override
     public SkillSuccess generateSuccess(Entity attacker, Entity defender) {
         return null;
     }
