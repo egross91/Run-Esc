@@ -9,9 +9,19 @@ import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.entities.npc.NPC;
+import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.Projectile;
+import org.escaperun.game.model.entities.skills.Skill;
+import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
+import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
+import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
+import org.escaperun.game.model.items.equipment.weapons.sneak.BoomstickWeapon;
+import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
+import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
+import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.areaeffect.TeleportationAreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
@@ -71,6 +81,7 @@ public class Stage implements Renderable, Tickable {
             }
         }
 
+        entities.add(new AdversarialNPC(new Decal('U', Color.LIGHT_GRAY, Color.CYAN), new Position(30,30), 1));
        // areaEffects.add(new TeleportationAreaEffect(new Decal('?', Color.BLACK, Color.RED.brighter().brighter()),new Position(5,5), new Position(0,0)));
        // grid[10][10].placeItem(new )
     }
@@ -118,8 +129,8 @@ public class Stage implements Renderable, Tickable {
         for(Entity e: entities){
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (e.getCurrentPosition().x == p.getAffectedArea().get(q).x && e.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
-                    System.out.println("BOOOOOM!");
-                   // p.generateSuccess(p.getOwner(),)
+                    //p.generateSuccess(p.getOwner(),e);
+                    System.out.println(p.generateSuccess(p.getOwner(),e));
                     return true;
                 }
             }

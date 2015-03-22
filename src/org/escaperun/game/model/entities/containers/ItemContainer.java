@@ -30,7 +30,7 @@ public class ItemContainer<T extends TakeableItem> {
     }
 
     public void add(T item) {
-        add(items.size(), item);
+        add(getFirstEmptySlot(), item);
     }
 
     public void add(int index, T item) {
@@ -40,15 +40,55 @@ public class ItemContainer<T extends TakeableItem> {
     }
 
     public T get(int index) {
-        if (index >= items.size()) return null;
+        if (index >= MAX_CAPACITY) return null;
         return items.get(index);
+    }
+
+    public void remove(TakeableItem item) {
+        int i = 0;
+        for (TakeableItem current : items) {
+            if (current == null) continue;
+
+            if (current.equals(item)) {
+                break;
+            }
+            ++i;
+        }
+
+        items.set(i, null);
+    }
+
+    public boolean contains(TakeableItem item) {
+        return items.contains(item);
     }
 
     protected boolean indexOk(int index) {
         return index < MAX_CAPACITY && index > -1;
     }
 
-    protected boolean isFull() {
-        return items.size() + 1 > MAX_CAPACITY;
+    public boolean isFull() {
+        return getCount() + 1 > MAX_CAPACITY;
+    }
+
+    private int getCount() {
+        int count = 0;
+        for (TakeableItem current : items) {
+            if (current != null) {
+                ++count;
+            }
+        }
+
+        return count;
+    }
+
+    private int getFirstEmptySlot() {
+        int i = 0;
+        for (TakeableItem current : items) {
+            if (current == null) {
+                break;
+            }
+        }
+
+        return i;
     }
 }

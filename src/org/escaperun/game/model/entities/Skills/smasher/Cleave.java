@@ -18,6 +18,11 @@ public class Cleave extends ProjectileQuadrantEffect{
     }
 
     @Override
+    public double getGoodStat() {
+        return this.getOwner().getStatContainer().getStrength().getCurrent();
+    }
+
+    @Override
     public SkillSuccess generateSuccess(Entity attacker, Entity defender) {
         return null;
     }

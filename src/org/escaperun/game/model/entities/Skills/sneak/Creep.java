@@ -8,6 +8,11 @@ import org.escaperun.game.model.entities.skills.SkillSuccess;
 
 public class Creep extends ActiveSkill {
     @Override
+    public double getGoodStat() {
+        return this.getOwner().getStatContainer().getAgility().getCurrent();
+    }
+
+    @Override
     public SkillSuccess generateSuccess(Entity attacker, Entity defender) {
         return null;
     }

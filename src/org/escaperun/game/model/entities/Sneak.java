@@ -48,17 +48,17 @@ public class Sneak extends Avatar {
 
     @Override
     public void visit(BoomstickWeapon bsw) {
-        equipWeaponItem(bsw);
+        equipItem(bsw);
     }
 
     @Override
     public void visit(BowWeapon bw) {
-        equipWeaponItem(bw);
+        equipItem(bw);
     }
 
     @Override
     public void visit(ThrowingKnivesWeapon tkw) {
-        equipWeaponItem(tkw);
+        equipItem(tkw);
     }
 
     @Override
