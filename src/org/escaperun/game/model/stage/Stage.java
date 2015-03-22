@@ -1,5 +1,6 @@
 package org.escaperun.game.model.stage;
 
+import javafx.geometry.Pos;
 import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
@@ -62,7 +63,11 @@ public class Stage implements Renderable, Tickable {
                 grid[i][j] = new Tile(new GrassTerrain());
             }
         }
-
+        entities.add(new NonHostileNPC(new Decal('8', Color.BLACK, Color.YELLOW.darker()), new Position(0, 4), 0){
+            public void talk(){ //Override of standard "talk"
+                Logger.getInstance().pushMessage("ZIP ZOP ZOOPITY BOP");
+            }
+        });
     }
 
     public ItemContainer getAvatarInventory() {return avatar.getInventory();}
@@ -74,10 +79,19 @@ public class Stage implements Renderable, Tickable {
         for (Entity e : entities) {
             e.tick();
         }
-        for (Projectile p : projectiles) {
-            if (p == null) continue;
-            p.tick();
-            checkCollision(p);
+        for (int r = 0; r < projectiles.size(); r++) {
+            if (projectiles.get(r) == null) continue;
+            if (projectiles.get(r).isDone()){
+                projectiles.remove(r);
+                r--;
+                continue;
+            }
+            projectiles.get(r).tick();
+            if(checkCollision(projectiles.get(r))){
+                //do damage and shiit
+                projectiles.remove(r);
+                r--;
+            }
         }
         for (AI ai : ais) {
             ai.tick();
@@ -87,16 +101,19 @@ public class Stage implements Renderable, Tickable {
             entities.remove(ai.getNpc());
             ais.remove(ai);
         }
+
     }
 
-    public void checkCollision(Projectile p){
+    public boolean checkCollision(Projectile p){
         for(Entity e: entities){
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (e.getCurrentPosition().x == p.getAffectedArea().get(q).x && e.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
                     System.out.println("OUCH MAFACKA");
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     @Override
@@ -139,8 +156,8 @@ public class Stage implements Renderable, Tickable {
 
         //draw Skills
         for(Projectile p: projectiles){
-            if (p == null) continue;
-            if (p.isDone()) continue;
+            if (p == null){ continue;}
+            if (p.isDone()){ continue;}
             for(Position pos : p.getAffectedArea()){
                 int drawX = midX+pos.x-avatarX;
                 int drawY = midY+pos.y-avatarY;

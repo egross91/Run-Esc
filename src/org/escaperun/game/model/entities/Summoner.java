@@ -70,7 +70,6 @@ public class Summoner extends Avatar {
     //change to possibly ActiveSkill
     @Override
     public Projectile skill1(){
-        System.out.println("SummonerX" + this.getCurrentPosition().x + "SummonerY" + this.getCurrentPosition().y);
         return new Bane(0,0,0,10,this.getDirection(),this.getCurrentPosition(), 5);
     }
 

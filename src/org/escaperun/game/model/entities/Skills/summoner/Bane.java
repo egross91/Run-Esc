@@ -13,7 +13,7 @@ import org.escaperun.game.view.Decal;
 
 import java.awt.*;
 
-public class Bane extends Projectile360Effect {
+public class Bane extends ProjectileQuadrantEffect {
 
     public Bane(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int movesPerTick){
         super(ofp,dfp,skillLevel,sd,dir,start, movesPerTick);
