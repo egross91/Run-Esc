@@ -16,6 +16,7 @@ import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.areaeffect.TeleportationAreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
+import org.escaperun.game.model.states.Playing;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
 import org.escaperun.game.view.Renderable;
@@ -43,11 +44,12 @@ public class Stage implements Renderable, Tickable {
     private ArrayList<Entity> entities;
     private Avatar avatar;
     private ArrayList<AreaEffect> areaEffects;
+    //Skill Test
+    private ArrayList<Projectile> projectiles;
+
     public Stage() {
         this(DEFAULT_ROWS, DEFAULT_COLUMNS);
     }
-    //Skill Test
-    private ArrayList<Projectile> projectiles;
 
     public Stage(int rows, int cols) {
         grid = new Tile[rows][cols];
@@ -241,19 +243,17 @@ public class Stage implements Renderable, Tickable {
         return avatar.getCurrentPosition();
     }
 
-    public Entity getEntityextToAvatarsFacingDirection() {
+    public void interactionTriggered() {
         Direction dir = avatar.getDirection();
         Position avatarpos = avatar.getCurrentPosition();
         Position pos = new Position(avatarpos.x+dir.getDelta().x, avatarpos.y+dir.getDelta().y);
         for(Entity entity : entities){
-            if(entity.getCurrentPosition().equals(pos))
-                return entity;
-        }
-        return new NonHostileNPC(null, null, 0){
-            public void talk(){
-                Logger.getInstance().pushMessage("There is no person to talk to.");
+            if(entity.getCurrentPosition().equals(pos)) {
+                entity.talk();
+                return;
             }
-        };
+        }
+        Logger.getInstance().pushMessage("There is not an entity to talk to.");
     }
 
     /** Should only be accessed by AI. And not while ticking.*/

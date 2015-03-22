@@ -31,6 +31,10 @@ public abstract class AI implements Tickable{
         return npc;
     }
 
+    public void talk() {
+        npc.talk();
+    }
+
     /** Entitiy attempt take a random direction within it's wander radius. */
     protected void wander() {
         Position current = npc.getCurrentPosition();

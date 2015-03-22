@@ -16,7 +16,7 @@ public class FleeingAI extends AI{
             onDeath();
             return;
         }
-        super.tickTimers();
+        tickTimers();
         if (movementTimer.isDone()) {
             movementTimer.reset();
             Position avatarPosition = stage.getAvatarPosition();

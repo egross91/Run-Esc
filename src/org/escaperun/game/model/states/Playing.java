@@ -29,6 +29,13 @@ public class Playing extends GameState {
             pressed[bindings.getBinding(KeyType.INVENTORY)] = false;
             return new Inventory(this, stage);
         }
+
+        boolean interact = pressed[bindings.getBinding(KeyType.INTERACT)];
+        if(interact){
+            pressed[bindings.getBinding(KeyType.INTERACT)] = false;
+            stage.interactionTriggered();
+        }
+
         handleMovement(bindings, pressed);
         stage.tick();
         return null;
@@ -72,11 +79,6 @@ public class Playing extends GameState {
         if(hotKey1){
             pressed[bindings.getBinding(KeyType.HOTKEY1)] = false;
             stage.skillCast();
-        }
-
-        if(interact){
-            pressed[bindings.getBinding(KeyType.INTERACT)] = false;
-            stage.getEntityextToAvatarsFacingDirection().talk();
         }
 
         moveX = clamp(moveX, -1, 1); // clamp so we dont move extra
