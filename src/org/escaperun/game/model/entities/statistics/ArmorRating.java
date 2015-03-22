@@ -29,7 +29,7 @@ public class ArmorRating extends DerivedStatistic{
         return armorRating;
     }
 
-    public void setArmorValue(Double armorValue) {
+    protected void setArmorValue(Double armorValue) {
         this.armorValue = armorValue;
         recalculate();
     }

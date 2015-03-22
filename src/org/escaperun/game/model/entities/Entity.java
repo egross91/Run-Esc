@@ -55,10 +55,15 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     }
 
     protected EquipableItem equipWeaponItem(WeaponItem weaponItem) {
+        statContainer.setWeaponDamage(weaponItem.getValue());
         return equipment.equipItem(weaponItem);
     }
 
     protected EquipableItem equipArmorItem(EquipableItem armorItem){
+        //need to compute the new armor rating for entity so its stats can be updated
+        double armorValue = 0.0;
+        armorValue += (equipment.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.getSlot().getValue()) || null)
+        statContainer.setArmorValue();
         return equipment.equipItem(armorItem);
     }
 

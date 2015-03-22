@@ -104,6 +104,9 @@ public class StatisticContainer {
     public OffensiveRating getOffensiveRating(){
         return offensiveRating;
     }
+    public void setWeaponDamage(Double damage) {
+        offensiveRating.setWeaponDamage(damage);
+    }
 
     public DefensiveRating getDefensiveRating(){
         return defensiveRating;
@@ -112,5 +115,8 @@ public class StatisticContainer {
 
     public ArmorRating getArmorRating(){
         return armorRating;
+    }
+    public void setArmorValue(double armorValue) {
+        armorRating.setArmorValue(armorValue);
     }
 }
