@@ -1,14 +1,14 @@
 package org.escaperun.game.model.states;
 
-import org.escaperun.game.controller.Logger;
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.controller.keyboard.KeyType;
+import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.statistics.*;
 import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.items.TakeableItem;
-import org.escaperun.game.model.items.equipment.EquipableItem;
+import org.escaperun.game.model.items.options.ItemOption;
 import org.escaperun.game.model.options.LoggerOption;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
@@ -21,8 +21,9 @@ public class Inventory extends GameState {
     private Playing previous;
     private EquipmentContainer equipmentContainer;
     private ItemContainer itemContainer;
-    private Timer moveTimer = new Timer(6);
-    private Pair displayInfo;
+    private Avatar avatar;
+    private Timer moveTimer = new Timer(5);
+    private Pair displayItemInfo;
 
     private int selectedX = 0, selectedY= 0;
     private int previousSelectedX, previousSelectedY;
@@ -35,12 +36,13 @@ public class Inventory extends GameState {
     private final int INVENTORY_ORIGIN_COL = 36;
     private final int INVENTORY_MAX_ROW = 24;
     private final int INVENTORY_MAX_COL = 48;
-    private final int ITEM_OPTION_ROW = 28;
-    private final int ITEM_TWO_OPTION_MAX_ROW = 30;
+    private final int ITEM_OPTION_ORIGIN_ROW = 28;
     private final int ITEM_OPTION_COL = LEFT_MARGIN;
+    private int ITEM_OPTION_MAX_ROW;
 
     public Inventory(Playing previous, Stage stage) {
         this.previous = previous;
+        this.avatar = stage.getAvatar();
         this.equipmentContainer = stage.getAvatarEquipment();
         this.itemContainer = stage.getAvatarInventory();
         setSelectedEquipmentOrigin();
@@ -78,7 +80,6 @@ public class Inventory extends GameState {
         if (right) moveY += 3;
 
         moveTimer.tick();
-
         if (moveTimer.isDone()) {
             if (moveX > EQUIPMENT_ORIGIN_ROW && moveX < INVENTORY_ORIGIN_ROW && (selectedX - moveX) > 0) {
                 setSelectedEquipmentOrigin();
@@ -115,17 +116,24 @@ public class Inventory extends GameState {
     
     private void handleAction(KeyBindings bindings, boolean[] pressed) {
         boolean exit = pressed[bindings.getBinding(KeyType.EXIT)];
+        boolean activate = pressed[bindings.getBinding(KeyType.INTERACT)];
         action = (pressed[bindings.getBinding(KeyType.ACTION)] || action) ? !exit : false;
 
         if (action) {
-            if (displayInfo.container.get(displayInfo.index) != null) {
+            if (displayItemInfo.container.get(displayItemInfo.index) != null) {
                 if (!stored) {
                     stored = true;
                     savePreviousSelectedCoords();
                     setSelectedOptionsOrigin();
                 }
-
-                handleItemOptionsMovement(bindings, pressed);
+                else if (activate) {
+                    performAction(displayItemInfo);
+                    pressed[bindings.getBinding(KeyType.INTERACT)] = false;
+                    exit = true;
+                }
+                if (!activate) {
+                    handleItemOptionsMovement(bindings, pressed);
+                }
             }
             else {
                 action = false;
@@ -133,6 +141,8 @@ public class Inventory extends GameState {
         }
         if (exit) {
             restoreSelectedCoords();
+            action = false;
+            pressed[bindings.getBinding(KeyType.ACTION)] = false;
             stored = false;
         }
     }
@@ -141,13 +151,25 @@ public class Inventory extends GameState {
         boolean up = pressed[bindings.getBinding(KeyType.UP)];
         boolean down = pressed[bindings.getBinding(KeyType.DOWN)];
 
-        int moveX = selectedX;
+        moveTimer.tick();
+        if (moveTimer.isDone()) {
+            int moveX = selectedX;
 
-        if (up) moveX -= 2;
-        if (down) moveX += 2;
+            if (up) moveX -= 2;
+            if (down) moveX += 2;
 
-        moveX = clamp(moveX, ITEM_OPTION_ROW, ITEM_TWO_OPTION_MAX_ROW);
-        selectedX = moveX;
+            moveX = clamp(moveX, ITEM_OPTION_ORIGIN_ROW, ITEM_OPTION_MAX_ROW);
+            selectedX = moveX;
+
+            moveTimer.reset();
+        }
+    }
+
+    private void performAction(Pair info) {
+        int selection = (selectedX % ITEM_OPTION_ORIGIN_ROW) / 2;
+
+        ItemOption selectedOption = info.container.get(info.index).getOptions(avatar)[selection];
+        selectedOption.action.run();
     }
 
     public static final String EQUIPMENT = "EQUIPMENT";
@@ -183,16 +205,16 @@ public class Inventory extends GameState {
         renderContainer(window, itemContainer, INVENTORY, startRow, numRows, numCols);
 
 
-        clearRegion(window, ITEM_OPTION_ROW, LEFT_MARGIN, 8, 80);
+        clearRegion(window, ITEM_OPTION_ORIGIN_ROW, LEFT_MARGIN, 8, 80);
         /* Draw Item Info */
         if (!action) {
-            renderDisplayItem(window, displayInfo, ITEM_OPTION_ROW, LEFT_MARGIN);
+            renderDisplayItem(window, displayItemInfo, ITEM_OPTION_ORIGIN_ROW, LEFT_MARGIN);
         }
         else {
-            startRow = ITEM_OPTION_ROW;
+            startRow = ITEM_OPTION_ORIGIN_ROW;
             int startCol = ITEM_OPTION_COL;
 
-            renderItemOptions(window, displayInfo.container, displayInfo.container.get(displayInfo.index), startRow, startCol);
+            renderItemOptions(window, displayItemInfo.container, displayItemInfo.container.get(displayItemInfo.index), startRow, startCol);
         }
 
         /* Log */
@@ -232,8 +254,8 @@ public class Inventory extends GameState {
                 // Render red if it is the selected item.
                 if (isSelected(startRow, startColumn+LEFT_MARGIN)) {
                     render = new Decal(render.ch, render.background, Color.RED);
-                    displayInfo = null;
-                    displayInfo = new Pair(itemIndex-1, container);
+                    displayItemInfo = null;
+                    displayItemInfo = new Pair(itemIndex-1, container);
                 }
 
                 window[startRow][startColumn+LEFT_MARGIN] = render;
@@ -288,6 +310,30 @@ public class Inventory extends GameState {
         }
     }
 
+    private void renderItemOptions(Decal[][] window, ItemContainer inventory, TakeableItem useableItem, int startRow, int startCol) {
+        ItemOption[] options = useableItem.getOptions(avatar);
+        renderItemBoxes(window, startRow, startCol, options.length);
+        ITEM_OPTION_MAX_ROW = ((options.length-1)*2) + ITEM_OPTION_ORIGIN_ROW;
+
+        /* Render Options */
+        startCol += 2;
+        for (int i = 0; i < options.length-1; ++i) {
+            String displayStr = options[i].display + useableItem.getName();
+
+            for (int j = 0; j < displayStr.length(); ++j) {
+                window[startRow][startCol+j] = new Decal(displayStr.charAt(j), Color.BLACK, Color.WHITE);
+            }
+
+            startRow += 2;
+        }
+
+        /* Render Never Mind */
+        ItemOption neverMind = options[options.length-1];
+        for (int i = 0; i < neverMind.display.length(); ++i) {
+            window[startRow][startCol+i] = new Decal(neverMind.display.charAt(i), Color.BLACK, Color.WHITE);
+        }
+    }
+
     private void renderItemBoxes(Decal[][] window, int startRow, int startCol, int numBoxes) {
         for (int i = 0; i < numBoxes; ++i) {
             if (isSelected(startRow, startCol)) {
@@ -301,38 +347,6 @@ public class Inventory extends GameState {
         }
     }
 
-    private void renderItemOptions(Decal[][] window, EquipmentContainer equipment, EquipableItem toUnequip, int startRow, int startCol) {
-        renderItemBoxes(window, startRow, startCol, 2);
-
-
-    }
-
-    private void renderItemOptions(Decal[][] window, ItemContainer inventory, EquipableItem toEquip, int startRow, int startCol) {
-        renderItemBoxes(window, startRow, startCol, 2);
-
-        startCol += 2;
-        // TODO
-    }
-
-    private void renderItemOptions(Decal[][] window, ItemContainer inventory, TakeableItem useableItem, int startRow, int startCol) {
-        renderItemBoxes(window, startRow, startCol, 2);
-
-        startCol += 2;
-        String displayName = UNEQUIP + useableItem.getName();
-        for (int i = 0; i < displayName.length(); ++i) {
-            window[startRow][startCol+i] = new Decal(displayName.charAt(i), Color.BLACK, Color.WHITE);
-        }
-
-        startRow += 2;
-        for (int i = 0; i < NEVERMIND.length(); ++i) {
-            window[startRow][startCol+i] = new Decal(NEVERMIND.charAt(i), Color.BLACK, Color.WHITE);
-        }
-    }
-
-    private void renderDropOption(Decal[][] window, TakeableItem item, int startRow, int startCol) {
-
-    }
-
     private void clearRegion(Decal[][] window, int startRow, int startCol, int rows, int cols) {
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
@@ -342,8 +356,12 @@ public class Inventory extends GameState {
     }
 
     private int clamp(int coord, int lo, int hi) {
-        if (coord < lo) return lo;
-        if (coord > hi) return hi;
+        if (coord < lo) {
+            return lo;
+        }
+        if (coord > hi) {
+            return hi;
+        }
 
         return coord;
     }
@@ -359,7 +377,7 @@ public class Inventory extends GameState {
     }
 
     private void setSelectedOptionsOrigin() {
-        this.selectedX = ITEM_OPTION_ROW;
+        this.selectedX = ITEM_OPTION_ORIGIN_ROW;
         this.selectedY = ITEM_OPTION_COL;
     }
 

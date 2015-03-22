@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities.skills;
 
+import com.sun.org.glassfish.external.statistics.Statistic;
 import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.NPC;
@@ -31,5 +32,17 @@ public abstract class ActiveSkill extends Skill {
     public int getManaCost() {
         return manaCost;
     }
+    public int getSkillLevel(){
+        return this.skillLevel;
+    }
+    public abstract double getGoodStat();
+
     public abstract SkillSuccess generateSuccess(Entity attacker, Entity defender);
+
+    public double getOffensePower(){
+        return (double)this.OffensePower;
+    }
+    public double getDefensePower(){
+        return (double)this.DefensePower;
+    }
 }

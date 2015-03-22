@@ -27,7 +27,7 @@ public class Creation extends GameState {
                 {new SelectableOption("SMASHER"){
                     public GameState getNextState() {
                         Stage stage = setupStage(new Smasher(new Position(0, 0)));
-                        stage.getAvatar().visit(new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction."));
+                        stage.getAvatar().visit(new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction fo' yo' momma."));
 
                         return new Playing(stage);
                     }

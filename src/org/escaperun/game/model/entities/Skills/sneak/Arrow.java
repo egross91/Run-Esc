@@ -26,4 +26,8 @@ public class Arrow extends Projectile {
     public LinearSkillSuccess generateSuccess(Entity attacker, Entity defender) {
         return null;
     }
+
+    public double getGoodStat(){
+        return this.getOwner().getStatContainer().getAgility().getCurrent();
+    }
 }

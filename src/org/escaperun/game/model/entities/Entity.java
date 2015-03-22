@@ -58,36 +58,45 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         Logger.getInstance().pushMessage("Put the " + item.getName() + " into inventory.");
     }
 
-    protected EquipableItem equipWeaponItem(WeaponItem weaponItem) {
-        EquipableItem equippedItem = equipment.equipItem(weaponItem);
-
-        EquipableItem weapon = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.WEAPON.getSlot());
-        statContainer.setWeaponDamage(weapon.getStatistics().getOffensiveRating().getCurrent());
-        return equippedItem;
+    public void equipItem(WeaponItem weaponItem) {
+        if (!inventory.isFull()) {
+            EquipableItem equippedItem = equipment.equipItem(weaponItem);
+            statContainer.setWeaponDamage((equippedItem != null) ? equippedItem.getStatistics().getOffensiveRating().getCurrent() : 0.0);
+            inventory.add(equippedItem);
+        }
     }
 
-    protected EquipableItem equipArmorItem(EquipableItem armorItem){
+    public void unequipItem(EquipableItem item) {
+        if (!inventory.isFull()) {
+            EquipableItem toStore = equipment.unequipItem(item.getEquipmentSlot());
+            inventory.add(toStore);
+        }
+    }
+
+    public void equipItem(EquipableItem armorItem){
         //equip the item
-        EquipableItem equippedItem = equipment.equipItem(armorItem);
+        if (!inventory.isFull()) {
+            EquipableItem equippedItem = equipment.equipItem(armorItem);
 
-        //need to compute the new armor rating for entity so its stats can be updated
-        double armorValue = 0.0;
-        //this is redic
-        EquipableItem body = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.getSlot());
-        EquipableItem helmet = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.HEAD.getSlot());
-        EquipableItem boots = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.FEET.getSlot());
-        EquipableItem ring = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.RING.getSlot());
-        EquipableItem shield = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.SHIELD.getSlot());
+            //need to compute the new armor rating for entity so its stats can be updated
+            double armorValue = 0.0;
+            //this is redic
+            EquipableItem body = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.getSlot());
+            EquipableItem helmet = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.HEAD.getSlot());
+            EquipableItem boots = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.FEET.getSlot());
+            EquipableItem ring = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.RING.getSlot());
+            EquipableItem shield = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.SHIELD.getSlot());
 
-        //if an equipment slot has nothing in it, that item will be null. In that case, increment armorValue by 0
-        armorValue += (body != null) ? body.getStatistics().getArmorRating().getCurrent() : 0.0;
-        armorValue += (helmet != null) ? helmet.getStatistics().getArmorRating().getCurrent() : 0.0;
-        armorValue += (boots != null) ? boots.getStatistics().getArmorRating().getCurrent() : 0.0;
-        armorValue += (ring != null) ? ring.getStatistics().getArmorRating().getCurrent() : 0.0;
-        armorValue += (shield != null) ? shield.getStatistics().getArmorRating().getCurrent() : 0.0;
+            //if an equipment slot has nothing in it, that item will be null. In that case, increment armorValue by 0
+            armorValue += (body != null) ? body.getStatistics().getArmorRating().getCurrent() : 0.0;
+            armorValue += (helmet != null) ? helmet.getStatistics().getArmorRating().getCurrent() : 0.0;
+            armorValue += (boots != null) ? boots.getStatistics().getArmorRating().getCurrent() : 0.0;
+            armorValue += (ring != null) ? ring.getStatistics().getArmorRating().getCurrent() : 0.0;
+            armorValue += (shield != null) ? shield.getStatistics().getArmorRating().getCurrent() : 0.0;
 
-        statContainer.setArmorValue(armorValue);
-        return equippedItem;
+            statContainer.setArmorValue(armorValue);
+            inventory.add(equippedItem);
+        }
     }
 
     public abstract void attack(Entity defender, Skill skill);
