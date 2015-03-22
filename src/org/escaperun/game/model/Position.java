@@ -1,7 +1,5 @@
 package org.escaperun.game.model;
 
-import javafx.geometry.Pos;
-
 public final class Position {
 
     public final int x;

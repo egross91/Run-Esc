@@ -1,6 +1,7 @@
 package org.escaperun.game.model.stage;
 
 import javafx.geometry.Pos;
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
@@ -8,6 +9,7 @@ import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.entities.npc.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
@@ -15,6 +17,7 @@ import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
 import org.escaperun.game.view.Renderable;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Stage implements Renderable, Tickable {
@@ -172,5 +175,20 @@ public class Stage implements Renderable, Tickable {
 
     public Position getAvatarPosition() {
         return avatar.getCurrentPosition();
+    }
+
+    public Entity getEntityextToAvatarsFacingDirection() {
+        Direction dir = avatar.getDirection();
+        Position avatarpos = avatar.getCurrentPosition();
+        Position pos = new Position(avatarpos.x+dir.getDelta().x, avatarpos.y+dir.getDelta().y);
+        for(Entity entity : entities){
+            if(entity.getCurrentPosition().equals(pos))
+                return entity;
+        }
+        return new NonHostileNPC(null, null, 0){
+            public void talk(){
+                Logger.getInstance().pushMessage("There is no person to talk to.");
+            }
+        };
     }
 }

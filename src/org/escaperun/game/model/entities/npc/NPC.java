@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities.npc;
 
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.ai.AI;
@@ -30,6 +31,11 @@ public abstract class NPC extends Entity {
     @Override
     public void tick() {
 
+    }
+
+    @Override
+    public void talk(){
+        Logger.getInstance().pushMessage("This worked!!");
     }
 
 }

@@ -21,4 +21,8 @@ public abstract class Avatar extends Entity {
 
     public abstract Projectile skill1();
 
+    @Override
+    public void talk(){
+        throw new RuntimeException("Error: Avatar should never be queried to be talked to.");
+    }
 }

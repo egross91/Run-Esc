@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities;
 
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
@@ -52,6 +53,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     public void takeItem(TakeableItem item) {
         inventory.add(item);
+        Logger.getInstance().pushMessage("Put the "+ item.getName() + " into inventory.");
     }
 
     protected EquipableItem equipWeaponItem(WeaponItem weaponItem) {
@@ -100,4 +102,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     public Decal[][] getRenderable() {
         return new Decal[][] {{ decal }}; //Return a 1x1 decal array.
     }
+
+    public abstract void talk();
 }

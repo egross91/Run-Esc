@@ -13,8 +13,8 @@ import java.util.*;
 public class LoggerOption extends Option {
 
     public static LoggerOption _loggerOption = new LoggerOption();
-    private static int MESSAGES_TO_SHOW = 3;
-    private static int LENGTH_TO_SHOW = 300;
+    private static int MESSAGES_TO_SHOW = 5;
+    private static int LENGTH_TO_SHOW = 150;
     private Queue<Pair> current = new LinkedList<Pair>();
 
     private LoggerOption() {
@@ -38,7 +38,7 @@ public class LoggerOption extends Option {
         for (Pair p : current) {
             String toDraw = p.message;
             for (int col = 0; col < toDraw.length(); col++) {
-                ret[idx][col] = new Decal(toDraw.charAt(col), Color.WHITE, Color.BLACK);
+                ret[idx][col] = new Decal(toDraw.charAt(col), Color.BLACK, Color.RED);
             }
             idx++;
         }
