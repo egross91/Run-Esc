@@ -1,7 +1,7 @@
 package org.escaperun.game.model.entities.statistics;
 
 
-public class Life extends DerivedStatistic<Long>{
+public class Life extends DerivedStatistic<Double>{
 
     //this class would probably be more aptly described by the term
     //"Health"
@@ -10,9 +10,9 @@ public class Life extends DerivedStatistic<Long>{
 
     private Level lvl;
     private Hardiness hard;
-    private long life;
-    private long maxLife;
-    private long minLife = 0;
+    private Double life;
+    private Double maxLife;
+    private Double minLife = 0.0;
 
     public Life(Level level, Hardiness hardiness) {
         lvl = level;
@@ -30,16 +30,16 @@ public class Life extends DerivedStatistic<Long>{
     @Override
     protected void recalculate() {
         //made this up right here on the spot
-        maxLife = (lvl.getCurrent() * 2) + (3 * hard.getCurrent());
+        maxLife = (double) (lvl.getCurrent() * 2) + (3 * hard.getCurrent());
     }
 
     @Override
-    public Long getBase() {
+    public Double getBase() {
         return life;
     }
 
     @Override
-    public Long getCurrent() {
+    public Double getCurrent() {
         return life;
     }
 

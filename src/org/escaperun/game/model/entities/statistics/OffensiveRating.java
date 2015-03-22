@@ -4,12 +4,12 @@ public class OffensiveRating extends DerivedStatistic<Integer>{
 
     Strength str;
     Level lvl;
-    int weaponDamage;
-    int offensiveRating;
+    Double weaponDamage;
+    Double offensiveRating;
 
     //TODO
     //need a way to alert when weapon changes
-    public OffensiveRating(Strength strength, Level level, int equippedWeaponDamage) {
+    public OffensiveRating(Strength strength, Level level, Double equippedWeaponDamage) {
         str = strength;
         lvl = level;
         weaponDamage = equippedWeaponDamage;
@@ -25,16 +25,16 @@ public class OffensiveRating extends DerivedStatistic<Integer>{
 
 
     @Override
-    public Integer getBase() {
+    public Double getBase() {
         return offensiveRating;
     }
 
     @Override
-    public Integer getCurrent() {
+    public Double getCurrent() {
         return offensiveRating;
     }
 
-    public void setWeaponDamage(int weaponDamage) {
+    public void setWeaponDamage(Double weaponDamage) {
         this.weaponDamage = weaponDamage;
         recalculate();
     }

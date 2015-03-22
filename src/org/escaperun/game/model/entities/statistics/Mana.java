@@ -1,12 +1,12 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class Mana extends DerivedStatistic<Long> {
+public class Mana extends DerivedStatistic<Double> {
 
    private Level lvl;
    private Intellect intel;
-   private long mana;
-   private long maxMana;
-   private long minMana = 0;
+   private Double mana;
+   private Double maxMana;
+   private Double minMana = 0.0;
 
     public Mana(Level level, Intellect intellect) {
         lvl = level;
@@ -17,24 +17,24 @@ public class Mana extends DerivedStatistic<Long> {
 
     @Override
     protected void recalculate() {
-        maxMana = (lvl.getCurrent() * 2) + (3 * intel.getCurrent());
+        maxMana = (double) (lvl.getCurrent() * 2) + (3 * intel.getCurrent());
     }
 
     @Override
-    public Long getBase() {
+    public Double getBase() {
         return mana;
     }
 
     @Override
-    public Long getCurrent() {
+    public Double getCurrent() {
         return mana;
     }
 
-    public void reduceMana(long amountReduced) {
+    public void reduceMana(Double amountReduced) {
         mana -= amountReduced;
     }
 
-    public void restoreMana(long amountRestored) {
+    public void restoreMana(Double amountRestored) {
         mana += amountRestored;
     }
 

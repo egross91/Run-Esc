@@ -1,10 +1,10 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class DefensiveRating extends DerivedStatistic<Integer>{
+public class DefensiveRating extends DerivedStatistic<Double>{
 
     Agility agile;
     Level lvl;
-    int defensiveRating;
+    Double defensiveRating;
 
     public DefensiveRating(Agility agility, Level level) {
         agile = agility;
@@ -14,16 +14,16 @@ public class DefensiveRating extends DerivedStatistic<Integer>{
 
     @Override
     protected void recalculate() {
-        defensiveRating = (3*agile.getCurrent() + 2*lvl.getCurrent());
+        defensiveRating = (double) (3*agile.getCurrent() + 2*lvl.getCurrent());
     }
 
     @Override
-    public Integer getBase() {
+    public Double getBase() {
         return defensiveRating;
     }
 
     @Override
-    public Integer getCurrent() {
+    public Double getCurrent() {
         return defensiveRating;
     }
 }
