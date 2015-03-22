@@ -1,6 +1,6 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class DefensiveRating extends DerivedStatistic<Double>{
+public class DefensiveRating extends DerivedStatistic{
 
     Agility agile;
     Level lvl;

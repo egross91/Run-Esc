@@ -1,7 +1,7 @@
 package org.escaperun.game.model.entities.statistics;
 
 
-public class Life extends DerivedStatistic<Double>{
+public class Life extends DerivedStatistic{
 
     //this class would probably be more aptly described by the term
     //"Health"

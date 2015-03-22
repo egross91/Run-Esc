@@ -1,6 +1,6 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class ArmorRating extends DerivedStatistic<Double>{
+public class ArmorRating extends DerivedStatistic{
     //this class is probably analagous to Life
 
     Hardiness hard;

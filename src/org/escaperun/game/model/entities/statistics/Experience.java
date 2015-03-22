@@ -1,21 +1,21 @@
 package org.escaperun.game.model.entities.statistics;
 
 import java.lang.Long;
-public class Experience extends PrimaryStatistic<Long>{
-    private long maxExp;
+public class Experience extends PrimaryStatistic{
+    private Double maxExp;
 
     public Experience(){
-        setBase(new Long(0));
-        this.maxExp = 0;
+        setBase(new Double(0.0));
+        this.maxExp = 0.0;
     }
-    public Experience(Long maxExp){
-        setBase(new Long(0));
+    public Experience(Double maxExp){
+        setBase(new Double(0.0));
         this.maxExp = maxExp;
     }
-    public void setMaxExp(Long maxExp){
+    public void setMaxExp(Double maxExp){
         this.maxExp = maxExp;
     }
-    public Long getMaxExp(){
+    public Double getMaxExp(){
         return maxExp;
     }
 

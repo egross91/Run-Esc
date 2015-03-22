@@ -1,9 +1,9 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class Level extends DerivedStatistic<Short> {
+public class Level extends DerivedStatistic {
 
     Experience experience;
-    Short level;
+    Double level;
 
 
     public Level(Experience exp) {
@@ -14,16 +14,16 @@ public class Level extends DerivedStatistic<Short> {
 
     @Override
     protected void recalculate() {
-        this.level = (short) (experience.getCurrent()/ 100);
+        this.level = (double) (experience.getCurrent()/ 100);
     }
 
     @Override
-    public Short getBase() {
+    public Double getBase() {
         return level;
     }
 
     @Override
-    public Short getCurrent() {
+    public Double getCurrent() {
         return level;
     }
 }

@@ -1,6 +1,6 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class Mana extends DerivedStatistic<Double> {
+public class Mana extends DerivedStatistic {
 
    private Level lvl;
    private Intellect intel;

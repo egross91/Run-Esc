@@ -1,6 +1,6 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class OffensiveRating extends DerivedStatistic<Integer>{
+public class OffensiveRating extends DerivedStatistic{
 
     Strength str;
     Level lvl;
