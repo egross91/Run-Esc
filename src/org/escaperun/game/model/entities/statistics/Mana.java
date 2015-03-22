@@ -19,7 +19,7 @@ public class Mana extends DerivedStatistic<Integer> {
 
     @Override
     protected void recalculate() {
-        maxMana = (int) (lvl.getCurrent() * 2) + (3 * intel.getCurrent());
+        maxMana = (int) (lvl.getCurrent() * 3) + (5 * intel.getCurrent());
     }
 
     @Override
