@@ -61,7 +61,7 @@ public class LoggerOption extends Option {
         return null;
     }
 
-    private static class Pair {
+    private class Pair {
 
         private String message;
         private Timer timer;

@@ -1,10 +1,12 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class PrimaryStatistic extends Statistic {
+public class PrimaryStatistic<T extends Number> extends Statistic<T> {
 
     private Double base;
     private Double additiveDelta;
     private Double multiplicativeDelta;
+
+    public PrimaryStatistic(T type) {super(type);}
 
     @Override
     public void notifyChange() {
@@ -12,30 +14,29 @@ public class PrimaryStatistic extends Statistic {
     }
 
     @Override
-    protected void setBase_internal(Double to) {
-        this.base = to;
+    protected void setBase_internal(T to) {
+        this.base = to.doubleValue();
         this.additiveDelta = 0.0;
         this.multiplicativeDelta = 0.0;
     }
 
-    public Double getBase() {
-        return base;
+    public T getBase() {
+        if (isInteger) return (T) base;
+        else return (T) base;
     }
 
-    public Double getCurrent() {
-        Double base = (Double) this.base;
-        Double additiveDelta = (Double) this.additiveDelta;
+    public T getCurrent() {
         Double val = (multiplicativeDelta*(base-additiveDelta));
-        return (Double) val;
+        if (isInteger) return (T) (Integer) val.intValue();
+        else return (T) val;
     }
 
     // add a delta to additive modifier
-    public void addDelta(Double toAdd) {
+    public void addDelta(T toAdd) {
         Double next = ((Double) additiveDelta) + ((Double) toAdd);
         if (next > ((Double) additiveDelta)) {
             next = (Double) base;
         }
-        additiveDelta = (Double) next;
     }
 
     // add a percentage to percentage modifier

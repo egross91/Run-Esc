@@ -37,56 +37,28 @@ public class StatisticContainer {
         return strength;
     }
 
-    public void setStrength(Double value){
-        strength.setBase(value);
-    }
-
     public Agility getAgility(){
         return agility;
-    }
-
-    public void setAgility(Double value){
-        agility.setBase(value);
     }
 
     public Hardiness getHardiness(){
         return hardiness;
     }
 
-    public void setHardiness(Double value){
-        hardiness.setBase(value);
-    }
-
     public Intellect getIntellect(){
         return intellect;
-    }
-
-    public void setIntellect(Double value){
-        intellect.setBase(value);
     }
 
     public Movement getMovement(){
         return movement;
     }
 
-    public void setMovement(Double value){
-        movement.setBase(value);
-    }
-
     public Experience getExperience(){
         return experience;
     }
 
-    public void setExperience(Double value){
-        experience.setBase(value);
-    }
-
     public LivesLeft getLivesLeft(){
         return livesLeft;
-    }
-
-    public void setLivesLeft(Double value){
-        livesLeft.setBase(value);
     }
 
     public Level getLevel(){

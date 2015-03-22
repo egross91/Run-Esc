@@ -1,6 +1,6 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class ArmorRating extends DerivedStatistic{
+public class ArmorRating extends DerivedStatistic<Double> {
     //this class is probably analagous to Life
 
     Hardiness hard;
@@ -10,6 +10,7 @@ public class ArmorRating extends DerivedStatistic{
     //TODO
     //need a way to alert when armor changes
     public ArmorRating(Hardiness hardiness, Double armorValue) {
+        super(0.0); // dummy
         hard = hardiness;
         this.armorValue = armorValue;
         recalculate();
@@ -17,7 +18,7 @@ public class ArmorRating extends DerivedStatistic{
 
     @Override
     protected void recalculate() {
-        armorRating = (2 * hard.getCurrent()) + (3 * armorValue);
+        //armorRating = (2 * hard.getCurrent()) + (3 * armorValue);
     }
 
     public Double getBase() {

@@ -1,11 +1,11 @@
 package org.escaperun.game.model.entities.statistics;
 
-import java.util.ArrayList;
+public abstract class DerivedStatistic<T extends Number> extends Statistic<T> {
 
-public abstract class DerivedStatistic extends Statistic {
+    public DerivedStatistic(T type) {super(type);}
 
     @Override
-    public void setBase(Double to) {
+    public void setBase(T to) {
         // nop
     }
 
@@ -17,8 +17,7 @@ public abstract class DerivedStatistic extends Statistic {
     protected abstract void recalculate();
 
     @Override
-    protected void setBase_internal(Double to) {
+    protected void setBase_internal(T to) {
         // nop
-        //Don't know if want to reset stuff
     }
 }
