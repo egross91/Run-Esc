@@ -8,18 +8,22 @@ public class Life extends DerivedStatistic<Integer> {
     //Life represents the amount of health left before this entity dies
 
 
+    //when the entity levels up or whatever, its Life will not be increased to fill the new max value,
+    //as it is coded right now...
+    //unless you call refillLife()
     private Level lvl;
     private Hardiness hard;
-    private Integer life;
     private Integer maxLife;
     private Double minLife = 0.0;
 
     public Life(Level level, Hardiness hardiness) {
         super(0);
         lvl = level;
+        lvl.subscribe(this);
         hard = hardiness;
+        hard.subscribe(this);
         recalculate();
-        life = maxLife; //upon initializing, give this entity full health
+        setBase_internal(maxLife); //upon initializing, give this entity full health
     }
 
     //recalculate here is NOT THE SAME as taking damage.
@@ -39,26 +43,23 @@ public class Life extends DerivedStatistic<Integer> {
         return maxLife;
     }
 
-    @Override
-    public Integer getCurrent() {
-        return life;
-    }
-
     //Entity is going to have to call this when it takes damage
     //Entity is responsible for deciding when it is dead
     public void takeDamage(int damageTaken) {
-        life -= damageTaken;
+        int currentLife = getCurrent();
+        setBase_internal(currentLife - damageTaken);
     }
 
     public void healDamage(int damageHealed) {
         //this could be used to go over the max life.
         //to simply restore full health, use refillLife.
-        life += damageHealed;
+        int currentLife = getCurrent();
+        setBase_internal( currentLife + damageHealed);
     }
 
     //probably need a code review to see if we actually want all this methods
     //something about 'replicated behavior'
     public void refillLife() {
-        life = maxLife;
+         setBase_internal(maxLife);
     }
 }
