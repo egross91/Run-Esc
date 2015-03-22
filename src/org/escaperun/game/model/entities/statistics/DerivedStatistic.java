@@ -13,11 +13,13 @@ public abstract class DerivedStatistic<T extends Number> extends Statistic<T> {
 
     @Override
     public T getBase() {
-        return (T) base;
+        if (isInteger) return (T) (Integer) base.intValue();
+        else return (T) base;
     }
 
     public T getCurrent() {
-        return (T) base;
+        if (isInteger) return (T) (Integer) base.intValue();
+        else return (T) base;
     }
 
     @Override
