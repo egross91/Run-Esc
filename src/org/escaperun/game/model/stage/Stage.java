@@ -57,6 +57,11 @@ public class Stage implements Renderable, Tickable {
                 grid[i][j] = new Tile(new GrassTerrain());
             }
         }
+        entities.add(new NonHostileNPC(new Decal('8', Color.BLACK, Color.YELLOW.darker()), new Position(0, 4), 0){
+            public void talk(){ //Override of standard "talk"
+                Logger.getInstance().pushMessage("ZIP ZOP ZOOPITY BOP");
+            }
+        });
     }
 
     public ItemContainer getAvatarInventory() {return avatar.getInventory();}
@@ -98,8 +103,8 @@ public class Stage implements Renderable, Tickable {
         for (Entity e : entities) {
             int entX = e.getCurrentPosition().x;
             int entY = e.getCurrentPosition().y;
-            int drawX = entX-midX;
-            int drawY = entY-midY;
+            int drawX = entX+midX-avatar.getCurrentPosition().x;
+            int drawY = entY+midY-avatar.getCurrentPosition().y;
             if (drawX >= 0 && drawY >= 0 &&
                     drawX < window.length && drawY < window[0].length) {
                 if (e.getRenderable() != null) {
