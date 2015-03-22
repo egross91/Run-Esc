@@ -20,8 +20,8 @@ public abstract class Projectile extends ActiveSkill {
     protected ArrayList<Position> displayArea;
     protected Decal decal;
 
-    public Projectile(int ofp, int dfp, int sd, Direction dir, Position start){
-        super(ofp, dfp);
+    public Projectile(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start){
+        super(ofp, dfp, skillLevel);
         this.movementTick = 0;
         this.skillDistance = sd;
 

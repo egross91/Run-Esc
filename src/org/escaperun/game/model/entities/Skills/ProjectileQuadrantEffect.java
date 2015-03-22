@@ -38,8 +38,8 @@ public abstract class ProjectileQuadrantEffect extends Projectile {
 
     private Position arrayPos;
 
-    public ProjectileQuadrantEffect(int ofp, int dfp, int sd, Direction dir, Position start) {
-        super(ofp, dfp, sd, dir, start);
+    public ProjectileQuadrantEffect(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start) {
+        super(ofp, dfp, skillLevel, sd, dir, start);
         this.arrayPos = new Position(11,11);
     }
 

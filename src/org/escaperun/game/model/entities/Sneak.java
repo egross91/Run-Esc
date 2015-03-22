@@ -4,6 +4,7 @@ import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.Skill;
+import org.escaperun.game.model.entities.skills.SneakSkillsContainer;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -17,8 +18,12 @@ import java.awt.*;
 
 public class Sneak extends Avatar {
 
+    private SneakSkillsContainer sneakSkills;
+
     public Sneak(Position initialPosition) {
+
         super(new Decal('@', Color.BLACK, Color.ORANGE), initialPosition);
+        sneakSkills = new SneakSkillsContainer();
     }
 
     @Override
@@ -64,5 +69,11 @@ public class Sneak extends Avatar {
     @Override
     public Projectile skill1() {
         return null;
+    }
+
+    @Override
+    public SneakSkillsContainer getSkillsContainer(){
+
+        return sneakSkills;
     }
 }

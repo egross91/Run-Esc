@@ -7,6 +7,7 @@ import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.skills.Skill;
+import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.entities.statistics.StatisticContainer;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.Equipable;
@@ -28,6 +29,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     private Direction direction;
     private MovementHandler movementHandler;
     private StatisticContainer statContainer;
+    private SkillsContainer skillsContainer;
 
     protected Entity(Decal decal, Position initialPosition) {
         this.initialPosition = initialPosition;

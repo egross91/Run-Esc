@@ -15,7 +15,7 @@ public abstract class SkillsContainer {
     public SkillsContainer(){
         bindWounds = new BindWounds();
         bargain = new Bargain();
-        observe = new Observe(0, 0, 0, Direction.EAST, new Position(0,0));
+        observe = new Observe(0, 0, 0, 0, Direction.EAST, new Position(0,0));
     }
 
     public BindWounds getBindWounds(){

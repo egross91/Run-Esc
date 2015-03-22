@@ -39,8 +39,8 @@ public abstract class Projectile360Effect extends Projectile {
 
     Position arrayPos;
 
-    public Projectile360Effect(int ofp, int dfp, int sd, Direction dir, Position start) {
-        super(ofp, dfp, sd, dir, start);
+    public Projectile360Effect(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start) {
+        super(ofp, dfp, skillLevel, sd, dir, start);
         this.arrayPos = new Position(11,11);
         //System.out.println("initial X" + this.initialPos.x + "initial Y" + this.initialPos.y);
 
