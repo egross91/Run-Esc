@@ -8,6 +8,7 @@ import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.statistics.*;
 import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.items.TakeableItem;
+import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.options.LoggerOption;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
@@ -107,8 +108,10 @@ public class Inventory extends GameState {
         boolean enter = pressed[bindings.getBinding(KeyType.ACTION)];
 
         if (enter) {
+            renderItemOptions(displayInfo.container, displayInfo.container.get(displayInfo.index));
+
+
             pressed[bindings.getBinding(KeyType.ACTION)] = false;
-            return;
         }
     }
 
@@ -233,6 +236,18 @@ public class Inventory extends GameState {
                 }
             }
         }
+    }
+
+    private void renderItemOptions(EquipmentContainer equipment, EquipableItem toUnEquip) {
+        // TODO
+    }
+
+    private void renderItemOptions(ItemContainer inventory, EquipableItem toEquip) {
+        // TODO
+    }
+
+    private void renderItemOptions(ItemContainer inventory, TakeableItem useableItem) {
+        // TODO
     }
 
     private void setSelectedEquipmentOrigin() {
