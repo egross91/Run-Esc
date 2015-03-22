@@ -4,6 +4,7 @@ import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.Renderable;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class StatisticContainer implements Renderable {
 
@@ -104,7 +105,6 @@ public class StatisticContainer implements Renderable {
         renderables[1] = renderize(getAgility());
         renderables[2] = renderize(getHardiness());
         renderables[3] = renderize(getIntellect());
-        renderables[4] = renderize(getMovement());
         renderables[5] = renderize(getExperience());
         renderables[6] = renderize(getLivesLeft());
         renderables[7] = renderize(getLevel());
@@ -116,14 +116,23 @@ public class StatisticContainer implements Renderable {
         return renderables;
     }
 
-    private Decal[] renderize(Statistic stat) {
+    public Decal[] renderize(Statistic stat) {
         String name = stat.getName() + ": ";
-        String diff = stat.getCurrent().toString() + "/" + stat.getBase().toString();
-        String display = name + diff;
+        String current = stat.getCurrent().toString();
+        String base = stat.getBase().toString();
+        String display = name + current + "/" + base;
 
         Decal[] ret = new Decal[display.length()];
-        for (int i = 0; i < display.length(); ++i) {
-            ret[i] = new Decal(display.charAt(i), Color.BLACK, Color.WHITE);
+        int index = 0;
+        for (int i = 0; i < name.length(); ++i) {
+            ret[index++] = new Decal(display.charAt(i), Color.BLACK, Color.WHITE);
+        }
+        for (int i = 0; i < current.length(); ++i) {
+            ret[index++] = new Decal(current.charAt(i), Color.BLACK, Color.GREEN);
+        }
+        ret[index++] = new Decal('/', Color.BLACK, Color.WHITE);
+        for (int i = 0; i < base.length(); ++i) {
+            ret[index++] = new Decal(base.charAt(i), Color.BLACK, Color.BLUE);
         }
 
         return ret;

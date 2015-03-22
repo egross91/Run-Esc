@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.events.Timer;
+import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.view.Decal;
 import java.util.ArrayList;
 
@@ -21,8 +22,9 @@ public abstract class Projectile extends ActiveSkill {
     protected Timer moveTimer;
     protected Timer moveAmount = new Timer(0);
 
-    public Projectile(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int movesPerTick){
-        super(ofp, dfp, skillLevel);
+
+    public Projectile(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick){
+        super(ofp, dfp, skillLevel, skillOwner);
         this.skillDistance = sd;
         this.moveTimer = new Timer(movesPerTick);
         this.moveAmount = new Timer(sd);

@@ -8,6 +8,7 @@ import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.statistics.*;
 import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.items.TakeableItem;
+import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.options.LoggerOption;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
@@ -24,6 +25,9 @@ public class Inventory extends GameState {
     private Pair displayInfo;
 
     private int selectedX = 0, selectedY= 0;
+    private int previousSelectedX, previousSelectedY;
+    private boolean action = false;
+    private boolean stored = false;
     private final int EQUIPMENT_ORIGIN_ROW = 8;
     private final int EQUIPMENT_ORIGIN_COL = 34;
     private final int EQUIPMENT_MAX_COL = 49;
@@ -31,12 +35,16 @@ public class Inventory extends GameState {
     private final int INVENTORY_ORIGIN_COL = 36;
     private final int INVENTORY_MAX_ROW = 24;
     private final int INVENTORY_MAX_COL = 48;
+    private final int ITEM_OPTION_ROW = 28;
+    private final int ITEM_TWO_OPTION_MAX_ROW = 30;
+    private final int ITEM_OPTION_COL = LEFT_MARGIN;
 
     public Inventory(Playing previous, Stage stage) {
         this.previous = previous;
         this.equipmentContainer = stage.getAvatarEquipment();
         this.itemContainer = stage.getAvatarInventory();
         setSelectedEquipmentOrigin();
+        savePreviousSelectedCoords();
     }
 
     @Override
@@ -48,12 +56,14 @@ public class Inventory extends GameState {
             return previous;
         }
 
-        handleMovement(bindings, pressed);
+        handleContainerMovement(bindings, pressed);
         handleAction(bindings, pressed);
         return null;
     }
 
-    private void handleMovement(KeyBindings bindings, boolean[] pressed) {
+    private void handleContainerMovement(KeyBindings bindings, boolean[] pressed) {
+        if (action) return;
+
         boolean up = pressed[bindings.getBinding(KeyType.UP)];
         boolean down = pressed[bindings.getBinding(KeyType.DOWN)];
         boolean right = pressed[bindings.getBinding(KeyType.RIGHT)];
@@ -75,7 +85,7 @@ public class Inventory extends GameState {
             } else if (moveX < INVENTORY_ORIGIN_ROW && moveX > EQUIPMENT_ORIGIN_ROW && (selectedX - moveX) < 0) {
                 setSelectedInventoryOrigin();
             }
-            else {
+            else if (up || down || right || left) {
                  if (moveX <= EQUIPMENT_ORIGIN_ROW) {
                     moveX = EQUIPMENT_ORIGIN_ROW;
 
@@ -104,20 +114,53 @@ public class Inventory extends GameState {
     }
     
     private void handleAction(KeyBindings bindings, boolean[] pressed) {
-        boolean enter = pressed[bindings.getBinding(KeyType.ACTION)];
+        boolean exit = pressed[bindings.getBinding(KeyType.EXIT)];
+        action = (pressed[bindings.getBinding(KeyType.ACTION)] || action) ? !exit : false;
 
-        if (enter) {
-            pressed[bindings.getBinding(KeyType.ACTION)] = false;
-            return;
+        if (action) {
+            if (displayInfo.container.get(displayInfo.index) != null) {
+                if (!stored) {
+                    stored = true;
+                    savePreviousSelectedCoords();
+                    setSelectedOptionsOrigin();
+                }
+
+                handleItemOptionsMovement(bindings, pressed);
+            }
+            else {
+                action = false;
+            }
+        }
+        if (exit) {
+            restoreSelectedCoords();
+            stored = false;
         }
     }
 
-    public static final int SPACING = 2;
+    private void handleItemOptionsMovement(KeyBindings bindings, boolean[] pressed) {
+        boolean up = pressed[bindings.getBinding(KeyType.UP)];
+        boolean down = pressed[bindings.getBinding(KeyType.DOWN)];
+
+        int moveX = selectedX;
+
+        if (up) moveX -= 2;
+        if (down) moveX += 2;
+
+        moveX = clamp(moveX, ITEM_OPTION_ROW, ITEM_TWO_OPTION_MAX_ROW);
+        selectedX = moveX;
+    }
+
     public static final String EQUIPMENT = "EQUIPMENT";
     public static final String INVENTORY = "INVENTORY";
     public static final String ITEM = "ITEM: ";
     public static final String DESCRIPTION = "DESCRIPTION: ";
+    public static final String DROP = "DROP: ";
+    public static final String EQUIP = "EQUIP: ";
+    public static final String UNEQUIP = "UNEQUIP: ";
+    public static final String USE = "USE: ";
     public static final String NO_ITEM = "NO ITEM";
+    public static final String NEVERMIND = "NEVER MIND";
+    public static final int SPACING = 2;
     public static final int TOP_MARGIN = 6;
     public static final int BOTTOM_MARGIN = 13;
     public static final int LEFT_MARGIN = 5;
@@ -139,8 +182,18 @@ public class Inventory extends GameState {
         int numCols = itemContainer.getCapacity() / 6;
         renderContainer(window, itemContainer, INVENTORY, startRow, numRows, numCols);
 
+
+        clearRegion(window, ITEM_OPTION_ROW, LEFT_MARGIN, 8, 80);
         /* Draw Item Info */
-        renderDisplayItem(window, displayInfo, INVENTORY_MAX_ROW+4, LEFT_MARGIN);
+        if (!action) {
+            renderDisplayItem(window, displayInfo, ITEM_OPTION_ROW, LEFT_MARGIN);
+        }
+        else {
+            startRow = ITEM_OPTION_ROW;
+            int startCol = ITEM_OPTION_COL;
+
+            renderItemOptions(window, displayInfo.container, displayInfo.container.get(displayInfo.index), startRow, startCol);
+        }
 
         /* Log */
         Decal[][] log = LoggerOption.getInstance().getRenderable(false);
@@ -165,7 +218,7 @@ public class Inventory extends GameState {
         int size = numCols;
         int charsUsed = size + SPACING*(size-1);
         for (int i = 0; i < numRows; ++i) {
-            startColumn = (NUM_GOOD_COLUMNS /2) - (charsUsed/2);
+            startColumn = (NUM_GOOD_COLUMNS/2) - (charsUsed/2);
             for (int j = 0; j < numCols; ++j) {
                 TakeableItem item = container.get(itemIndex++);
                 Decal render;
@@ -177,7 +230,7 @@ public class Inventory extends GameState {
                 }
 
                 // Render red if it is the selected item.
-                if (startRow == selectedX && startColumn+LEFT_MARGIN == selectedY) {
+                if (isSelected(startRow, startColumn+LEFT_MARGIN)) {
                     render = new Decal(render.ch, render.background, Color.RED);
                     displayInfo = null;
                     displayInfo = new Pair(itemIndex-1, container);
@@ -211,29 +264,88 @@ public class Inventory extends GameState {
             for (int i = 0; i < displayDesc.length(); ++i) {
                 window[startRow][startCol+i] = new Decal(displayDesc.charAt(i), Color.BLACK, Color.WHITE);
             }
-            ++startRow;
-            window[startRow++][startCol] = Decal.BLANK;
+            startRow += 2;
 
-            Decal[][] stats = item.getStatistics().getRenderable();
-            int rows = 0;
+            StatisticContainer stats = item.getStatistics();
+            Decal[][] decals = filterStats(stats);
             int colsUsed = 0;
-            for (int i = 0; i < stats.length; ++i) {
-                for (int j = 0; j < stats[i].length; ++j) {
-                    window[startRow+rows][startCol+colsUsed++] = stats[i][j];
+            for (int i = 0; i < decals.length; ++i) {
+                for (int j = 0; j < decals[i].length; ++j) {
+                    window[startRow][startCol+colsUsed++] = decals[i][j];
                 }
 
                 if (((i+1)%2 == 0) && i != 0) {
-                    ++rows;
+                    ++startRow;
                     colsUsed = 0;
                 }
                 else {
-                    for (int j = stats[i].length; j < 30; ++j) {
-                        window[startRow+rows][startCol+j] = Decal.BLANK;
+                    for (int j = decals[i].length; j < 30; ++j) {
+                        window[startRow][startCol+j] = Decal.BLANK;
                         ++colsUsed;
                     }
                 }
             }
         }
+    }
+
+    private void renderItemBoxes(Decal[][] window, int startRow, int startCol, int numBoxes) {
+        for (int i = 0; i < numBoxes; ++i) {
+            if (isSelected(startRow, startCol)) {
+                window[startRow][startCol] = new Decal((char)254, Color.BLACK, Color.RED);
+            }
+            else {
+                window[startRow][startCol] = new Decal((char)254, Color.BLACK, Color.WHITE);
+            }
+
+            startRow += 2;
+        }
+    }
+
+    private void renderItemOptions(Decal[][] window, EquipmentContainer equipment, EquipableItem toUnequip, int startRow, int startCol) {
+        renderItemBoxes(window, startRow, startCol, 2);
+
+
+    }
+
+    private void renderItemOptions(Decal[][] window, ItemContainer inventory, EquipableItem toEquip, int startRow, int startCol) {
+        renderItemBoxes(window, startRow, startCol, 2);
+
+        startCol += 2;
+        // TODO
+    }
+
+    private void renderItemOptions(Decal[][] window, ItemContainer inventory, TakeableItem useableItem, int startRow, int startCol) {
+        renderItemBoxes(window, startRow, startCol, 2);
+
+        startCol += 2;
+        String displayName = UNEQUIP + useableItem.getName();
+        for (int i = 0; i < displayName.length(); ++i) {
+            window[startRow][startCol+i] = new Decal(displayName.charAt(i), Color.BLACK, Color.WHITE);
+        }
+
+        startRow += 2;
+        for (int i = 0; i < NEVERMIND.length(); ++i) {
+            window[startRow][startCol+i] = new Decal(NEVERMIND.charAt(i), Color.BLACK, Color.WHITE);
+        }
+    }
+
+    private void renderDropOption(Decal[][] window, TakeableItem item, int startRow, int startCol) {
+
+    }
+
+    private void clearRegion(Decal[][] window, int startRow, int startCol, int rows, int cols) {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                window[startRow+i][startCol+j] = Decal.BLANK;
+            }
+        }
+    }
+
+    private int clamp(int coord, int lo, int hi) {
+        if (coord < lo) return lo;
+        if (coord > hi) return hi;
+
+        return coord;
     }
 
     private void setSelectedEquipmentOrigin() {
@@ -244,6 +356,40 @@ public class Inventory extends GameState {
     private void setSelectedInventoryOrigin() {
         this.selectedX = INVENTORY_ORIGIN_ROW;
         this.selectedY = INVENTORY_ORIGIN_COL;
+    }
+
+    private void setSelectedOptionsOrigin() {
+        this.selectedX = ITEM_OPTION_ROW;
+        this.selectedY = ITEM_OPTION_COL;
+    }
+
+    private void restoreSelectedCoords() {
+        this.selectedX = previousSelectedX;
+        this.selectedY = previousSelectedY;
+    }
+
+    private void savePreviousSelectedCoords() {
+        this.previousSelectedX = selectedX;
+        this.previousSelectedY = selectedY;
+    }
+
+
+    private boolean isSelected(int r, int c) {
+        return (selectedX == r && selectedY == c);
+    }
+
+    private Decal[][] filterStats(StatisticContainer stats) {
+        Decal[][] decals = new Decal[8][];
+        decals[0] = stats.renderize(stats.getAgility());
+        decals[1] = stats.renderize(stats.getStrength());
+        decals[2] = stats.renderize(stats.getHardiness());
+        decals[3] = stats.renderize(stats.getMana());
+        decals[4] = stats.renderize(stats.getLife());
+        decals[5] = stats.renderize(stats.getIntellect());
+        decals[6] = stats.renderize(stats.getOffensiveRating());
+        decals[7] = stats.renderize(stats.getDefensiveRating());
+
+        return decals;
     }
 
     private class Pair {

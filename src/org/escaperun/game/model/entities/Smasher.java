@@ -4,6 +4,7 @@ import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SmasherSkillsContainer;
+import org.escaperun.game.model.entities.skills.smasher.Cleave;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -21,7 +22,7 @@ public class Smasher extends Avatar{
 
     public Smasher(Position initialPosition) {
         super(new Decal('@', Color.BLACK, Color.RED), initialPosition);
-        smasherSkills = new SmasherSkillsContainer();
+        smasherSkills = new SmasherSkillsContainer(this);
     }
 
     @Override
@@ -65,8 +66,8 @@ public class Smasher extends Avatar{
     }
 
     @Override
-    public Projectile skill1() {
-        return null;
+    public Projectile skill1(){
+        return new Cleave(0, 0, 0, this, 3, getDirection(), getCurrentPosition(), 2);
     }
 
     @Override

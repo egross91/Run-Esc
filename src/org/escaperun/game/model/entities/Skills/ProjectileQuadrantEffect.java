@@ -2,14 +2,12 @@ package org.escaperun.game.model.entities.skills;
 
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.view.Decal;
 
 import java.util.ArrayList;
 
-/**
- * Created by TubbyLumpkins on 3/19/15.
- */
 public abstract class ProjectileQuadrantEffect extends Projectile {
     private static int[][] AoEPaths = {
 
@@ -38,8 +36,8 @@ public abstract class ProjectileQuadrantEffect extends Projectile {
 
     private Position arrayPos;
 
-    public ProjectileQuadrantEffect(int ofp, int dfp, int skillLevel, int sd, Direction dir, Position start, int movesPerTick) {
-        super(ofp, dfp, skillLevel, sd, dir, start, movesPerTick);
+    public ProjectileQuadrantEffect(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick) {
+        super(ofp, dfp, skillLevel, skillOwner, sd, dir, start, movesPerTick);
         this.arrayPos = new Position(11,11);
     }
 

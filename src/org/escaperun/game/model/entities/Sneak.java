@@ -23,7 +23,7 @@ public class Sneak extends Avatar {
     public Sneak(Position initialPosition) {
 
         super(new Decal('@', Color.BLACK, Color.ORANGE), initialPosition);
-        sneakSkills = new SneakSkillsContainer();
+        sneakSkills = new SneakSkillsContainer(this);
     }
 
     @Override
