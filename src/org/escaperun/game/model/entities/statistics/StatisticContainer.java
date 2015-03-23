@@ -188,7 +188,7 @@ public class StatisticContainer implements Renderable, Saveable {
         rendrend[4] = combineWithSpacing(renderizeOnStageUnary(getMovement()), renderizeOnStageUnary(getArmorRating()), 25);
         rendrend[5] = combineWithSpacing(renderizeOnStageUnary(getExperience()), renderizeOnStageUnary(getLivesLeft()), 25);
         return rendrend;
-        }
+    }
 
     public Decal[] getLevelRender(){
         return renderizeOnStageUnary(getLevel());
@@ -261,5 +261,18 @@ public class StatisticContainer implements Renderable, Saveable {
 
     public void subscribeToLife(IStatSubscriber subscriber) {
         life.subscribe(subscriber);
+    }
+
+    public void setCurrent(double armorRating, double mana, double offenseRating, double agility,
+                           double hardiness, double movement, double defenseRating, double intellect) {
+
+        getArmorRating().setArmorValue(armorRating);
+        getMana().setDelta(mana);
+        getOffensiveRating().setWeaponDamage(offenseRating);
+        getAgility().setDelta(agility);
+        getHardiness().setDelta(hardiness);
+        getMovement().setDelta(movement);
+        getDefensiveRating().setDelta(defenseRating);
+        getIntellect().setDelta(intellect);
     }
 }

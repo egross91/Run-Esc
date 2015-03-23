@@ -8,7 +8,10 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
 
    private Level lvl;
    private Intellect intel;
-   private Integer maxMana;
+   private Integer maxMana = 0;
+    private Integer base = 0;
+    private Integer delta = 0;
+    private Integer current = 0;
    private Integer minMana = 0;
 
     public Mana(Level level, Intellect intellect) {
@@ -44,14 +47,21 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
 
     @Override
     protected void recalculate() {
-        maxMana = (int) (lvl.getCurrent() * 3) + (5 * intel.getCurrent());
-        int currentMana = getBase();
-        setBase(currentMana);
+        Integer lvlCurr = (lvl.getCurrent() == null) ? 1 : lvl.getCurrent();
+        Integer intelCurr = (intel.getCurrent() == null) ? 1 : intel.getCurrent();
+        maxMana = (int) (lvlCurr * 3) + (5 * intelCurr) + delta;
+//        int currentMana = getBase();
+        setBase(maxMana);
     }
 
     @Override
     public Integer getBase() {
-        return maxMana;
+        return base;
+    }
+
+    @Override
+    public Integer getCurrent() {
+        return current;
     }
 
     public void reduceMana(Integer amountReduced) {
@@ -61,10 +71,14 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
 
     public void restoreMana(Integer amountRestored) {
         int currentMana = getCurrent();
-        if((currentMana + amountRestored) > maxMana)
+        if((currentMana + amountRestored) < maxMana)
             refillMana();
         else
-            setBase(currentMana + amountRestored);
+            setCurrent(currentMana + amountRestored);
+    }
+
+    public void setCurrent(Integer val) {
+        this.current = val;
     }
 
     public void refillMana() {
@@ -74,5 +88,9 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
     @Override
     public String getName() {
         return "Mana";
+    }
+
+    public void setDelta(double delta) {
+        this.delta = (int)delta;
     }
 }

@@ -5,9 +5,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Agility extends PrimaryStatistic<Double> implements Saveable {
+    private Double delta = 0.0;
+    private Double current = 0.0;
+
     public Agility(){
         super(0.0); // dummy
         setBase(5.0);
+        recalculate();
     }
 
     @Override
@@ -43,5 +47,20 @@ public class Agility extends PrimaryStatistic<Double> implements Saveable {
         ret.additiveDelta = additiveDelta;
         ret.multiplicativeDelta = multiplicativeDelta;
         return ret;
+    }
+
+    public void recalculate() {
+        base = (2*getBase());
+        current = delta + base;
+    }
+
+    @Override
+    public Double getCurrent() {
+        return current;
+    }
+
+    public void setDelta(double delta) {
+        this.delta = delta;
+        recalculate();
     }
 }

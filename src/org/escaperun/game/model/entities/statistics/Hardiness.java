@@ -5,10 +5,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Hardiness extends PrimaryStatistic<Integer> implements Saveable {
+    private Integer delta = 0;
+    private Integer current = 0;
 
     public Hardiness(){
         super(0); // dummy
         setBase(5);
+        recalculate();
     }
 
     @Override
@@ -44,5 +47,19 @@ public class Hardiness extends PrimaryStatistic<Integer> implements Saveable {
         ret.additiveDelta = additiveDelta;
         ret.multiplicativeDelta = multiplicativeDelta;
         return ret;
+    }
+
+    public void recalculate() {
+        current = getBase() + delta;
+    }
+
+    @Override
+    public Integer getCurrent() {
+        return current;
+    }
+
+    public void setDelta(double delta) {
+        this.delta = (int) delta;
+        recalculate();
     }
 }
