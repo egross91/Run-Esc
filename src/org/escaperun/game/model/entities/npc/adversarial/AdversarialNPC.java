@@ -14,6 +14,8 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.view.Decal;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class AdversarialNPC extends NPC {
     private int maxAttackRange;
@@ -24,6 +26,44 @@ public class AdversarialNPC extends NPC {
     }
 
     public ActiveSkill getActiveSkill(Direction dir) {return null;}
+
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element citizen = dom.createElement("AdversarialNPC");
+        super.save(dom, citizen);
+        parent.appendChild(citizen);
+
+        citizen.setAttribute("MaxAttackRange", Integer.toString(maxAttackRange));
+        return citizen;
+    }
+
+    @Override
+    public AdversarialNPC load(Element node) {
+        if (node == null) return null;
+        Element us = node;
+        if (node.getElementsByTagName("AdversarialNPC") != null && node.getElementsByTagName("AdversarialNPC").getLength() > 0)
+            us = (Element) node.getElementsByTagName("AdversarialNPC").item(0);
+
+        AdversarialNPC citizen = new AdversarialNPC(Decal.BLANK, new Position(0,0), 10, Integer.parseInt(us.getAttribute("MaxAttackRange")));
+        Element npcPart = (Element) us.getElementsByTagName("NPC").item(0);
+        citizen.helperLoad(npcPart);
+        return citizen;
+    }
+
+    public void partialLode(Element node) {
+        if (node == null) return;
+        Element us = node;
+        if (node.getElementsByTagName("AdversarialNPC") != null && node.getElementsByTagName("AdversarialNPC").getLength() > 0)
+            us = (Element) node.getElementsByTagName("AdversarialNPC").item(0);
+
+        Element npcPart = (Element) us.getElementsByTagName("NPC").item(0);
+        helperLoad(npcPart);
+    }
+
+    private void helperLoad(Element node) {
+        super.load(node);
+    }
 
     @Override
     public void attack(Entity defender, Skill skill) {

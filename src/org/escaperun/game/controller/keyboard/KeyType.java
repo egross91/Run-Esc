@@ -74,6 +74,57 @@ public enum KeyType {
                 return "Shift";
             case KeyEvent.VK_SPACE:
                 return "Space";
+            case KeyEvent.VK_P:
+                return "Shop";
+            case KeyEvent.VK_M:
+                return "M";
+            default:
+                throw new IllegalArgumentException("Pressed the wrong Key :P");
+        }
+    }
+
+    public String getKey(int code) {
+        switch (code) {
+            case KeyEvent.VK_I:
+                return "I";
+            case KeyEvent.VK_L:
+                return "L";
+            case KeyEvent.VK_ENTER:
+                return "Enter";
+            case KeyEvent.VK_BACK_SPACE:
+                return "Backspace";
+            case KeyEvent.VK_ESCAPE:
+                return "X";
+            case KeyEvent.VK_W:
+                return "W";
+            case KeyEvent.VK_S:
+                return "S";
+            case KeyEvent.VK_D:
+                return "D";
+            case KeyEvent.VK_A:
+                return "A";
+            case KeyEvent.VK_Q:
+                return "Q";
+            case KeyEvent.VK_E:
+                return "E";
+            case KeyEvent.VK_Z:
+                return "Z";
+            case KeyEvent.VK_C:
+                return "C";
+            case KeyEvent.VK_X:
+                return "X";
+            case KeyEvent.VK_B:
+                return "B";
+            case KeyEvent.VK_N:
+                return "N";
+            case KeyEvent.VK_SHIFT:
+                return "Shift";
+            case KeyEvent.VK_SPACE:
+                return "Space";
+            case KeyEvent.VK_P:
+                return "Shop";
+            case KeyEvent.VK_M:
+                return "M";
             default:
                 throw new IllegalArgumentException("Pressed the wrong Key :P");
         }
