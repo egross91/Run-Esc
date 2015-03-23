@@ -33,6 +33,7 @@ import org.escaperun.game.view.Renderable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import java.awt.*;
 
 import java.awt.*;
 import java.util.ArrayList;

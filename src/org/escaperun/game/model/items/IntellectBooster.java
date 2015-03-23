@@ -8,6 +8,7 @@ public class IntellectBooster extends OneShotItem {
 
     @Override
     public void doAction(Entity e){
-        e.getStatContainer().getIntellect().addDelta(1);
+        Integer amount = e.getStatContainer().getIntellect().getBase() + 2;
+        e.getStatContainer().getIntellect().setBase(amount);
     }
 }
