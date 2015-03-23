@@ -4,6 +4,9 @@ import com.sun.org.glassfish.external.statistics.Statistic;
 import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.NPC;
+import org.escaperun.game.serialization.Saveable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public abstract class ActiveSkill extends Skill {
 
@@ -20,7 +23,7 @@ public abstract class ActiveSkill extends Skill {
         this.skillLevel = 0;
         this.manaCost = 0;
     }
-    public ActiveSkill(int ofp, int dfp, int skillLevel, Entity skillOwner ){
+    public ActiveSkill(int ofp, int dfp, int skillLevel, Entity skillOwner){
         this.DefensePower = dfp;
         this.OffensePower = ofp;
         this.skillLevel = skillLevel;
@@ -28,9 +31,11 @@ public abstract class ActiveSkill extends Skill {
         this.manaCost = 0;
     }
 
-
     public void tick() { return; }
     public boolean isDone() {return true;}
+    public void setSkillLevel(int level) {
+        this.skillLevel = level;
+    }
     public void incrementSkillLevel(){
         skillLevel++;
     }

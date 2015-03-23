@@ -4,8 +4,7 @@ import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
-import org.escaperun.game.model.entities.Avatar;
-import org.escaperun.game.model.entities.Entity;
+import org.escaperun.game.model.entities.*;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.npc.NPC;
@@ -73,6 +72,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
                 }
             }
         }
+        avatar.save(dom, stage);
         //TODO: Save rest
         return stage;
     }
@@ -92,6 +92,17 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             int y = Integer.parseInt(tile.getAttribute("Y"));
             Tile put  = new Tile(new BlankTerrain()).load(tile);
             ret.grid[x][y] = put;
+        }
+
+        if (node.getElementsByTagName("Smasher").getLength() > 0) {
+            Smasher smash = new Smasher(null).load((Element)node.getElementsByTagName("Smasher").item(0));
+            ret.setAvatar(smash);
+        } else if (node.getElementsByTagName("Sneak").getLength() > 0) {
+            Sneak sneak = new Sneak(null).load((Element)node.getElementsByTagName("Sneak").item(0));
+            ret.setAvatar(sneak);
+        } else if (node.getElementsByTagName("Summoner").getLength() > 0) {
+            Summoner summoner = new Summoner(null).load((Element)node.getElementsByTagName("Summoner").item(0));
+            ret.setAvatar(summoner);
         }
 
         //TODO: Load rest

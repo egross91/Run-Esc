@@ -5,6 +5,8 @@ import org.escaperun.game.model.entities.skills.sneak.Creep;
 import org.escaperun.game.model.entities.skills.sneak.DetectAndRemoveTrap;
 import org.escaperun.game.model.entities.skills.sneak.PickPocket;
 import org.escaperun.game.model.items.equipment.weapons.RangedWeapon;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,27 @@ public class SneakSkillsContainer extends SkillsContainer {
         skills.add(4, drt);
         skills.add(5, creep);
         skills.add(6, rangedAttack);
+    }
+
+    public Element save(Document dom, Element parent) {
+        Element us = dom.createElement("SneakSkillsContainer");
+        parent.appendChild(us);
+        us.setAttribute("PickPocketLvl", Integer.toString(pickPocket.getSkillLevel()));
+        us.setAttribute("DrtLvl", Integer.toString(drt.getSkillLevel()));
+        us.setAttribute("RangedAttackLvl", Integer.toString(rangedAttack.getSkillLevel()));
+        us.setAttribute("CreepLvl", Integer.toString(creep.getSkillLevel()));
+
+        return us;
+    }
+
+    public SneakSkillsContainer load(Element node, Entity ent) {
+        if (node == null) return null;
+        SneakSkillsContainer res = new SneakSkillsContainer(ent);
+        res.pickPocket.setSkillLevel(Integer.parseInt(node.getAttribute("PickPocketLvl")));
+        res.drt.setSkillLevel(Integer.parseInt(node.getAttribute("DrtLvl")));
+        res.rangedAttack.setSkillLevel(Integer.parseInt(node.getAttribute("RangedAttackLvl")));
+        res.creep.setSkillLevel(Integer.parseInt(node.getAttribute("CreepLvl")));
+        return res;
     }
 
     public PickPocket getPickPocket(){

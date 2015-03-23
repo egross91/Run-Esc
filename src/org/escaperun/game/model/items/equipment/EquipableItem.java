@@ -58,14 +58,12 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
 
     @Override
     public ItemOption[] getOptions(final Avatar avatar) {
-        final EquipmentContainer equipment = avatar.getEquipment();
-        final ItemContainer inventory = avatar.getInventory();
         final EquipableItem self = this;
 
         ItemOption equip = new ItemOption("Equip: ", new Runnable() {
             @Override
             public void run() {
-                if (inventory.contains(self)) {
+                if (avatar.getInventory().contains(self)) {
                     avatar.equipItem(self);
                 }
             }
@@ -73,7 +71,7 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
         ItemOption unequip = new ItemOption("Unequip: ", new Runnable() {
             @Override
             public void run() {
-                if (equipment.contains(self)) {
+                if (avatar.getEquipment().contains(self)) {
                     avatar.unequipItem(self);
                 }
             }
@@ -81,7 +79,7 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
         ItemOption drop = new ItemOption("Drop; ", new Runnable() {
             @Override
             public void run() {
-                if (equipment.contains(self)) {
+                if (avatar.getEquipment().contains(self)) {
                     avatar.unequipItem(self);
                 }
 

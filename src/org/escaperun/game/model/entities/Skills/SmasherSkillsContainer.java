@@ -4,7 +4,10 @@ import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
+import org.escaperun.game.serialization.Saveable;
 import org.escaperun.game.view.Decal;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,6 +38,26 @@ public class SmasherSkillsContainer extends SkillsContainer {
         skills.add(3, oha);
         skills.add(4, tha);
         skills.add(5, brawling);
+    }
+
+    public Element save(Document dom, Element parent) {
+        Element us = dom.createElement("SmasherSkillsContainer");
+        parent.appendChild(us);
+        us.setAttribute("OhaLvl", Integer.toString(oha.getSkillLevel()));
+        us.setAttribute("ThaLvl", Integer.toString(tha.getSkillLevel()));
+        us.setAttribute("BrawlingLvl", Integer.toString(brawling.getSkillLevel()));
+
+        return us;
+    }
+
+    public SmasherSkillsContainer load(Element node, Entity ent) {
+        if (node == null) return null;
+        SmasherSkillsContainer res = new SmasherSkillsContainer(ent);
+        res.oha.setSkillLevel(Integer.parseInt(node.getAttribute("OhaLvl")));
+        res.tha.setSkillLevel(Integer.parseInt(node.getAttribute("ThaLvl")));
+        res.brawling.setSkillLevel(Integer.parseInt(node.getAttribute("BrawlingLvl")));
+
+        return res;
     }
 
     public OneHandedAttack getOneHandedAttack(){
