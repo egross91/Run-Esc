@@ -12,6 +12,7 @@ import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
 import org.escaperun.game.model.entities.npc.adversarial.RangedNPC;
 import org.escaperun.game.model.entities.npc.ai.MeleeAI;
 import org.escaperun.game.model.entities.npc.ai.RangedAI;
+import org.escaperun.game.model.items.equipment.armors.ChestItem;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
@@ -31,10 +32,12 @@ public class Creation extends GameState {
         options = new OptionContainer(new Option[][] {
                 {new SelectableOption("SMASHER"){
                     public GameState getNextState() {
-                        Sound.PLAYING1.play();
+//                        Sound.PLAYING1.play();
 
                         Stage stage = setupStage(new Smasher(new Position(0, 0)));
                         stage.getAvatar().visit(new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction fo' yo' momma."));
+                        stage.getAvatar().getInventory().add(new OneHandedWeapon(new Decal('p', Color.BLACK, Color.BLUE), "Josh Sucks", "A weapon of suckage."));
+                        stage.getAvatar().getInventory().add(new ChestItem(new Decal('c', Color.BLACK, Color.BLUE), "Josh Sucks", "A weapon of suckage."));
 
                         return new Playing(stage);
                     }
@@ -43,7 +46,7 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Summoner(new Position(0, 0)));
 
                     public GameState getNextState() {
-                        Sound.PLAYING1.play();
+//                        Sound.PLAYING1.play();
                         return new Playing(stage);
                     }
                 },
@@ -51,7 +54,7 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Sneak(new Position(0, 0)));
 
                     public GameState getNextState() {
-                        Sound.PLAYING1.play();
+//                        Sound.PLAYING1.play();
                         return new Playing(stage);
                     }
                 }},

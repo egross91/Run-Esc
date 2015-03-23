@@ -98,12 +98,13 @@ public class SetKeyBindings extends GameState {
                 KeyType key = KeyType.values()[i];
                 if (pressed[key.defaultKeycode] && isSettable(selected) && isSettable(key)) {
 
+                    int previousKeycode = selected.defaultKeycode;
                     bindings.setBinding(selected, key.defaultKeycode);
-                    bindings.setBinding(key, key.defaultKeycode);
+                    bindings.setBinding(key, previousKeycode);
                     ok = true;
                     break;
                 }
-                else if ((i+1) == KeyType.values().length/2 || i == KeyType.values().length-1) {
+                else if ((i+1) == KeyType.values().length/2 || i == KeyType.values().length-1) { // Buffer
                     resetPressed(bindings, pressed);
                 }
             }

@@ -53,13 +53,13 @@ public class ItemContainer<T extends TakeableItem> implements Saveable {
 
     public void remove(TakeableItem item) {
         int i = 0;
-        for (TakeableItem current : items) {
+        for (; i < MAX_CAPACITY; ++i) {
+            TakeableItem current = getItems().get(i);
             if (current == null) continue;
 
             if (current.equals(item)) {
                 break;
             }
-            ++i;
         }
 
         items.set(i, null);
