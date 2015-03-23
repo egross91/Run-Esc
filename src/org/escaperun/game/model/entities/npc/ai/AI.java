@@ -1,11 +1,10 @@
 package org.escaperun.game.model.entities.npc.ai;
 
-import javafx.geometry.Pos;
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.npc.NPC;
-import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.stage.Stage;
 
 import java.util.Random;
@@ -74,6 +73,7 @@ public abstract class AI implements Tickable{
     }
 
     protected void onDeath() {
+        Logger.getInstance().pushMessage("Tis just a flesh wound...");
         stage.aiToRemove(this);
     }
 

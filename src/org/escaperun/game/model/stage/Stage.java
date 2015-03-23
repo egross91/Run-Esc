@@ -9,9 +9,13 @@ import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
+import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
+import org.escaperun.game.model.entities.npc.ai.AggressiveAI;
+import org.escaperun.game.model.entities.npc.ai.MeleeAI;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
@@ -61,8 +65,6 @@ public class Stage implements Renderable, Tickable, Saveable {
     private ArrayList<AreaEffect> areaEffects;
     //Skill Test
     private ArrayList<Projectile> projectiles;
-
-
 
     @Override
     public Element save(Document dom, Element parent) {
@@ -124,14 +126,18 @@ public class Stage implements Renderable, Tickable, Saveable {
         //AoE test
         areaEffects = new ArrayList<AreaEffect>();
 
-
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
                 grid[i][j] = new Tile(new GrassTerrain());
             }
         }
+//
+//        MeleeNPC anpc = new MeleeNPC(new Decal('U', Color.LIGHT_GRAY, Color.CYAN), new Position(30,30), 1);
+//        anpc.setMovementHandler(new MovementHandler(this, anpc, 8));
+//        MeleeAI ai = new MeleeAI(this, anpc);
+//        addAI(ai);
+        //entities.add(anpc);
 
-        //entities.add(new AdversarialNPC(new Decal('U', Color.LIGHT_GRAY, Color.CYAN), new Position(30,30), 1));
        // areaEffects.add(new TeleportationAreaEffect(new Decal('?', Color.BLACK, Color.RED.brighter().brighter()),new Position(5,5), new Position(0,0)));
        // grid[10][10].placeItem(new )
     }
@@ -178,8 +184,8 @@ public class Stage implements Renderable, Tickable, Saveable {
                     if(!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e))))){
                         //p.getOwner().addXP();
                         System.out.println("entity must be dead");
-                        entities.remove(e);
-                        e--;
+                        //entities.remove(e);
+                        //e--;
                     }
                     return true;
                 }

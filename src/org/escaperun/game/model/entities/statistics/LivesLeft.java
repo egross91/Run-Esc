@@ -5,8 +5,8 @@ public class LivesLeft extends PrimaryStatistic<Integer> {
 
     public LivesLeft(Life life){
         super(0);
+        life.subscribe(this);
         this.life = life;
-        subscribe(life);
         setBase(5);
     }
 
