@@ -52,7 +52,8 @@ public abstract class AggressiveAI extends AI {
             }
         }
         else {
-            if (distanceToAvatar < 10) { //TODO: Get spotting range from npc
+
+            if (distanceToAvatar < 4) { //TODO: Get spotting range from npc
                /* if (spotAvatarTimer.isDone()) {
                     spotAvatarTimer.reset();
                     //TODO: check if avatar is spotted.

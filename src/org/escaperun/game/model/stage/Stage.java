@@ -202,8 +202,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
                 for(int p = 0; p < passives.get(h).getAffectedArea().size(); p++){
                     if(entities.get(e).getCurrentPosition().x == passives.get(h).getAffectedArea().get(p).x &&
                             entities.get(e).getCurrentPosition().y == passives.get(h).getAffectedArea().get(p).y){
-                            passives.get(h).doshIt(entities.get(e));
-                            Logger.getInstance().pushRightMessage(" ");
+                            Logger.getInstance().pushRightMessage(passives.get(h).doshIt(entities.get(e), passives.get(h).getMoveAmount()));
                     }
                 }
             }
