@@ -124,7 +124,7 @@ public class StatisticContainer implements Renderable {
         rendrend[1] = combineWithSpacing(renderizeOnStageUnary(getAgility()), renderizeOnStageBinary(getMana()), 25);
         rendrend[2] = combineWithSpacing(renderizeOnStageUnary(getHardiness()), renderizeOnStageUnary(getOffensiveRating()), 25);
         rendrend[3] = combineWithSpacing(renderizeOnStageUnary(getIntellect()), renderizeOnStageUnary(getDefensiveRating()), 25);
-        rendrend[4] = combineWithSpacing(renderizeOnStageUnary(getMovement()), renderizeOnStageUnary(getDefensiveRating()), 25);
+        rendrend[4] = combineWithSpacing(renderizeOnStageUnary(getMovement()), renderizeOnStageUnary(getArmorRating()), 25);
         rendrend[5] = combineWithSpacing(renderizeOnStageUnary(getExperience()), renderizeOnStageUnary(getLivesLeft()), 25);
         return rendrend;
         }
