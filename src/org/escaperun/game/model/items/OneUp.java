@@ -9,7 +9,8 @@ public class OneUp extends OneShotItem {
 
     @Override
     public void doAction(Entity e){
-        e.getStatContainer().getLivesLeft().addDelta(1);
+        Integer amount = e.getStatContainer().getLivesLeft().getBase() + 1;
+        e.getStatContainer().getLivesLeft().setBase(amount);
     }
 
 }

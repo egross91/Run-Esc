@@ -1,6 +1,5 @@
 package org.escaperun.game.model.stage;
 
-import javafx.geometry.Pos;
 import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
@@ -9,13 +8,9 @@ import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
-import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
-import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
-import org.escaperun.game.model.entities.npc.ai.AggressiveAI;
-import org.escaperun.game.model.entities.npc.ai.MeleeAI;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
@@ -28,7 +23,6 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
-import org.escaperun.game.model.stage.areaeffect.TeleportationAreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
@@ -39,6 +33,7 @@ import org.escaperun.game.view.Renderable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import java.awt.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -60,11 +55,13 @@ public class Stage implements Renderable, Tickable, Saveable {
     private int rows, columns;
     private ArrayList<AI> ais;
     protected Stack<AI> aiToDelete;
-    private ArrayList<Entity> entities;
+    private ArrayList<NPC> entities;
     private Avatar avatar;
     private ArrayList<AreaEffect> areaEffects;
     //Skill Test
     private ArrayList<Projectile> projectiles;
+
+
 
     @Override
     public Element save(Document dom, Element parent) {
@@ -117,7 +114,7 @@ public class Stage implements Renderable, Tickable, Saveable {
         grid = new Tile[rows][cols];
         this.rows = rows;
         this.columns = cols;
-        this.entities = new ArrayList<Entity>(1);
+        this.entities = new ArrayList<NPC>(1);
         ais = new ArrayList<AI>();
         aiToDelete = new Stack<AI>();
 
@@ -178,12 +175,10 @@ public class Stage implements Renderable, Tickable, Saveable {
 
     public boolean checkCollision(Projectile p){
         for(int e = 0; e < entities.size(); e++){
-            System.out.println(entities.get(e).getStatContainer().getLife().getCurrent());
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (entities.get(e).getCurrentPosition().x == p.getAffectedArea().get(q).x && entities.get(e).getCurrentPosition().y == p.getAffectedArea().get(q).y) {
                     if(!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e))))){
-                        //p.getOwner().addXP();
-                        System.out.println("entity must be dead");
+                        this.getAvatar().gainXP(entities.get(e).getXPworth());
                         //entities.remove(e);
                         //e--;
                     }
@@ -287,18 +282,12 @@ public class Stage implements Renderable, Tickable, Saveable {
         this.projectiles.add(p);
     }
 
-    private void attemptSkillCast() { //a spell will only be cast if the avatar has enough mana
-        //TODO: need a way to restore mana, unless we want potions or whatever to be the only way
-        int temp_manaRemaining = avatar.getStatContainer().getMana().getCurrent() - avatar.skill1().getManaCost();
-        if(temp_manaRemaining >= 0) { //casting the spell is OK
-            avatar.getStatContainer().getMana().reduceMana(avatar.skill1().getManaCost());
+    public void skillCast(){
+        //moved this to Avatar because it was a violation of TDA
+        if(avatar.attemptSkillCast()) { //casting the spell is OK
             this.projectiles.add(this.avatar.skill1());
         }else Logger.getInstance().pushMessage("You are out of mana!");
         //otherwise dont cast that bitch
-    }
-
-    public void skillCast(){
-        attemptSkillCast();
     }
 
     public void moveAvatar(Direction dir) {

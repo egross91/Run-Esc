@@ -26,4 +26,14 @@ public abstract class Avatar extends Entity {
     public void talk(){
         throw new RuntimeException("Error: Avatar should never be queried to be talked to.");
     }
+
+    public boolean attemptSkillCast() { //a spell will only be cast if the avatar has enough mana
+        //TODO: need to implement mana restoration over time
+        int temp_manaRemaining = this.getStatContainer().getMana().getCurrent() - this.skill1().getManaCost();
+        if(temp_manaRemaining >= 0) { //casting the spell is OK
+            this.getStatContainer().getMana().reduceMana(this.skill1().getManaCost());
+            return true;
+        }else
+            return false;
+    }
 }
