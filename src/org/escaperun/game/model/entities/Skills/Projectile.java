@@ -22,7 +22,6 @@ public abstract class Projectile extends ActiveSkill {
     protected Timer moveTimer;
     protected Timer moveAmount = new Timer(0);
 
-
     public Projectile(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick){
         super(ofp, dfp, skillLevel, skillOwner);
         skillName = "Projectile";

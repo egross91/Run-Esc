@@ -88,15 +88,14 @@ public class ItemContainer<T extends TakeableItem> implements Saveable {
         return count;
     }
 
-    private int getFirstEmptySlot() {
-        int i = 0;
-        for (TakeableItem current : items) {
-            if (current == null) {
-                break;
+    protected int getFirstEmptySlot() {
+        for (int i = 0; i < MAX_CAPACITY; ++i) {
+            if (items.get(i) == null) {
+                return i;
             }
         }
 
-        return i;
+        throw new RuntimeException("Should never happen, because full checks should happen.");
     }
 
     @Override
@@ -105,6 +104,7 @@ public class ItemContainer<T extends TakeableItem> implements Saveable {
         parent.appendChild(us);
 
         for (Item i : getItems()) {
+            if (i == null) continue;
             i.save(dom, us);
         }
 
@@ -122,7 +122,7 @@ public class ItemContainer<T extends TakeableItem> implements Saveable {
         NodeList items = us.getElementsByTagName("Item");
         for (int i = 0; i < items.getLength(); i++) {
             Element it = (Element) items.item(i);
-            Item load = new Item(Decal.BLANK) {
+            Item load = new Item(Decal.BLANK, "Item", "This is an Item") {
 
                 @Override
                 public boolean isCollidable() {

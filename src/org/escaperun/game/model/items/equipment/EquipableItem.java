@@ -25,13 +25,13 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
         }
     }
 
-    public EquipableItem(Decal decal, EquipmentSlot slot) {
-        super(decal);
+    public EquipableItem(Decal decal, EquipmentSlot slot, String name, String description) {
+        super(decal, name, description);
         this.equipmentSlot = slot;
     }
 
-    public EquipableItem(Decal decal, EquipmentSlot slot, StatisticContainer stats) {
-        super(decal, stats);
+    public EquipableItem(Decal decal, EquipmentSlot slot, StatisticContainer stats, String name, String description) {
+        super(decal, stats, name, description);
         this.equipmentSlot = slot;
     }
 
@@ -58,22 +58,21 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
 
     @Override
     public ItemOption[] getOptions(final Avatar avatar) {
-        final EquipmentContainer equipment = avatar.getEquipment();
-        final ItemContainer inventory = avatar.getInventory();
         final EquipableItem self = this;
 
         ItemOption equip = new ItemOption("Equip: ", new Runnable() {
             @Override
             public void run() {
-                if (inventory.contains(self)) {
+                if (avatar.getInventory().contains(self)) {
                     avatar.equipItem(self);
+                    avatar.getInventory().remove(self);
                 }
             }
         });
         ItemOption unequip = new ItemOption("Unequip: ", new Runnable() {
             @Override
             public void run() {
-                if (equipment.contains(self)) {
+                if (avatar.getEquipment().contains(self)) {
                     avatar.unequipItem(self);
                 }
             }
@@ -81,7 +80,7 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
         ItemOption drop = new ItemOption("Drop; ", new Runnable() {
             @Override
             public void run() {
-                if (equipment.contains(self)) {
+                if (avatar.getEquipment().contains(self)) {
                     avatar.unequipItem(self);
                 }
 

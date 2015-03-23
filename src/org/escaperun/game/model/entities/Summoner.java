@@ -1,6 +1,7 @@
 package org.escaperun.game.model.entities;
 
 import org.escaperun.game.controller.Logger;
+import org.escaperun.game.controller.Sound;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.*;
 import org.escaperun.game.model.entities.skills.summoner.Bane;
@@ -16,6 +17,8 @@ import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
 import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.view.Decal;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.awt.*;
 
@@ -27,6 +30,40 @@ public class Summoner extends Avatar {
         summonerSkills = new SummonerSkillsContainer(this);
     }
 
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element avatar = dom.createElement("Summoner");
+        super.save(dom, avatar);
+        summonerSkills.save(dom, avatar);
+        parent.appendChild(avatar);
+        return avatar;
+    }
+
+    @Override
+    public Summoner load(Element node) {
+        if (node == null) return null;
+        Element us = node;
+        if (node.getElementsByTagName("Summoner") != null && node.getElementsByTagName("Summoner").getLength() > 0)
+            us = (Element) node.getElementsByTagName("Summoner").item(0);
+
+        Summoner summoner = new Summoner(new Position(0,0));
+
+        Element entityPart = (Element) us.getElementsByTagName("Entity").item(0);
+        summoner.helperLoad(entityPart);
+
+        Element skills = (Element) us.getElementsByTagName("SummonerSkillsContainer").item(0);
+        summoner.summonerSkills = new SummonerSkillsContainer(null).load(skills, summoner);
+        return summoner;
+    }
+
+    private void helperLoad(Element node) {
+        super.load(node);
+    }
+
+    @Override
+    public void playAttackSound() {
+        Sound.CASTSPELL.play();
+    }
 
     @Override
     public void attack(Entity defender, Skill skill) {

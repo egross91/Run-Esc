@@ -25,7 +25,7 @@ public class Pause extends GameState {
                     public GameState getNextState() {
                         try {
                             SaveManager.save(System.getProperty("user.dir") + "/profiles/teststage.xml", test);
-                        } catch (Exception ex) { }
+                        } catch (Exception ex) {ex.printStackTrace(); }
                         return null;
                     }
                 }},

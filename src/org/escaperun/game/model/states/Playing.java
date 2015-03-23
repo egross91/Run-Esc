@@ -24,6 +24,12 @@ public class Playing extends GameState {
             return new Pause(this);
         }
 
+        boolean shop = pressed[bindings.getBinding(KeyType.SHOP)];
+        if(shop){
+            pressed[bindings.getBinding(KeyType.SHOP)] = false;
+            return new Shop(this, stage);
+        }
+
         boolean inventory = pressed[bindings.getBinding(KeyType.INVENTORY)];
         if (inventory) {
             pressed[bindings.getBinding(KeyType.INVENTORY)] = false;
@@ -150,5 +156,9 @@ public class Playing extends GameState {
             ret[stage.DEFAULT_ROWS - (6)][(stage.DEFAULT_COLUMNS/2)+ x - (level.length/2)] = level[x];
         }
         return ret;
+    }
+
+    public void runShop() {
+
     }
 }

@@ -39,4 +39,5 @@ public abstract class Avatar extends Entity {
     public abstract ActiveSkill attemptSkillCast3(Logger log);
     public abstract ActiveSkill attemptSkillCast4(Logger log);*/
 
+    public abstract void playAttackSound();
 }

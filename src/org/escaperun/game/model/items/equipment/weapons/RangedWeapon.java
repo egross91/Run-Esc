@@ -4,7 +4,7 @@ import org.escaperun.game.view.Decal;
 
 public abstract class RangedWeapon extends WeaponItem {
 
-    public RangedWeapon(Decal decal) {
-        super(decal);
+    public RangedWeapon(Decal decal, String name, String description) {
+        super(decal, name, description);
     }
 }

@@ -29,13 +29,12 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
     private Position currentPosition = null;
     private EquipmentContainer<EquipableItem> equipment;
     private ItemContainer<TakeableItem> inventory;
-    private final Position initialPosition;
-    private final Decal decal;
+    private Position initialPosition;
+    private Decal decal;
     private Direction direction;
     private MovementHandler movementHandler;
     private RestorationHandler restorationHandler;
     private StatisticContainer statContainer;
-    private SkillsContainer skillsContainer;
 
     protected Entity(Decal decal, Position initialPosition) {
         this.initialPosition = initialPosition;
@@ -45,7 +44,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         inventory = new ItemContainer<TakeableItem>();
         equipment = new EquipmentContainer<EquipableItem>();
         statContainer = new StatisticContainer();
-
         restorationHandler = new RestorationHandler(this, 400);
     }
 
@@ -62,13 +60,27 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         statContainer.save(dom, ent);
         equipment.save(dom, ent);
         inventory.save(dom, ent);
-        //remember movementhandler
-        return null;
+        //remember restorationhandler
+        return ent;
     }
 
     @Override
-    public Element load(Element node) {
-        return null;
+    public Entity load(Element node) {
+        if (node == null) return null;
+        Element us = node;
+        int initX = Integer.parseInt(us.getAttribute("InitialX"));
+        int initY = Integer.parseInt(us.getAttribute("InitialY"));
+        int curX = Integer.parseInt(us.getAttribute("CurrentX"));
+        int curY = Integer.parseInt(us.getAttribute("CurrentY"));
+        Direction dir = Direction.valueOf(us.getAttribute("Direction"));
+        this.initialPosition = new Position(initX, initY);
+        this.currentPosition = new Position(curX, curY);
+        setDirection(dir);
+        this.decal = Decal.BLANK.load(us);
+        this.statContainer = new StatisticContainer().load(us);
+        this.equipment = new EquipmentContainer<EquipableItem>().load(us);
+        this.inventory = new ItemContainer<TakeableItem>().load(us);
+        return this;
     }
 
     @Override

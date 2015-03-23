@@ -9,7 +9,9 @@ import org.escaperun.game.model.entities.Sneak;
 import org.escaperun.game.model.entities.Summoner;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
+import org.escaperun.game.model.entities.npc.adversarial.RangedNPC;
 import org.escaperun.game.model.entities.npc.ai.MeleeAI;
+import org.escaperun.game.model.entities.npc.ai.RangedAI;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
@@ -19,6 +21,7 @@ import org.escaperun.game.serialization.SaveManager;
 import org.escaperun.game.view.Decal;
 
 import java.awt.*;
+import java.awt.font.NumericShaper;
 
 public class Creation extends GameState {
 
@@ -28,7 +31,7 @@ public class Creation extends GameState {
         options = new OptionContainer(new Option[][] {
                 {new SelectableOption("SMASHER"){
                     public GameState getNextState() {
-                        Sound.PLAYING.play();
+                        Sound.PLAYING1.play();
 
                         Stage stage = setupStage(new Smasher(new Position(0, 0)));
                         stage.getAvatar().visit(new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction fo' yo' momma."));
@@ -40,7 +43,7 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Summoner(new Position(0, 0)));
 
                     public GameState getNextState() {
-                        Sound.PLAYING.play();
+                        Sound.PLAYING1.play();
                         return new Playing(stage);
                     }
                 },
@@ -48,7 +51,7 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Sneak(new Position(0, 0)));
 
                     public GameState getNextState() {
-                        Sound.PLAYING.play();
+                        Sound.PLAYING1.play();
                         return new Playing(stage);
                     }
                 }},
@@ -72,22 +75,27 @@ public class Creation extends GameState {
 
     private Stage setupStage(Avatar avatar) {
         Stage stage = new Stage();
+        avatar.setMovementHandler(new MovementHandler(stage, avatar,8));
+        stage.setAvatar(avatar);
         try {
             Stage test = SaveManager.load(System.getProperty("user.dir") + "/profiles/teststage.xml", new Stage());
             if (test != null) {
                 stage = test;
+                stage.getAvatar().setMovementHandler(new MovementHandler(stage, stage.getAvatar(),8));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        avatar.setMovementHandler(new MovementHandler(stage, avatar,8));
-        stage.setAvatar(avatar);
 
         //DEBUG //TODO: REMOVE DEBUG CODE.
         MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(30,30),5);
         npc.setMovementHandler(new MovementHandler(stage, npc, 8));
         MeleeAI ai = new MeleeAI(stage, npc);
-
+/*
+        RangedNPC npc = new RangedNPC(new Decal('~', Color.BLACK, Color.RED), new Position(30,30),5);
+        npc.setMovementHandler(new MovementHandler(stage, npc, 8));
+        RangedAI ai = new RangedAI(stage, npc);
+*/
         return stage;
     }
 }

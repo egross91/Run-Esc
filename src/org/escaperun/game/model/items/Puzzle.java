@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import java.awt.*;
 
 public class Puzzle extends InteractiveItem {
-    public Puzzle(Decal decal){super(decal);}
+    public Puzzle(Decal decal, String name, String description){super(decal, name, description);}
 
     @Override
     public boolean isCollidable(){return true;}
@@ -42,6 +42,6 @@ public class Puzzle extends InteractiveItem {
 
         Decal decal = new Decal('0', Color.BLACK, Color.BLACK).load(item);
 
-        return new Puzzle(decal);
+        return new Puzzle(decal, "Puzzle", "Something you must solve.");
     }
 }

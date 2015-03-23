@@ -12,13 +12,13 @@ import org.w3c.dom.Element;
 import java.awt.*;
 
 public class TwoHandedWeapon extends MeleeWeapon {
+    private final String name;
+    private final String description;
     public TwoHandedWeapon(Decal decal, String name, String description) {
-        super(decal);
+        super(decal, name, description);
         this.name = name;
         this.description = description;
     }
-    private final String name;
-    private final String description;
 
     @Override
     public String getName() {
@@ -70,4 +70,5 @@ public class TwoHandedWeapon extends MeleeWeapon {
 
         return new TwoHandedWeapon(decal, name, desc);
     }
+
 }

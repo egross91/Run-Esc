@@ -1,8 +1,10 @@
 package org.escaperun.game.model.entities.npc.adversarial;
 
+import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.NPC;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
@@ -14,10 +16,14 @@ import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.view.Decal;
 
 public class AdversarialNPC extends NPC {
+    private int maxAttackRange;
 
-    public AdversarialNPC(Decal decal, Position initialPosition, int wanderRadius) {
+    public AdversarialNPC(Decal decal, Position initialPosition, int wanderRadius, int maxAttackRange) {
         super(decal, initialPosition, wanderRadius, 10);
+        this.maxAttackRange = maxAttackRange;
     }
+
+    public ActiveSkill getActiveSkill(Direction dir) {return null;}
 
     @Override
     public void attack(Entity defender, Skill skill) {
@@ -67,5 +73,9 @@ public class AdversarialNPC extends NPC {
     @Override
     public void visit(StaffWeapon sw) {
         //TODO
+    }
+
+    public int getMaxAttackRange() {
+        return maxAttackRange;
     }
 }

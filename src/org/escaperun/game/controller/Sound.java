@@ -6,7 +6,8 @@ import java.io.File;
 public enum Sound {
 
     INTRO_MUSIC(System.getProperty("user.dir") + "/assets/sounds/scapemain.mid", true),
-    PLAYING(System.getProperty("user.dir") + "/assets/sounds/harmony.mid", true),
+    PLAYING1(System.getProperty("user.dir") + "/assets/sounds/harmony.mid", true),
+    PLAYING2(System.getProperty("user.dir") + "/assets/sounds/newbiemelody.mid", true),
     BOSS_FIGHT(System.getProperty("user.dir") + "/assets/sounds/boss.mid", true),
     CASTSPELL(System.getProperty("user.dir") + "/assets/sounds/castspell.wav", false),
     CREEPDEAD(System.getProperty("user.dir") + "/assets/sounds/creepdead.wav", false),
@@ -31,7 +32,7 @@ public enum Sound {
     private boolean loop;
 
     public void play() {
-        if (clip.isRunning()) return;
+        if (clip.isRunning() && loop) return;
         new Thread(new Runnable() {
             @Override
             public void run() {

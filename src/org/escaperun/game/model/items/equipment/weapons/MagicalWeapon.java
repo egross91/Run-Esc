@@ -4,7 +4,7 @@ import org.escaperun.game.view.Decal;
 
 public abstract class MagicalWeapon extends WeaponItem {
 
-    public MagicalWeapon(Decal decal) {
-        super(decal);
+    public MagicalWeapon(Decal decal, String name, String description) {
+        super(decal, name, description);
     }
 }

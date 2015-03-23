@@ -149,7 +149,7 @@ class Flame implements Tickable, Renderable {
             new Decal('\u0000', Color.ORANGE.brighter(), Color.RED),
             new Decal('\u0000', Color.ORANGE.brighter().brighter(), Color.RED),
             new Decal('\u0000', Color.BLUE.brighter(), Color.RED),
-            new Decal('\u0000', Color.BLUE.brighter(), Color.RED),
+            new Decal('\u0000', Color.BLUE.brighter(), Color.RED)
     };
     private int decalPos = 0;
     Position pos;

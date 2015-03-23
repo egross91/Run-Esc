@@ -4,6 +4,8 @@ import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.ai.AI;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
+import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 

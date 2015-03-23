@@ -8,6 +8,7 @@ import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class SetKeyBindings extends GameState {
     private Main previous;
@@ -74,7 +75,9 @@ public class SetKeyBindings extends GameState {
 
             moveTimer.tick();
 
+            resetPressed(bindings, pressed);
             setKey(bindings, pressed);
+            exit = true;
         }
 
         if (exit || moveTimer.isDone()) {
@@ -85,18 +88,39 @@ public class SetKeyBindings extends GameState {
     }
 
     private void setKey(KeyBindings bindings, boolean[] pressed) {
-        int selectedIndex = (selectedX%OPTION_TOP_MARGIN)/2;
+        int selectedIndex = (selectedX-OPTION_TOP_MARGIN)/2;
         KeyType selected = KeyType.values()[selectedIndex];
+        resetPressed(bindings, pressed);
 
-        for (KeyType key : KeyType.values()) {
-            if (isSettable(key) && pressed[bindings.getBinding(key)] && !isSet(key, bindings)) {
-                bindings.setBinding(selected, key.ordinal());
+        boolean ok = false;
+        while (!ok) { // Listen for KeyEvent
+            for (int i = 0; i < KeyType.values().length; ++i) {
+                KeyType key = KeyType.values()[i];
+                if (pressed[key.defaultKeycode] && isSettable(selected) && isSettable(key)) {
+
+                    bindings.setBinding(selected, key.defaultKeycode);
+                    bindings.setBinding(key, key.defaultKeycode);
+                    ok = true;
+                    break;
+                }
+                else if ((i+1) == KeyType.values().length/2 || i == KeyType.values().length-1) {
+                    resetPressed(bindings, pressed);
+                }
             }
         }
+
+        resetPressed(bindings, pressed);
     }
 
     private boolean isSettable(KeyType key) {
-        return !(key == KeyType.ACTION || key == KeyType.EXIT || key == null);
+        return (key.defaultKeycode != KeyEvent.VK_ENTER && key.defaultKeycode != KeyEvent.VK_ESCAPE
+                && key != KeyType.ACTION && key != KeyType.EXIT);
+    }
+
+    private void resetPressed (KeyBindings bindings, boolean[] pressed) {
+        for (KeyType key : KeyType.values()) {
+            pressed[bindings.getBinding(key)] = false;
+        }
     }
 
 
@@ -115,13 +139,14 @@ public class SetKeyBindings extends GameState {
         renderItemBoxes(window, OPTION_TOP_MARGIN, startCol, KeyType.values().length);
 
 
+        /* Render Mappings */
         int startRow = OPTION_TOP_MARGIN;
         startCol += 2;
         for (int i = 0; i < KeyType.values().length; ++i) {
             KeyType key = KeyType.values()[i];
-            String setting = "something";
-
             String keyString = key.toString() + ": ";
+            String setting = key.getKey();
+
             for (int j = 0; j < keyString.length(); ++j) {
                 window[startRow][startCol+j] = new Decal(keyString.charAt(j), Color.BLACK, Color.WHITE);
             }
@@ -172,9 +197,5 @@ public class SetKeyBindings extends GameState {
 
     private boolean isSelected(int r, int c) {
         return (selectedX == r && selectedY == c);
-    }
-
-    private boolean isSet(KeyType key, KeyBindings bindings) {
-        return (bindings.getBinding(key) != null);
     }
 }

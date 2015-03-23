@@ -11,16 +11,15 @@ import org.w3c.dom.Element;
 import java.awt.*;
 
 public class Bomb extends TakeableItem {
+    private final String name;
+    private final String description;
+    private StageAffectingItemHandler stageAffectingItemHandler;
     public Bomb(Decal decal, String name, String description) {
-        super(decal);
+        super(decal, name, description);
         this.name = name;
         this.description = description;
         //stageAffectingItemHandler = new StageAffectingItemHandler();
     }
-
-    private final String name;
-    private final String description;
-    private StageAffectingItemHandler stageAffectingItemHandler;
 
     @Override
     public String getName() {

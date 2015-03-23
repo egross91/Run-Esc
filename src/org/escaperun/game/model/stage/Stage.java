@@ -5,8 +5,7 @@ import org.escaperun.game.controller.Sound;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
-import org.escaperun.game.model.entities.Avatar;
-import org.escaperun.game.model.entities.Entity;
+import org.escaperun.game.model.entities.*;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.npc.NPC;
@@ -74,6 +73,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
                 }
             }
         }
+        avatar.save(dom, stage);
         //TODO: Save rest
         return stage;
     }
@@ -93,6 +93,17 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             int y = Integer.parseInt(tile.getAttribute("Y"));
             Tile put  = new Tile(new BlankTerrain()).load(tile);
             ret.grid[x][y] = put;
+        }
+
+        if (node.getElementsByTagName("Smasher").getLength() > 0) {
+            Smasher smash = new Smasher(null).load((Element)node.getElementsByTagName("Smasher").item(0));
+            ret.setAvatar(smash);
+        } else if (node.getElementsByTagName("Sneak").getLength() > 0) {
+            Sneak sneak = new Sneak(null).load((Element)node.getElementsByTagName("Sneak").item(0));
+            ret.setAvatar(sneak);
+        } else if (node.getElementsByTagName("Summoner").getLength() > 0) {
+            Summoner summoner = new Summoner(null).load((Element)node.getElementsByTagName("Summoner").item(0));
+            ret.setAvatar(summoner);
         }
 
         //TODO: Load rest
@@ -221,8 +232,6 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
                     if (p.getOwner() != entity) {
                         if (!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e), p.getMoveAmount())))) {
                             this.getAvatar().gainXP(entities.get(e).getXPworth());
-                            //entities.remove(e);
-                            //e--;
                         }
                     }
                     return true;
@@ -327,8 +336,8 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         return tile.isCollidable();
     }
 
-    public void addSkill(Projectile p){
-        this.activeSkills.add(p);
+    public void addActiveSkill(ActiveSkill activeSkill){
+        this.activeSkills.add(activeSkill);
     }
 
     public void skillCast1(){
@@ -369,6 +378,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         avatar.move(dir);
     }
 
+    /** Do not use for outside of stage. */
     public Avatar getAvatar() {
         return this.avatar;
     }

@@ -7,8 +7,8 @@ import org.escaperun.game.view.Decal;
 
 public abstract class TouchableItem extends Item implements Touchable, Actionable {
 
-    public TouchableItem(Decal decal) {
-        super(decal);
+    public TouchableItem(Decal decal, String name, String description) {
+        super(decal, name, description);
     }
 
     @Override

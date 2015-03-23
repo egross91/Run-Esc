@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class FistWeapon extends MeleeWeapon {
     public FistWeapon(Decal decal, String name, String description) {
-        super(decal);
+        super(decal, name, description);
         this.name = name;
         this.description = description;
     }
@@ -69,4 +69,5 @@ public class FistWeapon extends MeleeWeapon {
 
         return new FistWeapon(decal, name, desc);
     }
+
 }

@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import java.awt.*;
 
 public class HardinessBooster extends OneShotItem {
-    public HardinessBooster(Decal decal){super(decal);}
+    public HardinessBooster(Decal decal, String name, String description){super(decal, name, description);}
 
 
     @Override
@@ -37,6 +37,6 @@ public class HardinessBooster extends OneShotItem {
 
         Decal decal = new Decal('0', Color.BLACK, Color.BLACK).load(item);
 
-        return new HardinessBooster(decal);
+        return new HardinessBooster(decal, "Hardiness Booster", "Boosts Hardiness");
     }
 }

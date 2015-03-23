@@ -40,6 +40,7 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
         parent.appendChild(us);
 
         for (Item i : getItems()) {
+            if (i == null) continue;
             i.save(dom, us);
         }
 
@@ -57,14 +58,14 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
         NodeList items = us.getElementsByTagName("Item");
         for (int i = 0; i < items.getLength(); i++) {
             Element it = (Element) items.item(i);
-            Item load = new Item(Decal.BLANK) {
+            Item load = new Item(Decal.BLANK, "Item", "This is an Item") {
 
                 @Override
                 public boolean isCollidable() {
                     return false;
                 }
             }.load(it);
-            ec.add((EquipableItem) load);
+            ec.equipItem((EquipableItem) load);
         }
         return ec;
     }

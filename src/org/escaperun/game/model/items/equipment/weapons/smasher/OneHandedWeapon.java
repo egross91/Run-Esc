@@ -16,7 +16,7 @@ public class OneHandedWeapon extends MeleeWeapon {
     private final String description;
 
     public OneHandedWeapon(Decal decal, String name, String description) {
-        super(decal);
+        super(decal, name, description);
         this.name = name;
         this.description = description;
     }
@@ -71,4 +71,5 @@ public class OneHandedWeapon extends MeleeWeapon {
 
         return new OneHandedWeapon(decal, name, desc);
     }
+
 }
