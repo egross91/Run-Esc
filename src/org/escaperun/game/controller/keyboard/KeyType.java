@@ -25,6 +25,7 @@ public enum KeyType {
     HOTKEY1(KeyEvent.VK_X),
     HOTKEY2(KeyEvent.VK_B),
     HOTKEY3(KeyEvent.VK_N),
+    HOTKEY4(KeyEvent.VK_M),
     ATTACK(KeyEvent.VK_SHIFT),
     INTERACT(KeyEvent.VK_SPACE);
 

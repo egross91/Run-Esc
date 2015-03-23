@@ -1,7 +1,8 @@
 package org.escaperun.game.model.entities;
 
-import org.escaperun.game.controller.Sound;
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.entities.statistics.IStatSubscriber;
@@ -19,7 +20,6 @@ public abstract class Avatar extends Entity {
         return getStatContainer();
     }
 
-    public abstract Projectile skill1();
     public abstract SkillsContainer getSkillsContainer();
 
     public void gainXP(double amount){
@@ -30,14 +30,13 @@ public abstract class Avatar extends Entity {
         throw new RuntimeException("Error: Avatar should never be queried to be talked to.");
     }
 
-    public boolean attemptSkillCast() { //a spell will only be cast if the avatar has enough mana
-        //TODO: need to implement mana restoration over time
-        int temp_manaRemaining = this.getStatContainer().getMana().getCurrent() - this.skill1().getManaCost();
-        if(temp_manaRemaining >= 0) { //casting the spell is OK
-            Sound.CASTSPELL.play();
-            this.getStatContainer().getMana().reduceMana(this.skill1().getManaCost());
-            return true;
-        }else
-            return false;
+    protected int getManaRemaining() {
+        return this.getStatContainer().getMana().getCurrent();
     }
+
+    public abstract ActiveSkill attemptSkillCast1(Logger log);
+   /* public abstract ActiveSkill attemptSkillCast2(Logger log);
+    public abstract ActiveSkill attemptSkillCast3(Logger log);
+    public abstract ActiveSkill attemptSkillCast4(Logger log);*/
+
 }

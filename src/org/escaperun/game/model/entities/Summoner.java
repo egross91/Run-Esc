@@ -68,19 +68,62 @@ public class Summoner extends Avatar {
         equipItem(sw);
     }
 
-    //change to possibly ActiveSkill
-    @Override
-    public Projectile skill1(){
+    public ActiveSkill attemptSkillCast1(Logger log) { //a spell will only be cast if the avatar has enough mana
+        int temp_manaRemaining = this.getManaRemaining() - this.skill1().getManaCost();
+        if(temp_manaRemaining >= 0) { //casting the spell is OK
+            this.getStatContainer().getMana().reduceMana(this.skill1().getManaCost());
+            return this.skill1();
+        }else
+            log.pushMessage("You don't have enough mana!");
+        return null;
+    }
+
+    public ActiveSkill attemptSkillCast2(Logger log) { //a spell will only be cast if the avatar has enough mana
+        int temp_manaRemaining = this.getManaRemaining() - this.skill2().getManaCost();
+        if(temp_manaRemaining >= 0) { //casting the spell is OK
+            this.getStatContainer().getMana().reduceMana(this.skill2().getManaCost());
+            return this.skill2();
+        }else
+            log.pushMessage("You don't have enough mana!");
+        return null;
+    }
+
+    public ActiveSkill attemptSkillCast3(Logger log) { //a spell will only be cast if the avatar has enough mana
+        int temp_manaRemaining = this.getManaRemaining() - this.skill3().getManaCost();
+        if(temp_manaRemaining >= 0) { //casting the spell is OK
+            this.getStatContainer().getMana().reduceMana(this.skill3().getManaCost());
+            return this.skill3();
+        }else
+            log.pushMessage("You don't have enough mana!");
+        return null;
+    }
+
+    public ActiveSkill attemptSkillCast4(Logger log) { //a spell will only be cast if the avatar has enough mana
+        int temp_manaRemaining = this.getManaRemaining() - this.skill4().getManaCost();
+        if(temp_manaRemaining >= 0) { //casting the spell is OK
+            this.getStatContainer().getMana().reduceMana(this.skill4().getManaCost());
+            return this.skill4();
+        }else
+            log.pushMessage("You don't have enough mana!");
+        return null;
+    }
+
+    private ActiveSkill skill1(){
         return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
     }
 
-    /*public ActiveSkill skill2(){
-
+    private ActiveSkill skill2(){
+        return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
     }
 
-    public ActiveSkill skill3() {
+    private ActiveSkill skill3(){
+        return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
+    }
 
-    }*/
+    private ActiveSkill skill4(){
+        return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
+    }
+
 
     @Override
     public SummonerSkillsContainer getSkillsContainer(){

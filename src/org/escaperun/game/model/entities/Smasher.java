@@ -1,6 +1,8 @@
 package org.escaperun.game.model.entities;
 
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SmasherSkillsContainer;
@@ -68,8 +70,11 @@ public class Smasher extends Avatar{
         equipItem(sw);
     }
 
-    @Override
-    public Projectile skill1(){
+    public ActiveSkill attemptSkillCast1(Logger log) {
+        return skill1();
+    }
+
+    public ActiveSkill skill1(){
         return new Cleave(0, 0, 0, this, 3, getDirection(), getCurrentPosition(), 2);
     }
 
