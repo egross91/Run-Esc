@@ -4,6 +4,7 @@ import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.ai.AI;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
@@ -14,7 +15,6 @@ public abstract class NPC extends Entity {
 
     private final int wanderRadius; //May need to change it from being final in order to make stuff like shopkeepers moving around whatnot after they've been attacked
     private final int XPworth;
-    private Skill skill;
 
     public NPC(Decal decal, Position initialPosition, int wanderRadius, int XP) {
         super(decal, initialPosition);
@@ -39,13 +39,5 @@ public abstract class NPC extends Entity {
 
     public int getXPworth(){
         return this.XPworth;
-    }
-
-    public Skill getSkill() {
-        return skill;
-    }
-
-    public void setSkill(Skill skill) {
-        this.skill = skill;
     }
 }

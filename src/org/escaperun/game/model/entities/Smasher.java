@@ -70,7 +70,7 @@ public class Smasher extends Avatar{
 
     @Override
     public Projectile skill1(){
-        return new Cleave(0, 0, 0, this, 3, getDirection(), getCurrentPosition(), 2);
+        return new Cleave(19, 0, 0, this, 3, getDirection(), getCurrentPosition(), 2);
     }
 
     @Override

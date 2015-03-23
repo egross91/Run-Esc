@@ -9,7 +9,9 @@ import org.escaperun.game.model.entities.Sneak;
 import org.escaperun.game.model.entities.Summoner;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
+import org.escaperun.game.model.entities.npc.adversarial.RangedNPC;
 import org.escaperun.game.model.entities.npc.ai.MeleeAI;
+import org.escaperun.game.model.entities.npc.ai.RangedAI;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
@@ -19,6 +21,7 @@ import org.escaperun.game.serialization.SaveManager;
 import org.escaperun.game.view.Decal;
 
 import java.awt.*;
+import java.awt.font.NumericShaper;
 
 public class Creation extends GameState {
 
@@ -87,7 +90,11 @@ public class Creation extends GameState {
         MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(30,30),5);
         npc.setMovementHandler(new MovementHandler(stage, npc, 8));
         MeleeAI ai = new MeleeAI(stage, npc);
-
+/*
+        RangedNPC npc = new RangedNPC(new Decal('~', Color.BLACK, Color.RED), new Position(30,30),5);
+        npc.setMovementHandler(new MovementHandler(stage, npc, 8));
+        RangedAI ai = new RangedAI(stage, npc);
+*/
         return stage;
     }
 }

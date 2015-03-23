@@ -324,8 +324,8 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         return tile.isCollidable();
     }
 
-    public void addSkill(Projectile p){
-        this.activeSkills.add(p);
+    public void addActiveSkill(ActiveSkill activeSkill){
+        this.activeSkills.add(activeSkill);
     }
 
     public void skillCast(){
