@@ -283,7 +283,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         //moved this to Avatar because it was a violation of TDA
         if(avatar.attemptSkillCast()) { //casting the spell is OK
             this.projectiles.add(this.avatar.skill1());
-        }else Logger.getInstance().pushMessage("You are out of mana!");
+        }else Logger.getInstance().pushMessage("You don't have enough mana!");
         //otherwise dont cast that bitch
     }
 

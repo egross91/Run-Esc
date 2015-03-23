@@ -30,6 +30,7 @@ public enum Sound {
     private boolean loop;
 
     public void play() {
+        if (clip.isRunning()) return;
         new Thread(new Runnable() {
             @Override
             public void run() {
