@@ -37,7 +37,7 @@ import java.util.Stack;
 public class Stage implements Renderable, Tickable {
 
     public static final int DEFAULT_ROWS = 50;
-    public static final int DEFAULT_COLUMNS = 50;
+    public static final int DEFAULT_COLUMNS = 85;
 
     // from here on out Tiles will refer to things that are
     // local to a specific Position on the grid.
