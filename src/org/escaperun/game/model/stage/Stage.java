@@ -131,7 +131,7 @@ public class Stage implements Renderable, Tickable, Saveable {
             }
         }
 
-        entities.add(new AdversarialNPC(new Decal('U', Color.LIGHT_GRAY, Color.CYAN), new Position(30,30), 1));
+        //entities.add(new AdversarialNPC(new Decal('U', Color.LIGHT_GRAY, Color.CYAN), new Position(30,30), 1));
        // areaEffects.add(new TeleportationAreaEffect(new Decal('?', Color.BLACK, Color.RED.brighter().brighter()),new Position(5,5), new Position(0,0)));
        // grid[10][10].placeItem(new )
     }
@@ -164,15 +164,10 @@ public class Stage implements Renderable, Tickable, Saveable {
                 r--;
             }
         }
-        for (AI ai : ais) {
-            ai.tick();
-        }
-        while(!aiToDelete.isEmpty()) {
-            AI ai = aiToDelete.pop();
-            entities.remove(ai.getNpc());
-            ais.remove(ai);
-        }
 
+        for (int i = 0; i < ais.size(); i++) {
+            ais.get(i).tick();
+        }
     }
 
     public boolean checkCollision(Projectile p){
@@ -335,6 +330,7 @@ public class Stage implements Renderable, Tickable, Saveable {
 
     /** The AI and the associated npc will be removed on tick.*/
     public void aiToRemove(AI ai) {
-        aiToDelete.push(ai);
+        entities.remove(ai.getNpc());
+        ais.remove(ai);
     }
 }

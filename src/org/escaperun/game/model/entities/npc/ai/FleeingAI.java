@@ -17,16 +17,14 @@ public class FleeingAI extends AI{
             return;
         }
         tickTimers();
-        if (movementTimer.isDone()) {
-            movementTimer.reset();
-            Position avatarPosition = stage.getAvatarPosition();
-            Position currentPosition = npc.getCurrentPosition();
-            int dx = avatarPosition.x - currentPosition.x;
-            int dy = avatarPosition.y - currentPosition.y;
-            Direction dir = Direction.fromDelta(-dx, -dy);
-            if (dir != null) {
-                npc.move(dir);
-            }
+
+        Position avatarPosition = stage.getAvatarPosition();
+        Position currentPosition = npc.getCurrentPosition();
+        int dx = avatarPosition.x - currentPosition.x;
+        int dy = avatarPosition.y - currentPosition.y;
+        Direction dir = Direction.fromDelta(-dx, -dy);
+        if (dir != null) {
+            npc.move(dir);
         }
     }
 }

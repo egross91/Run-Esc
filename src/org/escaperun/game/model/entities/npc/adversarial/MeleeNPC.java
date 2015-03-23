@@ -12,7 +12,7 @@ public class MeleeNPC extends AdversarialNPC {
         stats.getLivesLeft().setBase(1);
         stats.getHardiness().setBase(10);
         stats.getExperience().setBase(1000);
-        stats.getMovement().setBase(100);
+        stats.getMovement().setBase(1000);
         setStatContainer(stats);
     }
 }

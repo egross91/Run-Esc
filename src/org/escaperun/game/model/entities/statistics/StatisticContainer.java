@@ -30,9 +30,9 @@ public class StatisticContainer implements Renderable {
         intellect = new Intellect();
         movement = new Movement();
         experience = new Experience();
-        livesLeft = new LivesLeft();
         level = new Level(experience);
         life = new Life(level, hardiness);
+        livesLeft = new LivesLeft(life);
         mana = new Mana(level, intellect);
         offensiveRating = new OffensiveRating(strength, level, 0.0);
         defensiveRating = new DefensiveRating(agility, level);

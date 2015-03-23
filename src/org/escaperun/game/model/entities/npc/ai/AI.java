@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities.npc.ai;
 
+import javafx.geometry.Pos;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
@@ -17,13 +18,11 @@ public abstract class AI implements Tickable{
     protected final Random random = new Random();
     protected final Stage stage;
     protected final NPC npc;
-    protected final Timer movementTimer;
     //TODO: add dialogue class?
 
     public AI(Stage stage, NPC npc) {
         this.stage = stage;
         this.npc = npc;
-        movementTimer = new Timer((int)(1000/npc.getMovementPoints()));
         stage.addAI(this);
     }
 
@@ -39,9 +38,6 @@ public abstract class AI implements Tickable{
     protected void wander() {
         Position current = npc.getCurrentPosition();
 
-        if (!movementTimer.isDone())return;
-        movementTimer.reset();
-
         for (int attempt = 0; attempt < 4; ++attempt) {
             Direction d = possibleDeltas[random.nextInt(possibleDeltas.length)];
             Position delta = d.getDelta();
@@ -49,8 +45,8 @@ public abstract class AI implements Tickable{
 
             if (stage.isMoveable(candidate)) {
                 //Check if in wander distance
-                if (npc.getWanderRadius() > Position.calcuateDistance(current, candidate))
-                    npc.move(d);    //Movement timer in npc.
+                if (npc.getWanderRadius() > Position.calcuateDistance(candidate, npc.getInitialPosition()))
+                    npc.move(d);
                 return;
             }
         }
@@ -58,29 +54,23 @@ public abstract class AI implements Tickable{
 
     protected void returnHome() {
         //TODO: Add some pathfinding if time.
-        if (movementTimer.isDone()) {
-            movementTimer.reset();
-            Position initalPosition = npc.getInitialPosition();
-            Position currentPosition = npc.getCurrentPosition();
-            int dx = initalPosition.x - currentPosition.x;
-            int dy = initalPosition.y - currentPosition.y;
-            Direction dir = Direction.fromDelta(dx, dy);
-            if (dir != null)
-                npc.move(dir);
-        }
+        Position initalPosition = npc.getInitialPosition();
+        Position currentPosition = npc.getCurrentPosition();
+        int dx = initalPosition.x - currentPosition.x;
+        int dy = initalPosition.y - currentPosition.y;
+        Direction dir = Direction.fromDelta(dx, dy);
+        if (dir != null)
+            npc.move(dir);
     }
 
     protected void moveTowardAvatar() {
-        if (movementTimer.isDone()){
-            movementTimer.reset();
-            Position avatarPosition = stage.getAvatarPosition();
-            Position currentPosition = npc.getCurrentPosition();
-            int dx = avatarPosition.x - currentPosition.x;
-            int dy = avatarPosition.y - currentPosition.y;
-            Direction dir = Direction.fromDelta(dx, dy);
-            if (dir != null)
-                npc.move(dir);
-        }
+        Position avatarPosition = stage.getAvatarPosition();
+        Position currentPosition = npc.getCurrentPosition();
+        int dx = avatarPosition.x - currentPosition.x;
+        int dy = avatarPosition.y - currentPosition.y;
+        Direction dir = Direction.fromDelta(dx, dy);
+        if (dir != null)
+            npc.move(dir);
     }
 
     protected void onDeath() {
@@ -88,6 +78,6 @@ public abstract class AI implements Tickable{
     }
 
     protected void tickTimers() {
-        movementTimer.tick();
+
     }
 }

@@ -85,7 +85,6 @@ public abstract class AggressiveAI extends AI {
 
     @Override
     protected void tickTimers() {
-        super.tickTimers();
         spotAvatarTimer.tick();
     }
 }
