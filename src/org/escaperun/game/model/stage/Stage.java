@@ -54,7 +54,7 @@ public class Stage implements Renderable, Tickable, Saveable {
     private int rows, columns;
     private ArrayList<AI> ais;
     protected Stack<AI> aiToDelete;
-    private ArrayList<Entity> entities;
+    private ArrayList<NPC> entities;
     private Avatar avatar;
     private ArrayList<AreaEffect> areaEffects;
     //Skill Test
@@ -113,7 +113,7 @@ public class Stage implements Renderable, Tickable, Saveable {
         grid = new Tile[rows][cols];
         this.rows = rows;
         this.columns = cols;
-        this.entities = new ArrayList<Entity>(1);
+        this.entities = new ArrayList<NPC>(1);
         ais = new ArrayList<AI>();
         aiToDelete = new Stack<AI>();
 
@@ -175,12 +175,10 @@ public class Stage implements Renderable, Tickable, Saveable {
 
     public boolean checkCollision(Projectile p){
         for(int e = 0; e < entities.size(); e++){
-            System.out.println(entities.get(e).getStatContainer().getLife().getCurrent());
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (entities.get(e).getCurrentPosition().x == p.getAffectedArea().get(q).x && entities.get(e).getCurrentPosition().y == p.getAffectedArea().get(q).y) {
                     if(!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e))))){
-                        //p.getOwner().addXP();
-                        System.out.println("entity must be dead");
+                        this.getAvatar().gainXP(entities.get(e).getXPworth());
                         entities.remove(e);
                         e--;
                     }
