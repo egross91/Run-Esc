@@ -12,6 +12,7 @@ import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
+import org.escaperun.game.model.entities.statistics.IStatSubscriber;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
@@ -27,7 +28,7 @@ import org.w3c.dom.NodeList;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Stage implements Renderable, Tickable, Saveable {
+public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
 
     public static final int DEFAULT_ROWS = 50;
     public static final int DEFAULT_COLUMNS = 85;
@@ -255,10 +256,6 @@ public class Stage implements Renderable, Tickable, Saveable {
         return window;
     }
 
-    public boolean isValid(Position pos) {
-        return pos.x >= 0 && pos.x < rows && pos.y >= 0 && pos.y < columns;
-    }
-
     public boolean isMoveable(Position pos) {
         //Check valid position
         if (!isValid(pos))
@@ -300,8 +297,17 @@ public class Stage implements Renderable, Tickable, Saveable {
         return this.avatar;
     }
 
+    /** Unsubscribe to avatar death, return avatar and null avatar variable. */
+    public Avatar removeAvatar() {
+        avatar.unsubscriveToDeath(this);
+        Avatar temp = avatar;
+        avatar = null;
+        return temp;
+    }
+
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
+        avatar.subscribeToDeath(this);
     }
 
     public Position getAvatarPosition() {
@@ -333,5 +339,27 @@ public class Stage implements Renderable, Tickable, Saveable {
     public void aiToRemove(AI ai) {
         entities.remove(ai.getNpc());
         ais.remove(ai);
+    }
+
+    /** Notified of Avatar death. */
+    @Override
+    public void notifyChange() {
+        //Check if zero lives
+        int lives = avatar.getAvatarStatistics().getLivesLeft().getCurrent();
+        if (lives <= 0) {
+            //TODO: code for when avatar loses all lives.
+            throw new RuntimeException("YOU HAVE DIED! However a death screen has not been implemented yet.");
+        }
+
+        //Reset avatar
+        Logger.getInstance().pushMessage("YOU HAVE DIED!! Try again.");
+        avatar.getStatContainer().getLife().refillLife();
+        if (isMoveable(avatar.getInitialPosition()))
+            avatar.setPosition(avatar.getInitialPosition());
+        //TODO: Find the next closes area to respawn
+    }
+
+    private boolean isValid(Position pos) {
+        return pos.x >= 0 && pos.x < rows && pos.y >= 0 && pos.y < columns;
     }
 }

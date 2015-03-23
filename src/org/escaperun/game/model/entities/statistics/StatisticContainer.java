@@ -185,8 +185,16 @@ public class StatisticContainer implements Renderable {
     public Decal[] combineWithSpacing(Decal[] first, Decal[] second, int amtOfSpaces){
         Decal[] spaces = new Decal[amtOfSpaces];
         Arrays.fill(spaces, Decal.BLANK);
-        Decal[] tempArr = combine(first, Arrays.copyOfRange(spaces, 0, amtOfSpaces-first.length));
+        Decal[] tempArr = combine(first, Arrays.copyOfRange(spaces, 0, amtOfSpaces - first.length));
         Decal[] returned = combine(tempArr, second);
         return returned;
+    }
+
+    public void subscribeToLivesLeft(IStatSubscriber subscriber) {
+        livesLeft.subscribe(subscriber);
+    }
+
+    public void unsubcribeToLivesLeft(IStatSubscriber subscriber) {
+        livesLeft.unsubscribe(subscriber);
     }
 }

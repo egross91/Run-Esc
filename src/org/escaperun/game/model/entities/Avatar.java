@@ -4,7 +4,9 @@ import org.escaperun.game.controller.Sound;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
+import org.escaperun.game.model.entities.statistics.IStatSubscriber;
 import org.escaperun.game.model.entities.statistics.StatisticContainer;
+import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Decal;
 
 public abstract class Avatar extends Entity {

@@ -6,6 +6,7 @@ import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.npc.NPC;
+import org.escaperun.game.model.entities.statistics.IStatSubscriber;
 import org.escaperun.game.model.stage.Stage;
 
 import java.util.Random;
@@ -13,7 +14,7 @@ import java.util.Random;
 /**
  * Associate the stage and the NPC, giving NPC stage behavior.
  */
-public abstract class AI implements Tickable{
+public abstract class AI implements Tickable, IStatSubscriber{
     protected static final Direction[] possibleDeltas = Direction.values();
     protected final Random random = new Random();
     protected final Stage stage;
@@ -25,7 +26,7 @@ public abstract class AI implements Tickable{
         this.stage = stage;
         this.npc = npc;
         stage.addAI(this);
-        maxSightDistance = 40;  //Picked arbitrarily.
+        maxSightDistance = 35;  //Picked arbitrarily.
     }
 
     public NPC getNpc() {
@@ -73,6 +74,11 @@ public abstract class AI implements Tickable{
         Direction dir = Direction.fromDelta(dx, dy);
         if (dir != null)
             npc.move(dir);
+    }
+
+    @Override
+    public void notifyChange() {
+        onDeath();
     }
 
     protected void onDeath() {

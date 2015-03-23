@@ -9,11 +9,13 @@ import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.handlers.RestorationHandler;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
+import org.escaperun.game.model.entities.statistics.IStatSubscriber;
 import org.escaperun.game.model.entities.statistics.StatisticContainer;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
+import org.escaperun.game.model.stage.Stage;
 import org.escaperun.game.view.Renderable;
 
 import org.escaperun.game.model.Position;
@@ -166,5 +168,13 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
             return false;
         }
         return true;
+    }
+
+    public void subscribeToDeath(IStatSubscriber subscriber) {
+        statContainer.subscribeToLivesLeft(subscriber);
+    }
+
+    public void unsubscriveToDeath(IStatSubscriber subscriber) {
+        statContainer.unsubcribeToLivesLeft(subscriber);
     }
 }
