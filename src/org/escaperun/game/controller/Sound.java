@@ -7,6 +7,7 @@ public enum Sound {
 
     INTRO_MUSIC(System.getProperty("user.dir") + "/assets/sounds/scapemain.mid", true),
     PLAYING(System.getProperty("user.dir") + "/assets/sounds/harmony.mid", true),
+    BOSS_FIGHT(System.getProperty("user.dir") + "/assets/sounds/boss.mid", true),
     CASTSPELL(System.getProperty("user.dir") + "/assets/sounds/castspell.wav", false),
     CREEPDEAD(System.getProperty("user.dir") + "/assets/sounds/creepdead.wav", false),
     LEVELUP(System.getProperty("user.dir") + "/assets/sounds/levelup.wav", false),

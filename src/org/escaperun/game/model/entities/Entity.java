@@ -60,8 +60,8 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         ent.setAttribute("Direction", direction.toString());
         decal.save(dom, ent);
         statContainer.save(dom, ent);
-        //equipment.save(dom, ent);
-        //inventory.save(dom, ent);
+        equipment.save(dom, ent);
+        inventory.save(dom, ent);
         //remember movementhandler
         return null;
     }

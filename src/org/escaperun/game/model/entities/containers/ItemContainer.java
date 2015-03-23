@@ -1,10 +1,17 @@
 package org.escaperun.game.model.entities.containers;
 
+import org.escaperun.game.model.items.Item;
 import org.escaperun.game.model.items.TakeableItem;
+import org.escaperun.game.model.items.equipment.EquipableItem;
+import org.escaperun.game.serialization.Saveable;
+import org.escaperun.game.view.Decal;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
 
-public class ItemContainer<T extends TakeableItem> {
+public class ItemContainer<T extends TakeableItem> implements Saveable {
 
     private ArrayList<T> items;
     private final int MAX_CAPACITY;
@@ -90,5 +97,40 @@ public class ItemContainer<T extends TakeableItem> {
         }
 
         return i;
+    }
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element us = dom.createElement("ItemContainer");
+        parent.appendChild(us);
+
+        for (Item i : getItems()) {
+            i.save(dom, us);
+        }
+
+        return us;
+    }
+
+    @Override
+    public ItemContainer load(Element node) {
+        if (node == null) return null;
+        Element us = node;
+        if (node.getElementsByTagName("ItemContainer") != null && node.getElementsByTagName("ItemContainer").getLength() > 0)
+            us = (Element) node.getElementsByTagName("ItemContainer").item(0);
+
+        ItemContainer<TakeableItem> ec = new ItemContainer();
+        NodeList items = us.getElementsByTagName("Item");
+        for (int i = 0; i < items.getLength(); i++) {
+            Element it = (Element) items.item(i);
+            Item load = new Item(Decal.BLANK) {
+
+                @Override
+                public boolean isCollidable() {
+                    return false;
+                }
+            }.load(it);
+            ec.add((TakeableItem) load);
+        }
+        return ec;
     }
 }
