@@ -113,7 +113,7 @@ public class Stage implements Renderable, Tickable, Saveable {
         grid = new Tile[rows][cols];
         this.rows = rows;
         this.columns = cols;
-        this.entities = new ArrayList<Entity>();
+        this.entities = new ArrayList<Entity>(1);
         ais = new ArrayList<AI>();
         aiToDelete = new Stack<AI>();
 
@@ -174,10 +174,16 @@ public class Stage implements Renderable, Tickable, Saveable {
     }
 
     public boolean checkCollision(Projectile p){
-        for(Entity e: entities){
+        for(int e = 0; e < entities.size(); e++){
+            System.out.println(entities.get(e).getStatContainer().getLife().getCurrent());
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
-                if (e.getCurrentPosition().x == p.getAffectedArea().get(q).x && e.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
-                    p.generateSuccess(p.getOwner(),e);
+                if (entities.get(e).getCurrentPosition().x == p.getAffectedArea().get(q).x && entities.get(e).getCurrentPosition().y == p.getAffectedArea().get(q).y) {
+                    if(!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e))))){
+                        //p.getOwner().addXP();
+                        System.out.println("entity must be dead");
+                        entities.remove(e);
+                        e--;
+                    }
                     return true;
                 }
             }

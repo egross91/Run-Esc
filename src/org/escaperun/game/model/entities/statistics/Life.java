@@ -13,8 +13,8 @@ public class Life extends DerivedStatistic<Integer> {
     //unless you call refillLife()
     private Level lvl;
     private Hardiness hard;
-    private Integer maxLife;
-    private Double minLife = 0.0;
+    private int maxLife;
+    private double minLife = 0.0;
 
     public Life(Level level, Hardiness hardiness) {
         super(0);
@@ -35,7 +35,7 @@ public class Life extends DerivedStatistic<Integer> {
     @Override
     protected void recalculate() {
         //made this up right here on the spot
-        maxLife = (int) (((2*lvl.getCurrent()) + (3*hard.getCurrent())));
+        maxLife =  (((2*lvl.getCurrent()) + (3*hard.getCurrent())));
     }
 
     @Override

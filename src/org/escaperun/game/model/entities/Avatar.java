@@ -19,6 +19,9 @@ public abstract class Avatar extends Entity {
     public abstract Projectile skill1();
     public abstract SkillsContainer getSkillsContainer();
 
+    public void gainXP(double amount){
+        this.getStatContainer().getExperience().setBase((int)(this.getStatContainer().getExperience().getBase() + amount));
+    }
     @Override
     public void talk(){
         throw new RuntimeException("Error: Avatar should never be queried to be talked to.");
