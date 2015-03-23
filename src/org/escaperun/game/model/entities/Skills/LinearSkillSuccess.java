@@ -13,14 +13,10 @@ public class LinearSkillSuccess extends SkillSuccess {
 
     public static double generateSkillSuccess(Entity attacker, Entity Defender, ActiveSkill p, double AttStat){
         double offRating = ((AttStat / 100) * maxStatContribution) + ((p.getSkillLevel() / 10) * maxSkillLevelContribution);
-        System.out.println(offRating);
         double defenseRating = getDefendingStats(Defender, p) / maxDefenseRating;
-        System.out.println("def" +defenseRating);
         double attOut = (offRating - defenseRating) * p.getOffensePower();
-        System.out.println("attOut "+ attOut);
         double thruput = attOut ;//- Defender.getStatContainer().getArmorRating().getCurrent();
         //armour rating should be constant amount so it is deducted after we get what the attack should deal.
-
         return thruput;
     }
 

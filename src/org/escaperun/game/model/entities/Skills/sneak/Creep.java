@@ -13,7 +13,7 @@ public class Creep extends ActiveSkill {
     }
 
     @Override
-    public SkillSuccess generateSuccess(Entity attacker, Entity defender) {
-        return null;
+    public double generateSuccess(Entity attacker, Entity defender) {
+        return 0;
     }
 }

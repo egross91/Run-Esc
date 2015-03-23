@@ -16,7 +16,7 @@ public class DefensiveRating extends DerivedStatistic<Double> {
 
     @Override
     protected void recalculate() {
-        setBase_internal((double) (3*agile.getCurrent() + 2*lvl.getCurrent()));
+        setBase((double) (3*agile.getCurrent() + 2*lvl.getCurrent()));
     }
 
     @Override

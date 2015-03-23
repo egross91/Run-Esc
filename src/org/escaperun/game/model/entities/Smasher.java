@@ -23,6 +23,10 @@ public class Smasher extends Avatar{
     public Smasher(Position initialPosition) {
         super(new Decal('@', Color.BLACK, Color.RED), initialPosition);
         smasherSkills = new SmasherSkillsContainer(this);
+        getStatContainer().getStrength().setBase(10);
+        getStatContainer().getAgility().setBase(5.0);
+        getStatContainer().getIntellect().setBase(3);
+
     }
 
     @Override

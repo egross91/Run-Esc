@@ -19,7 +19,7 @@ public class ArmorRating extends DerivedStatistic<Double> {
 
     @Override
     protected void recalculate() {
-        setBase_internal((Double) (2 * hard.getCurrent() + (3 * armorValue)));
+        setBase((Double) (2 * hard.getCurrent() + (3 * armorValue)));
     }
 
     protected void setArmorValue(Double armorValue) {

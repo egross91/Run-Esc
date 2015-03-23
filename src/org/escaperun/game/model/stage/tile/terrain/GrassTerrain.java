@@ -26,16 +26,10 @@ public class GrassTerrain extends Terrain {
     }
 
     @Override
-    public Element save(Document dom) {
-        Element terrainElement = super.save(dom);
-        terrainElement.setAttribute("type", getClass().toString());
-
-        return terrainElement;
-    }
-
-    @Override
-    public Terrain load(Element node) {
-        return super.load(node);
+    public Element save(Document dom, Element parent) {
+        Element terrain = super.save(dom, parent);
+        terrain.setAttribute("Type", "Grass");
+        return terrain;
     }
 
     private static final Color RANDOM_GREEN() {

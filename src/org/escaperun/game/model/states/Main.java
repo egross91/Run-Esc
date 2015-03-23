@@ -1,5 +1,6 @@
 package org.escaperun.game.model.states;
 
+import org.escaperun.game.controller.Sound;
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.model.options.SelectableOption;
 import org.escaperun.game.model.options.Option;

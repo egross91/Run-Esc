@@ -19,14 +19,12 @@ public class Bane extends ProjectileQuadrantEffect {
     public Bane(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick){
         super(ofp,dfp,skillLevel,skillOwner,sd,dir,start, movesPerTick);
         this.setDecal(new Decal('*', Color.black, Color.red));
+        this.manaCost = 5;
     }
 
     @Override
-    public SkillSuccess generateSuccess(Entity attacker, Entity defender) {
-        LinearSkillSuccess.generateSkillSuccess(attacker, defender, this, this.getGoodStat());
-
-
-        return null;
+    public double generateSuccess(Entity attacker, Entity defender) {
+        return LinearSkillSuccess.generateSkillSuccess(attacker, defender, this, this.getGoodStat());
     }
 
     public double getGoodStat(){

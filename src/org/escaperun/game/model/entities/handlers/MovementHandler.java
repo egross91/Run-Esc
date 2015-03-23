@@ -25,7 +25,7 @@ public class MovementHandler implements Tickable {
     public void move(Direction dir) {
 
         int move = (int)(((double)entity.getStatContainer().getMovement().getCurrent())/1000.0);
-        if (moveTimer.getTicksSince() < move*moveTimer.getTicksTo()) return;
+        if (move*moveTimer.getTicksSince() < moveTimer.getTicksTo()) return;
         moveTimer.reset();
 
 

@@ -5,6 +5,7 @@ import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SneakSkillsContainer;
+import org.escaperun.game.model.entities.skills.sneak.Arrow;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -68,7 +69,8 @@ public class Sneak extends Avatar {
 
     @Override
     public Projectile skill1() {
-        return null;
+        //TODO: this probably needs to work with SneakSkillsContainer or something
+        return new Arrow(0,0,0,this,20,this.getDirection(),this.getCurrentPosition(), 3);
     }
 
     @Override

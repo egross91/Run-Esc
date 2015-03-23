@@ -9,7 +9,7 @@ import org.escaperun.game.view.Decal;
 
 public class Playing extends GameState {
 
-    private Stage stage;
+    public Stage stage;
 
     public Playing(Stage stage) {
         this.stage = stage;
@@ -104,13 +104,17 @@ public class Playing extends GameState {
 
         Decal[][] ret = stage.getRenderable();
         Decal[][] log = LoggerOption.getInstance().getRenderable(false);
-
+        Decal[][] stats = stage.getAvatar().getAvatarStatistics().getRenderable();
         for (int i = 0; i < log.length; i++) {
             for (int j = 0; j < log[i].length; j++) {
                 ret[i][j] = log[i][j];
             }
         }
 
+        for(int i = 0; i < stats.length; i++)
+            for (int j = 0; j < stats[i].length; j++) {
+                ret[stage.DEFAULT_ROWS-(12-i)][(stage.DEFAULT_COLUMNS/2)+j-(stats[i].length/2)] = stats[i][j];
+            }
         return ret;
     }
 }

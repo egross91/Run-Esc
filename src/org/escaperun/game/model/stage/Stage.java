@@ -13,6 +13,7 @@ import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
@@ -25,20 +26,24 @@ import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.areaeffect.TeleportationAreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
+import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
-import org.escaperun.game.model.states.Playing;
+import org.escaperun.game.serialization.Saveable;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
 import org.escaperun.game.view.Renderable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
-public class Stage implements Renderable, Tickable {
+public class Stage implements Renderable, Tickable, Saveable {
 
     public static final int DEFAULT_ROWS = 50;
-    public static final int DEFAULT_COLUMNS = 50;
+    public static final int DEFAULT_COLUMNS = 85;
 
     // from here on out Tiles will refer to things that are
     // local to a specific Position on the grid.
@@ -56,6 +61,51 @@ public class Stage implements Renderable, Tickable {
     private ArrayList<AreaEffect> areaEffects;
     //Skill Test
     private ArrayList<Projectile> projectiles;
+
+
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element stage = dom.createElement("Stage");
+        parent.appendChild(stage);
+
+        stage.setAttribute("Rows", Integer.toString(rows));
+        stage.setAttribute("Columns", Integer.toString(columns));
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Tile toSave = grid[i][j];
+                if (toSave != null) {
+                    Element e = toSave.save(dom, stage);
+                    e.setAttribute("X", Integer.toString(i));
+                    e.setAttribute("Y", Integer.toString(j));
+                }
+            }
+        }
+        //TODO: Save rest
+        return stage;
+    }
+
+    @Override
+    public Stage load(Element node) {
+        Element stage = (Element) node.getElementsByTagName("Stage").item(0);
+        if (stage == null) return null;
+        int rows = Integer.parseInt(stage.getAttribute("Rows"));
+        int columns = Integer.parseInt(stage.getAttribute("Columns"));
+        Stage ret = new Stage(rows, columns);
+
+        NodeList tiles = stage.getElementsByTagName("Tile");
+        for (int i = 0; i < tiles.getLength(); i++) {
+            Element tile = (Element) tiles.item(i);
+            int x = Integer.parseInt(tile.getAttribute("X"));
+            int y = Integer.parseInt(tile.getAttribute("Y"));
+            Tile put  = new Tile(new BlankTerrain()).load(tile);
+            ret.grid[x][y] = put;
+        }
+
+        //TODO: Load rest
+        return ret;
+    }
 
     public Stage() {
         this(DEFAULT_ROWS, DEFAULT_COLUMNS);
@@ -129,8 +179,7 @@ public class Stage implements Renderable, Tickable {
         for(Entity e: entities){
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (e.getCurrentPosition().x == p.getAffectedArea().get(q).x && e.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
-                    //p.generateSuccess(p.getOwner(),e);
-                    System.out.println(p.generateSuccess(p.getOwner(),e));
+                    p.generateSuccess(p.getOwner(),e);
                     return true;
                 }
             }
@@ -231,12 +280,21 @@ public class Stage implements Renderable, Tickable {
         this.projectiles.add(p);
     }
 
+    private void attemptSkillCast() { //a spell will only be cast if the avatar has enough mana
+        //TODO: need a way to restore mana, unless we want potions or whatever to be the only way
+        int temp_manaRemaining = avatar.getStatContainer().getMana().getCurrent() - avatar.skill1().getManaCost();
+        if(temp_manaRemaining >= 0) { //casting the spell is OK
+            avatar.getStatContainer().getMana().reduceMana(avatar.skill1().getManaCost());
+            this.projectiles.add(this.avatar.skill1());
+        }
+        //otherwise dont cast that bitch
+    }
+
     public void skillCast(){
-        this.projectiles.add(this.avatar.skill1());
+        attemptSkillCast();
     }
 
     public void moveAvatar(Direction dir) {
-
         //this code is to allow 'sliding' on walls
         //when you press walk along a diagonal
         avatar.move(dir);

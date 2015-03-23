@@ -22,6 +22,10 @@ public class Game implements Renderable {
         this.state = new Main();
     }
 
+    public KeyBindings getKeyBindings() {
+        return keybindings;
+    }
+
     public void update(boolean[] pressed) {
         if (state == null) return;
         GameState ret = state.update(keybindings, pressed);

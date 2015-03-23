@@ -5,6 +5,8 @@ import org.escaperun.game.controller.keyboard.KeyType;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
 import org.escaperun.game.model.options.SelectableOption;
+import org.escaperun.game.model.stage.Stage;
+import org.escaperun.game.serialization.SaveManager;
 import org.escaperun.game.view.Decal;
 
 public class Pause extends GameState {
@@ -16,11 +18,14 @@ public class Pause extends GameState {
         if (previous == null)
             throw new RuntimeException("previous should not be null");
         this.previous = previous;
-
+        final Stage test = previous.stage;
         Option[][] options = new Option[][]{
                 {new SelectableOption("Save Game") {
                     @Override
                     public GameState getNextState() {
+                        try {
+                            SaveManager.save(System.getProperty("user.dir") + "/profiles/teststage.xml", test);
+                        } catch (Exception ex) { }
                         return null;
                     }
                 }},

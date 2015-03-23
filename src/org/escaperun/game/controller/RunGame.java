@@ -1,16 +1,19 @@
 package org.escaperun.game.controller;
 
+import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.controller.keyboard.KeyboardListener;
 import org.escaperun.game.model.Game;
+import org.escaperun.game.serialization.SaveManager;
 import org.escaperun.game.view.GameWindow;
 
 public class RunGame implements Runnable {
 
     public static void main(String[] args) {
         RunGame rg = new RunGame();
+        Sound.INTRO_MUSIC.play();
         rg.run();
     }
-
+    public static final String KEY_BINDINGS_FILE = System.getProperty("user.dir") + "/profiles/keys.cfg";
     public static final double SECONDS_PER_TICK = 1/60.0; // goal is 60 fps...each 'frame' should take 1/60th of a second
     private KeyboardListener keyboard;
     private Game game;
@@ -18,8 +21,23 @@ public class RunGame implements Runnable {
 
     public RunGame() {
         keyboard = new KeyboardListener();
-        game = new Game();
+        KeyBindings load = null;
+        try {
+            load = SaveManager.load(KEY_BINDINGS_FILE, new KeyBindings());
+        } catch (Exception ex) {
+        }
+        if (load == null) load = new KeyBindings();
+        game = new Game(load);
         window = new GameWindow(game, keyboard);
+    }
+
+    private void cleanup() {
+        KeyBindings bind = game.getKeyBindings();
+        try {
+            SaveManager.save(KEY_BINDINGS_FILE, bind);
+        } catch (Exception ex) {
+
+        }
     }
 
     public void run() {
@@ -38,6 +56,7 @@ public class RunGame implements Runnable {
             while (unprocessed >= SECONDS_PER_TICK) {
                 game.update(keyboard.pressed);
                 if (game.isOver()) {
+                    cleanup();
                     window.dispose();
                     return;
                 }
