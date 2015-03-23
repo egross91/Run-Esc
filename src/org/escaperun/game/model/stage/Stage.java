@@ -34,6 +34,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -283,7 +284,7 @@ public class Stage implements Renderable, Tickable, Saveable {
         if(temp_manaRemaining >= 0) { //casting the spell is OK
             avatar.getStatContainer().getMana().reduceMana(avatar.skill1().getManaCost());
             this.projectiles.add(this.avatar.skill1());
-        }
+        }else Logger.getInstance().pushMessage("You are out of mana!");
         //otherwise dont cast that bitch
     }
 
