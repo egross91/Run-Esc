@@ -30,6 +30,7 @@ public class Loading extends GameState {
                             return new Playing(load);
                         }
                     } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
                     return null;
                 }

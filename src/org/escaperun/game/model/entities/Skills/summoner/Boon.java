@@ -23,7 +23,7 @@ public class Boon extends ActiveSkill {
         skillOwner.getStatContainer().getLife().healDamage(healAmount);
     }
 
-    public int getHealAmount() {return healAmount;}
+    public int getHealAmount() {return getSkillLevel()*(healAmount);}
 
     @Override
     public double getGoodStat() {

@@ -21,7 +21,7 @@ public class RangedNPC extends AdversarialNPC{
 
     @Override
     public ActiveSkill getActiveSkill(Direction dir) {
-        return new Arrow(100, 0, 0, this, getMaxAttackRange(), dir, getCurrentPosition(),10);
+        return new Arrow(15, 0, 0, this, getMaxAttackRange(), dir, getCurrentPosition(),10);
     }
 
     @Override

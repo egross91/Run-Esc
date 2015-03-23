@@ -25,6 +25,7 @@ public class Hardiness extends PrimaryStatistic<Integer> implements Saveable {
                 armorAdd = 40;
             }
         }
+        setBase(getBase());
     }
 
     public Integer getBase() {

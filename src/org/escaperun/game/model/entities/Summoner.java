@@ -130,6 +130,7 @@ public class Summoner extends Avatar {
     public ActiveSkill attemptSkillCast3(Logger log) { //a spell will only be cast if the avatar has enough mana
         int temp_manaRemaining = this.getManaRemaining() - this.skill3().getManaCost();
         if(temp_manaRemaining >= 0) { //casting the spell is OK
+            Logger.getInstance().pushMessage("You enchant =) (All you get is a happy face, shut up) (=");
             this.getStatContainer().getMana().reduceMana(this.skill3().getManaCost());
             return this.skill3();
         }else

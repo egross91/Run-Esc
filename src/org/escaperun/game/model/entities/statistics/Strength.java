@@ -27,6 +27,7 @@ public class Strength extends PrimaryStatistic<Integer> implements Saveable {
                 armorAdd = 15;
             }
         }
+        setBase(getBase());
     }
 
     public Integer getBase() {

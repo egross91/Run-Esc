@@ -53,6 +53,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         equipment.subscribe(statContainer.getStrength());
         equipment.subscribe(statContainer.getIntellect());
         equipment.subscribe(statContainer.getHardiness());
+        equipment.subscribe(statContainer.getMovement());
     }
 
     @Override

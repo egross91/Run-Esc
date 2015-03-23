@@ -13,6 +13,7 @@ import org.escaperun.game.model.entities.npc.adversarial.RangedNPC;
 import org.escaperun.game.model.entities.npc.ai.MeleeAI;
 import org.escaperun.game.model.entities.npc.ai.RangedAI;
 import org.escaperun.game.model.items.equipment.armors.ChestItem;
+import org.escaperun.game.model.items.equipment.armors.RobeBottom;
 import org.escaperun.game.model.items.equipment.armors.RobinHat;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
@@ -57,6 +58,7 @@ public class Creation extends GameState {
                     public GameState getNextState() {
                         stage.getAvatar().getInventory().add(
                                 new StaffWeapon(new Decal('S', Color.BLACK, Color.BLUE), "Some Dumb Staff", "A staff."));
+                        stage.getAvatar().getInventory().add(new RobeBottom(new Decal('V', Color.BLACK, Color.BLUE.brighter())));
                         Sound.PLAYING1.play();
                         return new Playing(stage);
                     }

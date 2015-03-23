@@ -2,6 +2,7 @@ package org.escaperun.game.model.entities.statistics;
 
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.items.equipment.EquipableItem;
+import org.escaperun.game.model.items.equipment.armors.RobeBottom;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
@@ -27,6 +28,13 @@ public class Intellect extends PrimaryStatistic<Integer> implements Saveable {
                 armorAdd = 18;
             }
         }
+        eq = equip.getItemAtSlot(EquipableItem.EquipmentSlot.FEET.ordinal());
+        if (eq != null) {
+            if (eq instanceof RobeBottom) {
+                armorAdd += 13;
+            }
+        }
+        setBase(getBase());
     }
 
     public Integer getBase() {

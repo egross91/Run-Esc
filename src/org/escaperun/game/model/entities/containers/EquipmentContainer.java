@@ -23,6 +23,7 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
     }
 
     public T equipItem(T toEquip) {
+        if (toEquip == null) return null;
         return swapItem(toEquip.getEquipmentSlot(), toEquip);
     }
 

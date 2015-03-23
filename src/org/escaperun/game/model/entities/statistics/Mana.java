@@ -14,7 +14,7 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
     public Mana(Level level, Intellect intellect) {
         super(0);
         lvl = level;
-       // lvl.subscribe(this);
+        lvl.subscribe(this);
         intel = intellect;
         intel.subscribe(this);
         recalculate();

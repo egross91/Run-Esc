@@ -1,14 +1,44 @@
 package org.escaperun.game.model.entities.statistics;
 
+import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.items.equipment.EquipableItem;
+import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
+import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
+import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.serialization.Saveable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class Agility extends PrimaryStatistic<Double> implements Saveable {
+public class Agility extends PrimaryStatistic<Integer> implements Saveable {
 
     public Agility(){
-        super(0.0); // dummy
-        setBase(5.0);
+        super(0); // dummy
+        setBase(5);
+    }
+
+
+    private Integer armorAdd = 0;
+
+    public void equipmentChange(EquipmentContainer<EquipableItem> equip) {
+        EquipableItem eq = equip.getItemAtSlot(EquipableItem.EquipmentSlot.WEAPON.ordinal());
+        armorAdd = 0;
+        if (eq != null) {
+            if (eq instanceof BowWeapon) {
+                armorAdd = 30;
+            } else if (eq instanceof ThrowingKnivesWeapon) {
+                armorAdd = 13;
+            }
+        }
+        setBase(getBase());
+    }
+
+    public Integer getBase() {
+        return base.intValue();
+    }
+
+    public Integer getCurrent() {
+        Double val = (multiplicativeDelta*(base-additiveDelta+armorAdd));
+        return val.intValue();
     }
 
     @Override

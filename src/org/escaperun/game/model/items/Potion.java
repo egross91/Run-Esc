@@ -39,7 +39,7 @@ public class Potion extends TakeableItem {
             e.getStatContainer().getStrength().addDelta(20);
         }
         else if (this.getName().equals("Agility Potion")) {
-            e.getStatContainer().getAgility().addDelta(20.0);
+            e.getStatContainer().getAgility().addDelta(20);
         }
         else if (this.getName().equals("Mana Potion")) {
             e.getStatContainer().getMana().restoreMana(20);

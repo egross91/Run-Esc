@@ -1,5 +1,10 @@
 package org.escaperun.game.model.entities.statistics;
 
+import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.items.equipment.EquipableItem;
+import org.escaperun.game.model.items.equipment.armors.RobeBottom;
+import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
+import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
 import org.escaperun.game.serialization.Saveable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,6 +14,28 @@ public class Movement extends PrimaryStatistic<Integer> implements Saveable {
     public Movement(){
         super(0);
         setBase(1000);
+    }
+
+    private Integer armorAdd = 0;
+
+    public void equipmentChange(EquipmentContainer<EquipableItem> equip) {
+        EquipableItem eq = equip.getItemAtSlot(EquipableItem.EquipmentSlot.FEET.ordinal());
+        armorAdd = 0;
+        if (eq != null) {
+            if (eq instanceof RobeBottom) {
+                armorAdd = -225;
+            }
+        }
+        setBase(getBase());
+    }
+
+    public Integer getBase() {
+        return base.intValue();
+    }
+
+    public Integer getCurrent() {
+        Double val = (multiplicativeDelta*(base-additiveDelta+armorAdd));
+        return val.intValue();
     }
 
     @Override
