@@ -3,6 +3,7 @@ package org.escaperun.game.model.entities.statistics;
 public class Level extends DerivedStatistic<Integer> {
 
     Experience experience;
+    Integer divisor = 100;
 
     public Level(Experience exp) {
         super(0);
@@ -13,11 +14,16 @@ public class Level extends DerivedStatistic<Integer> {
 
     @Override
     protected void recalculate() {
-        setBase_internal((int) (experience.getCurrent().doubleValue() / 100.0));
+        setBase_internal((experience.getCurrent().intValue() / divisor));
     }
 
     @Override
     public String getName() {
         return "Level";
+    }
+
+    //get remaining experience until next level
+    public Integer getRemainingExp() {
+        return (divisor - (experience.getCurrent() % divisor));
     }
 }

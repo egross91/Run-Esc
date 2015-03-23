@@ -5,6 +5,7 @@ import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.statistics.StatisticContainer;
 import org.escaperun.game.view.Decal;
 
+
 public class LevelUp extends StatisticAlteringAreaEffect{
     public LevelUp(Decal decal, Position position, StatisticContainer stats){
         super(decal, position, stats);
@@ -12,7 +13,8 @@ public class LevelUp extends StatisticAlteringAreaEffect{
 
     @Override
     public void doAction(Entity e){
-        //TODO
+        Integer exp = e.getStatContainer().getLevel().getRemainingExp() + e.getStatContainer().getExperience().getCurrent();
+        e.getStatContainer().getExperience().setBase(exp);
     }
 
 }

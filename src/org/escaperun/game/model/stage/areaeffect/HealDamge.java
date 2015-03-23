@@ -12,7 +12,6 @@ public class HealDamge extends StatisticAlteringAreaEffect{
     @Override
     public void doAction(Entity e){
         e.getStatContainer().getLife().healDamage(20);
-
     }
 
 }
