@@ -7,6 +7,7 @@ import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.handlers.RestorationHandler;
+import org.escaperun.game.model.entities.npc.nonhostile.ShopkeepingNPC;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.entities.statistics.IStatSubscriber;
@@ -114,7 +115,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
 
     public void equipItem(WeaponItem weaponItem) {
         if (!inventory.isFull()) {
-            EquipableItem equippedItem = equipment.equipItem(weaponItem);
+            EquipableItem equippedItem = equipment.equipItem(weaponItem, this);
             statContainer.setWeaponDamage((equippedItem != null) ? equippedItem.getStatistics().getOffensiveRating().getCurrent() : 0.0);
             inventory.add(equippedItem);
         }
@@ -130,7 +131,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
     public void equipItem(EquipableItem armorItem){
         //equip the item
         if (!inventory.isFull()) {
-            EquipableItem equippedItem = equipment.equipItem(armorItem);
+            EquipableItem equippedItem = equipment.equipItem(armorItem, this);
             inventory.add(equippedItem);
         }
     }
@@ -191,6 +192,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
     }
 
     public boolean takeDamage(double amount) {
+        if (this instanceof ShopkeepingNPC) return true;
         //return false if dead.
         this.getStatContainer().getLife().takeDamage((int)amount);
         if(this.lostLife()){

@@ -38,16 +38,18 @@ public abstract class Avatar extends Entity {
 
     //bind wound
     public ActiveSkill attemptSkillCast4(Logger log) { //a spell will only be cast if the avatar has enough mana
-        int temp_manaRemaining = this.getManaRemaining() - this.skill4().getManaCost();
+        ActiveSkill skill = this.skill4();
+        if (skill == null) return null;
+        int temp_manaRemaining = this.getManaRemaining() - skill.getManaCost();
         if(temp_manaRemaining >= 0) { //casting the spell is OK
-            this.getStatContainer().getMana().reduceMana(this.skill4().getManaCost());
-            return this.skill4();
+            this.getStatContainer().getMana().reduceMana(skill.getManaCost());
+            return skill;
         }else
             log.pushMessage("You don't have enough mana to use Bind Wounds!");
         return null;
     }
 
-    private ActiveSkill skill4(){
+    protected ActiveSkill skill4(){
         return new BindWounds();
     }
 

@@ -14,12 +14,12 @@ import org.escaperun.game.view.Decal;
 
 import java.awt.*;
 
-public class Bane extends ProjectileQuadrantEffect {
+public class WaterWave extends Projectile360Effect {
 
-    public Bane(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick){
+    public WaterWave(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick){
         super(ofp,dfp,skillLevel,skillOwner,sd,dir,start, movesPerTick);
-        this.setDecal(new Decal('*', Color.black, Color.red));
-        this.manaCost = 10;
+        this.setDecal(new Decal('*', Color.black, Color.BLUE));
+        this.manaCost = 38;
         skillName = "Bane";
         skillLevel = 1;
     }

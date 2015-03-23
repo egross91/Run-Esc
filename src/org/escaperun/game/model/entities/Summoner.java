@@ -7,6 +7,7 @@ import org.escaperun.game.model.entities.skills.*;
 import org.escaperun.game.model.entities.skills.summoner.*;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.weapons.MagicalWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
@@ -106,10 +107,12 @@ public class Summoner extends Avatar {
     }
 
     public ActiveSkill attemptSkillCast1(Logger log) { //a spell will only be cast if the avatar has enough mana
-        int temp_manaRemaining = this.getManaRemaining() - this.skill1().getManaCost();
+        ActiveSkill skill = this.skill1();
+        if (skill == null) return null;
+        int temp_manaRemaining = this.getManaRemaining() - skill.getManaCost();
         if(temp_manaRemaining >= 0) { //casting the spell is OK
-            this.getStatContainer().getMana().reduceMana(this.skill1().getManaCost());
-            return this.skill1();
+            this.getStatContainer().getMana().reduceMana(skill.getManaCost());
+            return skill;
         }else
             log.pushMessage("You don't have enough mana for Bane!");
         return null;
@@ -138,10 +141,20 @@ public class Summoner extends Avatar {
         return null;
     }
 
+    public void tick() {
+        super.tick();
+        attackTimer.tick();
+    }
 
+    private Timer attackTimer = new Timer(0);
 
     private ActiveSkill skill1(){
-        return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
+
+        if (attackTimer.getTicksSince() >= 15) {
+            attackTimer.reset();
+            return new Bane(16, 0, 0, this, 10, this.getDirection(), this.getCurrentPosition(), 5);
+        }
+        return null;
     }
 
     private ActiveSkill skill2(){
@@ -152,6 +165,14 @@ public class Summoner extends Avatar {
         return new Enchant();
     }
 
+
+    protected ActiveSkill skill4(){
+        if (attackTimer.getTicksSince() >= 28) {
+            attackTimer.reset();
+            return new WaterWave(16, 0, 0, this, 10, this.getDirection(), this.getCurrentPosition(), 5);
+        }
+        return null;
+    }
 
 
     @Override

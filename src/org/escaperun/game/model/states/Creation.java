@@ -15,6 +15,7 @@ import org.escaperun.game.model.entities.npc.ai.RangedAI;
 import org.escaperun.game.model.items.equipment.armors.ChestItem;
 import org.escaperun.game.model.items.equipment.armors.RobeBottom;
 import org.escaperun.game.model.items.equipment.armors.RobinHat;
+import org.escaperun.game.model.items.equipment.armors.Shield;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -49,6 +50,7 @@ public class Creation extends GameState {
                         stage.getAvatar().getInventory().add(
                                 new TwoHandedWeapon(new Decal('T', Color.BLACK, Color.BLUE), "The Aleksey", "A two-handed weapon."));
                         stage.getAvatar().getInventory().add(new ChestItem(new Decal('C', Color.BLACK, Color.GREEN)));
+                        stage.getAvatar().getInventory().add(new Shield(new Decal('@', Color.BLACK, Color.GRAY)));
                         return new Playing(stage);
                     }
                 },

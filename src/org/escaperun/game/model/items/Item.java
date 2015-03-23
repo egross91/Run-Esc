@@ -4,6 +4,7 @@ import org.escaperun.game.model.Collidable;
 import org.escaperun.game.model.items.equipment.armors.ChestItem;
 import org.escaperun.game.model.items.equipment.armors.RobeBottom;
 import org.escaperun.game.model.items.equipment.armors.RobinHat;
+import org.escaperun.game.model.items.equipment.armors.Shield;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -104,6 +105,8 @@ public abstract class Item implements Renderable, Collidable, Saveable {
             return new RobeBottom(decal).load(item);
         } else if (type.equals("RobinHat")) {
             return new RobinHat(decal).load(item);
+        } else if (type.equals("Shield")) {
+            return new Shield(decal).load(item);
         }
         return null;
     }

@@ -39,6 +39,8 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
         return this.equipmentSlot.getSlot();
     }
 
+    public int secondSlot() {return -1;}
+
     @Override
     public boolean isCollidable() {
         return super.isCollidable();

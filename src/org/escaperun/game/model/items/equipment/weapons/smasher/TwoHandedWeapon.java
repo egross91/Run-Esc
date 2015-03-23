@@ -20,6 +20,10 @@ public class TwoHandedWeapon extends MeleeWeapon {
         this.description = description;
     }
 
+    public int secondSlot() {
+        return EquipmentSlot.SHIELD.ordinal();
+    }
+
     @Override
     public String getName() {
         return name;

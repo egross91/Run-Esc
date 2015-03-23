@@ -1,8 +1,12 @@
 package org.escaperun.game.model.entities.containers;
 
+import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.statistics.Statistic;
 import org.escaperun.game.model.items.Item;
+import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.EquipableItem;
+import org.escaperun.game.model.items.equipment.armors.Shield;
+import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
 import org.escaperun.game.serialization.Saveable;
 import org.escaperun.game.view.Decal;
 import org.w3c.dom.Document;
@@ -27,6 +31,11 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
         return swapItem(toEquip.getEquipmentSlot(), toEquip);
     }
 
+    public T equipItem(T toEquip, Entity ent) {
+        if (toEquip == null) return null;
+        return swapItem(toEquip.getEquipmentSlot(), toEquip, ent);
+    }
+
     public T unequipItem(int slot) {
         return swapItem(slot, null);
     }
@@ -43,8 +52,53 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
     }
 
     private T swapItem(int slot, T toEquip) {
+
+        if (toEquip instanceof Shield) {
+            T weap = get(EquipableItem.EquipmentSlot.WEAPON.ordinal());
+            if (weap instanceof TwoHandedWeapon) {
+                unequipItem(EquipableItem.EquipmentSlot.WEAPON.ordinal());
+            }
+        }
+
+        if (toEquip instanceof TwoHandedWeapon) {
+
+            T weap = get(EquipableItem.EquipmentSlot.SHIELD.ordinal());
+            if (weap != null) {
+                unequipItem(EquipableItem.EquipmentSlot.SHIELD.ordinal());
+            }
+        }
+
         T ret = get(slot);
         add(slot, toEquip);
+
+
+        change();
+        return ret;
+    }
+
+    private T swapItem(int slot, T toEquip, Entity ent) {
+
+        if (toEquip instanceof Shield) {
+            T weap = get(EquipableItem.EquipmentSlot.WEAPON.ordinal());
+            if (weap instanceof TwoHandedWeapon) {
+                TakeableItem t = unequipItem(EquipableItem.EquipmentSlot.WEAPON.ordinal());
+                ent.getInventory().add(t);
+            }
+        }
+
+        if (toEquip instanceof TwoHandedWeapon) {
+
+            T weap = get(EquipableItem.EquipmentSlot.SHIELD.ordinal());
+            if (weap != null) {
+                TakeableItem t = unequipItem(EquipableItem.EquipmentSlot.SHIELD.ordinal());
+                ent.getInventory().add(t);
+            }
+        }
+
+        T ret = get(slot);
+        add(slot, toEquip);
+
+
         change();
         return ret;
     }
