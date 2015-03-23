@@ -137,7 +137,7 @@ public class Smasher extends Avatar {
             if (attackTimer.getTicksSince() >= 30) {
                 attackTimer.reset();
                 Cleave clv = new Cleave(0, 0, 0, this, 2, getDirection(), getCurrentPosition(), 15);
-                clv.setDecal(new Decal('#', Color.BLACK, Color.RED));
+                clv.setDecal(new Decal('=', Color.BLACK, Color.RED));
                 return clv;
             }
         } else if (weap instanceof TwoHandedWeapon) {
@@ -152,7 +152,7 @@ public class Smasher extends Avatar {
             if (attackTimer.getTicksSince() >= 22) {
                 attackTimer.reset();
                 Cleave clv = new Cleave(0, 0, 0, this, 2, getDirection(), getCurrentPosition(), 15);
-                clv.setDecal(new Decal('=', Color.BLACK, Color.RED));
+                clv.setDecal(new Decal('#', Color.BLACK, Color.RED));
                 return clv;
             }
         }

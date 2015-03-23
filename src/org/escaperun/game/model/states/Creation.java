@@ -14,6 +14,7 @@ import org.escaperun.game.model.entities.npc.ai.MeleeAI;
 import org.escaperun.game.model.entities.npc.ai.RangedAI;
 import org.escaperun.game.model.items.equipment.armors.ChestItem;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
+import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
 import org.escaperun.game.model.options.SelectableOption;
@@ -35,7 +36,10 @@ public class Creation extends GameState {
                         Sound.PLAYING1.play();
 
                         Stage stage = setupStage(new Smasher(new Position(1, 1)));
-
+                        stage.getAvatar().getInventory().add(
+                                new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Dave", "A one-handed weapon."));
+                        stage.getAvatar().getInventory().add(
+                                new TwoHandedWeapon(new Decal('T', Color.BLACK, Color.BLUE), "The Aleksey", "A two-handed weapon."));
                         return new Playing(stage);
                     }
                 },
@@ -80,15 +84,6 @@ public class Creation extends GameState {
             load.setAvatar(avatar);
             return load;
         } catch (Exception ex) {}
-        //DEBUG //TODO: REMOVE DEBUG CODE.
-        /*MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(30,30),5);
-        npc.setMovementHandler(new MovementHandler(stage, npc, 8));
-        MeleeAI ai = new MeleeAI(stage, npc);*/
-/*
-        RangedNPC npc = new RangedNPC(new Decal('~', Color.BLACK, Color.RED), new Position(30,30),5);
-        npc.setMovementHandler(new MovementHandler(stage, npc, 8));
-        RangedAI ai = new RangedAI(stage, npc);
-*/
         return null;
     }
 }
