@@ -2,6 +2,9 @@ package org.escaperun.game.model.entities.skills;
 
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
+import org.escaperun.game.serialization.Saveable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class OneHandedAttack extends ActiveSkill {
 

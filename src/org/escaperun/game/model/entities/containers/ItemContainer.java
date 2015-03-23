@@ -105,6 +105,7 @@ public class ItemContainer<T extends TakeableItem> implements Saveable {
         parent.appendChild(us);
 
         for (Item i : getItems()) {
+            if (i == null) continue;
             i.save(dom, us);
         }
 

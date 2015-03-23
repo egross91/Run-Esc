@@ -40,6 +40,7 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
         parent.appendChild(us);
 
         for (Item i : getItems()) {
+            if (i == null) continue;
             i.save(dom, us);
         }
 
@@ -64,7 +65,7 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
                     return false;
                 }
             }.load(it);
-            ec.add((EquipableItem) load);
+            ec.equipItem((EquipableItem) load);
         }
         return ec;
     }

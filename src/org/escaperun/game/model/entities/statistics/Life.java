@@ -34,7 +34,7 @@ public class Life extends DerivedStatistic<Integer> implements Saveable {
     public Element save(Document dom, Element parent) {
         Element us = dom.createElement(getName());
         parent.appendChild(us);
-
+        us.setAttribute("Base", Double.toString(getCurrent()));
         return us;
     }
 
@@ -46,6 +46,8 @@ public class Life extends DerivedStatistic<Integer> implements Saveable {
             us = (Element) node.getElementsByTagName(getName()).item(0);
 
         Life ret = new Life(lvl, hard);
+
+        ret.setBase(((Double)Double.parseDouble(us.getAttribute("Base"))).intValue());
         return ret;
     }
 

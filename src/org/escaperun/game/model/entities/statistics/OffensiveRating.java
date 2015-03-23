@@ -59,6 +59,6 @@ public class OffensiveRating extends DerivedStatistic<Double> implements Saveabl
 
     @Override
     public String getName() {
-        return "Off. Rating";
+        return "OffRating";
     }
 }

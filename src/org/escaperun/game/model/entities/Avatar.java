@@ -34,10 +34,12 @@ public abstract class Avatar extends Entity {
         //TODO: need to implement mana restoration over time
         int temp_manaRemaining = this.getStatContainer().getMana().getCurrent() - this.skill1().getManaCost();
         if(temp_manaRemaining >= 0) { //casting the spell is OK
-            Sound.CASTSPELL.play();
+            playAttackSound();
             this.getStatContainer().getMana().reduceMana(this.skill1().getManaCost());
             return true;
         }else
             return false;
     }
+
+    public abstract void playAttackSound();
 }
