@@ -8,10 +8,22 @@ import org.w3c.dom.Element;
 
 public class BindWounds extends ActiveSkill {
 
+    private int healAmount =10;
+
     public BindWounds(){
         skillName = "Bind Wounds";
         skillLevel = 1;
+        this.manaCost = 10;
     }
+
+    public BindWounds(Entity skillOwner){
+        skillName = "Bind Wounds";
+        skillLevel = 1;
+        this.manaCost = 10;
+        skillOwner.getStatContainer().getLife().healDamage(healAmount);
+    }
+
+    public int getHealAmount() { return healAmount;}
 
     @Override
     public double getGoodStat() {

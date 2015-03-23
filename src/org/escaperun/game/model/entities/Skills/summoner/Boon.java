@@ -8,10 +8,22 @@ import org.escaperun.game.model.entities.skills.SkillSuccess;
 
 public class Boon extends ActiveSkill {
 
+    private int healAmount = 10;
+
     public Boon(){
         skillName = "Boon";
         skillLevel = 1;
+        this.manaCost = 10;
     }
+
+    public Boon(Entity skillOwner){
+        skillName = "Boon";
+        skillLevel = 1;
+        this.manaCost = 10;
+        skillOwner.getStatContainer().getLife().healDamage(healAmount);
+    }
+
+    public int getHealAmount() {return healAmount;}
 
     @Override
     public double getGoodStat() {
