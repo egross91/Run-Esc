@@ -144,11 +144,22 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         return (statContainer.getLivesLeft().getBase() <= 0);
     }
 
+    public boolean lostLife(){return (statContainer.getLife().getCurrent() <= 0);}
+
     public double getMovementPoints() {
         return statContainer.getMovement().getBase();
     }
 
     protected void setStatContainer(StatisticContainer statContainer) {
         this.statContainer = statContainer;
+    }
+
+    public boolean takeDamage(double amount) {
+        //return false if dead.
+        this.getStatContainer().getLife().takeDamage((int)amount);
+        if(this.lostLife()){
+            return false;
+        }
+        return true;
     }
 }

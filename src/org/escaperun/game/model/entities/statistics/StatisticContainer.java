@@ -5,6 +5,7 @@ import org.escaperun.game.view.Renderable;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StatisticContainer implements Renderable {
 
@@ -116,11 +117,17 @@ public class StatisticContainer implements Renderable {
 
         return renderables;
     }
-/*
+
     public Decal[][] getStageRenderable(){
-        Decal[][] rendrend = new Decal[12][];
-        //TODO: Finish this special render for stage
-    }*/
+        Decal[][] rendrend = new Decal[6][];
+        rendrend[0] = combineWithSpacing(renderizeOnStageUnary(getStrength()), renderizeOnStageBinary(getLife()), 25);
+        rendrend[1] = combineWithSpacing(renderizeOnStageUnary(getAgility()), renderizeOnStageBinary(getMana()), 25);
+        rendrend[2] = combineWithSpacing(renderizeOnStageUnary(getHardiness()), renderizeOnStageUnary(getOffensiveRating()), 25);
+        rendrend[3] = combineWithSpacing(renderizeOnStageUnary(getIntellect()), renderizeOnStageUnary(getDefensiveRating()), 25);
+        rendrend[4] = combineWithSpacing(renderizeOnStageUnary(getMovement()), renderizeOnStageUnary(getDefensiveRating()), 25);
+        rendrend[5] = combineWithSpacing(renderizeOnStageUnary(getExperience()), renderizeOnStageUnary(getLivesLeft()), 25);
+        return rendrend;
+        }
 
     public Decal[] renderize(Statistic stat) {
         String name = stat.getName() + ": ";
@@ -142,5 +149,40 @@ public class StatisticContainer implements Renderable {
         }
 
         return ret;
+    }
+
+    //Binary means that it has a current AND base stat. (HP, MP, etc.)
+    public Decal[] renderizeOnStageBinary(Statistic stat){
+        return renderize(stat);
+    }
+
+    //Unary = only the current (Strength, Lives left, etc.)
+    public Decal[] renderizeOnStageUnary(Statistic stat){
+        String name = stat.getName() + ": ";
+        String current = stat.getCurrent().toString();
+        Decal[] returned = new Decal[name.length()+current.length()];
+        int index = 0;
+        for (int i = 0; i < name.length(); ++i) {
+            returned[index++] = new Decal(name.charAt(i), Color.BLACK, Color.WHITE);
+        }
+        for (int i = 0; i < current.length(); ++i) {
+            returned[index++] = new Decal(current.charAt(i), Color.BLACK, Color.GREEN);
+        }
+
+        return returned;
+    }
+
+    public Decal[] combine(Decal[] first, Decal[] second) {
+        Decal[] result = Arrays.copyOf(first, first.length + second.length);
+        System.arraycopy(second, 0, result, first.length, second.length);
+        return result;
+    }
+
+    public Decal[] combineWithSpacing(Decal[] first, Decal[] second, int amtOfSpaces){
+        Decal[] spaces = new Decal[amtOfSpaces];
+        Arrays.fill(spaces, Decal.BLANK);
+        Decal[] tempArr = combine(first, Arrays.copyOfRange(spaces, 0, amtOfSpaces-first.length));
+        Decal[] returned = combine(tempArr, second);
+        return returned;
     }
 }
