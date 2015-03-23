@@ -10,12 +10,9 @@ import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
-import org.escaperun.game.model.entities.skills.Projectile;
-import org.escaperun.game.model.entities.skills.SkillsContainer;
+import org.escaperun.game.model.entities.skills.*;
 import org.escaperun.game.model.entities.statistics.IStatSubscriber;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
-import org.escaperun.game.model.entities.skills.Observe;
-import org.escaperun.game.model.entities.skills.PassiveSkill;
 import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
@@ -52,7 +49,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
     private Avatar avatar;
     private ArrayList<AreaEffect> areaEffects;
     //Skill Test
-    private ArrayList<Projectile> projectiles;
+    private ArrayList<ActiveSkill> activeSkills;
     private ArrayList<PassiveSkill> passives;
     private int passiveTimer = 5;
    // private Timer moveAmount;
@@ -114,7 +111,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         aiToDelete = new Stack<AI>();
 
         //Skill Test
-        projectiles = new ArrayList<Projectile>();
+        activeSkills = new ArrayList<ActiveSkill>();
         //AoE test
         areaEffects = new ArrayList<AreaEffect>();
 
@@ -156,18 +153,20 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             if(avatar.getCurrentPosition().equals(effect.getPosition()))
                 effect.onTouch(avatar);
 
-        for (int r = 0; r < projectiles.size(); r++) {
-            if (projectiles.get(r) == null) continue;
-            if (projectiles.get(r).isDone()){
-                projectiles.remove(r);
+        for (int r = 0; r < activeSkills.size(); r++) {
+            if (activeSkills.get(r) == null) continue;
+            if (activeSkills.get(r).isDone()){
+                activeSkills.remove(r);
                 r--;
                 continue;
             }
-            projectiles.get(r).tick();
-            if(checkCollision(projectiles.get(r))){
-                //do damage and shiit
-                projectiles.remove(r);
-                r--;
+            activeSkills.get(r).tick();
+            if (activeSkills.get(r) instanceof Projectile){ //lol @ hax
+                if (checkCollision(((Projectile) activeSkills.get(r)))) {
+                    //do damage and shiit
+                    activeSkills.remove(r);
+                    r--;
+                }
             }
         }
 
@@ -271,15 +270,22 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         }
 
         //draw Skills
-        for(Projectile p: projectiles){
-            if (p == null){ continue;}
-            if (p.isDone()){ continue;}
-            for(Position pos : p.getAffectedArea()){
-                int drawX = midX+pos.x-avatarX;
-                int drawY = midY+pos.y-avatarY;
-                if (drawX >= 0 && drawY >= 0 && drawX < window.length && drawY < window[0].length
-                        && isValid(pos)) {
-                    window[drawX][drawY] = p.getRenderable()[0][0];
+        for(ActiveSkill a: activeSkills){
+            if(a instanceof Projectile) {
+                Projectile p = (Projectile) a;
+                if (p == null) {
+                    continue;
+                }
+                if (p.isDone()) {
+                    continue;
+                }
+                for (Position pos : p.getAffectedArea()) {
+                    int drawX = midX + pos.x - avatarX;
+                    int drawY = midY + pos.y - avatarY;
+                    if (drawX >= 0 && drawY >= 0 && drawX < window.length && drawY < window[0].length
+                            && isValid(pos)) {
+                        window[drawX][drawY] = p.getRenderable()[0][0];
+                    }
                 }
             }
         }
@@ -321,13 +327,13 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
     }
 
     public void addSkill(Projectile p){
-        this.projectiles.add(p);
+        this.activeSkills.add(p);
     }
 
     public void skillCast(){
         //moved this to Avatar because it was a violation of TDA
         if(avatar.attemptSkillCast()) { //casting the spell is OK
-            this.projectiles.add(this.avatar.skill1());
+            this.activeSkills.add(this.avatar.skill1());
         }else Logger.getInstance().pushMessage("You don't have enough mana!");
         //otherwise dont cast that bitch
     }
