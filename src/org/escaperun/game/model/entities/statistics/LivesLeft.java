@@ -11,7 +11,7 @@ public class LivesLeft extends PrimaryStatistic<Integer> implements Saveable {
         super(0);
         life.subscribe(this);
         this.life = life;
-        setBase(5);
+        setBase(1);
     }
 
     @Override

@@ -353,6 +353,10 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         return false;
     }
 
+    public boolean isGameOver(){
+        return avatar.getStatContainer().getLivesLeft().getBase() == 0;
+    }
+
     @Override
     public Decal[][] getRenderable() {
         Decal[][] window = new Decal[GameWindow.ROWS][GameWindow.COLUMNS];
@@ -548,7 +552,6 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         int lives = avatar.getAvatarStatistics().getLivesLeft().getCurrent();
         if (lives <= 0) {
             //TODO: code for when avatar loses all lives.
-            throw new RuntimeException("YOU HAVE DIED! However a death screen has not been implemented yet.");
         }
 
         //Reset avatar

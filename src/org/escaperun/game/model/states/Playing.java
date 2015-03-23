@@ -20,10 +20,21 @@ public class Playing extends GameState {
     public Playing(Stage stage) {
         this.stage = stage;
     }
+    private boolean gameOver = false;
+    private boolean alreadySet = false;
+    public void setGameOver(){
+        gameOver = true;
+    }
 
     @Override
     public GameState update(KeyBindings bindings, boolean[] pressed) {
         LoggerOption.getInstance().update(null, null);
+        gameOver = stage.isGameOver();
+        if(gameOver && !alreadySet){
+            alreadySet = false;
+            return new GameOver(this, stage);
+        }
+
         boolean escape = pressed[bindings.getBinding(KeyType.EXIT)];
         if (escape) {
             pressed[bindings.getBinding(KeyType.EXIT)] = false;

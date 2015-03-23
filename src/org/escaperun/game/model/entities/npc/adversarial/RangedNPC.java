@@ -15,7 +15,7 @@ public class RangedNPC extends AdversarialNPC{
         StatisticContainer stats = new StatisticContainer();
         stats.getLivesLeft().setBase(1);
         stats.getMovement().setBase(700);
-        stats.setWeaponDamage(25.0);
+        stats.setWeaponDamage(200.0);
         setStatContainer(stats);
     }
 
