@@ -43,6 +43,7 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
     @Override
     protected void recalculate() {
         maxMana = (int) (lvl.getCurrent() * 3) + (5 * intel.getCurrent());
+        setBase(maxMana);
     }
 
     @Override
