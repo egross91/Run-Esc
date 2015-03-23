@@ -1,5 +1,6 @@
 package org.escaperun.game.model.states;
 
+import org.escaperun.game.controller.Sound;
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
@@ -52,7 +53,7 @@ public class Main extends GameState {
                 }}
         };
         optionContainer = new OptionContainer(options, OptionContainer.ContainerType.CENTERED);
-//        Sound.INTRO_MUSIC.play();
+        Sound.INTRO_MUSIC.play();
     }
 
     @Override
