@@ -9,7 +9,6 @@ public class OffensiveRating extends DerivedStatistic<Double> implements Saveabl
     Strength str;
     Level lvl;
     Double weaponDamage;
-    private Double delta;
 
     //TODO
     //need a way to alert when weapon changes

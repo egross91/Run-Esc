@@ -8,7 +8,6 @@ public class DefensiveRating extends DerivedStatistic<Double> implements Saveabl
 
     Agility agile;
     Level lvl;
-    private Double delta = 0.0;
 
     public DefensiveRating(Agility agility, Level level) {
         super(0.0); // dummy
@@ -40,17 +39,11 @@ public class DefensiveRating extends DerivedStatistic<Double> implements Saveabl
 
     @Override
     protected void recalculate() {
-        Double agileCurr = (agile.getCurrent() == null) ? 1 : agile.getCurrent();
-        Integer lvlCurr = (lvl.getCurrent() == null) ? 1 : lvl.getCurrent();
-        setBase((double) (3*agileCurr + 2*lvlCurr) + delta);
+        setBase((double) (3*agile.getCurrent() + 2*lvl.getCurrent()));
     }
 
     @Override
     public String getName() {
         return "DefRating";
-    }
-
-    public void setDelta(double delta) {
-        this.delta = delta;
     }
 }

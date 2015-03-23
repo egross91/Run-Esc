@@ -47,6 +47,8 @@ public class Level extends DerivedStatistic<Integer> implements Saveable {
 
     //get remaining experience until next level
     public Integer getRemainingExp() {
+        System.out.println("EXP: " + experience.getCurrent());
+
         return (divisor - (experience.getCurrent() % divisor));
     }
 }

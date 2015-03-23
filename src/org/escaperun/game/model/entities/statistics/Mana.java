@@ -9,9 +9,6 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
    private Level lvl;
    private Intellect intel;
    private Integer maxMana = 0;
-    private Integer base = 0;
-    private Integer delta = 0;
-    private Integer current = 0;
    private Integer minMana = 0;
 
     public Mana(Level level, Intellect intellect) {
@@ -47,21 +44,14 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
 
     @Override
     protected void recalculate() {
-        Integer lvlCurr = (lvl.getCurrent() == null) ? 1 : lvl.getCurrent();
-        Integer intelCurr = (intel.getCurrent() == null) ? 1 : intel.getCurrent();
-        maxMana = (int) (lvlCurr * 3) + (5 * intelCurr) + delta;
-//        int currentMana = getBase();
-        setBase(maxMana);
+                maxMana = (int) (lvl.getCurrent() * 3) + (5 * intel.getCurrent());
+                int currentMana = getBase();
+                setBase(currentMana);
     }
 
     @Override
     public Integer getBase() {
-        return base;
-    }
-
-    @Override
-    public Integer getCurrent() {
-        return current;
+        return maxMana;
     }
 
     public void reduceMana(Integer amountReduced) {
@@ -71,14 +61,10 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
 
     public void restoreMana(Integer amountRestored) {
         int currentMana = getCurrent();
-        if((currentMana + amountRestored) < maxMana)
+        if((currentMana + amountRestored) > maxMana)
             refillMana();
         else
-            setCurrent(currentMana + amountRestored);
-    }
-
-    public void setCurrent(Integer val) {
-        this.current = val;
+            setBase(currentMana + amountRestored);
     }
 
     public void refillMana() {
@@ -88,9 +74,5 @@ public class Mana extends DerivedStatistic<Integer> implements Saveable {
     @Override
     public String getName() {
         return "Mana";
-    }
-
-    public void setDelta(double delta) {
-        this.delta = (int)delta;
     }
 }

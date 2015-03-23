@@ -7,7 +7,10 @@ import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SneakSkillsContainer;
+import org.escaperun.game.model.entities.skills.smasher.Cleave;
 import org.escaperun.game.model.entities.skills.sneak.Arrow;
+import org.escaperun.game.model.events.Timer;
+import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
@@ -63,7 +66,7 @@ public class Sneak extends Avatar {
 
     @Override
     public void playAttackSound() {
-        //Sound.CASTSPELL.play();
+        Sound.CASTSPELL.play();
     }
 
     @Override
@@ -105,7 +108,11 @@ public class Sneak extends Avatar {
     public void visit(StaffWeapon sw) {
         Logger.getInstance().pushMessage("You cannot equip the "+sw.getName()+"! You cannot equip fist !");
     }
-
+    public void tick() {
+        super.tick();
+        attackTimer.tick();
+    }
+    private Timer attackTimer = new Timer(0);
     @Override
     public ActiveSkill attemptSkillCast1(Logger log) {
         return skill1();
@@ -113,7 +120,32 @@ public class Sneak extends Avatar {
 
     private Projectile skill1() {
         //TODO: this probably needs to work with SneakSkillsContainer or something
-        return new Arrow(15,0,0,this,20,this.getDirection(),this.getCurrentPosition(), 3);
+
+        EquipableItem weap = this.getEquipment().getItemAtSlot(EquipableItem.EquipmentSlot.WEAPON.ordinal());
+        if (weap == null) {
+            Logger.getInstance().pushMessage("You have nothing to attack with!");
+            return null;
+        } else if (weap instanceof FistWeapon) {
+            if (attackTimer.getTicksSince() >= 22) {
+                attackTimer.reset();
+                Cleave clv = new Cleave(0, 0, 0, this, 2, getDirection(), getCurrentPosition(), 15);
+                clv.setDecal(new Decal('#', Color.BLACK, Color.ORANGE.darker()));
+                return clv;
+            }
+        } else if (weap instanceof BowWeapon) {
+            if (attackTimer.getTicksSince() >= 14) {
+                attackTimer.reset();
+                return new Arrow(15, 0, 0, this, 20, this.getDirection(), this.getCurrentPosition(), 3);
+            }
+        } else if (weap instanceof ThrowingKnivesWeapon) {
+            if (attackTimer.getTicksSince() >= 8) {
+                attackTimer.reset();
+                Arrow ar = new Arrow(15, 0, 0, this, 20, this.getDirection(), this.getCurrentPosition(), 3);
+                ar.setDecal(new Decal('-', Color.BLACK, Color.GRAY.brighter()));
+                return ar;
+            }
+        }
+        return null;
     }
 
     public ActiveSkill attemptSkillCast2(Logger log) {

@@ -5,13 +5,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Movement extends PrimaryStatistic<Integer> implements Saveable {
-    private Integer current = 0;
-    private Integer delta = 0;
 
     public Movement(){
         super(0);
         setBase(1000);
-        recalculate();
     }
 
     @Override
@@ -47,19 +44,5 @@ public class Movement extends PrimaryStatistic<Integer> implements Saveable {
         ret.additiveDelta = additiveDelta;
         ret.multiplicativeDelta = multiplicativeDelta;
         return ret;
-    }
-
-    @Override
-    public Integer getCurrent() {
-        return current;
-    }
-
-    public void recalculate() {
-        current = getBase() + delta;
-    }
-
-    public void setDelta(double delta) {
-        this.delta = (int)delta;
-        recalculate();
     }
 }

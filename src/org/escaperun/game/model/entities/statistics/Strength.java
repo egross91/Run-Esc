@@ -1,5 +1,9 @@
 package org.escaperun.game.model.entities.statistics;
 
+import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.items.equipment.EquipableItem;
+import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
+import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
 import org.escaperun.game.serialization.Saveable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -9,6 +13,29 @@ public class Strength extends PrimaryStatistic<Integer> implements Saveable {
     public Strength(){
         super(0);
         setBase(5);
+    }
+
+    private Integer armorAdd = 0;
+
+    public void equipmentChange(EquipmentContainer<EquipableItem> equip) {
+        EquipableItem eq = equip.getItemAtSlot(EquipableItem.EquipmentSlot.WEAPON.ordinal());
+        armorAdd = 0;
+        if (eq != null) {
+            if (eq instanceof OneHandedWeapon) {
+                armorAdd = 7;
+            } else if (eq instanceof TwoHandedWeapon) {
+                armorAdd = 15;
+            }
+        }
+    }
+
+    public Integer getBase() {
+        return base.intValue();
+    }
+
+    public Integer getCurrent() {
+        Double val = (multiplicativeDelta*(base-additiveDelta+armorAdd));
+        return val.intValue();
     }
 
     @Override

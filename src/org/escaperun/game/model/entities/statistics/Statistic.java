@@ -1,5 +1,8 @@
 package org.escaperun.game.model.entities.statistics;
 
+import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.items.equipment.EquipableItem;
+
 import java.util.ArrayList;
 
 public abstract class Statistic<T extends Number> implements IStatSubscriber{
@@ -16,6 +19,10 @@ public abstract class Statistic<T extends Number> implements IStatSubscriber{
     }
 
     public void unsubscribe(IStatSubscriber stat) { subscribers.remove(stat);}
+
+    public void equipmentChange(EquipmentContainer<EquipableItem> equip) {
+
+    }
 
     public final void setBase(T to) {
         setBase_internal(to);

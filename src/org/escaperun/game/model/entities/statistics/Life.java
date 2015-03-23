@@ -60,9 +60,7 @@ public class Life extends DerivedStatistic<Integer> implements Saveable {
     @Override
     protected void recalculate() {
         //made this up right here on the spot
-        Integer lvlCurr = (lvl.getCurrent() == null) ? 1 : lvl.getCurrent();
-        Integer hardCurr = (hard.getCurrent() == null) ? 1 : hard.getCurrent();
-        maxLife = (int) (((2*lvlCurr) + (3*hardCurr)));
+        maxLife = (int) (((2*lvl.getCurrent()) + (3*hard.getCurrent())));
     }
 
     @Override

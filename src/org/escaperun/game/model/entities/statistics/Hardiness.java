@@ -1,17 +1,39 @@
 package org.escaperun.game.model.entities.statistics;
 
+import org.escaperun.game.model.entities.containers.EquipmentContainer;
+import org.escaperun.game.model.items.equipment.EquipableItem;
+import org.escaperun.game.model.items.equipment.armors.ChestItem;
+import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.serialization.Saveable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Hardiness extends PrimaryStatistic<Integer> implements Saveable {
-    private Integer delta = 0;
-    private Integer current = 0;
 
     public Hardiness(){
         super(0); // dummy
         setBase(5);
-        recalculate();
+    }
+
+    private Integer armorAdd = 0;
+
+    public void equipmentChange(EquipmentContainer<EquipableItem> equip) {
+        EquipableItem eq = equip.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.ordinal());
+        armorAdd = 0;
+        if (eq != null) {
+            if (eq instanceof ChestItem) {
+                armorAdd = 40;
+            }
+        }
+    }
+
+    public Integer getBase() {
+        return base.intValue();
+    }
+
+    public Integer getCurrent() {
+        Double val = (multiplicativeDelta*(base-additiveDelta+armorAdd));
+        return val.intValue();
     }
 
     @Override
@@ -47,19 +69,5 @@ public class Hardiness extends PrimaryStatistic<Integer> implements Saveable {
         ret.additiveDelta = additiveDelta;
         ret.multiplicativeDelta = multiplicativeDelta;
         return ret;
-    }
-
-    public void recalculate() {
-        current = getBase() + delta;
-    }
-
-    @Override
-    public Integer getCurrent() {
-        return current;
-    }
-
-    public void setDelta(double delta) {
-        this.delta = (int) delta;
-        recalculate();
     }
 }

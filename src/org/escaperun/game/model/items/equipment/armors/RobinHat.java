@@ -5,10 +5,10 @@ import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.view.Decal;
 
-public class ChestItem extends EquipableItem {
+public class RobinHat extends EquipableItem {
 
-    public ChestItem(Decal decal) {
-        super(decal, EquipmentSlot.BODY, "Chest Armor", "Protect mah man boobies");
+    public RobinHat(Decal decal) {
+        super(decal, EquipmentSlot.HEAD, "Robin Hood Hat", "YOURE SO GREAT");
     }
 
     @Override
@@ -18,12 +18,12 @@ public class ChestItem extends EquipableItem {
 
     @Override
     public String getName() {
-        return "Chest Armor";
+        return "Robin Hood Hat";
     }
 
     @Override
     public String getDescription() {
-        return "Protect mah man boobies";
+        return "YOURE SO GREAT";
     }
 
     @Override

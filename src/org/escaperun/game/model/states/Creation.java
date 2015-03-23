@@ -13,8 +13,13 @@ import org.escaperun.game.model.entities.npc.adversarial.RangedNPC;
 import org.escaperun.game.model.entities.npc.ai.MeleeAI;
 import org.escaperun.game.model.entities.npc.ai.RangedAI;
 import org.escaperun.game.model.items.equipment.armors.ChestItem;
+import org.escaperun.game.model.items.equipment.armors.RobinHat;
+import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
 import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
+import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
+import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
+import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.model.options.Option;
 import org.escaperun.game.model.options.OptionContainer;
 import org.escaperun.game.model.options.SelectableOption;
@@ -37,9 +42,12 @@ public class Creation extends GameState {
 
                         Stage stage = setupStage(new Smasher(new Position(1, 1)));
                         stage.getAvatar().getInventory().add(
+                                new TwoHandedWeapon(new Decal('O', Color.BLACK, Color.BLUE), "OBBY MAUL", "GET WRECKED SON"));
+                        stage.getAvatar().getInventory().add(
                                 new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Dave", "A one-handed weapon."));
                         stage.getAvatar().getInventory().add(
                                 new TwoHandedWeapon(new Decal('T', Color.BLACK, Color.BLUE), "The Aleksey", "A two-handed weapon."));
+                        stage.getAvatar().getInventory().add(new ChestItem(new Decal('C', Color.BLACK, Color.GREEN)));
                         return new Playing(stage);
                     }
                 },
@@ -47,6 +55,8 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Summoner(new Position(1, 1)));
 
                     public GameState getNextState() {
+                        stage.getAvatar().getInventory().add(
+                                new StaffWeapon(new Decal('S', Color.BLACK, Color.BLUE), "Some Dumb Staff", "A staff."));
                         Sound.PLAYING1.play();
                         return new Playing(stage);
                     }
@@ -56,6 +66,13 @@ public class Creation extends GameState {
 
                     public GameState getNextState() {
                         Sound.PLAYING1.play();
+                        stage.getAvatar().getInventory().add(
+                                new FistWeapon(new Decal('B', Color.BLACK, Color.BLUE), "BRASS KNUCKLES", "GET WRECKED SON"));
+                        stage.getAvatar().getInventory().add(
+                                new BowWeapon(new Decal('>', Color.BLACK, Color.GREEN), "A BOW BRO", "Too cool."));
+                        stage.getAvatar().getInventory().add(
+                                new ThrowingKnivesWeapon(new Decal('|', Color.BLACK, Color.GRAY), "THROW THIS KNIFE", "C'mon, throw me."));
+                        stage.getAvatar().getInventory().add(new RobinHat(new Decal('^', Color.BLACK, Color.GREEN)));
                         return new Playing(stage);
                     }
                 }},

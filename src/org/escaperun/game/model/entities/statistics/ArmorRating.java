@@ -45,8 +45,7 @@ public class ArmorRating extends DerivedStatistic<Double> implements Saveable {
 
     @Override
     protected void recalculate() {
-        Integer hardCurr = (hard.getCurrent() == null) ? 1 : hard.getCurrent();
-        setBase((Double) (2 * hardCurr + (3 * armorValue)));
+        setBase((Double) (2 * hard.getCurrent() + (3 * armorValue)));
     }
 
     protected void setArmorValue(Double armorValue) {

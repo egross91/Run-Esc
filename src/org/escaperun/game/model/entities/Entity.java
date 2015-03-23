@@ -45,6 +45,14 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         equipment = new EquipmentContainer<EquipableItem>();
         statContainer = new StatisticContainer();
         restorationHandler = new RestorationHandler(this, 400);
+        statSubscribe();
+    }
+
+    public void statSubscribe() {
+        equipment.subscribe(statContainer.getAgility());
+        equipment.subscribe(statContainer.getStrength());
+        equipment.subscribe(statContainer.getIntellect());
+        equipment.subscribe(statContainer.getHardiness());
     }
 
     @Override
@@ -79,6 +87,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         this.statContainer = new StatisticContainer().load(us);
         this.equipment = new EquipmentContainer<EquipableItem>().load(us);
         this.inventory = new ItemContainer<TakeableItem>().load(us);
+        statSubscribe();
         return this;
     }
 
@@ -203,7 +212,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         // Not proud of this, just trying to make it work at this point.
         //need to compute the new armor rating for entity so its stats can be updated
         //this is redic
-        EquipableItem body = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.getSlot());
+        /*EquipableItem body = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.getSlot());
         EquipableItem helmet = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.HEAD.getSlot());
         EquipableItem boots = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.FEET.getSlot());
         EquipableItem ring = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.RING.getSlot());
@@ -276,7 +285,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         else {
             statContainer.setCurrent(-armorValue, -mana, -offenseRating, -agility, -hardiness,
                     -movement, -defenseRating, -intellect);
-        }
+        }*/
     }
 }
 

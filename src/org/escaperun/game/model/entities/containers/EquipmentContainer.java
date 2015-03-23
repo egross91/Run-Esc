@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities.containers;
 
+import org.escaperun.game.model.entities.statistics.Statistic;
 import org.escaperun.game.model.items.Item;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.serialization.Saveable;
@@ -7,6 +8,8 @@ import org.escaperun.game.view.Decal;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import java.util.ArrayList;
 
 public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T> implements Saveable {
     private static final int MAX_EQUIPMENT_SLOTS = 6;
@@ -27,10 +30,20 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
         return swapItem(slot, null);
     }
 
+    private ArrayList<Statistic> subs = new ArrayList<Statistic>();
+
+    public void subscribe(Statistic stat) {
+        subs.add(stat);
+    }
+
+    public void change() {
+        for (Statistic st : subs) st.equipmentChange(this);
+    }
+
     private T swapItem(int slot, T toEquip) {
         T ret = get(slot);
         add(slot, toEquip);
-
+        change();
         return ret;
     }
 

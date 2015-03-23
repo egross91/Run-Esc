@@ -262,17 +262,4 @@ public class StatisticContainer implements Renderable, Saveable {
     public void subscribeToLife(IStatSubscriber subscriber) {
         life.subscribe(subscriber);
     }
-
-    public void setCurrent(double armorRating, double mana, double offenseRating, double agility,
-                           double hardiness, double movement, double defenseRating, double intellect) {
-
-        getArmorRating().setArmorValue(armorRating);
-        getMana().setDelta(mana);
-        getOffensiveRating().setWeaponDamage(offenseRating);
-        getAgility().setDelta(agility);
-        getHardiness().setDelta(hardiness);
-        getMovement().setDelta(movement);
-        getDefensiveRating().setDelta(defenseRating);
-        getIntellect().setDelta(intellect);
-    }
 }
