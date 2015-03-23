@@ -56,7 +56,7 @@ public class Tile implements Renderable, Collidable, Saveable {
     @Override
     public boolean isCollidable() {
         boolean collidable = terrain.isCollidable();
-        if (hasItem()) collidable |= item.isCollidable();
+        if (hasItem()) collidable &= item.isCollidable();
         return collidable;
     }
 
