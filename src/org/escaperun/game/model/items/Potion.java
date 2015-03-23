@@ -28,5 +28,6 @@ public class Potion extends TakeableItem {
         //increase hardiness and movement when avatar drink potion
         e.getStatContainer().getHardiness().addDelta(1);
         e.getStatContainer().getMovement().addDelta(1);
+        e.getStatContainer().getLife().healDamage(20);
     }
 }

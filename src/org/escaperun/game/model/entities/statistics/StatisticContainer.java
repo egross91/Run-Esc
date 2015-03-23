@@ -105,6 +105,7 @@ public class StatisticContainer implements Renderable {
         renderables[1] = renderize(getAgility());
         renderables[2] = renderize(getHardiness());
         renderables[3] = renderize(getIntellect());
+        renderables[4] = renderize(getMovement());
         renderables[5] = renderize(getExperience());
         renderables[6] = renderize(getLivesLeft());
         renderables[7] = renderize(getLevel());
@@ -115,6 +116,11 @@ public class StatisticContainer implements Renderable {
 
         return renderables;
     }
+/*
+    public Decal[][] getStageRenderable(){
+        Decal[][] rendrend = new Decal[12][];
+        //TODO: Finish this special render for stage
+    }*/
 
     public Decal[] renderize(Statistic stat) {
         String name = stat.getName() + ": ";
