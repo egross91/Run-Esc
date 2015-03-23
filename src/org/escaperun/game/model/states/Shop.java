@@ -34,8 +34,8 @@ public class Shop extends GameState {
     public Shop(Playing previousState, Stage stage){
         this.stage = stage;
         this.previousState = previousState;
-        healthPotion = new Potion(new Decal('P', Color.BLACK, Color.PINK), "Health Potion", "Heals damage taken by entity");
-        strengthPotion = new Potion(new Decal('P', Color.BLACK, Color.YELLOW), "Strength Potion", "Boosts Strength of consumer");
+        healthPotion = new Potion(new Decal('E', Color.BLACK, Color.BLUE), "Elixir", "Replenishes health and other abilities boosters ;)");
+        strengthPotion = new Potion(new Decal('P', Color.BLACK, Color.CYAN), "Strength Potion", "Boosts Strength of consumer");
         manaPotion = new Potion(new Decal('P', Color.BLACK, Color.YELLOW), "Mana Potion", "Restores depleted Mana");
         agilityPotion = new Potion(new Decal('P', Color.BLACK, Color.ORANGE), "Agility Potion", "Boosts Agility of consumer");
         shopItems = new ArrayList<Item>();

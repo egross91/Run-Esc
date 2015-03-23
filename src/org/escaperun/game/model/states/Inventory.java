@@ -286,27 +286,27 @@ public class Inventory extends GameState {
             for (int i = 0; i < displayDesc.length(); ++i) {
                 window[startRow][startCol+i] = new Decal(displayDesc.charAt(i), Color.BLACK, Color.WHITE);
             }
-            startRow += 2;
-
-            StatisticContainer stats = item.getStatistics();
-            Decal[][] decals = filterStats(stats);
-            int colsUsed = 0;
-            for (int i = 0; i < decals.length; ++i) {
-                for (int j = 0; j < decals[i].length; ++j) {
-                    window[startRow][startCol+colsUsed++] = decals[i][j];
-                }
-
-                if (((i+1)%2 == 0) && i != 0) {
-                    ++startRow;
-                    colsUsed = 0;
-                }
-                else {
-                    for (int j = decals[i].length; j < 30; ++j) {
-                        window[startRow][startCol+j] = Decal.BLANK;
-                        ++colsUsed;
-                    }
-                }
-            }
+//            startRow += 2;
+//
+//            StatisticContainer stats = item.getStatistics();
+//            Decal[][] decals = filterStats(stats);
+//            int colsUsed = 0;
+//            for (int i = 0; i < decals.length; ++i) {
+//                for (int j = 0; j < decals[i].length; ++j) {
+//                    window[startRow][startCol+colsUsed++] = decals[i][j];
+//                }
+//
+//                if (((i+1)%2 == 0) && i != 0) {
+//                    ++startRow;
+//                    colsUsed = 0;
+//                }
+//                else {
+//                    for (int j = decals[i].length; j < 30; ++j) {
+//                        window[startRow][startCol+j] = Decal.BLANK;
+//                        ++colsUsed;
+//                    }
+//                }
+//            }
         }
     }
 
