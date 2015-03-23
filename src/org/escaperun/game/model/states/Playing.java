@@ -57,6 +57,8 @@ public class Playing extends GameState {
         boolean downleft = pressed[bindings.getBinding(KeyType.DOWNLEFT)];
         boolean downright = pressed[bindings.getBinding(KeyType.DOWNRIGHT)];
         boolean hotKey1 = pressed[bindings.getBinding(KeyType.HOTKEY1)];
+        boolean hotKey2 = pressed[bindings.getBinding(KeyType.HOTKEY2)];
+        boolean hotKey3 = pressed[bindings.getBinding(KeyType.HOTKEY3)];
         boolean interact = pressed[bindings.getBinding(KeyType.INTERACT)];
 
         int moveX = 0;
@@ -85,6 +87,16 @@ public class Playing extends GameState {
         if(hotKey1){
             pressed[bindings.getBinding(KeyType.HOTKEY1)] = false;
             stage.skillCast();
+        }
+
+        if(hotKey2){
+            pressed[bindings.getBinding(KeyType.HOTKEY2)] = false;
+
+        }
+
+        if(hotKey3){
+            pressed[bindings.getBinding(KeyType.HOTKEY3)] = false;
+            
         }
 
         if(interact){
@@ -122,8 +134,6 @@ public class Playing extends GameState {
                 ret[i][j] = log[i][j];
             }
         }
-
-
 
         for(int i = 0; i < stats.length; i++) {
             for(int q = 0; q < stage.DEFAULT_COLUMNS; q++) {

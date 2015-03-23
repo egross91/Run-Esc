@@ -5,7 +5,7 @@
 <Terrain Type="Grass"/>
 </Tile>
 <Tile X="0" Y="1">
-<Terrain Type="Grass"/>
+<Terrain Type="Water"/>
 </Tile>
 <Tile X="0" Y="2">
 <Terrain Type="Grass"/>

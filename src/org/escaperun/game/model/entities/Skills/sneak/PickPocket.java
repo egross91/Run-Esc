@@ -4,6 +4,7 @@ import org.escaperun.game.model.entities.Avatar;
 import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.skills.ActiveSkill;
+import org.escaperun.game.model.entities.skills.LinearSkillSuccess;
 import org.escaperun.game.model.entities.skills.SkillSuccess;
 
 public class PickPocket extends ActiveSkill {
@@ -20,7 +21,7 @@ public class PickPocket extends ActiveSkill {
 
     @Override
     public double generateSuccess(Entity attacker, Entity defender) {
-        return 0;
+        return new LinearSkillSuccess().generateSkillSuccess(attacker, defender, this, getGoodStat());
     }
 
     @Override
