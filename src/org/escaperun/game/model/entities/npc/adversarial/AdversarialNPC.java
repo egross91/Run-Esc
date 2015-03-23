@@ -16,7 +16,7 @@ import org.escaperun.game.view.Decal;
 public class AdversarialNPC extends NPC {
 
     public AdversarialNPC(Decal decal, Position initialPosition, int wanderRadius) {
-        super(decal, initialPosition, wanderRadius);
+        super(decal, initialPosition, wanderRadius, 10);
     }
 
     @Override

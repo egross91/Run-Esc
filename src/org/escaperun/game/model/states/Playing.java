@@ -102,17 +102,22 @@ public class Playing extends GameState {
 
         Decal[][] ret = stage.getRenderable();
         Decal[][] log = LoggerOption.getInstance().getRenderable(false);
-        Decal[][] stats = stage.getAvatar().getAvatarStatistics().getRenderable();
+        Decal[][] stats = stage.getAvatar().getAvatarStatistics().getStageRenderable();
         for (int i = 0; i < log.length; i++) {
             for (int j = 0; j < log[i].length; j++) {
                 ret[i][j] = log[i][j];
             }
         }
 
-        for(int i = 0; i < stats.length; i++)
+        for(int i = 0; i < stats.length; i++) {
+            for(int q = 0; q < stage.DEFAULT_COLUMNS; q++)
+                ret[stage.DEFAULT_ROWS - (5 - i)][q] = Decal.BLANK;
             for (int j = 0; j < stats[i].length; j++) {
-                ret[stage.DEFAULT_ROWS-(12-i)][(stage.DEFAULT_COLUMNS/2)+j-(stats[i].length/2)] = stats[i][j];
+                ret[stage.DEFAULT_ROWS - (5 - i)][(stage.DEFAULT_COLUMNS / 2) + j - 20] = stats[i][j];
             }
+        }
         return ret;
+
     }
+
 }

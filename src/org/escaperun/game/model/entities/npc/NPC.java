@@ -12,10 +12,12 @@ public abstract class NPC extends Entity {
     //Could also have a radius for wandering around for their move() function?
 
     private final int wanderRadius; //May need to change it from being final in order to make stuff like shopkeepers moving around whatnot after they've been attacked
+    private final int XPworth;
 
-    public NPC(Decal decal, Position initialPosition, int wanderRadius) {
+    public NPC(Decal decal, Position initialPosition, int wanderRadius, int XP) {
         super(decal, initialPosition);
         this.wanderRadius = wanderRadius;
+        this.XPworth = XP;
     }
 
     public int getWanderRadius(){
@@ -38,4 +40,7 @@ public abstract class NPC extends Entity {
         Logger.getInstance().pushMessage("This worked!!");
     }
 
+    public int getXPworth(){
+        return this.XPworth;
+    }
 }
