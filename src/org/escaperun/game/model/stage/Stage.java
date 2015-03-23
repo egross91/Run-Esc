@@ -13,6 +13,7 @@ import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
@@ -127,8 +128,7 @@ public class Stage implements Renderable, Tickable {
         for(Entity e: entities){
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (e.getCurrentPosition().x == p.getAffectedArea().get(q).x && e.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
-                    //p.generateSuccess(p.getOwner(),e);
-                    System.out.println(p.generateSuccess(p.getOwner(),e));
+                    p.generateSuccess(p.getOwner(),e);
                     return true;
                 }
             }

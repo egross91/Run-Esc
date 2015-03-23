@@ -23,8 +23,8 @@ public class Arrow extends Projectile {
     }
 
     @Override
-    public LinearSkillSuccess generateSuccess(Entity attacker, Entity defender) {
-        return null;
+    public double generateSuccess(Entity attacker, Entity defender) {
+        return 0;
     }
 
     public double getGoodStat(){

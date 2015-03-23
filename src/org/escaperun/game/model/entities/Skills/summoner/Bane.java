@@ -23,11 +23,8 @@ public class Bane extends ProjectileQuadrantEffect {
     }
 
     @Override
-    public SkillSuccess generateSuccess(Entity attacker, Entity defender) {
-        LinearSkillSuccess.generateSkillSuccess(attacker, defender, this, this.getGoodStat());
-
-
-        return null;
+    public double generateSuccess(Entity attacker, Entity defender) {
+        return LinearSkillSuccess.generateSkillSuccess(attacker, defender, this, this.getGoodStat());
     }
 
     public double getGoodStat(){

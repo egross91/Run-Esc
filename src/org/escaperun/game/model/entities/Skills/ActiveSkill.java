@@ -37,7 +37,7 @@ public abstract class ActiveSkill extends Skill {
     }
     public abstract double getGoodStat();
 
-    public abstract SkillSuccess generateSuccess(Entity attacker, Entity defender);
+    public abstract double generateSuccess(Entity attacker, Entity defender);
 
     public double getOffensePower(){
         return (double)this.OffensePower;

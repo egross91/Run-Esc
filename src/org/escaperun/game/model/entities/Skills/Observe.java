@@ -19,7 +19,7 @@ public class Observe extends Projectile360Effect {
     }
 
     @Override
-    public SkillSuccess generateSuccess(Entity attacker, Entity defender) {
-        return null;
+    public double generateSuccess(Entity attacker, Entity defender) {
+        return 0;
     }
 }
