@@ -1,13 +1,16 @@
 package org.escaperun.game.model.entities.statistics;
 
+import org.escaperun.game.serialization.Saveable;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.Renderable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class StatisticContainer implements Renderable {
+public class StatisticContainer implements Renderable, Saveable {
 
     private Strength strength;
     private Agility agility;
@@ -23,7 +26,6 @@ public class StatisticContainer implements Renderable {
     private DefensiveRating defensiveRating;
     private ArmorRating armorRating;
 
-
     public StatisticContainer(){
         strength = new Strength();
         agility = new Agility();
@@ -38,6 +40,65 @@ public class StatisticContainer implements Renderable {
         offensiveRating = new OffensiveRating(strength, level, 0.0);
         defensiveRating = new DefensiveRating(agility, level);
         armorRating = new ArmorRating(hardiness, 0.0);
+    }
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element us = dom.createElement("Statistics");
+        parent.appendChild(us);
+
+        strength.save(dom, us);
+        agility.save(dom, us);
+        hardiness.save(dom, us);
+        intellect.save(dom, us);
+        movement.save(dom, us);
+        experience.save(dom, us);
+        level.save(dom, us);
+        life.save(dom, us);
+        livesLeft.save(dom, us);
+        mana.save(dom, us);
+        offensiveRating.save(dom, us);
+        defensiveRating.save(dom, us);
+        armorRating.save(dom, us);
+
+        return us;
+    }
+
+    @Override
+    public StatisticContainer load(Element node) {
+        Element us = node;
+        if (node.getElementsByTagName("Statistics") != null && node.getElementsByTagName("Statistics").getLength() > 0)
+            us = (Element) node.getElementsByTagName("Statistics").item(0);
+
+        Strength s = new Strength().load(us);
+        Agility a = new Agility().load(us);
+        Hardiness h = new Hardiness().load(us);
+        Intellect i = new Intellect().load(us);
+        Movement mov = new Movement().load(us);
+        Experience e = new Experience().load(us);
+        Level lev = new Level(e).load(us);
+        Life lif = new Life(lev, h).load(us);
+        LivesLeft livesL = new LivesLeft(lif).load(us);
+        Mana man = new Mana(lev, i).load(us);
+        OffensiveRating off = new OffensiveRating(s, lev, 0.0).load(us);
+        DefensiveRating def = new DefensiveRating(a, lev).load(us);
+        ArmorRating arm = new ArmorRating(h, 0.0).load(us);
+        StatisticContainer ret = new StatisticContainer();
+        ret.strength = s;
+        ret.agility = a;
+        ret.hardiness = h;
+        ret.intellect = i;
+        ret.movement = mov;
+        ret.experience = e;
+        ret.level = lev;
+        ret.life = lif;
+        ret.livesLeft = livesL;
+        ret.mana = man;
+        ret.offensiveRating = off;
+        ret.defensiveRating = def;
+        ret.armorRating = arm;
+
+        return ret;
     }
 
     public Strength getStrength(){

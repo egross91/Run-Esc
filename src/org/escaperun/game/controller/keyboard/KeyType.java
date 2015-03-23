@@ -23,6 +23,9 @@ public enum KeyType {
 
     //Hotkeys
     HOTKEY1(KeyEvent.VK_X),
+    HOTKEY2(KeyEvent.VK_B),
+    HOTKEY3(KeyEvent.VK_N),
+    ATTACK(KeyEvent.VK_SHIFT),
     INTERACT(KeyEvent.VK_SPACE);
 
     KeyType(int defaultKeycode) {

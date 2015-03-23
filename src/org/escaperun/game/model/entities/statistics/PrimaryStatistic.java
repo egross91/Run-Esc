@@ -2,9 +2,9 @@ package org.escaperun.game.model.entities.statistics;
 
 public class PrimaryStatistic<T extends Number> extends Statistic<T> {
 
-    private Double base;
-    private Double additiveDelta;
-    private Double multiplicativeDelta;
+    protected Double base;
+    protected Double additiveDelta;
+    protected Double multiplicativeDelta;
 
     public PrimaryStatistic(T type) {super(type);}
 
