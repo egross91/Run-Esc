@@ -11,32 +11,42 @@ import java.util.ArrayList;
 
 public class SmasherSkillsContainer extends SkillsContainer {
 
-    private OneHandedWeapon ohw;
-    private TwoHandedWeapon thw;
-    private FistWeapon fist;
+    //private OneHandedWeapon ohw;
+    //private TwoHandedWeapon thw;
+    //private FistWeapon fist;
+
+    private OneHandedAttack oha;
+    private TwoHandedAttack tha;
+    private Brawling brawling;
+
     private int containerSize = 6;
 
 
     public SmasherSkillsContainer(Entity skillOwner){
         super(skillOwner);
+        oha = new OneHandedAttack();
+        tha = new TwoHandedAttack();
+        brawling = new Brawling();
+        /*
         ohw = new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction.");
         thw = new TwoHandedWeapon(new Decal('T', Color.BLACK, Color.BLUE), "The Beheader", "Used by a fallen executioner.");
         fist = new FistWeapon(new Decal('F', Color.BLACK, Color.BLUE), "Spiked Knuckles", "Gloves with nails pasted on them.");
-        //skills.add(3, ohw);
-        //skills.add(4, thw);
-        //skills.add(5, fist);
+        */
+        skills.add(3, oha);
+        skills.add(4, tha);
+        skills.add(5, brawling);
     }
 
-    public OneHandedWeapon getOneHandedWeapon(){
-        return ohw;
+    public OneHandedAttack getOneHandedAttack(){
+        return oha;
     }
 
-    public TwoHandedWeapon getTwoHandedWeapon(){
-        return thw;
+    public TwoHandedAttack getTwoHandedAttack(){
+        return tha;
     }
 
-    public FistWeapon getFistWeapon(){
-        return fist;
+    public Brawling getFistAttack(){
+        return brawling;
     }
 
     @Override
