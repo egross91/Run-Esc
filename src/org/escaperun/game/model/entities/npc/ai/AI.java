@@ -17,12 +17,14 @@ public abstract class AI implements Tickable{
     protected final Random random = new Random();
     protected final Stage stage;
     protected final NPC npc;
+    protected final int maxSightDistance;
     //TODO: add dialogue class?
 
     public AI(Stage stage, NPC npc) {
         this.stage = stage;
         this.npc = npc;
         stage.addAI(this);
+        maxSightDistance = 40;  //Picked arbitrarily.
     }
 
     public NPC getNpc() {
@@ -75,6 +77,10 @@ public abstract class AI implements Tickable{
     protected void onDeath() {
         Logger.getInstance().pushMessage("Tis just a flesh wound...");
         stage.aiToRemove(this);
+    }
+
+    protected void runAway() {
+
     }
 
     protected void tickTimers() {

@@ -1,30 +1,51 @@
 package org.escaperun.game.model.entities.npc.ai;
 
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.stage.Stage;
 
 public class FleeingAI extends AI{
+    private boolean hasSeenAvatar;
+
     public FleeingAI(Stage stage, NPC npc) {
         super(stage, npc);
+        hasSeenAvatar = false;
     }
 
     @Override
     public void tick() {
-        if (npc.isDead()) {
+        if (npc.isDead()) { //We could have a listener in entity instead.
             onDeath();
             return;
         }
-        tickTimers();
 
+        tickTimers();
         Position avatarPosition = stage.getAvatarPosition();
         Position currentPosition = npc.getCurrentPosition();
-        int dx = avatarPosition.x - currentPosition.x;
-        int dy = avatarPosition.y - currentPosition.y;
-        Direction dir = Direction.fromDelta(-dx, -dy);
-        if (dir != null) {
-            npc.move(dir);
+        int distanceToAvatar = Position.calcuateDistance(avatarPosition, currentPosition);
+        
+        if (hasSeenAvatar) {
+            //Check if npc is still in max sight range.
+            if (distanceToAvatar > maxSightDistance) {
+                hasSeenAvatar = false;
+            }
+            else
+                runAway();
+        }
+        else {
+            if (distanceToAvatar < 15) { //TODO: Get spotting range from npc
+               /* if (spotAvatarTimer.isDone()) {
+                    spotAvatarTimer.reset();
+                    //TODO: check if avatar is spotted.
+                    hasSeenAvatar = true;
+                }
+                */
+                hasSeenAvatar = true;
+            }
+            else
+                wander();
         }
     }
 }

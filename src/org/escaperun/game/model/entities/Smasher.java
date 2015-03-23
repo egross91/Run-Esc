@@ -26,7 +26,6 @@ public class Smasher extends Avatar{
         getStatContainer().getStrength().setBase(10);
         getStatContainer().getAgility().setBase(5.0);
         getStatContainer().getIntellect().setBase(3);
-
     }
 
     @Override

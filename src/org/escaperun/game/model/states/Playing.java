@@ -42,6 +42,12 @@ public class Playing extends GameState {
             stage.interactionTriggered();
         }
 
+        boolean hotKey1 = pressed[bindings.getBinding(KeyType.HOTKEY1)];
+        if(hotKey1){
+            pressed[bindings.getBinding(KeyType.HOTKEY1)] = false;
+            stage.skillCast();
+        }
+
         handleMovement(bindings, pressed);
         stage.tick();
         return null;
@@ -56,8 +62,6 @@ public class Playing extends GameState {
         boolean upleft = pressed[bindings.getBinding(KeyType.UPLEFT)];
         boolean downleft = pressed[bindings.getBinding(KeyType.DOWNLEFT)];
         boolean downright = pressed[bindings.getBinding(KeyType.DOWNRIGHT)];
-        boolean hotKey1 = pressed[bindings.getBinding(KeyType.HOTKEY1)];
-        boolean interact = pressed[bindings.getBinding(KeyType.INTERACT)];
 
         int moveX = 0;
         int moveY = 0;
@@ -80,16 +84,6 @@ public class Playing extends GameState {
         if (downright) {
             moveX++;
             moveY++;
-        }
-
-        if(hotKey1){
-            pressed[bindings.getBinding(KeyType.HOTKEY1)] = false;
-            stage.skillCast();
-        }
-
-        if(interact){
-            pressed[bindings.getBinding(KeyType.INTERACT)] = false;
-            stage.interactionTriggered();
         }
 
         moveX = clamp(moveX, -1, 1); // clamp so we dont move extra

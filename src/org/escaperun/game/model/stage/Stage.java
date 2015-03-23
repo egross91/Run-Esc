@@ -9,9 +9,7 @@ import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.npc.NPC;
-import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
-import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
@@ -25,9 +23,7 @@ import org.escaperun.game.view.Renderable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import java.awt.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -165,6 +161,16 @@ public class Stage implements Renderable, Tickable, Saveable {
     }
 
     public boolean checkCollision(Projectile p){
+        //Check avatar
+        for(int q = 0; q < p.getAffectedArea().size(); q++) {
+            if (avatar.getCurrentPosition().x == p.getAffectedArea().get(q).x && avatar.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
+                //hit
+                avatar.takeDamage(p.generateSuccess(p.getOwner(), avatar));
+                return true;
+            }
+        }
+
+        //Check npc
         for(int e = 0; e < entities.size(); e++){
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (entities.get(e).getCurrentPosition().x == p.getAffectedArea().get(q).x && entities.get(e).getCurrentPosition().y == p.getAffectedArea().get(q).y) {
