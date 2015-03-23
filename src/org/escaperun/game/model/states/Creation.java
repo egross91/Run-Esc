@@ -91,9 +91,9 @@ public class Creation extends GameState {
         }
 
         //DEBUG //TODO: REMOVE DEBUG CODE.
-        MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(30,30),5);
+        /*MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(30,30),5);
         npc.setMovementHandler(new MovementHandler(stage, npc, 8));
-        MeleeAI ai = new MeleeAI(stage, npc);
+        MeleeAI ai = new MeleeAI(stage, npc);*/
 /*
         RangedNPC npc = new RangedNPC(new Decal('~', Color.BLACK, Color.RED), new Position(30,30),5);
         npc.setMovementHandler(new MovementHandler(stage, npc, 8));

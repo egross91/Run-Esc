@@ -8,8 +8,14 @@ import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.*;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
+import org.escaperun.game.model.entities.handlers.MovementHandler;
 import org.escaperun.game.model.entities.npc.NPC;
-import org.escaperun.game.model.entities.npc.ai.AI;
+import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
+import org.escaperun.game.model.entities.npc.adversarial.MeleeNPC;
+import org.escaperun.game.model.entities.npc.adversarial.RangedNPC;
+import org.escaperun.game.model.entities.npc.ai.*;
+import org.escaperun.game.model.entities.npc.nonhostile.CitizenNPC;
+import org.escaperun.game.model.entities.npc.nonhostile.ShopkeepingNPC;
 import org.escaperun.game.model.entities.skills.*;
 import org.escaperun.game.model.entities.statistics.IStatSubscriber;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
@@ -74,7 +80,10 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             }
         }
         avatar.save(dom, stage);
-        //TODO: Save rest
+        for (NPC npc : entities) {
+            npc.save(dom, stage);
+        }
+        //TODO: Save rest (ai and areaeffect)
         return stage;
     }
 
@@ -105,6 +114,36 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             Summoner summoner = new Summoner(null).load((Element)node.getElementsByTagName("Summoner").item(0));
             ret.setAvatar(summoner);
         }
+        NodeList mel = node.getElementsByTagName("MeleeNPC");
+        for (int i = 0; i < mel.getLength(); i++) {
+            Element melNpc = (Element) mel.item(i);
+            MeleeNPC npc = new MeleeNPC(Decal.BLANK, new Position(0, 0), 0).load(melNpc);
+            npc.setMovementHandler(new MovementHandler(ret, npc, 8));
+            new MeleeAI(ret, npc);
+        }
+        NodeList ran = node.getElementsByTagName("RangedNPC");
+        for (int i = 0; i < ran.getLength(); i++) {
+            Element ranNpc = (Element) ran.item(i);
+            RangedNPC npc = new RangedNPC(Decal.BLANK, new Position(0, 0), 0).load(ranNpc);
+            npc.setMovementHandler(new MovementHandler(ret, npc, 8));
+            new RangedAI(ret, npc);
+        }
+        NodeList cit = node.getElementsByTagName("CitizenNPC");
+        for (int i = 0; i < cit.getLength(); i++) {
+            Element citNpc = (Element) cit.item(i);
+            CitizenNPC npc = new CitizenNPC(Decal.BLANK, new Position(0, 0), 0).load(citNpc);
+            npc.setMovementHandler(new MovementHandler(ret, npc, 8));
+            new CitizenAI(ret, npc);
+        }
+        NodeList shop = node.getElementsByTagName("ShopkeepingNPC");
+        for (int i = 0; i < shop.getLength(); i++) {
+            Element shopNpc = (Element) shop.item(i);
+            ShopkeepingNPC npc = new ShopkeepingNPC(Decal.BLANK, new Position(0, 0), 0).load(shopNpc);
+            npc.setMovementHandler(new MovementHandler(ret, npc, 8));
+            ret.entities.add(npc);
+            //TODO:TODO
+        }
+
 
         //TODO: Load rest
         return ret;

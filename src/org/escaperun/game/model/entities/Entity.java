@@ -60,7 +60,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         statContainer.save(dom, ent);
         equipment.save(dom, ent);
         inventory.save(dom, ent);
-        //remember restorationhandler
         return ent;
     }
 

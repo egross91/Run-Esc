@@ -45,7 +45,6 @@ public class Smasher extends Avatar {
         super.save(dom, avatar);
         smasherSkills.save(dom, avatar);
         parent.appendChild(avatar);
-        System.out.println("SUP2");
         return avatar;
     }
 
@@ -64,8 +63,6 @@ public class Smasher extends Avatar {
 
         Element skills = (Element) us.getElementsByTagName("SmasherSkillsContainer").item(0);
         smash.smasherSkills = new SmasherSkillsContainer(null).load(skills, smash);
-
-        System.out.println("SMASHX: " + smash.getCurrentPosition().x + " SMASHY: " + smash.getCurrentPosition().y);
         return smash;
     }
 
