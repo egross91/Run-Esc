@@ -7,6 +7,8 @@ public class Logger {
 
     private static Logger _logger = new Logger();
     private Deque<String> messageQueue = new LinkedList<String>();
+    private Deque<String> rightMessageQueue = new LinkedList<String>();
+
 
     private Logger() {}
 
@@ -18,11 +20,22 @@ public class Logger {
         messageQueue.addLast(str);
     }
 
+    public void pushRightMessage(String str){
+        rightMessageQueue.addLast(str);
+    }
     public String pollFront() {
         return messageQueue.pollFirst();
     }
 
+    public String pollFrontRight(){
+        return rightMessageQueue.pollFirst();
+    }
+
     public boolean isEmpty() {
         return messageQueue.isEmpty();
+    }
+
+    public boolean isRightEmpty(){
+        return rightMessageQueue.isEmpty();
     }
 }
