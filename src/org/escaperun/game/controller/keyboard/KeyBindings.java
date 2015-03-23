@@ -25,6 +25,12 @@ public class KeyBindings implements Saveable {
         binding.put(ke, keycode);
     }
 
+    public void resetKeyboard() {
+        for (KeyType en : KeyType.values()) {
+            setBinding(en, en.defaultKeycode);
+        }
+    }
+
     @Override
     public Element save(Document dom, Element parent) {
         Element ele = dom.createElement("KeyBindings");

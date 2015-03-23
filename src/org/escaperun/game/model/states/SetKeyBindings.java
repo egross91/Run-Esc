@@ -14,11 +14,13 @@ public class SetKeyBindings extends GameState {
     private Main previous;
     private Timer moveTimer = new Timer(6);
     private int selectedX = 0, selectedY = 0;
-    private KeyBindings keyBindings = new KeyBindings();
+    private KeyBindings defaultKeyBindings = new KeyBindings();
+    private KeyBindings alteredKeyBindings = new KeyBindings();
     private boolean isSet = false;
     private boolean action = false;
     private boolean reset = false;
     public final String KEYBINDINGS = "KEY BINDINGS";
+    public final String DEFAULT = "DEFAULT";
     private final int TOP_MARGIN = 5;
     private final int OPTION_LEFT_MARGIN = GameWindow.COLUMNS/2 - KEYBINDINGS.length();
     private final int OPTION_TOP_MARGIN = TOP_MARGIN+3;
@@ -27,7 +29,7 @@ public class SetKeyBindings extends GameState {
 
     public SetKeyBindings(Main previous) {
         this.previous = previous;
-        this.OPTION_BOTTOM_MARGIN = (KeyType.values().length-1)*2 + OPTION_TOP_MARGIN;
+        this.OPTION_BOTTOM_MARGIN = (KeyType.values().length)*2 + OPTION_TOP_MARGIN;
         setSelectionOrigin();
     }
 
@@ -41,7 +43,7 @@ public class SetKeyBindings extends GameState {
         }
 
         if (!isSet) {
-            this.keyBindings = bindings;
+            this.alteredKeyBindings = bindings;
             isSet = true;
         }
 
@@ -96,18 +98,22 @@ public class SetKeyBindings extends GameState {
 
     private void setKey(KeyBindings bindings, boolean[] pressed) {
         int selectedIndex = (selectedX-OPTION_TOP_MARGIN)/2;
-        KeyType selected = KeyType.values()[selectedIndex];
+        if (selectedIndex == KeyType.values().length) {
+            this.alteredKeyBindings.resetKeyboard();
+            return;
+        }
 
+        KeyType selected = KeyType.values()[selectedIndex];
         resetPressed(bindings, pressed);
         boolean ok = false;
-        while (!ok) { // Listen for KeyEvent
+        while (!ok && isSettable(selected)) { // Listen for KeyEvent
             for (int i = 0; i < KeyType.values().length; ++i) {
                 KeyType set = KeyType.values()[i];
                 if (pressed[set.defaultKeycode] && isSettable(selected) && isSettable(set)) {
-
-                    int previousKeycode = bindings.getBinding(set);
-                    bindings.setBinding(selected, previousKeycode);
-                    bindings.setBinding(set, selected.defaultKeycode);
+                    int defaultSelectedKeycode = defaultKeyBindings.getBinding(selected);
+                    int defaultSetKeycode = defaultKeyBindings.getBinding(set);
+                    bindings.setBinding(selected, defaultSetKeycode);
+                    bindings.setBinding(set, defaultSelectedKeycode);
                     ok = true;
                     break;
                 }
@@ -144,7 +150,7 @@ public class SetKeyBindings extends GameState {
         renderText(window, KEYBINDINGS, TOP_MARGIN, startCol);
 
         startCol = GameWindow.COLUMNS/2 - KEYBINDINGS.length();
-        renderItemBoxes(window, OPTION_TOP_MARGIN, startCol, KeyType.values().length);
+        renderItemBoxes(window, OPTION_TOP_MARGIN, startCol, KeyType.values().length+1);
 
 
         /* Render Mappings */
@@ -153,7 +159,7 @@ public class SetKeyBindings extends GameState {
         for (int i = 0; i < KeyType.values().length; ++i) {
             KeyType key = KeyType.values()[i];
             String keyString = key.toString() + ": ";
-            String setting = key.getKey(keyBindings.getBinding(key));
+            String setting = KeyType.getKey(alteredKeyBindings.getBinding(key));
 
             for (int j = 0; j < keyString.length(); ++j) {
                 window[startRow][startCol+j] = new Decal(keyString.charAt(j), Color.BLACK, Color.WHITE);
@@ -167,6 +173,10 @@ public class SetKeyBindings extends GameState {
             }
 
             startRow += 2;
+        }
+
+        for (int i = 0; i < DEFAULT.length(); ++i) {
+            window[startRow][startCol+i] = new Decal(DEFAULT.charAt(i), Color.BLACK, Color.WHITE);
         }
 
         return window;

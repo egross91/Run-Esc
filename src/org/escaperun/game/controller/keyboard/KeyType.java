@@ -75,7 +75,7 @@ public enum KeyType {
             case KeyEvent.VK_SPACE:
                 return "Space";
             case KeyEvent.VK_P:
-                return "Shop";
+                return "P";
             case KeyEvent.VK_M:
                 return "M";
             default:
@@ -83,7 +83,7 @@ public enum KeyType {
         }
     }
 
-    public String getKey(int code) {
+    public static String getKey(int code) {
         switch (code) {
             case KeyEvent.VK_I:
                 return "I";
@@ -122,7 +122,7 @@ public enum KeyType {
             case KeyEvent.VK_SPACE:
                 return "Space";
             case KeyEvent.VK_P:
-                return "Shop";
+                return "P";
             case KeyEvent.VK_M:
                 return "M";
             default:
