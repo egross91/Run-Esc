@@ -88,7 +88,7 @@ public class ItemContainer<T extends TakeableItem> implements Saveable {
         return count;
     }
 
-    private int getFirstEmptySlot() {
+    protected int getFirstEmptySlot() {
         int i = 0;
         for (TakeableItem current : items) {
             if (current == null) {
