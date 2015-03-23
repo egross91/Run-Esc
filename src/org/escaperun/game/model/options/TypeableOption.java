@@ -9,7 +9,7 @@ import org.escaperun.game.view.Decal;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class TypeableOption extends Option {
+public abstract class TypeableOption extends Option {
 
     public static final int HORIZONTAL_SPACING = 1;
 
@@ -27,6 +27,10 @@ public class TypeableOption extends Option {
         typedText = "";
         permanentFocus = true;
         max = maxChars;
+    }
+
+    public String toString() {
+        return typedText;
     }
 
     @Override
@@ -73,6 +77,7 @@ public class TypeableOption extends Option {
         boolean enter = pressed[bind.getBinding(KeyType.ACTION)];
         if (enter && typedText.length() > 0) {
             //TODO: Make it do something that's overridable
+            return doSomething();
         }
 
         if (flashTimer.isDone()) {
@@ -81,6 +86,8 @@ public class TypeableOption extends Option {
         }
         return null;
     }
+
+    public abstract GameState doSomething();
 
     private boolean isCharPressed(boolean[] pressed) {
         for (char ch = 'A'; ch <= 'z'; ch++) {

@@ -6,11 +6,9 @@ import org.escaperun.game.model.entities.statistics.StatisticContainer;
 import org.escaperun.game.view.Decal;
 
 public abstract class StatisticAlteringAreaEffect extends AreaEffect {
-    private StatisticContainer statisticAlterations;
 
-    public StatisticAlteringAreaEffect(Decal decal, Position position, StatisticContainer stats) {
+    public StatisticAlteringAreaEffect(Decal decal, Position position) {
         super(decal, position);
-        this.statisticAlterations = stats;
     }
 
     @Override

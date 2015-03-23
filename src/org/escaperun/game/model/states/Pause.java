@@ -18,15 +18,13 @@ public class Pause extends GameState {
         if (previous == null)
             throw new RuntimeException("previous should not be null");
         this.previous = previous;
+        final Playing previ = previous;
         final Stage test = previous.stage;
         Option[][] options = new Option[][]{
                 {new SelectableOption("Save Game") {
                     @Override
                     public GameState getNextState() {
-                        try {
-                            SaveManager.save(System.getProperty("user.dir") + "/profiles/teststage.xml", test);
-                        } catch (Exception ex) {ex.printStackTrace(); }
-                        return null;
+                        return new Saving(previ);
                     }
                 }},
                 {new SelectableOption("Return") {

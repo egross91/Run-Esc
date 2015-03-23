@@ -36,7 +36,7 @@ public class Main extends GameState {
 
                     @Override
                     public GameState getNextState() {
-                        return null;
+                        return new Loading();
                     }
                 }},
                 {new SelectableOption("Edit Key Bindings") {

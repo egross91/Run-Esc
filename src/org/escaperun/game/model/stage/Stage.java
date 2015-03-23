@@ -20,7 +20,7 @@ import org.escaperun.game.model.entities.skills.*;
 import org.escaperun.game.model.entities.statistics.IStatSubscriber;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.events.Timer;
-import org.escaperun.game.model.stage.areaeffect.AreaEffect;
+import org.escaperun.game.model.stage.areaeffect.*;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
@@ -83,7 +83,9 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         for (NPC npc : entities) {
             npc.save(dom, stage);
         }
-        //TODO: Save rest (ai and areaeffect)
+        for (AreaEffect af : areaEffects) {
+            af.save(dom, stage);
+        }
         return stage;
     }
 
@@ -107,12 +109,15 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         if (node.getElementsByTagName("Smasher").getLength() > 0) {
             Smasher smash = new Smasher(null).load((Element)node.getElementsByTagName("Smasher").item(0));
             ret.setAvatar(smash);
+            ret.getAvatar().setMovementHandler(new MovementHandler(ret, ret.getAvatar(), 8));
         } else if (node.getElementsByTagName("Sneak").getLength() > 0) {
             Sneak sneak = new Sneak(null).load((Element)node.getElementsByTagName("Sneak").item(0));
             ret.setAvatar(sneak);
+            ret.getAvatar().setMovementHandler(new MovementHandler(ret, ret.getAvatar(), 8));
         } else if (node.getElementsByTagName("Summoner").getLength() > 0) {
             Summoner summoner = new Summoner(null).load((Element)node.getElementsByTagName("Summoner").item(0));
             ret.setAvatar(summoner);
+            ret.getAvatar().setMovementHandler(new MovementHandler(ret, ret.getAvatar(), 8));
         }
         NodeList mel = node.getElementsByTagName("MeleeNPC");
         for (int i = 0; i < mel.getLength(); i++) {
@@ -143,9 +148,37 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             ret.entities.add(npc);
             //TODO:TODO
         }
-
-
-        //TODO: Load rest
+        /* load area effects*/
+        NodeList hds = node.getElementsByTagName("HealDamage");
+        for (int i = 0; i < hds.getLength(); i++) {
+            Element hdEle = (Element) hds.item(i);
+            HealDamage hd = new HealDamage(Decal.BLANK, new Position(0,0)).load(hdEle);
+            ret.areaEffects.add(hd);
+        }
+        hds = node.getElementsByTagName("InstantDeath");
+        for (int i = 0; i < hds.getLength(); i++) {
+            Element hdEle = (Element) hds.item(i);
+            InstantDeath hd = new InstantDeath(Decal.BLANK, new Position(0,0)).load(hdEle);
+            ret.areaEffects.add(hd);
+        }
+        hds = node.getElementsByTagName("LevelUp");
+        for (int i = 0; i < hds.getLength(); i++) {
+            Element hdEle = (Element) hds.item(i);
+            LevelUp hd = new LevelUp(Decal.BLANK, new Position(0,0)).load(hdEle);
+            ret.areaEffects.add(hd);
+        }
+        hds = node.getElementsByTagName("TakeDamage");
+        for (int i = 0; i < hds.getLength(); i++) {
+            Element hdEle = (Element) hds.item(i);
+            TakeDamage hd = new TakeDamage(Decal.BLANK, new Position(0,0)).load(hdEle);
+            ret.areaEffects.add(hd);
+        }
+        hds = node.getElementsByTagName("TeleportationAreaEffect");
+        for (int i = 0; i < hds.getLength(); i++) {
+            Element hdEle = (Element) hds.item(i);
+            TeleportationAreaEffect hd = new TeleportationAreaEffect(Decal.BLANK, new Position(0,0), new Position(0,0)).load(hdEle);
+            ret.areaEffects.add(hd);
+        }
         return ret;
     }
 
