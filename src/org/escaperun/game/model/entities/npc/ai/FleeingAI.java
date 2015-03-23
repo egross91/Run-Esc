@@ -1,7 +1,5 @@
 package org.escaperun.game.model.entities.npc.ai;
 
-import org.escaperun.game.controller.Logger;
-import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.stage.Stage;
@@ -29,7 +27,7 @@ public class FleeingAI extends AI{
         if (hasSeenAvatar) {
             //Check if npc is still in max sight range.
             if (distanceToAvatar > maxSightDistance) {
-                hasSeenAvatar = false;
+                lostTarget();
             }
             else
                 runAway();
@@ -42,7 +40,7 @@ public class FleeingAI extends AI{
                     hasSeenAvatar = true;
                 }
                 */
-                hasSeenAvatar = true;
+                spottedTarget();
             }
             else
                 wander();

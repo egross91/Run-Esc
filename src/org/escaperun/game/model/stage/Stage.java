@@ -10,17 +10,17 @@ import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
+import org.escaperun.game.model.entities.skills.Observe;
+import org.escaperun.game.model.entities.skills.PassiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.entities.statistics.IStatSubscriber;
-import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
-import org.escaperun.game.model.entities.skills.Observe;
-import org.escaperun.game.model.entities.skills.PassiveSkill;
 import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
+import org.escaperun.game.model.states.Playing;
 import org.escaperun.game.serialization.Saveable;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
@@ -221,8 +221,6 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
                     if (p.getOwner() != entity) {
                         if (!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e), p.getMoveAmount())))) {
                             this.getAvatar().gainXP(entities.get(e).getXPworth());
-                            //entities.remove(e);
-                            //e--;
                         }
                     }
                     return true;
@@ -338,6 +336,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         avatar.move(dir);
     }
 
+    /** Do not use for outside of stage. */
     public Avatar getAvatar() {
         return this.avatar;
     }

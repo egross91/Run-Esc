@@ -30,7 +30,7 @@ public abstract class AI implements Tickable, IStatSubscriber {
         this.npc = npc;
         stage.addAI(this);
         npcHealth = npc.getStatContainer().getLife().getCurrent();
-        maxSightDistance = 35;  //Picked arbitrarily.
+        maxSightDistance = 20;  //Picked arbitrarily.
         isAttacked = false;
     }
 

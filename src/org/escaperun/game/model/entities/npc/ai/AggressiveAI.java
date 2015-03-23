@@ -1,6 +1,5 @@
 package org.escaperun.game.model.entities.npc.ai;
 
-import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
 import org.escaperun.game.model.events.Timer;
@@ -9,12 +8,15 @@ import org.escaperun.game.model.stage.Stage;
 
 /** This AI will wander around until the avatar is in sight. When avatar is in sight, attack avatar.*/
 public abstract class AggressiveAI extends AI {
-    private Timer spotAvatarTimer;
+    protected Timer spotAvatarTimer;
+    protected Timer attackTimer;
 
     public AggressiveAI(Stage stage, AdversarialNPC npc) {
         super(stage, npc);
         hasSeenAvatar = false;
         spotAvatarTimer = new Timer(60*60*5); //5 seconds
+        double temp = (npc.getStatContainer().getAgility().getCurrent()*60);    //agility per second.
+        attackTimer = new Timer((int)temp);
     }
 
     /** Stage runs AI association.
@@ -40,14 +42,17 @@ public abstract class AggressiveAI extends AI {
             }
             else {
                 if (inAttackRange(distanceToAvatar)) {
-                    attack();
+                    if (attackTimer.isDone()) {
+                        attackTimer.reset();
+                        attack();
+                    }
                 } else {
                     moveTowardAvatar();
                 }
             }
         }
         else {
-            if (distanceToAvatar < 0) { //TODO: Get spotting range from npc
+            if (distanceToAvatar < 10) { //TODO: Get spotting range from npc
                /* if (spotAvatarTimer.isDone()) {
                     spotAvatarTimer.reset();
                     //TODO: check if avatar is spotted.
@@ -80,5 +85,6 @@ public abstract class AggressiveAI extends AI {
     @Override
     protected void tickTimers() {
         spotAvatarTimer.tick();
+        attackTimer.tick();
     }
 }

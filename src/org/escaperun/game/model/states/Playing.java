@@ -133,4 +133,8 @@ public class Playing extends GameState {
         }
         return ret;
     }
+
+    public void runShop() {
+
+    }
 }
