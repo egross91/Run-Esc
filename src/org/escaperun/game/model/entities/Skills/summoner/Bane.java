@@ -42,4 +42,8 @@ public class Bane extends ProjectileQuadrantEffect {
     public int getSkillLevel() {
         return skillLevel;
     }
+
+    public void setSkillLevel(int level) {
+        this.skillLevel = level;
+    }
 }
