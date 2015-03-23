@@ -129,6 +129,10 @@ public class StatisticContainer implements Renderable {
         return rendrend;
         }
 
+    public Decal[] getLevelRender(){
+        return renderizeOnStageUnary(getLevel());
+    }
+
     public Decal[] renderize(Statistic stat) {
         String name = stat.getName() + ": ";
         String current = stat.getCurrent().toString();
