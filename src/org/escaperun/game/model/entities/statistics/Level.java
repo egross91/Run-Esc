@@ -14,7 +14,7 @@ public class Level extends DerivedStatistic<Integer> {
 
     @Override
     protected void recalculate() {
-        setBase(experience.getCurrent().intValue() / divisor));
+        setBase(experience.getCurrent().intValue() / divisor);
 
     }
 
