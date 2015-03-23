@@ -123,7 +123,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
     public void unequipItem(EquipableItem item) {
         if (!inventory.isFull()) {
             EquipableItem toStore = equipment.unequipItem(item.getEquipmentSlot());
-            recalStatistics(true);
             inventory.add(toStore);
         }
     }
@@ -132,7 +131,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
         //equip the item
         if (!inventory.isFull()) {
             EquipableItem equippedItem = equipment.equipItem(armorItem);
-            recalStatistics(false);
             inventory.add(equippedItem);
         }
     }
@@ -207,86 +205,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
 
     public void unsubscriveToDeath(IStatSubscriber subscriber) {
         statContainer.unsubcribeToLivesLeft(subscriber);
-    }
-
-    private void recalStatistics(boolean sub) {
-        // Not proud of this, just trying to make it work at this point.
-        //need to compute the new armor rating for entity so its stats can be updated
-        //this is redic
-        /*EquipableItem body = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.BODY.getSlot());
-        EquipableItem helmet = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.HEAD.getSlot());
-        EquipableItem boots = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.FEET.getSlot());
-        EquipableItem ring = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.RING.getSlot());
-        EquipableItem shield = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.SHIELD.getSlot());
-        EquipableItem weapon = equipment.getItemAtSlot(EquipableItem.EquipmentSlot.WEAPON.getSlot());
-
-        //if an equipment slot has nothing in it, that item will be null. In that case, increment armorValue by 0
-        double armorValue = 0.0;
-        armorValue += (body != null) ? body.getStatistics().getArmorRating().getCurrent() : 0.0;
-        armorValue += (helmet != null) ? helmet.getStatistics().getArmorRating().getCurrent() : 0.0;
-        armorValue += (boots != null) ? boots.getStatistics().getArmorRating().getCurrent() : 0.0;
-        armorValue += (ring != null) ? ring.getStatistics().getArmorRating().getCurrent() : 0.0;
-        armorValue += (shield != null) ? shield.getStatistics().getArmorRating().getCurrent() : 0.0;
-
-        double mana = 0.0;
-        mana += (body != null) ? body.getStatistics().getMana().getCurrent() : 0.0;
-        mana += (helmet != null) ? helmet.getStatistics().getMana().getCurrent() : 0.0;
-        mana += (boots != null) ? boots.getStatistics().getMana().getCurrent() : 0.0;
-        mana += (ring != null) ? ring.getStatistics().getMana().getCurrent() : 0.0;
-        mana += (shield != null) ? shield.getStatistics().getMana().getCurrent() : 0.0;
-        mana += (shield != null) ? weapon.getStatistics().getMana().getCurrent() : 0.0;
-
-        double offenseRating = 0.0;
-        offenseRating += (weapon != null) ? weapon.getStatistics().getOffensiveRating().getCurrent() : 0.0;
-
-        double agility = 0.0;
-        agility += (body != null) ? body.getStatistics().getAgility().getCurrent() : 0.0;
-        agility += (helmet != null) ? helmet.getStatistics().getAgility().getCurrent() : 0.0;
-        agility += (boots != null) ? boots.getStatistics().getAgility().getCurrent() : 0.0;
-        agility += (ring != null) ? ring.getStatistics().getAgility().getCurrent() : 0.0;
-        agility += (shield != null) ? shield.getStatistics().getAgility().getCurrent() : 0.0;
-        agility += (shield != null) ? weapon.getStatistics().getAgility().getCurrent() : 0.0;
-
-        double hardiness = 0.0;
-        hardiness += (body != null) ? body.getStatistics().getHardiness().getCurrent() : 0.0;
-        hardiness += (helmet != null) ? helmet.getStatistics().getHardiness().getCurrent() : 0.0;
-        hardiness += (boots != null) ? boots.getStatistics().getHardiness().getCurrent() : 0.0;
-        hardiness += (ring != null) ? ring.getStatistics().getHardiness().getCurrent() : 0.0;
-        hardiness += (shield != null) ? shield.getStatistics().getHardiness().getCurrent() : 0.0;
-        hardiness += (shield != null) ? weapon.getStatistics().getHardiness().getCurrent() : 0.0;
-
-        double movement = 0.0;
-        movement += (body != null) ? body.getStatistics().getMovement().getCurrent() : 0.0;
-        movement += (helmet != null) ? helmet.getStatistics().getMovement().getCurrent() : 0.0;
-        movement += (boots != null) ? boots.getStatistics().getMovement().getCurrent() : 0.0;
-        movement += (ring != null) ? ring.getStatistics().getMovement().getCurrent() : 0.0;
-        movement += (shield != null) ? shield.getStatistics().getMovement().getCurrent() : 0.0;
-        movement += (shield != null) ? weapon.getStatistics().getMovement().getCurrent() : 0.0;
-
-        double defenseRating = 0.0;
-        defenseRating += (body != null) ? body.getStatistics().getDefensiveRating().getCurrent() : 0.0;
-        defenseRating += (helmet != null) ? helmet.getStatistics().getDefensiveRating().getCurrent() : 0.0;
-        defenseRating += (boots != null) ? boots.getStatistics().getDefensiveRating().getCurrent() : 0.0;
-        defenseRating += (ring != null) ? ring.getStatistics().getDefensiveRating().getCurrent() : 0.0;
-        defenseRating += (shield != null) ? shield.getStatistics().getDefensiveRating().getCurrent() : 0.0;
-        defenseRating += (shield != null) ? weapon.getStatistics().getDefensiveRating().getCurrent() : 0.0;
-
-        double intellect = 0.0;
-        intellect += (body != null) ? body.getStatistics().getIntellect().getCurrent() : 0.0;
-        intellect += (helmet != null) ? helmet.getStatistics().getIntellect().getCurrent() : 0.0;
-        intellect += (boots != null) ? boots.getStatistics().getIntellect().getCurrent() : 0.0;
-        intellect += (ring != null) ? ring.getStatistics().getIntellect().getCurrent() : 0.0;
-        intellect += (shield != null) ? shield.getStatistics().getIntellect().getCurrent() : 0.0;
-        intellect += (shield != null) ? weapon.getStatistics().getIntellect().getCurrent() : 0.0;
-
-        if (!sub) {
-            statContainer.setCurrent(armorValue, mana, offenseRating, agility, hardiness,
-                    movement, defenseRating, intellect);
-        }
-        else {
-            statContainer.setCurrent(-armorValue, -mana, -offenseRating, -agility, -hardiness,
-                    -movement, -defenseRating, -intellect);
-        }*/
     }
 }
 

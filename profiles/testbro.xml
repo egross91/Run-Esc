@@ -120020,19 +120020,19 @@
 <ArmorRating ArmorValue="0.0"/>
 </Statistics>
 <EquipmentContainer>
-<Item>
+<Item Type="ChestItem">
 <Decal Background="-16777216" Char="C" Foreground="-16711936"/>
 </Item>
-<Item Description="A two-handed weapon." Name="The Aleksey" Type="TwoHandedWeapon">
-<Decal Background="-16777216" Char="T" Foreground="-16776961"/>
+<Item Description="A one-handed weapon." Name="The Dave" Type="StaffWeapon">
+<Decal Background="-16777216" Char="t" Foreground="-16776961"/>
 </Item>
 </EquipmentContainer>
 <ItemContainer>
 <Item Description="GET WRECKED SON" Name="OBBY MAUL" Type="TwoHandedWeapon">
 <Decal Background="-16777216" Char="O" Foreground="-16776961"/>
 </Item>
-<Item Description="A one-handed weapon." Name="The Dave" Type="StaffWeapon">
-<Decal Background="-16777216" Char="t" Foreground="-16776961"/>
+<Item Description="A two-handed weapon." Name="The Aleksey" Type="TwoHandedWeapon">
+<Decal Background="-16777216" Char="T" Foreground="-16776961"/>
 </Item>
 </ItemContainer>
 </Entity>
@@ -120041,7 +120041,7 @@
 <MeleeNPC>
 <AdversarialNPC MaxAttackRange="1">
 <NPC WanderRadius="8" XPWorth="10">
-<Entity CurrentX="1" CurrentY="78" Direction="WEST" InitialX="5" InitialY="79">
+<Entity CurrentX="5" CurrentY="76" Direction="EAST" InitialX="5" InitialY="79">
 <Decal Background="-16777216" Char="M" Foreground="-8650752"/>
 <Statistics>
 <Strength AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
@@ -120067,7 +120067,7 @@
 <MeleeNPC>
 <AdversarialNPC MaxAttackRange="1">
 <NPC WanderRadius="8" XPWorth="10">
-<Entity CurrentX="8" CurrentY="85" Direction="SOUTH" InitialX="5" InitialY="79">
+<Entity CurrentX="8" CurrentY="86" Direction="SOUTHEAST" InitialX="5" InitialY="79">
 <Decal Background="-16777216" Char="M" Foreground="-8650752"/>
 <Statistics>
 <Strength AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
@@ -120093,7 +120093,7 @@
 <RangedNPC>
 <AdversarialNPC MaxAttackRange="20">
 <NPC WanderRadius="8" XPWorth="10">
-<Entity CurrentX="8" CurrentY="77" Direction="SOUTHWEST" InitialX="7" InitialY="79">
+<Entity CurrentX="11" CurrentY="78" Direction="NORTHWEST" InitialX="7" InitialY="79">
 <Decal Background="-16777216" Char="M" Foreground="-16745472"/>
 <Statistics>
 <Strength AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>

@@ -35,6 +35,7 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
 
     public void subscribe(Statistic stat) {
         subs.add(stat);
+        change();
     }
 
     public void change() {
