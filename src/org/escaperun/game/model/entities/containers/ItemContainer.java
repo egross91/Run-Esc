@@ -89,14 +89,13 @@ public class ItemContainer<T extends TakeableItem> implements Saveable {
     }
 
     protected int getFirstEmptySlot() {
-        int i = 0;
-        for (TakeableItem current : items) {
-            if (current == null) {
-                break;
+        for (int i = 0; i < MAX_CAPACITY; ++i) {
+            if (items.get(i) == null) {
+                return i;
             }
         }
 
-        return i;
+        throw new RuntimeException("Should never happen, because full checks should happen.");
     }
 
     @Override

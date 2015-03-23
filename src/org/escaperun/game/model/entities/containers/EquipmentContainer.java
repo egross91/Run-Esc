@@ -29,7 +29,7 @@ public class EquipmentContainer<T extends EquipableItem> extends ItemContainer<T
 
     private T swapItem(int slot, T toEquip) {
         T ret = get(slot);
-        add(toEquip);
+        add(slot, toEquip);
 
         return ret;
     }
