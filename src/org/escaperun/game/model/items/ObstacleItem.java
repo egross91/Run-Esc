@@ -9,11 +9,11 @@ import java.awt.*;
 public final class ObstacleItem extends Item {
 
     public ObstacleItem() {
-        super(new Decal('B', Color.BLACK, Color.LIGHT_GRAY));
+        super(new Decal('B', Color.BLACK, Color.LIGHT_GRAY), "Boulder", "You can't pass through this object.");
     }
 
-    public ObstacleItem(Decal decal) {
-        super(decal);
+    public ObstacleItem(Decal decal, String name, String description) {
+        super(decal, name, description);
     }
 
     @Override
@@ -47,6 +47,6 @@ public final class ObstacleItem extends Item {
         //System.out.println("TEST: " + item.getElementsByTagName("Decal").getLength());
         Decal decal = new Decal('0', Color.BLACK, Color.WHITE).load(item);
 
-        return new ObstacleItem(decal);
+        return new ObstacleItem(decal, "Boulder", "You can't pass through this item.");
     }
 }

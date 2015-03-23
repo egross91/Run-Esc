@@ -13,7 +13,7 @@ import java.awt.*;
 
 public class ThrowingKnivesWeapon extends RangedWeapon {
     public ThrowingKnivesWeapon(Decal decal, String name, String description) {
-        super(decal);
+        super(decal, name, description);
         this.name = name;
         this.description = description;
     }

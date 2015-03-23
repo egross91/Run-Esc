@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Quest extends InteractiveItem {
 
-    public Quest(Decal decal){super(decal);}
+    public Quest(Decal decal, String name, String description){super(decal, name, description);}
 
     @Override
     public boolean isCollidable(){return true;}
@@ -44,7 +44,7 @@ public class Quest extends InteractiveItem {
 
         Decal decal = new Decal('0', Color.BLACK, Color.BLACK).load(item);
 
-        return new Puzzle(decal);
+        return new Puzzle(decal, "Puzzle", "Something you must solve.");
     }
 
 }

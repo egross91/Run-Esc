@@ -7,8 +7,8 @@ import org.escaperun.game.view.Decal;
 
 public abstract class WeaponItem extends EquipableItem implements WeaponElement {
 
-    public WeaponItem(Decal decal) {
-        super(decal, EquipmentSlot.WEAPON);
+    public WeaponItem(Decal decal, String name, String description) {
+        super(decal, EquipmentSlot.WEAPON, name, description);
     }
 
     @Override

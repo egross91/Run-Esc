@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import java.awt.*;
 
 public class Telescope extends InteractiveItem {
-    public Telescope(Decal decal){super(decal);}
+    public Telescope(Decal decal, String name, String description){super(decal, name, description);}
 
     @Override
     public boolean isCollidable(){return true;}
@@ -38,6 +38,7 @@ public class Telescope extends InteractiveItem {
 
         Decal decal = new Decal('0', Color.BLACK, Color.BLACK).load(item);
 
-        return new Telescope(decal);
+        return new Telescope(decal, "Telescope", "Helps you see far away");
     }
+
 }

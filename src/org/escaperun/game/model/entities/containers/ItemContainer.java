@@ -122,7 +122,7 @@ public class ItemContainer<T extends TakeableItem> implements Saveable {
         NodeList items = us.getElementsByTagName("Item");
         for (int i = 0; i < items.getLength(); i++) {
             Element it = (Element) items.item(i);
-            Item load = new Item(Decal.BLANK) {
+            Item load = new Item(Decal.BLANK, "Item", "This is an Item") {
 
                 @Override
                 public boolean isCollidable() {

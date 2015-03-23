@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 import java.awt.*;
 
 public class StrengthBooster extends OneShotItem {
-    public StrengthBooster(Decal decal){super(decal);}
+    public StrengthBooster(Decal decal, String name, String description){super(decal, name, description);}
 
     @Override
     public void doAction(Entity e){
@@ -34,6 +34,6 @@ public class StrengthBooster extends OneShotItem {
 
         Decal decal = new Decal('0', Color.BLACK, Color.BLACK).load(item);
 
-        return new StrengthBooster(decal);
+        return new StrengthBooster(decal, "Strength Booster", "Boosts Strength");
     }
 }

@@ -12,13 +12,13 @@ import org.w3c.dom.Element;
 import java.awt.*;
 
 public class BowWeapon extends RangedWeapon {
+    private final String name;
+    private final String description;
     public BowWeapon(Decal decal, String name, String description) {
-        super(decal);
+        super(decal, name, description);
         this.name = name;
         this.description = description;
     }
-    private final String name;
-    private final String description;
 
     @Override
     public String getName() {
@@ -69,4 +69,5 @@ public class BowWeapon extends RangedWeapon {
 
         return new BowWeapon(decal, name, desc);
     }
+
 }

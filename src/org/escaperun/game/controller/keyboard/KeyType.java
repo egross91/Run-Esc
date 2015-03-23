@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 public enum KeyType {
 
     //Menu
+    SHOP(KeyEvent.VK_P),
     INVENTORY(KeyEvent.VK_I),
     LEVEL_UP(KeyEvent.VK_L),
     ACTION(KeyEvent.VK_ENTER),

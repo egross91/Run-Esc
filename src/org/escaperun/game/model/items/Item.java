@@ -17,10 +17,14 @@ import org.w3c.dom.Element;
 import java.awt.*;
 
 public abstract class Item implements Renderable, Collidable, Saveable {
-    private Decal decal;
+    protected Decal decal;
+    protected String name;
+    private String description;
 
-    public Item(Decal decal) {
+    public Item(Decal decal, String name, String description) {
         this.decal = decal;
+        this.name = name;
+        this.description = description;
     }
 
     /**
@@ -58,25 +62,25 @@ public abstract class Item implements Renderable, Collidable, Saveable {
         Decal decal = new Decal('0', Color.BLACK, Color.BLACK).load(item);
 
         if (type.equals("AgilityBooster")) {
-            return new AgilityBooster(decal).load(item);
+            return new AgilityBooster(decal, "Agility Booster", "Boosts Agility").load(item);
         } else if (type.equals("Bomb")) {
             return new Bomb(decal, "empty", "empty").load(item);
         } else if (type.equals("HardinessBooster")) {
-            return new HardinessBooster(decal).load(item);
+            return new HardinessBooster(decal, "Hardiness Booster", "Boosts Hardiness").load(item);
         } else if (type.equals("ObstacleItem")) {
-            return new ObstacleItem(decal).load(item);
+            return new ObstacleItem(decal, "Boulder", "You can't pass through this item.").load(item);
         } else if (type.equals("OneUp")) {
-            return new OneUp(decal).load(item);
+            return new OneUp(decal, "One Up", "Gives you another life").load(item);
         } else if (type.equals("Potion")) {
             return new Potion(decal, "empty", "empty").load(item);
         } else if (type.equals("Puzzle")) {
-            return new Puzzle(decal).load(item);
+            return new Puzzle(decal, "Puzzle", "Something you must solve.").load(item);
         } else if (type.equals("Quest")) {
-            return new Quest(decal).load(item);
+            return new Quest(decal, "Quest", "A quest you must complete.").load(item);
         } else if (type.equals("StrengthBooster")) {
-            return new StrengthBooster(decal).load(item);
+            return new StrengthBooster(decal, "Strength Booster", "Boosts your Strength").load(item);
         } else if (type.equals("Telescope")) {
-            return new Telescope(decal).load(item);
+            return new Telescope(decal, "Telescope", "Helps you see far away").load(item);
         } else if (type.equals("StaffWeapon")) {
             return new StaffWeapon(decal, "empty", "empty").load(item);
         } else if (type.equals("ThrowingKnivesWeapon")) {
@@ -93,5 +97,16 @@ public abstract class Item implements Renderable, Collidable, Saveable {
             return new FistWeapon(decal, "empty", "empty").load(item);
         }
         return null;
+    }
+    public Decal getDecal(){
+        return decal;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getDescription(){
+        return description;
     }
 }

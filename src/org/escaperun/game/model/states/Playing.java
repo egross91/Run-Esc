@@ -24,6 +24,12 @@ public class Playing extends GameState {
             return new Pause(this);
         }
 
+        boolean shop = pressed[bindings.getBinding(KeyType.SHOP)];
+        if(shop){
+            pressed[bindings.getBinding(KeyType.SHOP)] = false;
+            return new Shop(this, stage);
+        }
+
         boolean inventory = pressed[bindings.getBinding(KeyType.INVENTORY)];
         if (inventory) {
             pressed[bindings.getBinding(KeyType.INVENTORY)] = false;

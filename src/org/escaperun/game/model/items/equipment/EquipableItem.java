@@ -25,13 +25,13 @@ public abstract class EquipableItem extends TakeableItem implements Equipable {
         }
     }
 
-    public EquipableItem(Decal decal, EquipmentSlot slot) {
-        super(decal);
+    public EquipableItem(Decal decal, EquipmentSlot slot, String name, String description) {
+        super(decal, name, description);
         this.equipmentSlot = slot;
     }
 
-    public EquipableItem(Decal decal, EquipmentSlot slot, StatisticContainer stats) {
-        super(decal, stats);
+    public EquipableItem(Decal decal, EquipmentSlot slot, StatisticContainer stats, String name, String description) {
+        super(decal, stats, name, description);
         this.equipmentSlot = slot;
     }
 

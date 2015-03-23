@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class OneUp extends OneShotItem {
 
-    public OneUp(Decal decal){super(decal);}
+    public OneUp(Decal decal, String name, String description){super(decal, name, description);}
 
     @Override
     public void doAction(Entity e){
@@ -37,6 +37,6 @@ public class OneUp extends OneShotItem {
 
         Decal decal = new Decal('0', Color.BLACK, Color.BLACK).load(item);
 
-        return new OneUp(decal);
+        return new OneUp(decal, "One Up", "Give you another life");
     }
 }

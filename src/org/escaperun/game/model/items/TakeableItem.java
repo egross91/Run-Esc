@@ -9,13 +9,13 @@ import org.escaperun.game.view.Decal;
 public abstract class TakeableItem extends TouchableItem {
     private StatisticContainer statistics;
 
-    public TakeableItem(Decal decal) {
-        super(decal);
+    public TakeableItem(Decal decal, String name, String description) {
+        super(decal, name, description);
         this.statistics = new StatisticContainer();
     }
 
-    public TakeableItem(Decal decal, StatisticContainer stats) {
-        super(decal);
+    public TakeableItem(Decal decal, StatisticContainer stats, String name, String description) {
+        super(decal, name, description);
         this.statistics = stats;
     }
 

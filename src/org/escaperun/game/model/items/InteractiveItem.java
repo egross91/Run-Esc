@@ -9,8 +9,8 @@ import org.escaperun.game.view.Decal;
  */
 public abstract class InteractiveItem extends TouchableItem {
 
-    public InteractiveItem(Decal decal) {
-        super(decal);
+    public InteractiveItem(Decal decal, String name, String description) {
+        super(decal, name, description);
     }
 
     @Override

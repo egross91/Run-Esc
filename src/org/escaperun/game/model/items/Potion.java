@@ -9,13 +9,13 @@ import java.awt.*;
 
 
 public class Potion extends TakeableItem {
+    private final String name;
+    private final String description;
     public Potion(Decal decal, String name, String description) {
-        super(decal);
+        super(decal, name, description);
         this.name = name;
         this.description = description;
     }
-    private final String name;
-    private final String description;
 
     @Override
     public String getName() {
@@ -59,5 +59,10 @@ public class Potion extends TakeableItem {
         String desc = item.getAttribute("Description");
 
         return new Potion(decal, name, desc);
+    }
+
+    @Override
+    public Decal getDecal(){
+        return decal;
     }
 }

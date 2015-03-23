@@ -85,7 +85,7 @@ public class Tile implements Renderable, Collidable, Saveable {
         Terrain loadedTerrain = new BlankTerrain().load(tile);
         Item item = null;
         if (tile.getElementsByTagName("Item") != null && node.getElementsByTagName("Item").getLength() > 0) {
-            item = new Item(new Decal('f', Color.BLACK, Color.BLACK)) {
+            item = new Item(new Decal('f', Color.BLACK, Color.BLACK), "Item", "This is an item") {
 
                 @Override
                 public boolean isCollidable() {

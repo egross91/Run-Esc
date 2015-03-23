@@ -5,8 +5,8 @@ import org.escaperun.game.view.Decal;
 
 public abstract class OneShotItem extends TouchableItem {
 
-    public OneShotItem(Decal decal) {
-        super(decal);
+    public OneShotItem(Decal decal, String name, String description) {
+        super(decal, name, description);
     }
 
     @Override
