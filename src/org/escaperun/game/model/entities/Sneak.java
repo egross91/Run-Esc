@@ -3,6 +3,7 @@ package org.escaperun.game.model.entities;
 import org.escaperun.game.controller.Logger;
 import org.escaperun.game.controller.Sound;
 import org.escaperun.game.model.Position;
+import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SneakSkillsContainer;
@@ -106,7 +107,11 @@ public class Sneak extends Avatar {
     }
 
     @Override
-    public Projectile skill1() {
+    public ActiveSkill attemptSkillCast1(Logger log) {
+        return skill1();
+    }
+
+    private Projectile skill1() {
         //TODO: this probably needs to work with SneakSkillsContainer or something
         return new Arrow(15,0,0,this,20,this.getDirection(),this.getCurrentPosition(), 3);
     }

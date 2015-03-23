@@ -1,6 +1,7 @@
 package org.escaperun.game.model.stage;
 
 import org.escaperun.game.controller.Logger;
+import org.escaperun.game.controller.Sound;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
@@ -338,13 +339,37 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         this.activeSkills.add(activeSkill);
     }
 
-    public void skillCast(){
-        //moved this to Avatar because it was a violation of TDA
-        if(avatar.attemptSkillCast()) { //casting the spell is OK
-            this.activeSkills.add(this.avatar.skill1());
-        }else Logger.getInstance().pushMessage("You don't have enough mana!");
-        //otherwise dont cast that bitch
+    public void skillCast1(){
+        ActiveSkill skillCast = avatar.attemptSkillCast1(Logger.getInstance());
+        if(skillCast != null) { //casting the spell went OK
+            Sound.CASTSPELL.play();
+            this.activeSkills.add(skillCast);
+        }
     }
+/*
+    public void skillCast2(){
+        ActiveSkill skillCast = avatar.attemptSkillCast2(Logger.getInstance());
+        if(skillCast != null) { //casting the spell went OK
+            Sound.CASTSPELL.play();
+            this.activeSkills.add(skillCast);
+        }
+    }
+
+    public void skillCast3(){
+        ActiveSkill skillCast = avatar.attemptSkillCast3(Logger.getInstance());
+        if(skillCast != null) { //casting the spell went OK
+            Sound.CASTSPELL.play();
+            this.activeSkills.add(skillCast);
+        }
+    }
+
+    public void skillCast4(){
+        ActiveSkill skillCast = avatar.attemptSkillCast4(Logger.getInstance());
+        if(skillCast != null) { //casting the spell went OK
+            Sound.CASTSPELL.play();
+            this.activeSkills.add(skillCast);
+        }
+    }*/
 
     public void moveAvatar(Direction dir) {
         //this code is to allow 'sliding' on walls
