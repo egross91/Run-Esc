@@ -14,13 +14,17 @@ import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.visitors.WeaponVisitor;
 import org.escaperun.game.model.items.equipment.weapons.WeaponItem;
+import org.escaperun.game.serialization.Saveable;
 import org.escaperun.game.view.Renderable;
 
 import org.escaperun.game.model.Position;
 import org.escaperun.game.view.Decal;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
-public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
+public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Saveable {
+
     private Position currentPosition = null;
     private EquipmentContainer<EquipableItem> equipment;
     private ItemContainer<TakeableItem> inventory;
@@ -30,7 +34,6 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     private MovementHandler movementHandler;
     private RestorationHandler restorationHandler;
     private StatisticContainer statContainer;
-    private SkillsContainer skillsContainer;
 
     protected Entity(Decal decal, Position initialPosition) {
         this.initialPosition = initialPosition;
@@ -42,6 +45,28 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         statContainer = new StatisticContainer();
 
         restorationHandler = new RestorationHandler(this, 400);
+    }
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element ent = dom.createElement("Entity");
+        parent.appendChild(ent);
+        ent.setAttribute("InitialX", Integer.toString(initialPosition.x));
+        ent.setAttribute("InitialY", Integer.toString(initialPosition.y));
+        ent.setAttribute("CurrentX", Integer.toString(currentPosition.x));
+        ent.setAttribute("CurrentY", Integer.toString(currentPosition.y));
+        ent.setAttribute("Direction", direction.toString());
+        decal.save(dom, ent);
+        statContainer.save(dom, ent);
+        //equipment.save(dom, ent);
+        //inventory.save(dom, ent);
+        //remember movementhandler
+        return null;
+    }
+
+    @Override
+    public Element load(Element node) {
+        return null;
     }
 
     @Override
