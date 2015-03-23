@@ -19,7 +19,7 @@ public class Level extends DerivedStatistic<Integer> {
 
     @Override
     public String getName() {
-        return "Level";
+        return "LEVEL";
     }
 
     //get remaining experience until next level

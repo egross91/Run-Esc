@@ -31,11 +31,6 @@ public abstract class NPC extends Entity {
     public abstract String observe();
 
     @Override
-    public void tick() {
-
-    }
-
-    @Override
     public void talk(){
         Logger.getInstance().pushMessage("This worked!!");
     }

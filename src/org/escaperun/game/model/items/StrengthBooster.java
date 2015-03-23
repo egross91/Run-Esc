@@ -12,7 +12,8 @@ public class StrengthBooster extends OneShotItem {
 
     @Override
     public void doAction(Entity e){
-        //TODO
+        Integer amount = e.getStatContainer().getStrength().getBase() + 2;
+        e.getStatContainer().getStrength().setBase(amount);
     }
 
     @Override

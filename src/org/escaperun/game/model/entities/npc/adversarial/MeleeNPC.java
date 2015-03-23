@@ -10,9 +10,6 @@ public class MeleeNPC extends AdversarialNPC {
         super(decal, initialPosition, wanderRadius);
         StatisticContainer stats = new StatisticContainer();
         stats.getLivesLeft().setBase(1);
-        stats.getHardiness().setBase(10);
-        stats.getExperience().setBase(1000);
-        stats.getMovement().setBase(100);
         setStatContainer(stats);
     }
 }

@@ -13,7 +13,8 @@ public class HardinessBooster extends OneShotItem {
 
     @Override
     public void doAction(Entity e){
-        e.getStatContainer().getHardiness().addDelta(1);
+        Integer amount = e.getStatContainer().getHardiness().getBase() + 2;
+        e.getStatContainer().getHardiness().setBase(amount);
     }
 
 

@@ -24,6 +24,7 @@ import org.escaperun.game.view.Renderable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import java.awt.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -116,8 +117,13 @@ public class Stage implements Renderable, Tickable, Saveable {
                 grid[i][j] = new Tile(new GrassTerrain());
             }
         }
+//
+//        MeleeNPC anpc = new MeleeNPC(new Decal('U', Color.LIGHT_GRAY, Color.CYAN), new Position(30,30), 1);
+//        anpc.setMovementHandler(new MovementHandler(this, anpc, 8));
+//        MeleeAI ai = new MeleeAI(this, anpc);
+//        addAI(ai);
+        //entities.add(anpc);
 
-        entities.add(new AdversarialNPC(new Decal('U', Color.LIGHT_GRAY, Color.CYAN), new Position(30,30), 1));
        // areaEffects.add(new TeleportationAreaEffect(new Decal('?', Color.BLACK, Color.RED.brighter().brighter()),new Position(5,5), new Position(0,0)));
        // grid[10][10].placeItem(new )
     }
@@ -150,15 +156,10 @@ public class Stage implements Renderable, Tickable, Saveable {
                 r--;
             }
         }
-        for (AI ai : ais) {
-            ai.tick();
-        }
-        while(!aiToDelete.isEmpty()) {
-            AI ai = aiToDelete.pop();
-            entities.remove(ai.getNpc());
-            ais.remove(ai);
-        }
 
+        for (int i = 0; i < ais.size(); i++) {
+            ais.get(i).tick();
+        }
     }
 
     public boolean checkCollision(Projectile p){
@@ -167,8 +168,8 @@ public class Stage implements Renderable, Tickable, Saveable {
                 if (entities.get(e).getCurrentPosition().x == p.getAffectedArea().get(q).x && entities.get(e).getCurrentPosition().y == p.getAffectedArea().get(q).y) {
                     if(!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e))))){
                         this.getAvatar().gainXP(entities.get(e).getXPworth());
-                        entities.remove(e);
-                        e--;
+                        //entities.remove(e);
+                        //e--;
                     }
                     return true;
                 }
@@ -299,19 +300,17 @@ public class Stage implements Renderable, Tickable, Saveable {
         return avatar.getCurrentPosition();
     }
 
-    public Entity getEntityextToAvatarsFacingDirection() {
+    public void interactionTriggered() {
         Direction dir = avatar.getDirection();
         Position avatarpos = avatar.getCurrentPosition();
         Position pos = new Position(avatarpos.x+dir.getDelta().x, avatarpos.y+dir.getDelta().y);
         for(Entity entity : entities){
-            if(entity.getCurrentPosition().equals(pos))
-                return entity;
-        }
-        return new NonHostileNPC(null, null, 0){
-            public void talk(){
-                Logger.getInstance().pushMessage("There is no person to talk to.");
+            if(entity.getCurrentPosition().equals(pos)) {
+                entity.talk();
+                return;
             }
-        };
+        }
+        Logger.getInstance().pushMessage("There is not an entity to talk to.");
     }
 
     /** Should only be accessed by AI. And not while ticking.*/
@@ -324,6 +323,7 @@ public class Stage implements Renderable, Tickable, Saveable {
 
     /** The AI and the associated npc will be removed on tick.*/
     public void aiToRemove(AI ai) {
-        aiToDelete.push(ai);
+        entities.remove(ai.getNpc());
+        ais.remove(ai);
     }
 }

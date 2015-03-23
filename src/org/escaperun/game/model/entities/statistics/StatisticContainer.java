@@ -31,9 +31,9 @@ public class StatisticContainer implements Renderable {
         intellect = new Intellect();
         movement = new Movement();
         experience = new Experience();
-        livesLeft = new LivesLeft();
         level = new Level(experience);
         life = new Life(level, hardiness);
+        livesLeft = new LivesLeft(life);
         mana = new Mana(level, intellect);
         offensiveRating = new OffensiveRating(strength, level, 0.0);
         defensiveRating = new DefensiveRating(agility, level);
@@ -128,6 +128,10 @@ public class StatisticContainer implements Renderable {
         rendrend[5] = combineWithSpacing(renderizeOnStageUnary(getExperience()), renderizeOnStageUnary(getLivesLeft()), 25);
         return rendrend;
         }
+
+    public Decal[] getLevelRender(){
+        return renderizeOnStageUnary(getLevel());
+    }
 
     public Decal[] renderize(Statistic stat) {
         String name = stat.getName() + ": ";
