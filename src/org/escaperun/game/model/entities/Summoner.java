@@ -74,6 +74,14 @@ public class Summoner extends Avatar {
         return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
     }
 
+    /*public ActiveSkill skill2(){
+
+    }
+
+    public ActiveSkill skill3() {
+
+    }*/
+
     @Override
     public SummonerSkillsContainer getSkillsContainer(){
         return summonerSkills;

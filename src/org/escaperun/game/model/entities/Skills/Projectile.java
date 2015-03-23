@@ -43,8 +43,10 @@ public abstract class Projectile extends ActiveSkill {
         this.slopeY = dir.getDelta().y;
     }
 
+    @Override
     public boolean isDone() {return moveAmount.isDone();}
 
+    @Override
     public void tick(){
         if (moveAmount.isDone()) return;
         moveTimer.tick();

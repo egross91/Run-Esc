@@ -27,6 +27,10 @@ public abstract class ActiveSkill extends Skill {
         this.skillOwner = skillOwner;
         this.manaCost = 0;
     }
+
+
+    public void tick() { return; }
+    public boolean isDone() {return true;}
     public void incrementSkillLevel(){
         skillLevel++;
     }
