@@ -11,6 +11,7 @@ public abstract class ActiveSkill extends Skill {
     private int DefensePower;
     protected int manaCost; //use of this skill will reduce mana by this amount
     protected int skillLevel;
+    protected String skillName;
     private Entity skillOwner;
 
     public ActiveSkill(){
@@ -25,6 +26,9 @@ public abstract class ActiveSkill extends Skill {
         this.skillLevel = skillLevel;
         this.skillOwner = skillOwner;
         this.manaCost = 0;
+    }
+    public void incrementSkillLevel(){
+        skillLevel++;
     }
     public Entity getOwner(){
         return skillOwner;
@@ -45,4 +49,6 @@ public abstract class ActiveSkill extends Skill {
     public double getDefensePower(){
         return (double)this.DefensePower;
     }
+
+    public abstract String getName();
 }

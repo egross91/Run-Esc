@@ -20,6 +20,8 @@ public class Bane extends ProjectileQuadrantEffect {
         super(ofp,dfp,skillLevel,skillOwner,sd,dir,start, movesPerTick);
         this.setDecal(new Decal('*', Color.black, Color.red));
         this.manaCost = 5;
+        skillName = "Bane";
+        skillLevel = 1;
     }
 
     @Override
@@ -29,5 +31,15 @@ public class Bane extends ProjectileQuadrantEffect {
 
     public double getGoodStat(){
         return this.getOwner().getStatContainer().getIntellect().getCurrent();
+    }
+
+    @Override
+    public String getName() {
+        return skillName;
+    }
+
+    @Override
+    public int getSkillLevel() {
+        return skillLevel;
     }
 }

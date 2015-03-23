@@ -13,6 +13,7 @@ import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
 import org.escaperun.game.model.entities.skills.Projectile;
+import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
@@ -130,6 +131,7 @@ public class Stage implements Renderable, Tickable, Saveable {
 
     public ItemContainer getAvatarInventory() {return avatar.getInventory();}
     public EquipmentContainer getAvatarEquipment() {return avatar.getEquipment();}
+    public SkillsContainer getAvatarSkillsContainer(){ return avatar.getSkillsContainer();}
 
     @Override
     public void tick() {

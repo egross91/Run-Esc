@@ -30,6 +30,12 @@ public class Playing extends GameState {
             return new Inventory(this, stage);
         }
 
+        boolean levelUp = pressed[bindings.getBinding(KeyType.LEVEL_UP)];
+        if(levelUp){
+            pressed[bindings.getBinding(KeyType.LEVEL_UP)] = false;
+            return new LevelUp(this, stage);
+        }
+
         boolean interact = pressed[bindings.getBinding(KeyType.INTERACT)];
         if(interact){
             pressed[bindings.getBinding(KeyType.INTERACT)] = false;
@@ -81,6 +87,11 @@ public class Playing extends GameState {
             stage.skillCast();
         }
 
+        if(interact){
+            pressed[bindings.getBinding(KeyType.INTERACT)] = false;
+            stage.interactionTriggered();
+        }
+
         moveX = clamp(moveX, -1, 1); // clamp so we dont move extra
         moveY = clamp(moveY, -1, 1); // ""
 
@@ -127,7 +138,5 @@ public class Playing extends GameState {
             ret[stage.DEFAULT_ROWS - (6)][(stage.DEFAULT_COLUMNS/2)+ x - (level.length/2)] = level[x];
         }
         return ret;
-
     }
-
 }

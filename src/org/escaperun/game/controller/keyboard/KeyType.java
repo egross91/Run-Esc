@@ -6,6 +6,7 @@ public enum KeyType {
 
     //Menu
     INVENTORY(KeyEvent.VK_I),
+    LEVEL_UP(KeyEvent.VK_L),
     ACTION(KeyEvent.VK_ENTER),
     BACKSPACE(KeyEvent.VK_BACK_SPACE),
     EXIT(KeyEvent.VK_ESCAPE),
