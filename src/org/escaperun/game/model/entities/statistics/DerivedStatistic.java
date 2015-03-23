@@ -7,11 +7,6 @@ public abstract class DerivedStatistic<T extends Number> extends Statistic<T> {
     public DerivedStatistic(T type) {super(type);}
 
     @Override
-    public void setBase(T to) {
-        // nop
-    }
-
-    @Override
     public T getBase() {
         if (isInteger) return (T) (Integer) base.intValue();
         else return (T) base;

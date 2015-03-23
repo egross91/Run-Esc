@@ -22,7 +22,7 @@ public class OffensiveRating extends DerivedStatistic<Double> {
     protected void recalculate() {
         //idk I made something up
         //also need a way to notify when weapon changes
-        setBase_internal((3* str.getCurrent().doubleValue() + 2*lvl.getCurrent().doubleValue()) + weaponDamage);
+        setBase((3* str.getCurrent().doubleValue() + 2*lvl.getCurrent().doubleValue()) + weaponDamage);
     }
 
     protected void setWeaponDamage(Double weaponDamage) {

@@ -14,7 +14,7 @@ public class Mana extends DerivedStatistic<Integer> {
         intel = intellect;
         intel.subscribe(this);
         recalculate();
-        setBase_internal(maxMana);
+        setBase(maxMana);
     }
 
     @Override
@@ -29,16 +29,16 @@ public class Mana extends DerivedStatistic<Integer> {
 
     public void reduceMana(Integer amountReduced) {
         int currentMana = getCurrent();
-        setBase_internal(currentMana - amountReduced);
+        setBase(currentMana - amountReduced);
     }
 
     public void restoreMana(Integer amountRestored) {
         int currentMana = getCurrent();
-        setBase_internal(currentMana + amountRestored);
+        setBase(currentMana + amountRestored);
     }
 
     public void refillMana() {
-        setBase_internal(maxMana);
+        setBase(maxMana);
     }
 
     @Override

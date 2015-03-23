@@ -13,7 +13,7 @@ public class Level extends DerivedStatistic<Integer> {
 
     @Override
     protected void recalculate() {
-        setBase_internal((int) (experience.getCurrent().doubleValue() / 100.0));
+        setBase((int) (experience.getCurrent().doubleValue() / 100.0));
     }
 
     @Override
