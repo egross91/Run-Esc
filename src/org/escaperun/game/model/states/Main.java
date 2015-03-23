@@ -1,6 +1,5 @@
 package org.escaperun.game.model.states;
 
-import org.escaperun.game.controller.Sound;
 import org.escaperun.game.controller.keyboard.KeyBindings;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
@@ -22,6 +21,8 @@ public class Main extends GameState {
     private FlameGenerator flame = new FlameGenerator();
 
     public Main() {
+        final Main self = this;
+
         Option[][] options = new Option[][]{
                 {new SelectableOption("New Game") {
 
@@ -37,6 +38,12 @@ public class Main extends GameState {
                         return null;
                     }
                 }},
+                {new SelectableOption("Edit Key Bindings") {
+                    @Override
+                    public GameState getNextState() {
+                        return new SetKeyBindings(self);
+                    }
+                }},
                 {new SelectableOption("Exit") {
                     @Override
                     public GameState getNextState() {
@@ -45,6 +52,7 @@ public class Main extends GameState {
                 }}
         };
         optionContainer = new OptionContainer(options, OptionContainer.ContainerType.CENTERED);
+//        Sound.INTRO_MUSIC.play();
     }
 
     @Override
