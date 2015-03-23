@@ -20,9 +20,10 @@ public class PickPocket extends ActiveSkill {
     }
 
     @Override
-    public double generateSuccess(Entity attacker, Entity defender) {
-        return new LinearSkillSuccess().generateSkillSuccess(attacker, defender, this, getGoodStat());
+    public double generateSuccess(Entity attacker, Entity defender, int moveAmount) {
+        return 0;
     }
+
 
     @Override
     public String getName() {

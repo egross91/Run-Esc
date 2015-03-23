@@ -70,7 +70,7 @@ public class Sneak extends Avatar {
     @Override
     public Projectile skill1() {
         //TODO: this probably needs to work with SneakSkillsContainer or something
-        return new Arrow(0,0,0,this,20,this.getDirection(),this.getCurrentPosition(), 3);
+        return new Arrow(15,0,0,this,20,this.getDirection(),this.getCurrentPosition(), 3);
     }
 
     @Override

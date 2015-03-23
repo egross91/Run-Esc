@@ -7,31 +7,35 @@ import org.escaperun.game.model.entities.Entity;
 import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.view.Decal;
 
-public class Observe extends Projectile360Effect {
-    public Observe(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick) {
-        super(ofp, dfp, skillLevel, skillOwner, sd, dir, start, movesPerTick);
+public class Observe extends PassiveSkill {
+
+    private double STD;
+
+    public Observe(int skillLevel, Entity skillOwner) {
+        super(skillLevel, skillOwner, 3,10 );
         skillName = "Observe";
         skillLevel = 1;
     }
 
+//    public double generateSuccess(Entity attacker, Entity defender, int moveAmount) {
+  //      return 0;
+   // }
 
     @Override
-    public double getGoodStat() {
-        return 0;
+    public void incrementSkillLevel() {
+        this.skillLevel++;
     }
 
-    @Override
-    public double generateSuccess(Entity attacker, Entity defender) {
-        return 0;
-    }
-
-    @Override
     public String getName() {
         return skillName;
     }
 
-    @Override
     public int getSkillLevel() {
-        return skillLevel;
+        return this.skillLevel;
+    }
+
+    public String doshIt(Entity e){
+
+        return " ";
     }
 }

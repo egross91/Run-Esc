@@ -55,7 +55,7 @@ public class SmasherSkillsContainer extends SkillsContainer {
     }
 
     @Override
-    public ArrayList<ActiveSkill> getSkillsArrayList() {
+    public ArrayList<Skill> getSkillsArrayList() {
         return skills;
     }
 }

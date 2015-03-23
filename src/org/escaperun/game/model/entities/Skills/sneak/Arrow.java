@@ -23,8 +23,8 @@ public class Arrow extends Projectile {
     }
 
     @Override
-    public double generateSuccess(Entity attacker, Entity defender) {
-        return 0;
+    public double generateSuccess(Entity attacker, Entity defender, int moveAmount) {
+        return LinearSkillSuccess.generateSkillSuccess(attacker, defender, this, this.getGoodStat(), moveAmount);
     }
 
     @Override

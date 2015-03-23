@@ -13,12 +13,12 @@ public abstract class SkillsContainer {
     private BindWounds bindWounds;
     private Bargain bargain;
     private Observe observe;
-    protected ArrayList<ActiveSkill> skills = new ArrayList<ActiveSkill>();
+    protected ArrayList<Skill> skills = new ArrayList<Skill>();
 
     public SkillsContainer(Entity skillOwner){
         bindWounds = new BindWounds();
         bargain = new Bargain();
-        observe = new Observe(0, 0, 0, skillOwner, 0, Direction.EAST, new Position(0,0), 5);
+        observe = new Observe(1, skillOwner);
         skills.add(0, bindWounds);
         skills.add(1, bargain);
         skills.add(2, observe);
@@ -38,6 +38,6 @@ public abstract class SkillsContainer {
 
     public abstract int getContainerSize();
 
-    public abstract ArrayList<ActiveSkill> getSkillsArrayList();
+    public abstract ArrayList<Skill> getSkillsArrayList();
 
 }
