@@ -71,7 +71,7 @@ public class Summoner extends Avatar {
     //change to possibly ActiveSkill
     @Override
     public Projectile skill1(){
-        return new Bane(10 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
+        return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
     }
 
     @Override

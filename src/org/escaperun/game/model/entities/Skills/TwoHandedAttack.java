@@ -15,7 +15,7 @@ public class TwoHandedAttack extends ActiveSkill {
     }
 
     @Override
-    public double generateSuccess(Entity attacker, Entity defender) {
+    public double generateSuccess(Entity attacker, Entity defender, int moveAmount) {
         return 0;
     }
 

@@ -76,7 +76,7 @@ public class LevelUp extends GameState {
 
         String skill;
         int skillLevel;
-        ArrayList<ActiveSkill> skillsArrayList = skillsContainer.getSkillsArrayList();
+        ArrayList<Skill> skillsArrayList = skillsContainer.getSkillsArrayList();
         for(int i = 0; i < skillsArrayList.size(); i++) {
             skill = skillsArrayList.get(i).getName();
             skillLevel = skillsArrayList.get(i).getSkillLevel();

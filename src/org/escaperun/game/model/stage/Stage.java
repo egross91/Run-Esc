@@ -13,6 +13,10 @@ import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.entities.statistics.IStatSubscriber;
+import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
+import org.escaperun.game.model.entities.skills.Observe;
+import org.escaperun.game.model.entities.skills.PassiveSkill;
+import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
@@ -49,6 +53,10 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
     private ArrayList<AreaEffect> areaEffects;
     //Skill Test
     private ArrayList<Projectile> projectiles;
+    private ArrayList<PassiveSkill> passives;
+    private int passiveTimer = 5;
+   // private Timer moveAmount;
+    private Timer moveTimer;
 
     @Override
     public Element save(Document dom, Element parent) {
@@ -110,6 +118,13 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         //AoE test
         areaEffects = new ArrayList<AreaEffect>();
 
+        // For Observation
+        passives = new ArrayList<PassiveSkill>();
+        passives.add(new Observe(1, this.getAvatar()));
+
+        this.moveTimer = new Timer(10);
+       // this.moveAmount = new Timer(10);
+
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
                 grid[i][j] = new Tile(new GrassTerrain());
@@ -156,8 +171,33 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             }
         }
 
+        passiveCheck();
+
         for (int i = 0; i < ais.size(); i++) {
             ais.get(i).tick();
+        }
+    }
+
+    public void passiveCheck(){
+       // if (moveAmount.isDone()) return;
+        moveTimer.tick();
+        if (!moveTimer.isDone()) return;
+        moveTimer.reset();
+       // moveAmount.tick();
+        for(int h = 0; h < passives.size(); h++){
+            passives.get(h).setCurrentPos(getAvatarPosition());
+            passives.get(h).tick();
+
+            for(int e = 0; e < entities.size(); e++){
+                for(int p = 0; p < passives.get(h).getAffectedArea().size(); p++){
+                    if(entities.get(e).getCurrentPosition().x == passives.get(h).getAffectedArea().get(p).x &&
+                            entities.get(e).getCurrentPosition().y == passives.get(h).getAffectedArea().get(p).y){
+                            passives.get(h).doshIt(entities.get(e));
+                            Logger.getInstance().pushRightMessage(" ");
+                    }
+                }
+            }
+
         }
     }
 
@@ -167,7 +207,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             if (avatar.getCurrentPosition().x == p.getAffectedArea().get(q).x && avatar.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
                 //hit
                 if (p.getOwner() != avatar) {
-                    avatar.takeDamage(p.generateSuccess(p.getOwner(), avatar));
+                    avatar.takeDamage(p.generateSuccess(p.getOwner(), avatar, p.getMoveAmount()));
                 }
                 return true;
             }
@@ -179,7 +219,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (entity.getCurrentPosition().x == p.getAffectedArea().get(q).x && entity.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
                     if (p.getOwner() != entity) {
-                        if (!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e))))) {
+                        if (!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e), p.getMoveAmount())))) {
                             this.getAvatar().gainXP(entities.get(e).getXPworth());
                             //entities.remove(e);
                             //e--;

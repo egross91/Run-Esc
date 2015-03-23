@@ -69,4 +69,8 @@ public abstract class Projectile extends ActiveSkill {
     public Decal[][] getRenderable(){
         return new Decal[][] {{this.decal}};
     }
+
+    public int getMoveAmount(){
+        return this.moveAmount.getTicksSince();
+    }
 }
