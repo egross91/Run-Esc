@@ -45,6 +45,7 @@ public class Main extends GameState {
                 }}
         };
         optionContainer = new OptionContainer(options, OptionContainer.ContainerType.CENTERED);
+        Sound.INTRO_MUSIC.play();
     }
 
     @Override

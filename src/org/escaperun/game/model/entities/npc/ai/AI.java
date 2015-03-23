@@ -1,6 +1,7 @@
 package org.escaperun.game.model.entities.npc.ai;
 
 import org.escaperun.game.controller.Logger;
+import org.escaperun.game.controller.Sound;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.Tickable;
@@ -75,6 +76,7 @@ public abstract class AI implements Tickable{
     protected void onDeath() {
         Logger.getInstance().pushMessage("Tis just a flesh wound...");
         stage.aiToRemove(this);
+        Sound.CREEPDEAD.play();
     }
 
     protected void tickTimers() {

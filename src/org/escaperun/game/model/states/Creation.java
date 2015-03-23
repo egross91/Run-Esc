@@ -28,7 +28,6 @@ public class Creation extends GameState {
         options = new OptionContainer(new Option[][] {
                 {new SelectableOption("SMASHER"){
                     public GameState getNextState() {
-                        Sound.INTRO_MUSIC.stop();
                         Sound.PLAYING.play();
 
                         Stage stage = setupStage(new Smasher(new Position(0, 0)));
@@ -41,7 +40,6 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Summoner(new Position(0, 0)));
 
                     public GameState getNextState() {
-                        Sound.INTRO_MUSIC.stop();
                         Sound.PLAYING.play();
                         return new Playing(stage);
                     }
@@ -50,7 +48,6 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Sneak(new Position(0, 0)));
 
                     public GameState getNextState() {
-                        Sound.INTRO_MUSIC.stop();
                         Sound.PLAYING.play();
                         return new Playing(stage);
                     }
