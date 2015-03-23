@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class SneakSkillsContainer extends SkillsContainer {
     private PickPocket pickPocket;
     private DetectAndRemoveTrap drt;
+    private RangedAttack rangedAttack;
     private Creep creep;
-    private RangedWeapon rangedWeapon;
     private int containerSize = 7;
 
     public SneakSkillsContainer(Entity skillOwner){
@@ -20,10 +20,11 @@ public class SneakSkillsContainer extends SkillsContainer {
         pickPocket = new PickPocket();
         drt = new DetectAndRemoveTrap();
         creep = new Creep();
-        //rangedWeapon = new RangedWeapon();
+        rangedAttack = new RangedAttack();
         skills.add(3, pickPocket);
         skills.add(4, drt);
         skills.add(5, creep);
+        skills.add(6, rangedAttack);
     }
 
     public PickPocket getPickPocket(){
@@ -37,6 +38,8 @@ public class SneakSkillsContainer extends SkillsContainer {
     public Creep getCreep(){
         return creep;
     }
+
+    public RangedAttack getRangedAttack(){return rangedAttack; }
 
     @Override
     public int getContainerSize(){
