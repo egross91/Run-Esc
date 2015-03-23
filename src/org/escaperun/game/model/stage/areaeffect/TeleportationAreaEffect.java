@@ -15,6 +15,10 @@ public class TeleportationAreaEffect extends AreaEffect {
         this.teleportPosition = teleportPosition;
     }
 
+    public boolean selfDestruct() {
+        return false;
+    }
+
     @Override
     public void onTouch(Entity e) {
         doAction(e);
@@ -33,7 +37,7 @@ public class TeleportationAreaEffect extends AreaEffect {
 
     @Override
     public Element save(Document dom, Element parent) {
-        Element us = dom.createElement("InstantDeath");
+        Element us = dom.createElement("TeleportationAreaEffect");
         parent.appendChild(us);
         us.setAttribute("TX", Integer.toString(teleportPosition.x));
         us.setAttribute("TY", Integer.toString(teleportPosition.y));

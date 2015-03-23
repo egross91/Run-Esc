@@ -11,6 +11,7 @@ import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SmasherSkillsContainer;
 import org.escaperun.game.model.entities.skills.smasher.Cleave;
 import org.escaperun.game.model.entities.statistics.StatisticContainer;
+import org.escaperun.game.model.events.Timer;
 import org.escaperun.game.model.items.TakeableItem;
 import org.escaperun.game.model.items.equipment.EquipableItem;
 import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
@@ -30,6 +31,7 @@ import java.awt.*;
 public class Smasher extends Avatar {
 
     private SmasherSkillsContainer smasherSkills;
+    private Timer attackTimer = new Timer(0);
 
     public Smasher(Position initialPosition) {
         super(new Decal('@', Color.BLACK, Color.RED), initialPosition);
@@ -68,6 +70,11 @@ public class Smasher extends Avatar {
 
     private void helperLoad(Element node) {
         super.load(node);
+    }
+
+    public void tick() {
+        super.tick();
+        attackTimer.tick();
     }
 
     @Override
@@ -116,11 +123,45 @@ public class Smasher extends Avatar {
     }
 
     public ActiveSkill attemptSkillCast1(Logger log) {
-        return skill1();
+        EquipableItem weap = this.getEquipment().getItemAtSlot(EquipableItem.EquipmentSlot.WEAPON.ordinal());
+        if (weap == null) {
+            //brawling
+            if (attackTimer.getTicksSince() >= 22) {
+                attackTimer.reset();
+                Cleave clv = new Cleave(0, 0, 0, this, 2, getDirection(), getCurrentPosition(), 15);
+                clv.setDecal(new Decal('#', Color.BLACK, Color.RED));
+                return clv;
+            }
+        } else if (weap instanceof OneHandedWeapon) {
+
+            if (attackTimer.getTicksSince() >= 30) {
+                attackTimer.reset();
+                Cleave clv = new Cleave(0, 0, 0, this, 2, getDirection(), getCurrentPosition(), 15);
+                clv.setDecal(new Decal('#', Color.BLACK, Color.RED));
+                return clv;
+            }
+        } else if (weap instanceof TwoHandedWeapon) {
+
+            if (attackTimer.getTicksSince() >= 47) {
+                attackTimer.reset();
+                Cleave clv = new Cleave(0, 0, 0, this, 2, getDirection(), getCurrentPosition(), 15);
+                clv.setDecal(new Decal('-', Color.BLACK, Color.RED));
+                return clv;
+            }
+        } else {
+            if (attackTimer.getTicksSince() >= 22) {
+                attackTimer.reset();
+                Cleave clv = new Cleave(0, 0, 0, this, 2, getDirection(), getCurrentPosition(), 15);
+                clv.setDecal(new Decal('=', Color.BLACK, Color.RED));
+                return clv;
+            }
+        }
+        //return skill1();
+        return null;
     }
 
     public ActiveSkill skill1(){
-        return new Cleave(0, 0, 0, this, 3, getDirection(), getCurrentPosition(), 2);
+        return new Cleave(0, 0, 0, this, 2, getDirection(), getCurrentPosition(), 4);
     }
 
     public ActiveSkill attemptSkillCast2(Logger log) {

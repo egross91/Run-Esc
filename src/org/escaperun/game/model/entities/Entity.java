@@ -84,6 +84,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor, Sav
 
     @Override
     public void tick() {
+        if (movementHandler == null) return;
         movementHandler.tick();
         restorationHandler.tick();
     }

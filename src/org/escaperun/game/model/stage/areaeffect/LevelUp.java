@@ -19,6 +19,10 @@ public class LevelUp extends StatisticAlteringAreaEffect{
         e.getStatContainer().getExperience().setBase(exp);
     }
 
+    public boolean selfDestruct() {
+        return true;
+    }
+
     @Override
     public Element save(Document dom, Element parent) {
         Element us = dom.createElement("LevelUp");

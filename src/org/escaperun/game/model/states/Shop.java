@@ -113,7 +113,7 @@ public class Shop extends GameState {
         if(moveTimer.isDone()) {
 
             int moveX = selectedX;
-            System.out.println(moveX);
+            //System.out.println(moveX);
             if(right) moveX++;
             if(left) moveX--;
             if(enter) {

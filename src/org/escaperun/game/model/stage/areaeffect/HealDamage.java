@@ -17,6 +17,10 @@ public class HealDamage extends StatisticAlteringAreaEffect{
         e.getStatContainer().getLife().healDamage(20);
     }
 
+    public boolean selfDestruct() {
+        return true;
+    }
+
     @Override
     public Element save(Document dom, Element parent) {
         Element us = dom.createElement("HealDamage");

@@ -17,7 +17,7 @@ public enum Sound {
     TELEPORT(System.getProperty("user.dir") + "/assets/sounds/teleport.wav", false);
 
     private Sound(String filename, boolean areaSound) {
-        try {
+        /*try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(new File(filename));
             Clip clip = AudioSystem.getClip();
             clip.open(ais);
@@ -25,14 +25,14 @@ public enum Sound {
             this.loop = areaSound;
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }*/
     }
 
     private Clip clip;
     private boolean loop;
 
     public void play() {
-        if (clip.isRunning() && loop) return;
+        /*if (clip.isRunning() && loop) return;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -48,11 +48,11 @@ public enum Sound {
                     clip.start();
                 }
             }
-        }).start();
+        }).start();*/
     }
 
     public void stop() {
-        if (clip == null) return;
-        clip.stop();
+        /*if (clip == null) return;
+        clip.stop();*/
     }
 }

@@ -14,7 +14,12 @@ public class TakeDamage extends StatisticAlteringAreaEffect {
 
     @Override
     public void doAction(Entity e){
+
         e.getStatContainer().getLife().takeDamage(20);
+    }
+
+    public boolean selfDestruct() {
+        return true;
     }
 
     @Override

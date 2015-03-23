@@ -35,9 +35,6 @@ public class Creation extends GameState {
                         Sound.PLAYING1.play();
 
                         Stage stage = setupStage(new Smasher(new Position(0, 0)));
-                        stage.getAvatar().visit(new OneHandedWeapon(new Decal('t', Color.BLACK, Color.BLUE), "The Annihilator", "A weapon of mass destruction fo' yo' momma."));
-                        stage.getAvatar().getInventory().add(new OneHandedWeapon(new Decal('p', Color.BLACK, Color.BLUE), "Josh Sucks", "A weapon of suckage."));
-                        stage.getAvatar().getInventory().add(new ChestItem(new Decal('c', Color.BLACK, Color.BLUE), "Josh Sucks", "A weapon of suckage."));
 
                         return new Playing(stage);
                     }

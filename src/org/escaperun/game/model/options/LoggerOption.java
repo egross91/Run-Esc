@@ -14,7 +14,7 @@ public class LoggerOption extends Option {
 
     public static LoggerOption _loggerOption = new LoggerOption();
     private static int MESSAGES_TO_SHOW = 5;
-    private static int LENGTH_TO_SHOW = 150;
+    private static int LENGTH_TO_SHOW = 250;
     private Queue<Pair> current = new LinkedList<Pair>();
     private Queue<Pair> currentR = new LinkedList<Pair>();
     private LoggerOption() {

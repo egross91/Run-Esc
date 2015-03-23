@@ -38,7 +38,7 @@ public class PrimaryStatistic<T extends Number> extends Statistic<T> {
 
     // add a delta to additive modifier
     public void addDelta(T toAdd) {
-        Double next = ((Double) additiveDelta) + ((Double) toAdd);
+        Double next = ((Double) additiveDelta) + ((Double) toAdd.doubleValue());
         if (next > ((Double) additiveDelta)) {
             next = (Double) base;
         }

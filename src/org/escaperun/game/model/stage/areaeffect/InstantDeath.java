@@ -17,6 +17,10 @@ public class InstantDeath extends StatisticAlteringAreaEffect{
         e.getStatContainer().getLife().takeDamage(99999999);
     }
 
+    public boolean selfDestruct() {
+        return true;
+    }
+
     @Override
     public Element save(Document dom, Element parent) {
         Element us = dom.createElement("InstantDeath");

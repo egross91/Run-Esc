@@ -32,6 +32,8 @@ public abstract class AreaEffect implements Renderable, Touchable, Actionable, S
         return us;
     }
 
+    public abstract boolean selfDestruct();
+
     @Override
     public AreaEffect load(Element node) {
         decal = Decal.BLANK.load(node);

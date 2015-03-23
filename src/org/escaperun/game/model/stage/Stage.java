@@ -24,6 +24,7 @@ import org.escaperun.game.model.stage.areaeffect.*;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
 import org.escaperun.game.model.stage.tile.terrain.GrassTerrain;
+import org.escaperun.game.model.stage.tile.terrain.Terrain;
 import org.escaperun.game.serialization.Saveable;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.GameWindow;
@@ -32,13 +33,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
 
-    public static final int DEFAULT_ROWS = 50;
-    public static final int DEFAULT_COLUMNS = 85;
+    public static final int DEFAULT_ROWS = 200;//50
+    public static final int DEFAULT_COLUMNS = 250;//85
 
     // from here on out Tiles will refer to things that are
     // local to a specific Position on the grid.
@@ -182,6 +184,34 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         return ret;
     }
 
+    public void setTerrainAt(Terrain t) {
+        grid[avatar.getCurrentPosition().x][avatar.getCurrentPosition().y].setTerrain(t);
+    }
+
+    public void addTeleport() {
+        areaEffects.add(new TeleportationAreaEffect(new Decal('?', Color.BLACK, Color.BLUE.brighter().brighter()), avatar.getCurrentPosition(), new Position(0,0)));
+    }
+
+    public void addLevelUp() {
+        areaEffects.add(new LevelUp(new Decal('*', Color.BLACK, Color.ORANGE.darker()), avatar.getCurrentPosition()));
+    }
+
+    public void addRanged() {
+        entities.add(new RangedNPC(new Decal('M', Color.BLACK, Color.GREEN.darker().darker()), avatar.getCurrentPosition(), 8));
+    }
+
+    public void addMelee() {
+        entities.add(new MeleeNPC(new Decal('M', Color.BLACK, Color.RED.darker().darker()), avatar.getCurrentPosition(), 8));
+    }
+
+    public void addShop() {
+        entities.add(new ShopkeepingNPC(new Decal('$', Color.BLACK, Color.WHITE), avatar.getCurrentPosition(), 3));
+    }
+
+    public void addCitizen() {
+        entities.add(new CitizenNPC(new Decal('C', Color.BLACK, Color.WHITE), avatar.getCurrentPosition(), 3));
+    }
+
     public Stage() {
         this(DEFAULT_ROWS, DEFAULT_COLUMNS);
     }
@@ -208,18 +238,9 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
-                grid[i][j] = new Tile(new GrassTerrain());
+                grid[i][j] = new Tile(new BlankTerrain());
             }
         }
-//
-//        MeleeNPC anpc = new MeleeNPC(new Decal('U', Color.LIGHT_GRAY, Color.CYAN), new Position(30,30), 1);
-//        anpc.setMovementHandler(new MovementHandler(this, anpc, 8));
-//        MeleeAI ai = new MeleeAI(this, anpc);
-//        addAI(ai);
-        //entities.add(anpc);
-
-       // areaEffects.add(new TeleportationAreaEffect(new Decal('?', Color.BLACK, Color.RED.brighter().brighter()),new Position(5,5), new Position(0,0)));
-       // grid[10][10].placeItem(new )
     }
 
     public ItemContainer getAvatarInventory() {return avatar.getInventory();}
@@ -232,10 +253,15 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         for (Entity e : entities) {
             e.tick();
         }
-
+        ArrayList<AreaEffect> keep = new ArrayList<AreaEffect>();
         for(AreaEffect effect : areaEffects)
-            if(avatar.getCurrentPosition().equals(effect.getPosition()))
+            if(avatar.getCurrentPosition().equals(effect.getPosition())) {
                 effect.onTouch(avatar);
+                if (!effect.selfDestruct()) keep.add(effect);
+            } else
+                keep.add(effect);
+
+        this.areaEffects = keep;
 
         for (int r = 0; r < activeSkills.size(); r++) {
             if (activeSkills.get(r) == null) continue;
@@ -283,6 +309,20 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         }
     }
 
+    public boolean nextToShop() {
+        Direction dir = avatar.getDirection();
+        Position avatarpos = avatar.getCurrentPosition();
+        Position pos = new Position(avatarpos.x+dir.getDelta().x, avatarpos.y+dir.getDelta().y);
+        for(Entity entity : entities){
+            if(entity.getCurrentPosition().equals(pos) && (entity instanceof ShopkeepingNPC)) {
+                Logger.getInstance().pushMessage("You talk to the shopkeeper!");
+                return true;
+            }
+        }
+        Logger.getInstance().pushMessage("There is no shopkeeper around :(");
+        return false;
+    }
+
     public boolean checkCollision(Projectile p){
         //Check avatar
         for(int q = 0; q < p.getAffectedArea().size(); q++) {
@@ -301,7 +341,8 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
                 if (entity.getCurrentPosition().x == p.getAffectedArea().get(q).x && entity.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
                     if (p.getOwner() != entity) {
-                        if (!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e), p.getMoveAmount())))) {
+                        double val = p.generateSuccess(p.getOwner(), entities.get(e), p.getMoveAmount());
+                        if (!(entities.get(e).takeDamage(val))) {
                             this.getAvatar().gainXP(entities.get(e).getXPworth());
                         }
                     }
@@ -377,7 +418,9 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             Position pos = effect.getPosition();
             int drawX = pos.x+midX-avatar.getCurrentPosition().x;
             int drawY = pos.y+midY-avatar.getCurrentPosition().y;
-            window[drawX][drawY] = effect.getRenderable()[0][0];
+            if (drawX >= 0 && drawY >= 0 && drawX < window.length && drawY < window[0].length) {
+                window[drawX][drawY] = effect.getRenderable()[0][0];
+            }
         }
 
         //draw avatar
@@ -404,7 +447,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         if (tile == null) {
             return false;
         }
-        return tile.isCollidable();
+        return tile.isCollidable() && true;
     }
 
     public void addActiveSkill(ActiveSkill activeSkill){
