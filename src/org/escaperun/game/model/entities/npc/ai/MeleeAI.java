@@ -42,8 +42,7 @@ public class MeleeAI  extends AggressiveAI{
             Position avatarPosition = stage.getAvatarPosition();
             Position currentPosition = npc.getCurrentPosition();
             Direction dir = Direction.fromDelta(avatarPosition.x - currentPosition.x, avatarPosition.y - currentPosition.y);
-            stage.addSkill( new Bane(1000000, 10000000, 0, npc, 10, dir, npc.getCurrentPosition(), 5));
-            System.out.println("I am attacking.");  //DEBUG
+            stage.addSkill( new Bane(1, 0, 0, npc, 10, dir, npc.getCurrentPosition(), 5));
         }
     }
 

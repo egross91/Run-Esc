@@ -24,6 +24,11 @@ public abstract class AggressiveAI extends AI {
      */
     @Override
     public void tick(){
+        if (npc.isDead()) { //We could have a listener in entity instead.
+            onDeath();
+            return;
+        }
+
         tickTimers();
         Position avatarPosition = stage.getAvatarPosition();
         Position initialPosition = npc.getInitialPosition();

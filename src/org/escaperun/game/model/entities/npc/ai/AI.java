@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * Associate the stage and the NPC, giving NPC stage behavior.
  */
-public abstract class AI implements Tickable, IStatSubscriber{
+public abstract class AI implements Tickable {
     protected static final Direction[] possibleDeltas = Direction.values();
     protected final Random random = new Random();
     protected final Stage stage;
@@ -74,11 +74,6 @@ public abstract class AI implements Tickable, IStatSubscriber{
         Direction dir = Direction.fromDelta(dx, dy);
         if (dir != null)
             npc.move(dir);
-    }
-
-    @Override
-    public void notifyChange() {
-        onDeath();
     }
 
     protected void onDeath() {
