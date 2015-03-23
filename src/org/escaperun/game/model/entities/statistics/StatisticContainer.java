@@ -258,4 +258,8 @@ public class StatisticContainer implements Renderable, Saveable {
     public void unsubcribeToLivesLeft(IStatSubscriber subscriber) {
         livesLeft.unsubscribe(subscriber);
     }
+
+    public void subscribeToLife(IStatSubscriber subscriber) {
+        life.subscribe(subscriber);
+    }
 }

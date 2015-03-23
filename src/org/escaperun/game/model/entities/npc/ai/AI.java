@@ -14,19 +14,24 @@ import java.util.Random;
 /**
  * Associate the stage and the NPC, giving NPC stage behavior.
  */
-public abstract class AI implements Tickable {
+public abstract class AI implements Tickable, IStatSubscriber {
     protected static final Direction[] possibleDeltas = Direction.values();
     protected final Random random = new Random();
     protected final Stage stage;
     protected final NPC npc;
     protected final int maxSightDistance;
+    protected int npcHealth;
+    protected boolean isAttacked;
+    protected boolean hasSeenAvatar;
     //TODO: add dialogue class?
 
     public AI(Stage stage, NPC npc) {
         this.stage = stage;
         this.npc = npc;
         stage.addAI(this);
+        npcHealth = npc.getStatContainer().getLife().getCurrent();
         maxSightDistance = 35;  //Picked arbitrarily.
+        isAttacked = false;
     }
 
     public NPC getNpc() {
@@ -35,6 +40,18 @@ public abstract class AI implements Tickable {
 
     public void talk() {
         npc.talk();
+    }
+
+    @Override
+    public void notifyChange() {
+        //Do not check for death here. Causes problems with projectile collusion checking.
+
+        //Check if life
+        int health = npc.getStatContainer().getLife().getCurrent();
+        if (health < npcHealth){
+            isAttacked = true;
+        }
+        npcHealth = health;
     }
 
     /** Entitiy attempt take a random direction within it's wander radius. */
@@ -82,11 +99,20 @@ public abstract class AI implements Tickable {
         Sound.CREEPDEAD.play();
     }
 
+    protected void lostTarget() {
+        hasSeenAvatar = false;
+        isAttacked = false;
+    }
+
+    protected void spottedTarget() {
+        hasSeenAvatar = true;
+    }
+
     protected void runAway() {
 
     }
 
-    protected void tickTimers() {
+    protected void tickTimers() {}
 
-    }
+
 }

@@ -12,7 +12,7 @@ public class CitizenNPC extends NonHostileNPC {
         stats.getLivesLeft().setBase(1);
         stats.getHardiness().setBase(1);
         stats.getExperience().setBase(0);
-        stats.getMovement().setBase(50);
+        stats.getMovement().setBase(500);
         setStatContainer(stats);
     }
 }

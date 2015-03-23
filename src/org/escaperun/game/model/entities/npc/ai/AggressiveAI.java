@@ -9,7 +9,6 @@ import org.escaperun.game.model.stage.Stage;
 
 /** This AI will wander around until the avatar is in sight. When avatar is in sight, attack avatar.*/
 public abstract class AggressiveAI extends AI {
-    private boolean hasSeenAvatar;
     private Timer spotAvatarTimer;
 
     public AggressiveAI(Stage stage, AdversarialNPC npc) {
@@ -37,9 +36,7 @@ public abstract class AggressiveAI extends AI {
         if (hasSeenAvatar) {
             //Check if npc is still in max sight range.
             if (distanceToAvatar > maxSightDistance) {
-                hasSeenAvatar = false;
-                Logger.getInstance().pushMessage("I don't know where that person went. I'll go back home.");
-                returnHome();
+                lostTarget();
             }
             else {
                 if (inAttackRange(distanceToAvatar)) {
@@ -57,8 +54,7 @@ public abstract class AggressiveAI extends AI {
                     hasSeenAvatar = true;
                 }
                 */
-                hasSeenAvatar = true;
-                Logger.getInstance().pushMessage("I SEE YOU.");
+                spottedTarget();
             }
             if (Position.calcuateDistance(initialPosition, currentPosition) > npc.getWanderRadius()) {
                 returnHome();

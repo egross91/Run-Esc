@@ -166,19 +166,24 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
         for(int q = 0; q < p.getAffectedArea().size(); q++) {
             if (avatar.getCurrentPosition().x == p.getAffectedArea().get(q).x && avatar.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
                 //hit
-                avatar.takeDamage(p.generateSuccess(p.getOwner(), avatar));
+                if (p.getOwner() != avatar) {
+                    avatar.takeDamage(p.generateSuccess(p.getOwner(), avatar));
+                }
                 return true;
             }
         }
 
         //Check npc
         for(int e = 0; e < entities.size(); e++){
+            Entity entity = entities.get(e);
             for(int q = 0; q < p.getAffectedArea().size(); q++) {
-                if (entities.get(e).getCurrentPosition().x == p.getAffectedArea().get(q).x && entities.get(e).getCurrentPosition().y == p.getAffectedArea().get(q).y) {
-                    if(!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e))))){
-                        this.getAvatar().gainXP(entities.get(e).getXPworth());
-                        //entities.remove(e);
-                        //e--;
+                if (entity.getCurrentPosition().x == p.getAffectedArea().get(q).x && entity.getCurrentPosition().y == p.getAffectedArea().get(q).y) {
+                    if (p.getOwner() != entity) {
+                        if (!(entities.get(e).takeDamage(p.generateSuccess(p.getOwner(), entities.get(e))))) {
+                            this.getAvatar().gainXP(entities.get(e).getXPworth());
+                            //entities.remove(e);
+                            //e--;
+                        }
                     }
                     return true;
                 }
