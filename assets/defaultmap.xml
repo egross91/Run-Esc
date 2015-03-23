@@ -120001,33 +120001,10 @@
 <Tile X="199" Y="199">
 <Terrain Type="Blank"/>
 </Tile>
-<Smasher>
-<Entity CurrentX="1" CurrentY="1" Direction="WEST" InitialX="0" InitialY="0">
-<Decal Background="-16777216" Char="@" Foreground="-65536"/>
-<Statistics>
-<Strength AdditiveDelta="0.0" Base="10.0" MultiplicativeDelta="1.0"/>
-<Agility AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
-<Hardiness AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
-<Intellect AdditiveDelta="0.0" Base="3.0" MultiplicativeDelta="1.0"/>
-<Movement AdditiveDelta="0.0" Base="1000.0" MultiplicativeDelta="1.0"/>
-<Experience AdditiveDelta="0.0" Base="0.0" MaxExp="0" MultiplicativeDelta="1.0"/>
-<LEVEL/>
-<Life Base="15.0"/>
-<LivesLeft AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
-<Mana Base="15.0"/>
-<OffRating WeaponDamage="0.0"/>
-<DefRating/>
-<ArmorRating ArmorValue="0.0"/>
-</Statistics>
-<EquipmentContainer/>
-<ItemContainer/>
-</Entity>
-<SmasherSkillsContainer BrawlingLvl="1" OhaLvl="1" ThaLvl="1"/>
-</Smasher>
 <MeleeNPC>
 <AdversarialNPC MaxAttackRange="1">
 <NPC WanderRadius="8" XPWorth="10">
-<Entity CurrentX="3" CurrentY="84" Direction="NORTHWEST" InitialX="5" InitialY="79">
+<Entity CurrentX="5" CurrentY="75" Direction="EAST" InitialX="5" InitialY="79">
 <Decal Background="-16777216" Char="M" Foreground="-8650752"/>
 <Statistics>
 <Strength AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
@@ -120053,7 +120030,7 @@
 <MeleeNPC>
 <AdversarialNPC MaxAttackRange="1">
 <NPC WanderRadius="8" XPWorth="10">
-<Entity CurrentX="2" CurrentY="80" Direction="SOUTH" InitialX="5" InitialY="79">
+<Entity CurrentX="7" CurrentY="85" Direction="EAST" InitialX="5" InitialY="79">
 <Decal Background="-16777216" Char="M" Foreground="-8650752"/>
 <Statistics>
 <Strength AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
@@ -120079,7 +120056,7 @@
 <RangedNPC>
 <AdversarialNPC MaxAttackRange="20">
 <NPC WanderRadius="8" XPWorth="10">
-<Entity CurrentX="12" CurrentY="74" Direction="WEST" InitialX="7" InitialY="79">
+<Entity CurrentX="12" CurrentY="79" Direction="SOUTH" InitialX="7" InitialY="79">
 <Decal Background="-16777216" Char="M" Foreground="-16745472"/>
 <Statistics>
 <Strength AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
@@ -120102,30 +120079,6 @@
 </NPC>
 </AdversarialNPC>
 </RangedNPC>
-<ShopkeepingNPC>
-<NPC WanderRadius="3" XPWorth="10">
-<Entity CurrentX="1" CurrentY="9" Direction="EAST" InitialX="1" InitialY="9">
-<Decal Background="-16777216" Char="$" Foreground="-1"/>
-<Statistics>
-<Strength AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
-<Agility AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
-<Hardiness AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
-<Intellect AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
-<Movement AdditiveDelta="0.0" Base="1000.0" MultiplicativeDelta="1.0"/>
-<Experience AdditiveDelta="0.0" Base="0.0" MaxExp="0" MultiplicativeDelta="1.0"/>
-<LEVEL/>
-<Life Base="15.0"/>
-<LivesLeft AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
-<Mana Base="25.0"/>
-<OffRating WeaponDamage="0.0"/>
-<DefRating/>
-<ArmorRating ArmorValue="0.0"/>
-</Statistics>
-<EquipmentContainer/>
-<ItemContainer/>
-</Entity>
-</NPC>
-</ShopkeepingNPC>
 <CitizenNPC>
 <NPC WanderRadius="3" XPWorth="10">
 <Entity CurrentX="11" CurrentY="6" Direction="EAST" InitialX="11" InitialY="6">
@@ -120198,6 +120151,30 @@
 </Entity>
 </NPC>
 </CitizenNPC>
+<ShopkeepingNPC>
+<NPC WanderRadius="3" XPWorth="10">
+<Entity CurrentX="1" CurrentY="9" Direction="EAST" InitialX="1" InitialY="9">
+<Decal Background="-16777216" Char="$" Foreground="-1"/>
+<Statistics>
+<Strength AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
+<Agility AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
+<Hardiness AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
+<Intellect AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
+<Movement AdditiveDelta="0.0" Base="1000.0" MultiplicativeDelta="1.0"/>
+<Experience AdditiveDelta="0.0" Base="0.0" MaxExp="0" MultiplicativeDelta="1.0"/>
+<LEVEL/>
+<Life Base="15.0"/>
+<LivesLeft AdditiveDelta="0.0" Base="5.0" MultiplicativeDelta="1.0"/>
+<Mana Base="25.0"/>
+<OffRating WeaponDamage="0.0"/>
+<DefRating/>
+<ArmorRating ArmorValue="0.0"/>
+</Statistics>
+<EquipmentContainer/>
+<ItemContainer/>
+</Entity>
+</NPC>
+</ShopkeepingNPC>
 <TeleportationAreaEffect TX="12" TY="81">
 <AreaEffect X="8" Y="20">
 <Decal Background="-16777216" Char="?" Foreground="-16776961"/>
@@ -120218,5 +120195,80 @@
 <Decal Background="-16777216" Char="?" Foreground="-16776961"/>
 </AreaEffect>
 </TeleportationAreaEffect>
+<LevelUp>
+<AreaEffect X="45" Y="83">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="45" Y="84">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="47" Y="86">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="48" Y="87">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="49" Y="88">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="50" Y="88">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="51" Y="86">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="51" Y="85">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="50" Y="84">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="48" Y="84">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="42" Y="92">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="43" Y="96">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="43" Y="98">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="40" Y="89">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
+<LevelUp>
+<AreaEffect X="40" Y="100">
+<Decal Background="-16777216" Char="*" Foreground="-5075968"/>
+</AreaEffect>
+</LevelUp>
 </Stage>
 </Root>

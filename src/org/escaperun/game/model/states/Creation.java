@@ -34,13 +34,13 @@ public class Creation extends GameState {
                     public GameState getNextState() {
                         Sound.PLAYING1.play();
 
-                        Stage stage = setupStage(new Smasher(new Position(0, 0)));
+                        Stage stage = setupStage(new Smasher(new Position(1, 1)));
 
                         return new Playing(stage);
                     }
                 },
                 new SelectableOption("SUMMONER") {
-                    Stage stage = setupStage(new Summoner(new Position(0, 0)));
+                    Stage stage = setupStage(new Summoner(new Position(1, 1)));
 
                     public GameState getNextState() {
                         Sound.PLAYING1.play();
@@ -48,7 +48,7 @@ public class Creation extends GameState {
                     }
                 },
                 new SelectableOption("SNEAK") {
-                    Stage stage = setupStage(new Sneak(new Position(0, 0)));
+                    Stage stage = setupStage(new Sneak(new Position(1, 1)));
 
                     public GameState getNextState() {
                         Sound.PLAYING1.play();
@@ -74,10 +74,12 @@ public class Creation extends GameState {
     }
 
     private Stage setupStage(Avatar avatar) {
-        Stage stage = new Stage();
-        avatar.setMovementHandler(new MovementHandler(stage, avatar,8));
-        stage.setAvatar(avatar);
-
+        try {
+            Stage load = SaveManager.load(System.getProperty("user.dir") + "/assets/defaultmap.xml", new Stage());
+            avatar.setMovementHandler(new MovementHandler(load, avatar, 8));
+            load.setAvatar(avatar);
+            return load;
+        } catch (Exception ex) {}
         //DEBUG //TODO: REMOVE DEBUG CODE.
         /*MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(30,30),5);
         npc.setMovementHandler(new MovementHandler(stage, npc, 8));
@@ -87,6 +89,6 @@ public class Creation extends GameState {
         npc.setMovementHandler(new MovementHandler(stage, npc, 8));
         RangedAI ai = new RangedAI(stage, npc);
 */
-        return stage;
+        return null;
     }
 }
