@@ -347,7 +347,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             this.activeSkills.add(skillCast);
         }
     }
-/*
+
     public void skillCast2(){
         ActiveSkill skillCast = avatar.attemptSkillCast2(Logger.getInstance());
         if(skillCast != null) { //casting the spell went OK
@@ -370,7 +370,7 @@ public class Stage implements Renderable, Tickable, Saveable, IStatSubscriber {
             Sound.CASTSPELL.play();
             this.activeSkills.add(skillCast);
         }
-    }*/
+    }
 
     public void moveAvatar(Direction dir) {
         //this code is to allow 'sliding' on walls

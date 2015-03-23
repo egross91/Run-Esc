@@ -4,7 +4,7 @@ import org.escaperun.game.controller.Logger;
 import org.escaperun.game.controller.Sound;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.*;
-import org.escaperun.game.model.entities.skills.summoner.Bane;
+import org.escaperun.game.model.entities.skills.summoner.*;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.items.TakeableItem;
@@ -111,7 +111,7 @@ public class Summoner extends Avatar {
             this.getStatContainer().getMana().reduceMana(this.skill1().getManaCost());
             return this.skill1();
         }else
-            log.pushMessage("You don't have enough mana!");
+            log.pushMessage("You don't have enough mana for Bane!");
         return null;
     }
 
@@ -119,9 +119,11 @@ public class Summoner extends Avatar {
         int temp_manaRemaining = this.getManaRemaining() - this.skill2().getManaCost();
         if(temp_manaRemaining >= 0) { //casting the spell is OK
             this.getStatContainer().getMana().reduceMana(this.skill2().getManaCost());
+            Boon boon = (Boon) skill2();
+            log.pushMessage("Boon healed for " + boon.getHealAmount() + "!");
             return this.skill2();
         }else
-            log.pushMessage("You don't have enough mana!");
+            log.pushMessage("You don't have enough mana for Boon!");
         return null;
     }
 
@@ -131,35 +133,24 @@ public class Summoner extends Avatar {
             this.getStatContainer().getMana().reduceMana(this.skill3().getManaCost());
             return this.skill3();
         }else
-            log.pushMessage("You don't have enough mana!");
+            log.pushMessage("You don't have enough mana for Enchant!");
         return null;
     }
 
-    public ActiveSkill attemptSkillCast4(Logger log) { //a spell will only be cast if the avatar has enough mana
-        int temp_manaRemaining = this.getManaRemaining() - this.skill4().getManaCost();
-        if(temp_manaRemaining >= 0) { //casting the spell is OK
-            this.getStatContainer().getMana().reduceMana(this.skill4().getManaCost());
-            return this.skill4();
-        }else
-            log.pushMessage("You don't have enough mana!");
-        return null;
-    }
+
 
     private ActiveSkill skill1(){
         return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
     }
 
     private ActiveSkill skill2(){
-        return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
+        return new Boon(this);
     }
 
     private ActiveSkill skill3(){
-        return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
+        return new Enchant();
     }
 
-    private ActiveSkill skill4(){
-        return new Bane(16 ,0,0,this,10,this.getDirection(),this.getCurrentPosition(), 5);
-    }
 
 
     @Override

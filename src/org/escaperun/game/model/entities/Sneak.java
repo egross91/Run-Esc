@@ -116,6 +116,13 @@ public class Sneak extends Avatar {
         return new Arrow(15,0,0,this,20,this.getDirection(),this.getCurrentPosition(), 3);
     }
 
+    public ActiveSkill attemptSkillCast2(Logger log) {
+        return null;
+    }
+    public ActiveSkill attemptSkillCast3(Logger log) {
+        return null;
+    }
+
     @Override
     public SneakSkillsContainer getSkillsContainer(){
 

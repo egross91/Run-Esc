@@ -126,6 +126,13 @@ public class Smasher extends Avatar {
         return new Cleave(0, 0, 0, this, 3, getDirection(), getCurrentPosition(), 2);
     }
 
+    public ActiveSkill attemptSkillCast2(Logger log) {
+        return null;
+    }
+    public ActiveSkill attemptSkillCast3(Logger log) {
+        return null;
+    }
+
     @Override
     public SmasherSkillsContainer getSkillsContainer() {
         return smasherSkills;

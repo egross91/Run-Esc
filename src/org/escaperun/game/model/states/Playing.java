@@ -54,7 +54,7 @@ public class Playing extends GameState {
             stage.skillCast1();
         }
 
-       /* boolean hotKey2 = pressed[bindings.getBinding(KeyType.HOTKEY2)];
+        boolean hotKey2 = pressed[bindings.getBinding(KeyType.HOTKEY2)];
         if(hotKey2) {
             pressed[bindings.getBinding(KeyType.HOTKEY2)] = false;
             stage.skillCast2();
@@ -70,7 +70,7 @@ public class Playing extends GameState {
         if(hotKey4) {
             pressed[bindings.getBinding(KeyType.HOTKEY4)] = false;
             stage.skillCast4();
-        }*/
+        }
 
         handleMovement(bindings, pressed);
         stage.tick();

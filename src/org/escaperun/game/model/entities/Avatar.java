@@ -3,6 +3,7 @@ package org.escaperun.game.model.entities;
 import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.ActiveSkill;
+import org.escaperun.game.model.entities.skills.BindWounds;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.entities.statistics.IStatSubscriber;
@@ -34,10 +35,25 @@ public abstract class Avatar extends Entity {
         return this.getStatContainer().getMana().getCurrent();
     }
 
+
+    //bind wound
+    public ActiveSkill attemptSkillCast4(Logger log) { //a spell will only be cast if the avatar has enough mana
+        int temp_manaRemaining = this.getManaRemaining() - this.skill4().getManaCost();
+        if(temp_manaRemaining >= 0) { //casting the spell is OK
+            this.getStatContainer().getMana().reduceMana(this.skill4().getManaCost());
+            return this.skill4();
+        }else
+            log.pushMessage("You don't have enough mana to use Bind Wounds!");
+        return null;
+    }
+
+    private ActiveSkill skill4(){
+        return new BindWounds();
+    }
+
     public abstract ActiveSkill attemptSkillCast1(Logger log);
-   /* public abstract ActiveSkill attemptSkillCast2(Logger log);
+    public abstract ActiveSkill attemptSkillCast2(Logger log);
     public abstract ActiveSkill attemptSkillCast3(Logger log);
-    public abstract ActiveSkill attemptSkillCast4(Logger log);*/
 
     public abstract void playAttackSound();
 }
