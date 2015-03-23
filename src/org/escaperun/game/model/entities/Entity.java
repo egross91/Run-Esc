@@ -6,6 +6,7 @@ import org.escaperun.game.model.Tickable;
 import org.escaperun.game.model.entities.containers.EquipmentContainer;
 import org.escaperun.game.model.entities.containers.ItemContainer;
 import org.escaperun.game.model.entities.handlers.MovementHandler;
+import org.escaperun.game.model.entities.handlers.RestorationHandler;
 import org.escaperun.game.model.entities.skills.Skill;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
 import org.escaperun.game.model.entities.statistics.StatisticContainer;
@@ -27,6 +28,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
     private final Decal decal;
     private Direction direction;
     private MovementHandler movementHandler;
+    private RestorationHandler restorationHandler;
     private StatisticContainer statContainer;
     private SkillsContainer skillsContainer;
 
@@ -38,11 +40,14 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
         inventory = new ItemContainer<TakeableItem>();
         equipment = new EquipmentContainer<EquipableItem>();
         statContainer = new StatisticContainer();
+
+        restorationHandler = new RestorationHandler(this, 400);
     }
 
     @Override
     public void tick() {
         movementHandler.tick();
+        restorationHandler.tick();
     }
 
     public StatisticContainer getStatContainer(){
