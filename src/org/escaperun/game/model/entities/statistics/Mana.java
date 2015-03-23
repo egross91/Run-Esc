@@ -34,7 +34,10 @@ public class Mana extends DerivedStatistic<Integer> {
 
     public void restoreMana(Integer amountRestored) {
         int currentMana = getCurrent();
-        setBase(currentMana + amountRestored);
+        if((currentMana + amountRestored) > maxMana)
+            refillMana();
+        else
+            setBase(currentMana + amountRestored);
     }
 
     public void refillMana() {

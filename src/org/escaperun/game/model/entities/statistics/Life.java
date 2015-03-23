@@ -14,7 +14,7 @@ public class Life extends DerivedStatistic<Integer> {
     private Level lvl;
     private Hardiness hard;
     private Integer maxLife;
-    private Double minLife = 0.0;
+    private Integer minLife = 0;
 
     public Life(Level level, Hardiness hardiness) {
         super(0);
@@ -54,7 +54,11 @@ public class Life extends DerivedStatistic<Integer> {
         //this could be used to go over the max life.
         //to simply restore full health, use refillLife.
         int currentLife = getCurrent();
-        setBase( currentLife + damageHealed);
+
+        if ((currentLife + damageHealed) > maxLife) //don't go over max health
+            refillLife();
+        else
+            setBase(currentLife + damageHealed);
     }
 
     //probably need a code review to see if we actually want all this methods
