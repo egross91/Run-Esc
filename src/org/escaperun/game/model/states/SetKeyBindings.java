@@ -14,6 +14,8 @@ public class SetKeyBindings extends GameState {
     private Main previous;
     private Timer moveTimer = new Timer(6);
     private int selectedX = 0, selectedY = 0;
+    private KeyBindings keyBindings = new KeyBindings();
+    private boolean isSet = false;
     private boolean action = false;
     private boolean reset = false;
     public final String KEYBINDINGS = "KEY BINDINGS";
@@ -36,6 +38,11 @@ public class SetKeyBindings extends GameState {
         if (exit) {
             pressed[bindings.getBinding(KeyType.EXIT)] = false;
             return previous;
+        }
+
+        if (!isSet) {
+            this.keyBindings = bindings;
+            isSet = true;
         }
 
         handleMovement(bindings, pressed);
@@ -90,17 +97,17 @@ public class SetKeyBindings extends GameState {
     private void setKey(KeyBindings bindings, boolean[] pressed) {
         int selectedIndex = (selectedX-OPTION_TOP_MARGIN)/2;
         KeyType selected = KeyType.values()[selectedIndex];
-        resetPressed(bindings, pressed);
 
+        resetPressed(bindings, pressed);
         boolean ok = false;
         while (!ok) { // Listen for KeyEvent
             for (int i = 0; i < KeyType.values().length; ++i) {
-                KeyType key = KeyType.values()[i];
-                if (pressed[key.defaultKeycode] && isSettable(selected) && isSettable(key)) {
+                KeyType set = KeyType.values()[i];
+                if (pressed[set.defaultKeycode] && isSettable(selected) && isSettable(set)) {
 
-                    int previousKeycode = selected.defaultKeycode;
-                    bindings.setBinding(selected, key.defaultKeycode);
-                    bindings.setBinding(key, previousKeycode);
+                    int previousKeycode = bindings.getBinding(set);
+                    bindings.setBinding(selected, previousKeycode);
+                    bindings.setBinding(set, selected.defaultKeycode);
                     ok = true;
                     break;
                 }
@@ -146,7 +153,7 @@ public class SetKeyBindings extends GameState {
         for (int i = 0; i < KeyType.values().length; ++i) {
             KeyType key = KeyType.values()[i];
             String keyString = key.toString() + ": ";
-            String setting = key.getKey();
+            String setting = key.getKey(keyBindings.getBinding(key));
 
             for (int j = 0; j < keyString.length(); ++j) {
                 window[startRow][startCol+j] = new Decal(keyString.charAt(j), Color.BLACK, Color.WHITE);
