@@ -17,7 +17,7 @@ public class KeyBindings implements Saveable {
         }
     }
 
-    public int getBinding(KeyType ke) {
+    public Integer getBinding(KeyType ke) {
         return binding.get(ke);
     }
 

@@ -8,9 +8,8 @@ import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.Renderable;
 
 public class Game implements Renderable {
-
-    private KeyBindings keybindings;
     private GameState state;
+    private KeyBindings keybindings;
 
     public Game() {
         this.keybindings = new KeyBindings();
