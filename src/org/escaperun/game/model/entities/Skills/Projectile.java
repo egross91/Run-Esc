@@ -1,6 +1,5 @@
 package org.escaperun.game.model.entities.skills;
 
-import javafx.geometry.Pos;
 import org.escaperun.game.model.Direction;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.events.Timer;
@@ -39,8 +38,12 @@ public abstract class Projectile extends ActiveSkill {
 
     // check for when we need negative values due to orientation of system
     private void setSlope(Direction dir){
-        this.slopeX = dir.getDelta().x;
-        this.slopeY = dir.getDelta().y;
+        try {
+            this.slopeX = dir.getDelta().x;
+            this.slopeY = dir.getDelta().y;
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

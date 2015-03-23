@@ -24,12 +24,25 @@ public class LevelUp extends GameState {
     private Timer moveTimer = new Timer(8);
     private Playing previousState;
     private Decal[][] window;
-    private int skillPointsLeft = 3;
+    private int skillPointsLeft;
     private int selectedY = OFFSET;
+    private int[] skillValues;
+    private boolean isSet = false;
+    private static int previous = 0;
+    private static int current = 0;
 
     public LevelUp(Playing previousState, Stage stage){
         this.previousState = previousState;
         this.skillsContainer = stage.getAvatarSkillsContainer();
+        current = stage.getAvatar().getStatContainer().getLevel().getCurrent();
+        if (!isSet) {
+            skillValues = new int[skillsContainer.getContainerSize()];
+            for (int i = 0; i < skillsContainer.getContainerSize(); ++i) {
+                skillValues[i] = 1;
+            }
+            skillPointsLeft = (current-previous)*3;
+            isSet = true;
+        }
     }
 
     @Override
@@ -37,6 +50,7 @@ public class LevelUp extends GameState {
         LoggerOption.getInstance().update(null, null);
         boolean levelUp = pressed[bindings.getBinding(KeyType.LEVEL_UP)];
         if(levelUp){
+            previous = current;
             pressed[bindings.getBinding(KeyType.LEVEL_UP)] = false;
             return previousState;
         }
@@ -51,10 +65,11 @@ public class LevelUp extends GameState {
 
         moveTimer.tick();
         if(moveTimer.isDone()) {
-
             int moveY = selectedY;
             if(up && moveY > OFFSET) moveY--;
             if(down && moveY < skillsContainer.getContainerSize() + OFFSET) moveY++;
+
+            moveY = clamp(moveY, OFFSET, skillsContainer.getContainerSize()-1+OFFSET);
             if (enter && skillPointsLeft > 0) {
                 skillPointsLeft--;
                 skillsContainer.getSkillsArrayList().get(moveY - OFFSET).incrementSkillLevel();
@@ -88,11 +103,23 @@ public class LevelUp extends GameState {
     }
 
     private void renderSkillLevel(int row, int skillLevel){
+        String val = String.valueOf(skillLevel);
         if(isSelectedSkill(row)) {
-            window[row][SKILL_COLUMN] = new Decal(String.valueOf(skillLevel).charAt(0), Color.BLACK, Color.RED);
+            for (int i = 0; i < val.length(); ++i) {
+                window[row][SKILL_COLUMN+i] = new Decal(val.charAt(i), Color.BLACK, Color.RED);
+            }
+
+            Skill toUpdate = skillsContainer.getSkillsArrayList().get(row-OFFSET);
+            int currentSkillLevel = toUpdate.getSkillLevel();
+            for (int i = currentSkillLevel; i < skillLevel; ++i) {
+                toUpdate.incrementSkillLevel();
+            }
+            skillsContainer.getSkillsArrayList().set(row-OFFSET, toUpdate);
         }
         else{
-            window[row][SKILL_COLUMN] = new Decal(String.valueOf(skillLevel).charAt(0), Color.BLACK, Color.WHITE);
+            for (int i = 0; i < val.length(); ++i) {
+                window[row][SKILL_COLUMN+i] = new Decal(val.charAt(i), Color.BLACK, Color.WHITE);
+            }
         }
     }
 
@@ -101,5 +128,12 @@ public class LevelUp extends GameState {
         for(int i = 0; i < message.length(); i++){
             window[row][i + displayIndex] = new Decal(message.charAt(i), Color.BLACK, Color.WHITE);
         }
+    }
+
+    private int clamp(int coord, int lo, int hi) {
+        if (coord < lo) return lo;
+        if (coord > hi) return hi;
+
+        return coord;
     }
 }
