@@ -24,26 +24,20 @@ public class MovementHandler implements Tickable {
 
     public void move(Direction dir) {
 
-        int move = (int)(((double)entity.getStatContainer().getMovement().getCurrent())/1000.0);
-        if (move*moveTimer.getTicksSince() < moveTimer.getTicksTo()) return;
+        double move = ((((double)entity.getStatContainer().getMovement().getCurrent())/1000.0)*moveTimer.getTicksSince());
+        if (move < moveTimer.getTicksTo()) return;
         moveTimer.reset();
 
-
         entity.setDirection(dir);
-        Position currentPosition = entity.getCurrentPosition();
-        int deltaX = 0;
-        int deltaY = 0;
 
-
-        if (stage.isMoveable(new Position(currentPosition.x+dir.getDelta().x, currentPosition.y+dir.getDelta().y))) {
-            if (stage.isMoveable(new Position(currentPosition.x + dir.getDelta().x, currentPosition.y))) {
-                deltaX = dir.getDelta().x;
-            }
-            if (stage.isMoveable(new Position(currentPosition.x, currentPosition.y + dir.getDelta().y))) {
-                deltaY = dir.getDelta().y;
-            }
+        Position curPos = entity.getCurrentPosition();
+        if (stage.isMoveable(new Position(curPos.x+dir.getDelta().x, curPos.y))) {
+            entity.setPosition(new Position(curPos.x+dir.getDelta().x, curPos.y));
         }
 
-        entity.setPosition(new Position(currentPosition.x+deltaX, currentPosition.y+deltaY));
+        curPos = entity.getCurrentPosition();
+        if (stage.isMoveable(new Position(curPos.x, curPos.y+dir.getDelta().y))) {
+            entity.setPosition(new Position(curPos.x, curPos.y+dir.getDelta().y));
+        }
     }
 }

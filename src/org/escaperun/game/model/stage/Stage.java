@@ -12,16 +12,7 @@ import org.escaperun.game.model.entities.npc.NPC;
 import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
 import org.escaperun.game.model.entities.npc.ai.AI;
 import org.escaperun.game.model.entities.npc.nonhostile.NonHostileNPC;
-import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.Projectile;
-import org.escaperun.game.model.entities.skills.Skill;
-import org.escaperun.game.model.items.equipment.weapons.smasher.FistWeapon;
-import org.escaperun.game.model.items.equipment.weapons.smasher.OneHandedWeapon;
-import org.escaperun.game.model.items.equipment.weapons.smasher.TwoHandedWeapon;
-import org.escaperun.game.model.items.equipment.weapons.sneak.BoomstickWeapon;
-import org.escaperun.game.model.items.equipment.weapons.sneak.BowWeapon;
-import org.escaperun.game.model.items.equipment.weapons.sneak.ThrowingKnivesWeapon;
-import org.escaperun.game.model.items.equipment.weapons.summoner.StaffWeapon;
 import org.escaperun.game.model.stage.areaeffect.AreaEffect;
 import org.escaperun.game.model.stage.tile.Tile;
 import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
@@ -59,8 +50,6 @@ public class Stage implements Renderable, Tickable, Saveable {
     private ArrayList<AreaEffect> areaEffects;
     //Skill Test
     private ArrayList<Projectile> projectiles;
-
-
 
     @Override
     public Element save(Document dom, Element parent) {
@@ -121,7 +110,6 @@ public class Stage implements Renderable, Tickable, Saveable {
         projectiles = new ArrayList<Projectile>();
         //AoE test
         areaEffects = new ArrayList<AreaEffect>();
-
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
@@ -275,6 +263,9 @@ public class Stage implements Renderable, Tickable, Saveable {
 
         //Check tile collision
         Tile tile = grid[pos.x][pos.y];
+        if (tile == null) {
+            return false;
+        }
         return tile.isCollidable();
     }
 

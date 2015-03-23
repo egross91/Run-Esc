@@ -77,7 +77,9 @@ public class Creation extends GameState {
         Stage stage = new Stage();
         try {
             Stage test = SaveManager.load(System.getProperty("user.dir") + "/profiles/teststage.xml", new Stage());
-            stage = test;
+            if (test != null) {
+                stage = test;
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

@@ -35,12 +35,17 @@ public final class Decal implements Saveable {
 
     @Override
     public Decal load(Element node) {
-
-        Element decal = (Element) node.getElementsByTagName("Decal").item(0);
+        if (node == null) return null;
+        Element decal;
+        if (node.getElementsByTagName("Decal") != null && node.getElementsByTagName("Decal").getLength() > 0)
+            decal = (Element) node.getElementsByTagName("Decal").item(0);
+        else
+            decal = node;
         if (decal == null) return null;
+
         char ch = decal.getAttribute("Char").charAt(0);
         int background = Integer.parseInt(decal.getAttribute("Background"));
-        int foreground = Integer.parseInt(decal.getAttribute("Background"));
+        int foreground = Integer.parseInt(decal.getAttribute("Foreground"));
 
         return new Decal(ch, new Color(background), new Color(foreground));
     }

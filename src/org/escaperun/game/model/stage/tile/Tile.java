@@ -10,6 +10,8 @@ import org.escaperun.game.view.Renderable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.awt.*;
+
 public class Tile implements Renderable, Collidable, Saveable {
 
     // terrain is *NEVER* null
@@ -64,7 +66,9 @@ public class Tile implements Renderable, Collidable, Saveable {
         parent.appendChild(tile);
 
         terrain.save(dom, tile);
-        //TODO: Item saving
+        if (item != null) {
+            item.save(dom, tile);
+        }
         return tile;
     }
 
@@ -73,13 +77,26 @@ public class Tile implements Renderable, Collidable, Saveable {
         if (node == null) return null;
         Element tile;
         if (node.getElementsByTagName("Tile") != null && node.getElementsByTagName("Tile").getLength() > 0)
-            tile = (Element) node.getElementsByTagName("Tile");
+            tile = (Element) node.getElementsByTagName("Tile").item(0);
         else
             tile = node;
         if (tile == null) return null;
 
         Terrain loadedTerrain = new BlankTerrain().load(tile);
-        //TODO: Load item
-        return new Tile(loadedTerrain);
+        Item item = null;
+        if (tile.getElementsByTagName("Item") != null && node.getElementsByTagName("Item").getLength() > 0) {
+            item = new Item(new Decal('f', Color.BLACK, Color.BLACK)) {
+
+                @Override
+                public boolean isCollidable() {
+                    return false;
+                }
+            }.load(tile);
+        }
+        Tile res = new Tile(loadedTerrain);
+        if (item != null) {
+            res.placeItem(item);
+        }
+        return res;
     }
 }
