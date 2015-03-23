@@ -23,10 +23,9 @@ public class MountainTerrain extends Terrain {
     }
 
     @Override
-    public Element save(Document dom) {
-        Element terrainElement = super.save(dom);
-        terrainElement.setAttribute("type", getClass().toString());
-
-        return terrainElement;
+    public Element save(Document dom, Element parent) {
+        Element terrain = super.save(dom, parent);
+        terrain.setAttribute("Type", "Mountain");
+        return terrain;
     }
 }

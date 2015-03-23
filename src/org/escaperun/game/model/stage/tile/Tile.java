@@ -2,11 +2,15 @@ package org.escaperun.game.model.stage.tile;
 
 import org.escaperun.game.model.Collidable;
 import org.escaperun.game.model.items.Item;
+import org.escaperun.game.model.stage.tile.terrain.BlankTerrain;
 import org.escaperun.game.model.stage.tile.terrain.Terrain;
+import org.escaperun.game.serialization.Saveable;
 import org.escaperun.game.view.Decal;
 import org.escaperun.game.view.Renderable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-public class Tile implements Renderable, Collidable {
+public class Tile implements Renderable, Collidable, Saveable {
 
     // terrain is *NEVER* null
     private Terrain terrain;
@@ -52,5 +56,30 @@ public class Tile implements Renderable, Collidable {
         boolean collidable = terrain.isCollidable();
         if (hasItem()) collidable |= item.isCollidable();
         return collidable;
+    }
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element tile = dom.createElement("Tile");
+        parent.appendChild(tile);
+
+        terrain.save(dom, tile);
+        //TODO: Item saving
+        return tile;
+    }
+
+    @Override
+    public Tile load(Element node) {
+        if (node == null) return null;
+        Element tile;
+        if (node.getElementsByTagName("Tile") != null && node.getElementsByTagName("Tile").getLength() > 0)
+            tile = (Element) node.getElementsByTagName("Tile");
+        else
+            tile = node;
+        if (tile == null) return null;
+
+        Terrain loadedTerrain = new BlankTerrain().load(tile);
+        //TODO: Load item
+        return new Tile(loadedTerrain);
     }
 }

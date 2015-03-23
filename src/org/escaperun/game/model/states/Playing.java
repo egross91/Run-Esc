@@ -9,7 +9,7 @@ import org.escaperun.game.view.Decal;
 
 public class Playing extends GameState {
 
-    private Stage stage;
+    public Stage stage;
 
     public Playing(Stage stage) {
         this.stage = stage;

@@ -1,8 +1,12 @@
 package org.escaperun.game.view;
 
+import org.escaperun.game.serialization.Saveable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import java.awt.*;
 
-public final class Decal {
+public final class Decal implements Saveable {
 
     public final char ch;
     public final Color background;
@@ -15,5 +19,29 @@ public final class Decal {
         this.ch = ch;
         this.background = background;
         this.foreground = foreground;
+    }
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element decal = dom.createElement("Decal");
+        parent.appendChild(decal);
+
+        decal.setAttribute("Char", String.valueOf(ch + ""));
+        decal.setAttribute("Background", String.valueOf(background.getRGB()));
+        decal.setAttribute("Foreground", String.valueOf(foreground.getRGB()));
+
+        return decal;
+    }
+
+    @Override
+    public Decal load(Element node) {
+
+        Element decal = (Element) node.getElementsByTagName("Decal").item(0);
+        if (decal == null) return null;
+        char ch = decal.getAttribute("Char").charAt(0);
+        int background = Integer.parseInt(decal.getAttribute("Background"));
+        int foreground = Integer.parseInt(decal.getAttribute("Background"));
+
+        return new Decal(ch, new Color(background), new Color(foreground));
     }
 }
