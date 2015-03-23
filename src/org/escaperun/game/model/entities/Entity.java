@@ -145,7 +145,7 @@ public abstract class Entity implements Renderable, Tickable, WeaponVisitor {
 
     public abstract void talk();
 
-    public boolean isDead() {   //TODO: would be nice to get rid of this method and replace with a eventlistener.
+    public boolean isDead() {   // would be nice to get rid of this method and replace with a eventlistener.
         return (statContainer.getLivesLeft().getBase() <= 0);
     }
 

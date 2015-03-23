@@ -10,6 +10,8 @@ import org.escaperun.game.view.Decal;
 public class Observe extends Projectile360Effect {
     public Observe(int ofp, int dfp, int skillLevel, Entity skillOwner, int sd, Direction dir, Position start, int movesPerTick) {
         super(ofp, dfp, skillLevel, skillOwner, sd, dir, start, movesPerTick);
+        skillName = "Observe";
+        skillLevel = 1;
     }
 
 
@@ -21,5 +23,15 @@ public class Observe extends Projectile360Effect {
     @Override
     public double generateSuccess(Entity attacker, Entity defender) {
         return 0;
+    }
+
+    @Override
+    public String getName() {
+        return skillName;
+    }
+
+    @Override
+    public int getSkillLevel() {
+        return skillLevel;
     }
 }

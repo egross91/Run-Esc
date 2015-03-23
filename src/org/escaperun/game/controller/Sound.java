@@ -6,15 +6,21 @@ import java.io.File;
 public enum Sound {
 
     INTRO_MUSIC(System.getProperty("user.dir") + "/assets/sounds/scapemain.mid", true),
-    PLAYING(System.getProperty("user.dir") + "/assets/sounds/harmony.mid", true);
+    PLAYING(System.getProperty("user.dir") + "/assets/sounds/harmony.mid", true),
+    CASTSPELL(System.getProperty("user.dir") + "/assets/sounds/castspell.wav", false),
+    CREEPDEAD(System.getProperty("user.dir") + "/assets/sounds/creepdead.wav", false),
+    LEVELUP(System.getProperty("user.dir") + "/assets/sounds/levelup.wav", false),
+    MELEE(System.getProperty("user.dir") + "/assets/sounds/melee.wav", false),
+    PROJECTILE(System.getProperty("user.dir") + "/assets/sounds/projectile.wav", false),
+    TELEPORT(System.getProperty("user.dir") + "/assets/sounds/teleport.wav", false);
 
-    private Sound(String filename, boolean loop) {
+    private Sound(String filename, boolean areaSound) {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(new File(filename));
             Clip clip = AudioSystem.getClip();
             clip.open(ais);
             this.clip = clip;
-            this.loop = loop;
+            this.loop = areaSound;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -27,7 +33,11 @@ public enum Sound {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                clip.stop();
+                if (loop) {
+                    for (Sound s : Sound.values()) {
+                        if (s.loop) s.stop();
+                    }
+                }
                 clip.setFramePosition(0);
                 if (loop) {
                     clip.loop(Clip.LOOP_CONTINUOUSLY);

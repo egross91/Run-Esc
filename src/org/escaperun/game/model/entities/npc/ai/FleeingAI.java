@@ -16,17 +16,15 @@ public class FleeingAI extends AI{
             onDeath();
             return;
         }
-        super.tickTimers();
-        if (movementTimer.isDone()) {
-            movementTimer.reset();
-            Position avatarPosition = stage.getAvatarPosition();
-            Position currentPosition = npc.getCurrentPosition();
-            int dx = avatarPosition.x - currentPosition.x;
-            int dy = avatarPosition.y - currentPosition.y;
-            Direction dir = Direction.fromDelta(-dx, -dy);
-            if (dir != null) {
-                npc.move(dir);
-            }
+        tickTimers();
+
+        Position avatarPosition = stage.getAvatarPosition();
+        Position currentPosition = npc.getCurrentPosition();
+        int dx = avatarPosition.x - currentPosition.x;
+        int dy = avatarPosition.y - currentPosition.y;
+        Direction dir = Direction.fromDelta(-dx, -dy);
+        if (dir != null) {
+            npc.move(dir);
         }
     }
 }

@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities;
 
+import org.escaperun.game.controller.Sound;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.skills.Projectile;
 import org.escaperun.game.model.entities.skills.SkillsContainer;
@@ -31,6 +32,7 @@ public abstract class Avatar extends Entity {
         //TODO: need to implement mana restoration over time
         int temp_manaRemaining = this.getStatContainer().getMana().getCurrent() - this.skill1().getManaCost();
         if(temp_manaRemaining >= 0) { //casting the spell is OK
+            Sound.CASTSPELL.play();
             this.getStatContainer().getMana().reduceMana(this.skill1().getManaCost());
             return true;
         }else

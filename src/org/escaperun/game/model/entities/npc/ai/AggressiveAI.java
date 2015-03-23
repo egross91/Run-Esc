@@ -1,5 +1,6 @@
 package org.escaperun.game.model.entities.npc.ai;
 
+import org.escaperun.game.controller.Logger;
 import org.escaperun.game.model.Position;
 import org.escaperun.game.model.entities.npc.adversarial.AdversarialNPC;
 import org.escaperun.game.model.events.Timer;
@@ -39,6 +40,7 @@ public abstract class AggressiveAI extends AI {
             //Check if npc is still in max sight range.
             if (distanceToAvatar > chaseDistance) {
                 hasSeenAvatar = false;
+                Logger.getInstance().pushMessage("I don't know where that person went. I'll go back home.");
                 returnHome();
             }
             else {
@@ -58,6 +60,7 @@ public abstract class AggressiveAI extends AI {
                 }
                 */
                 hasSeenAvatar = true;
+                Logger.getInstance().pushMessage("I SEE YOU.");
             }
             if (Position.calcuateDistance(initialPosition, currentPosition) > npc.getWanderRadius()) {
                 returnHome();
@@ -82,7 +85,6 @@ public abstract class AggressiveAI extends AI {
 
     @Override
     protected void tickTimers() {
-        super.tickTimers();
         spotAvatarTimer.tick();
     }
 }

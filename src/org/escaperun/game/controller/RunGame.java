@@ -10,7 +10,6 @@ public class RunGame implements Runnable {
 
     public static void main(String[] args) {
         RunGame rg = new RunGame();
-        Sound.INTRO_MUSIC.play();
         rg.run();
     }
     public static final String KEY_BINDINGS_FILE = System.getProperty("user.dir") + "/profiles/keys.cfg";

@@ -7,6 +7,10 @@ import org.escaperun.game.model.entities.skills.ActiveSkill;
 import org.escaperun.game.model.entities.skills.SkillSuccess;
 
 public class Creep extends ActiveSkill {
+    public Creep(){
+        skillName = "Creep";
+        skillLevel = 1;
+    }
     @Override
     public double getGoodStat() {
         return this.getOwner().getStatContainer().getAgility().getCurrent();
@@ -15,5 +19,15 @@ public class Creep extends ActiveSkill {
     @Override
     public double generateSuccess(Entity attacker, Entity defender) {
         return 0;
+    }
+
+    @Override
+    public String getName() {
+        return skillName;
+    }
+
+    @Override
+    public int getSkillLevel() {
+        return skillLevel;
     }
 }

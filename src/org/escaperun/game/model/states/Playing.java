@@ -29,6 +29,19 @@ public class Playing extends GameState {
             pressed[bindings.getBinding(KeyType.INVENTORY)] = false;
             return new Inventory(this, stage);
         }
+
+        boolean levelUp = pressed[bindings.getBinding(KeyType.LEVEL_UP)];
+        if(levelUp){
+            pressed[bindings.getBinding(KeyType.LEVEL_UP)] = false;
+            return new LevelUp(this, stage);
+        }
+
+        boolean interact = pressed[bindings.getBinding(KeyType.INTERACT)];
+        if(interact){
+            pressed[bindings.getBinding(KeyType.INTERACT)] = false;
+            stage.interactionTriggered();
+        }
+
         handleMovement(bindings, pressed);
         stage.tick();
         return null;
@@ -76,7 +89,7 @@ public class Playing extends GameState {
 
         if(interact){
             pressed[bindings.getBinding(KeyType.INTERACT)] = false;
-            stage.getEntityextToAvatarsFacingDirection().talk();
+            stage.interactionTriggered();
         }
 
         moveX = clamp(moveX, -1, 1); // clamp so we dont move extra
@@ -103,21 +116,27 @@ public class Playing extends GameState {
         Decal[][] ret = stage.getRenderable();
         Decal[][] log = LoggerOption.getInstance().getRenderable(false);
         Decal[][] stats = stage.getAvatar().getAvatarStatistics().getStageRenderable();
+        Decal[]   level = stage.getAvatar().getAvatarStatistics().getLevelRender();
         for (int i = 0; i < log.length; i++) {
             for (int j = 0; j < log[i].length; j++) {
                 ret[i][j] = log[i][j];
             }
         }
 
+
+
         for(int i = 0; i < stats.length; i++) {
-            for(int q = 0; q < stage.DEFAULT_COLUMNS; q++)
+            for(int q = 0; q < stage.DEFAULT_COLUMNS; q++) {
+                ret[stage.DEFAULT_ROWS - 6][q] = Decal.BLANK;
                 ret[stage.DEFAULT_ROWS - (5 - i)][q] = Decal.BLANK;
+            }
             for (int j = 0; j < stats[i].length; j++) {
                 ret[stage.DEFAULT_ROWS - (5 - i)][(stage.DEFAULT_COLUMNS / 2) + j - 20] = stats[i][j];
             }
         }
+        for(int x = 0; x < level.length; x++){
+            ret[stage.DEFAULT_ROWS - (6)][(stage.DEFAULT_COLUMNS/2)+ x - (level.length/2)] = level[x];
+        }
         return ret;
-
     }
-
 }

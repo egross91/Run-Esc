@@ -26,4 +26,14 @@ public class Cleave extends ProjectileQuadrantEffect{
     public double generateSuccess(Entity attacker, Entity defender) {
         return 0;
     }
+
+    @Override
+    public String getName() {
+        return skillName;
+    }
+
+    @Override
+    public int getSkillLevel() {
+        return skillLevel;
+    }
 }

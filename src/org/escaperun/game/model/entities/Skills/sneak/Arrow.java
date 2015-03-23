@@ -27,6 +27,11 @@ public class Arrow extends Projectile {
         return 0;
     }
 
+    @Override
+    public String getName() {
+        return "Arrow";
+    }
+
     public double getGoodStat(){
         return this.getOwner().getStatContainer().getAgility().getCurrent();
     }

@@ -28,7 +28,6 @@ public class Creation extends GameState {
         options = new OptionContainer(new Option[][] {
                 {new SelectableOption("SMASHER"){
                     public GameState getNextState() {
-                        Sound.INTRO_MUSIC.stop();
                         Sound.PLAYING.play();
 
                         Stage stage = setupStage(new Smasher(new Position(0, 0)));
@@ -41,7 +40,6 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Summoner(new Position(0, 0)));
 
                     public GameState getNextState() {
-                        Sound.INTRO_MUSIC.stop();
                         Sound.PLAYING.play();
                         return new Playing(stage);
                     }
@@ -50,7 +48,6 @@ public class Creation extends GameState {
                     Stage stage = setupStage(new Sneak(new Position(0, 0)));
 
                     public GameState getNextState() {
-                        Sound.INTRO_MUSIC.stop();
                         Sound.PLAYING.play();
                         return new Playing(stage);
                     }
@@ -77,18 +74,20 @@ public class Creation extends GameState {
         Stage stage = new Stage();
         try {
             Stage test = SaveManager.load(System.getProperty("user.dir") + "/profiles/teststage.xml", new Stage());
-            stage = test;
+            if (test != null) {
+                stage = test;
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         avatar.setMovementHandler(new MovementHandler(stage, avatar,8));
         stage.setAvatar(avatar);
-/*
+
         //DEBUG //TODO: REMOVE DEBUG CODE.
-        MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(10,10),5);
-        npc.setMovementHandler(new MovementHandler(stage, npc));
+        MeleeNPC npc = new MeleeNPC(new Decal('*', Color.BLACK, Color.RED), new Position(30,30),5);
+        npc.setMovementHandler(new MovementHandler(stage, npc, 8));
         MeleeAI ai = new MeleeAI(stage, npc);
-        */
+
         return stage;
     }
 }

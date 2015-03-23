@@ -6,11 +6,14 @@ import org.escaperun.game.model.entities.skills.sneak.DetectAndRemoveTrap;
 import org.escaperun.game.model.entities.skills.sneak.PickPocket;
 import org.escaperun.game.model.items.equipment.weapons.RangedWeapon;
 
+import java.util.ArrayList;
+
 public class SneakSkillsContainer extends SkillsContainer {
-    PickPocket pickPocket;
-    DetectAndRemoveTrap drt;
-    Creep creep;
-    RangedWeapon rangedWeapon;
+    private PickPocket pickPocket;
+    private DetectAndRemoveTrap drt;
+    private Creep creep;
+    private RangedWeapon rangedWeapon;
+    private int containerSize = 7;
 
     public SneakSkillsContainer(Entity skillOwner){
         super(skillOwner);
@@ -18,6 +21,9 @@ public class SneakSkillsContainer extends SkillsContainer {
         drt = new DetectAndRemoveTrap();
         creep = new Creep();
         //rangedWeapon = new RangedWeapon();
+        skills.add(3, pickPocket);
+        skills.add(4, drt);
+        skills.add(5, creep);
     }
 
     public PickPocket getPickPocket(){
@@ -30,5 +36,15 @@ public class SneakSkillsContainer extends SkillsContainer {
 
     public Creep getCreep(){
         return creep;
+    }
+
+    @Override
+    public int getContainerSize(){
+        return containerSize;
+    }
+
+    @Override
+    public ArrayList<ActiveSkill> getSkillsArrayList() {
+        return skills;
     }
 }

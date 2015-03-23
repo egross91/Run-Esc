@@ -10,4 +10,9 @@ public abstract class ShopkeepingAI extends AI {
         super(stage, npc);
         movementTick = 0;
     }
+
+    @Override
+    public void talk() {
+        //TODO: trigger go to buy/sell state.
+    }
 }

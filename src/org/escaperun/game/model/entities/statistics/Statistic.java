@@ -15,7 +15,7 @@ public abstract class Statistic<T extends Number> {
         subscribers.add(stat);
     }
 
-    public void setBase(T to) {
+    public final void setBase(T to) {
         setBase_internal(to);
         for (Statistic subscriber : subscribers) {
             subscriber.notifyChange();
