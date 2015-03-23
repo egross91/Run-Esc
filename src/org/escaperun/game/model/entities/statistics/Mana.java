@@ -1,6 +1,10 @@
 package org.escaperun.game.model.entities.statistics;
 
-public class Mana extends DerivedStatistic<Integer> {
+import org.escaperun.game.serialization.Saveable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+public class Mana extends DerivedStatistic<Integer> implements Saveable {
 
    private Level lvl;
    private Intellect intel;
@@ -15,6 +19,25 @@ public class Mana extends DerivedStatistic<Integer> {
         intel.subscribe(this);
         recalculate();
         setBase(maxMana);
+    }
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element us = dom.createElement(getName());
+        parent.appendChild(us);
+
+        return us;
+    }
+
+    @Override
+    public Mana load(Element node) {
+        if (node == null) return null;
+        Element us = node;
+        if (node.getElementsByTagName(getName()) != null && node.getElementsByTagName(getName()).getLength() > 0)
+            us = (Element) node.getElementsByTagName(getName()).item(0);
+
+        Mana ret = new Mana(lvl, intel);
+        return ret;
     }
 
     @Override

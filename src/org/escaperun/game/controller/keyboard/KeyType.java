@@ -1,7 +1,6 @@
 package org.escaperun.game.controller.keyboard;
 
 import java.awt.event.KeyEvent;
-import java.security.Key;
 
 public enum KeyType {
 
@@ -24,11 +23,9 @@ public enum KeyType {
 
     //Hotkeys
     HOTKEY1(KeyEvent.VK_X),
-    //adding these extra hotkeys for the additional skills that are needed
     HOTKEY2(KeyEvent.VK_B),
     HOTKEY3(KeyEvent.VK_N),
-    HOTKEY4(KeyEvent.VK_M),
-    //
+    ATTACK(KeyEvent.VK_SHIFT),
     INTERACT(KeyEvent.VK_SPACE);
 
     KeyType(int defaultKeycode) {

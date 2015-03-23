@@ -1,7 +1,11 @@
 package org.escaperun.game.model.entities.statistics;
 
 
-public class Life extends DerivedStatistic<Integer> {
+import org.escaperun.game.serialization.Saveable;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+public class Life extends DerivedStatistic<Integer> implements Saveable {
 
     //this class would probably be more aptly described by the term
     //"Health"
@@ -24,6 +28,25 @@ public class Life extends DerivedStatistic<Integer> {
         hard.subscribe(this);
         recalculate();
         setBase(maxLife); //upon initializing, give this entity full health
+    }
+
+    @Override
+    public Element save(Document dom, Element parent) {
+        Element us = dom.createElement(getName());
+        parent.appendChild(us);
+
+        return us;
+    }
+
+    @Override
+    public Life load(Element node) {
+        if (node == null) return null;
+        Element us = node;
+        if (node.getElementsByTagName(getName()) != null && node.getElementsByTagName(getName()).getLength() > 0)
+            us = (Element) node.getElementsByTagName(getName()).item(0);
+
+        Life ret = new Life(lvl, hard);
+        return ret;
     }
 
     //recalculate here is NOT THE SAME as taking damage.
